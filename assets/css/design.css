@@ -1,0 +1,54 @@
+.design {
+    height: 100vh;
+    background-color: var(--mint-color);
+}
+
+/*Aside*/
+.design-aside__item ~ .design-aside__item {
+    margin-top: 30px;
+}
+
+.design-aside__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+
+    color: #fff;
+    background-color: var(--blue-color-high);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.design-aside__item:hover {
+    cursor: pointer;
+}
+
+/*Form*/
+.form__design {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.form-design__block ~ .form-design__block {
+    margin-top: 20px;
+}
+
+.form-design__input, .form-design__select {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+}
+.design__price{
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: var(--blue-color-low);
+    padding: 10px 15px;
+    border-radius: 10px;
+}
