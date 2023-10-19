@@ -26,7 +26,6 @@ var design__img = document.querySelector(".design__img");
 colorInput.oninput = function (e) {
     backgroundShirt = e.target.value;
     design__img.style.backgroundColor = backgroundShirt;
-    // canvas();
 }
 
 // Click to choose Image insert
@@ -34,27 +33,40 @@ var imageButton = document.querySelector(".form__chose-img");
 var imageInput = document.querySelector("#file");
 imageButton.onclick = function () {
     imageInput.click();
-
 };
 
-// // Show img preview
-// var previewImg = document.querySelector(".form__preview-img");
-// const loadImage = function () {
-//     let file = imageInput.files[0];
-//     if (!file) return;
-//     let image = URL.createObjectURL(file);
-//     previewImg.src = image;
-//     shapes.push({
-//         value: image,
-//         x: 0,
-//         y: 0,
-//         width: 200,
-//         height: 200,
-//     })
-//     canvas();
-// }
-// imageInput.addEventListener("change", loadImage);
-//
+// Show img preview
+var previewImg = document.querySelector(".form__preview-img");
+const loadImage = function () {
+    let file = imageInput.files[0];
+    if (!file) return;
+    let image = URL.createObjectURL(file);
+    previewImg.src = image;
+    shapes.push({
+        image: image,
+        x: 0,
+        y: 0,
+        width: 200,
+        height: 200,
+    })
+    console.log(shapes[0].value);
+    drawSVG();
+}
+imageInput.addEventListener("change", loadImage);
+
+// Draw svg
+function drawSVG() {
+    const svgElement = document.querySelector(".design__img-decor");
+    shapes.forEach(function (shape) {
+        let decorElement = null;
+        if (shape.image) {
+            decorElement = `<g><image href="${shape.image}" height="200" width="200" x ="0" y="0"/></g>`;
+            svgElement.innerHTML = decorElement;
+        }
+        addPressAndHoldEvent(document.querySelector("image"))
+    });
+}
+
 // // Click to choose text
 // var textInput = document.querySelector(".form__choose-text")
 // textInput.onblur = function (e) {
@@ -68,49 +80,31 @@ imageButton.onclick = function () {
 //     })
 //     canvas();
 // }
-//
-// // Draw Canvas
-// const canvasElement = document.querySelector(".design__canvas");
-// const contextCanvas = canvasElement.getContext("2d");
-// canvasElement.width = design__img.width;
-// canvasElement.height = design__img.height;
-//
-// function baseDrawCanvas() {
-//     contextCanvas.fillStyle = backgroundShirt;
-//     contextCanvas.fillRect(0, 0, canvasElement.width, canvasElement.height);
-// }
-//
-// function canvas() {
-//     contextCanvas.clearRect(0, 0, canvasElement.width, canvasElement.height);
-//     baseDrawCanvas();
-//
-//     if (design__img) contextCanvas.drawImage(design__img, 0, 0, canvasElement.width, canvasElement.height);
-//     // if (text) {
-//     //     ctx.font = "30px Arial";
-//     //     ctx.fillText(text, 50, 50);
-//     // }
-//     console.log(shapes);
-// }
-//
-// // Drag and drop canvas
-// // Đựa tất cả các shape muốn chèn vào shape[{}, {}]
-// // Mỗi phần tử có property: value, x, y, width, height
-// // Function draw_shape để vẽ lại hình
-// // Mặc định luôn vẽ imgProduct
-// var isMouseInShape = function (x, y, shape){
-//
-// }
-//
-// let mouseDown = function (event) {
-//     let startX = parseInt(event.clientX);
-//     let startY = parseInt(event.clientY);
-//
-//     let index = 0;
-//     for (let shape of shapes) {
-//         if (isMouseInShape(x, y, shape))
-//             canvasShapeCurrent = index;
-//         index++;
-//     }
-//
-// }
-// canvas.addEventListener("mousedown", mouseDown)
+
+
+function addPressAndHoldEvent(element) {
+    let offset = {
+        x: 0,
+        y: 0
+    }
+    element.addEventListener('mousedown', (event) => {
+        offset.x = event.clientX;
+        offset.y = event.clientY;
+        element.addEventListener("mousemove", updatePosition);
+        console.log(offset);
+    });
+    window.addEventListener("mouseup", (event) => {
+        console.log(1)
+        element.removeEventListener("mousemove", updatePosition);
+    })
+
+    function updatePosition(event) {
+        let x = event.clientX - offset.x;
+        let y = event.clientY - offset.y;
+        let transformValue = `translate(${x}, ${y})`;
+        console.log("X:"+x +" y: "+y);
+        const parentElement = element.parentElement;
+        parentElement.setAttribute('transform', transformValue);
+    }
+}
+
