@@ -27,19 +27,22 @@
 </head>
 <body>
 <main class="design">
-    <div class="container">
+    <h1 class="design__name">Unisex Organic Raglan Sweatshirt | SOL'S 03567</h1>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-1">
                 <aside class="design__aside">
                     <ul class="design-aside__list">
-                        <li id="design__style" class="design-aside__item">
+                        <li id="design__style" class="design-aside__item design-aside__item--clicked">
                             <i class="fa-solid fa-bars"></i>
                             Thông số
                         </li>
+                        <span class="line__break"></span>
                         <li id="design__text" class="design-aside__item">
                             <i class="fa-solid fa-font"></i>
                             Thêm chữ
                         </li>
+                        <span class="line__break"></span>
                         <li id="design__image" class="design-aside__item">
                             <i class="fa-regular fa-image"></i>
                             Thêm ảnh
@@ -50,27 +53,58 @@
 
             <div class="col-4">
                 <form class="form__design" action="#!">
-                    <div class="form-design__block">
-                        <label for="" class="form-design__label">Chọn màu</label>
-                        <input type="color" class="form-design__input">
+                    <!--Paremeter-->
+                    <div class="design__frame design__frame--show ">
+                        <div class="form-design__block">
+                            <label for="color__picker" class="form-design__label">Chọn màu</label>
+                            <input type="color" id="color__picker" class="form-design__input">
+                        </div>
+                        <span class="line__break"></span>
+                        <div class="form-design__block">
+                            <label for="size" class="form-design__label">Chọn kích cỡ</label>
+                            <select name="" id="size" class="form-design__select">
+                                <option value="">S</option>
+                                <option value="">M</option>
+                                <option value="">L</option>
+                                <option value="">XL</option>
+                                <option value="">XXL</option>
+                                <option value="">XXXL</option>
+                            </select>
+                        </div>
+                        <span class="line__break"></span>
+                        <p class="design__price">Giá tiền<span>10000</span></p>
+
                     </div>
-                    <div class="form-design__block">
-                        <label for="" class="form-design__label">Chọn kích cỡ</label>
-                        <select name="" id="" class="form-design__select">
-                            <option value="">S</option>
-                            <option value="">M</option>
-                            <option value="">L</option>
-                            <option value="">XL</option>
-                            <option value="">XXL</option>
-                            <option value="">XXXL</option>
-                        </select>
+                    <!--Insert Text-->
+                    <div class="design__frame">
+                        <div class="form-design__block">
+                            <label for="text" class="form-design__label">Chữ</label>
+                            <input type="text" id="text" class="form-design__input form__choose-text">
+                        </div>
                     </div>
-                    <p class="design__price">Gia <span>10000</span></p>
-                    <button type="submit" class="form-design__submit">Xong</button>
+                    <!--Insert Image-->
+                    <div class="design__frame">
+                        <div class="form-design__block">
+                            <label for="file" class="form-design__label">Ảnh</label>
+                            <div class="form__chose-img">
+                                <img class="form__preview-img" src="../assets/img/placeholder-img.svg"
+                                     alt="preview__img">
+                            </div>
+                            <input type="file" id="file" class="" hidden="hidden">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="form-design__submit button button--hover">Xong</button>
                 </form>
             </div>
-            <!--Mockup-->
+            <!--IMG design-->
             <div class="col-7">
+                <div class="design__img">
+                    <img src="../assets/img/t-shirt.png" alt="" style="display: none">
+                    <canvas class="design__canvas">
+
+                    </canvas>
+                </div>
 
             </div>
         </div>
@@ -78,5 +112,6 @@
 
 
 </main>
+<script src="../js/design.js"></script>
 </body>
 </html>
