@@ -171,3 +171,7 @@
 .design__img-decor > * {
     position: absolute;
 }
+
+.design__img-decor image:hover, .design__img-decor text:hover{
+    cursor: grabbing;
+}
