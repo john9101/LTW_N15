@@ -23,6 +23,13 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
 
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener("click", function() {
+                currentIndex = index;
+                slideTo(currentIndex);
+            });
+        });
+
         function nextSlide() {
             if (currentIndex < sliderList.childElementCount - 1) {
                 currentIndex++;
@@ -52,6 +59,8 @@ document.addEventListener("DOMContentLoaded", function() {
         sliderList.addEventListener("mouseout", function (){
             interval = setInterval(nextSlide, 2000);
         })
+
+
     }
     sliderImageController();
 
