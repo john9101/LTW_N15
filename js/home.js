@@ -69,4 +69,5 @@ document.addEventListener("DOMContentLoaded", function() {
             productList.style.transform = `translateX(-${currentPosition}px)`;
         })
     }
+    sliderProductController();
 });
