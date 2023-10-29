@@ -6,8 +6,21 @@ document.addEventListener("DOMContentLoaded", function() {
         const sliderWidth = sliderList.clientWidth;
         let currentIndex = 0;
 
+        const indicators = document.querySelectorAll(".indicator");
+
         function slideTo(index) {
             sliderList.style.transform = `translateX(-${index * sliderWidth}px)`;
+            updateIndicators(index);
+        }
+
+        function updateIndicators(index) {
+            indicators.forEach((indicator, i) => {
+                if (i === index) {
+                    indicator.classList.add("active");
+                } else {
+                    indicator.classList.remove("active");
+                }
+            });
         }
 
         function nextSlide() {
