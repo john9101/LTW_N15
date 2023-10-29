@@ -100,6 +100,29 @@
     right: 24px;
 }
 
+.slider-container .carousel-indicators{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 50%;
+    bottom: 4%;
+    transform: translateX(-50%);
+    z-index: 1;
+    gap: 12px;
+}
+
+.slider-container .carousel-indicators .indicator {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.slider-container .carousel-indicators .indicator.active{
+    background-color: var(--blue-color-medium);
+}
+
 .popular-section{
 
 }
