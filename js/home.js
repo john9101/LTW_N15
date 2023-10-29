@@ -41,4 +41,5 @@ document.addEventListener("DOMContentLoaded", function() {
         })
     }
     sliderImageController();
+
 });
