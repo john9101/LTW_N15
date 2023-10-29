@@ -60,5 +60,13 @@ document.addEventListener("DOMContentLoaded", function() {
             productList.style.transform = `translateX(-${currentPosition}px)`;
 
         })
+
+        nextButton.addEventListener("click", ()=>{
+            if (currentPosition < productList.scrollWidth - productList.clientWidth){
+                // currentPosition += firstProductWidth
+                currentPosition += modelProductWidth
+            }
+            productList.style.transform = `translateX(-${currentPosition}px)`;
+        })
     }
 });
