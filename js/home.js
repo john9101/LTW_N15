@@ -51,5 +51,14 @@ document.addEventListener("DOMContentLoaded", function() {
         // let firstProductWidth = firstProduct.clientWidth + 20;
         let modelProductWidth = modelProduct.clientWidth + 20;
         let currentPosition = 0
+
+        prevButton.addEventListener("click",()=>{
+            if (currentPosition > 0){
+                // currentPosition -= firstProductWidth
+                currentPosition -= modelProductWidth
+            }
+            productList.style.transform = `translateX(-${currentPosition}px)`;
+
+        })
     }
 });
