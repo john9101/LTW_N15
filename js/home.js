@@ -43,6 +43,13 @@ document.addEventListener("DOMContentLoaded", function() {
     sliderImageController();
 
     function sliderProductController(){
-
+        const productList =  document.querySelector(".product-list");
+        const modelProduct = productList.querySelector(".model_product");
+        // const firstProduct = productList.querySelectorAll(".model_product")[0];
+        const prevButton = document.getElementById("prev-button");
+        const nextButton = document.getElementById("next-button");
+        // let firstProductWidth = firstProduct.clientWidth + 20;
+        let modelProductWidth = modelProduct.clientWidth + 20;
+        let currentPosition = 0
     }
 });
