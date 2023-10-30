@@ -55,25 +55,34 @@
     --background-color: var(--blue-color-high);
 }
 
-
-.slider-container {
-    position: relative;
-    width: 700px;
-    overflow: hidden;
+#slider_cate-section{
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
     margin: 26px 0px;
-    border-radius: 10px;
+    height: 440px;
+    gap: 16px;
 }
 
-.slider-list {
+#slider_cate-section .slider-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    flex: 2;
+}
+
+#slider_cate-section .slider-image .slider-list {
     width: 100%;
     height: 100%;
     display: flex;
     transition: transform 0.5s;
 }
 
-.slider-list img[class="img-item"] {
+#slider_cate-section .slider-image .slider-list img[class="img-item"] {
     width: 100%;
-    height: 100%;
+    object-fit: cover;
 }
 
 .navigation-button {
@@ -100,7 +109,7 @@
     right: 24px;
 }
 
-.slider-container .carousel-indicators{
+.slider-image .carousel-indicators{
     display: flex;
     justify-content: center;
     position: absolute;
@@ -111,7 +120,7 @@
     gap: 12px;
 }
 
-.slider-container .carousel-indicators .indicator {
+.slider-image .carousel-indicators .indicator {
     width: 10px;
     height: 10px;
     background-color: white;
@@ -119,13 +128,11 @@
     cursor: pointer;
 }
 
-.slider-container .carousel-indicators .indicator.active{
+.slider-image .carousel-indicators .indicator.active{
     background-color: var(--blue-color-medium);
 }
 
-.popular-section{
 
-}
 
 .popular-section .title{
     display: flex;
