@@ -5,13 +5,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const nextButton = document.querySelector(".nav_next");
         const sliderWidth = sliderList.clientWidth;
         let currentIndex = 0;
-
         const indicators = document.querySelectorAll(".indicator");
 
         function slideTo(index) {
             sliderList.style.transform = `translateX(-${index * sliderWidth}px)`;
             updateIndicators(index);
         }
+
+        window.addEventListener("resize", () => {
+            const imageItems = sliderList.querySelectorAll(".img-item")
+            imageItems.forEach((item) => {
+                item.style.width = `${sliderWidth}px`;
+            });
+        });
 
         function updateIndicators(index) {
             indicators.forEach((indicator, i) => {
@@ -59,8 +65,6 @@ document.addEventListener("DOMContentLoaded", function() {
         sliderList.addEventListener("mouseout", function (){
             interval = setInterval(nextSlide, 2000);
         })
-
-
     }
     sliderImageController();
 
