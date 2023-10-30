@@ -69,8 +69,13 @@ document.addEventListener("DOMContentLoaded", function() {
     sliderImageController();
 
     function animationShowCategory(){
+        const categoryItems = document.querySelectorAll(".category-item")
+        let currentIndex = 0;
+        function displayCategoryItem(){
 
+        }
     }
+    animationShowCategory();
     function sliderProductController(){
         const productList =  document.querySelector(".product-list");
         const modelProduct = productList.querySelector(".model_product");
