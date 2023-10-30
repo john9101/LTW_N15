@@ -72,8 +72,19 @@ document.addEventListener("DOMContentLoaded", function() {
         const categoryItems = document.querySelectorAll(".category-item")
         let currentIndex = 0;
         function displayCategoryItem(){
-
+            if (currentIndex < categoryItems.length) {
+                categoryItems[currentIndex].style.display = "flex";
+                currentIndex++;
+                setTimeout(displayCategoryItem, 800)
+            } else {
+                currentIndex = 0;
+                categoryItems.forEach(category_item =>{
+                    category_item.style.display = "none"
+                });
+                setTimeout(displayCategoryItem, 100);
+            }
         }
+        displayCategoryItem()
     }
     animationShowCategory();
     function sliderProductController(){
