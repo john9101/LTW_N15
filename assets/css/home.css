@@ -151,6 +151,35 @@
     }
 }
 
+.category-container .category-item{
+    display: none;
+    overflow: hidden;
+    height: calc(100%/5);
+    border: #D9D9D9 1px solid;
+    animation: right-to-left 0.5s ease-in-out;
+}
+
+.category-container .category-item img{
+    object-fit: cover;
+}
+
+.category-container .category-item p{
+    font-size: 18px;
+    margin: auto;
+}
+
+.popular-section .title{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: flex-end;
+}
+
+.popular-section .title span{
+    font-size: 36px;
+    font-weight: 700;
+}
+
 .popular-section .title a{
     color: var(--blue-color-high);
 }
