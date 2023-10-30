@@ -85,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         displayCategoryItem()
+
     }
     animationShowCategory();
     function sliderProductController(){
