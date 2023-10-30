@@ -139,16 +139,16 @@
     flex: 1;
 }
 
-.popular-section .title{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    align-items: flex-end;
-}
 
-.popular-section .title span{
-    font-size: 36px;
-    font-weight: 700;
+@keyframes right-to-left {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .popular-section .title a{
