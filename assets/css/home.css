@@ -320,30 +320,33 @@
     border-bottom-left-radius: 10px;
 }
 
-.discovery_us-section{
-    height: 300px;
+#discovery_us-section{
+    height: auto;
     width: inherit;
+    opacity: 68%;
 }
 
-.discovery_us-section .container{
+#discovery_us-section .disco-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
     background-color: #F8F8F8;
     border-radius: 10px;
-    height: 100%;
+    /*height: auto;*/
+    padding: 64px;
 }
 
-.discovery_us-section .title{
+#discovery_us-section .disco-container .title{
     width: 100%;
     font-weight: 700;
     text-align: center;
     font-size: 36px;
     margin-bottom: 50px;
+    position: relative;
+    line-height: 44px;
 }
 
-.discovery_us-section .content{
+#discovery_us-section .content{
     display: flex;
     width: 100%;
     justify-content: space-evenly;
@@ -351,13 +354,13 @@
     text-align: left;
 }
 
-.discovery_us-section .content .what_thing{
-    border-left: black 4px solid;
+#discovery_us-section .content .what_thing{
+    border-left: black 2px solid;
     padding-left: 10px;
     text-align: left;
 }
 
-.discovery_us-section .content .what_thing p:first-child{
+#discovery_us-section .content .what_thing p:first-child{
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -399,6 +402,6 @@
     line-height: 20px;
 }
 
-.popular-section,.step_guide-section,.discovery_us-section{
+.popular-section,.step_guide-section,#discovery_us-section{
     margin-bottom: 30px;
 }
