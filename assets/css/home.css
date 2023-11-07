@@ -55,7 +55,7 @@
     --background-color: var(--blue-color-high);
 }
 
-#slider__category--section{
+#slider__category--section {
     display: flex;
     align-items: stretch;
     justify-content: space-between;
@@ -101,15 +101,15 @@
     z-index: 1;
 }
 
-.nav__prev{
+.nav__prev {
     left: 24px;
 }
 
-.nav__next{
+.nav__next {
     right: 24px;
 }
 
-.slider__container .carousel__indicators{
+.slider__container .carousel__indicators {
     display: flex;
     justify-content: center;
     position: absolute;
@@ -121,18 +121,18 @@
 }
 
 .slider__container .carousel__indicators .indicator {
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     background-color: white;
     border-radius: 50%;
     cursor: pointer;
 }
 
-.slider__container .carousel__indicators .indicator.active{
+.slider__container .carousel__indicators .indicator.active {
     background-color: var(--blue-color-medium);
 }
 
-.category__container{
+.category__container {
     overflow: hidden;
     height: 100%;
     transition: transform 0.5s;
@@ -151,46 +151,56 @@
     }
 }
 
-.category__container .category__item{
+.category__container .category__item {
     display: none;
     overflow: hidden;
-    height: calc(100%/5);
+    height: calc(100% / 5);
     border: #D9D9D9 1px solid;
     animation: right--to--left 0.5s ease-in-out;
 }
 
-.category__container .category__item .item__image{
+.category__container .category__item .item__image {
     object-fit: cover;
 }
 
-.category__container .category__item .item__text{
+.category__container .category__item .item__text {
     font-size: 18px;
     margin: auto;
 }
 
-.popular__section .section__title{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    align-items: flex-end;
-}
-
-.popular__section .section__title span{
+.section__title{
+    margin: 40px 0 24px;
     font-size: 36px;
     font-weight: 700;
 }
 
-.popular__section .section__title a{
+.popular__section .section__title{
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100%{
+        transform: translateX(0);
+    }
+    50%{
+        transform: translateX(10px);
+    }
+}
+
+.popular__section .section__title::before{
+    content: "\f101";
+    font-family: "Font Awesome 6 Free";
+    margin-right: 4px;
     color: var(--blue-color-high);
 }
 
-.popular__section .product__container{
+.popular__section .product__container {
     width: inherit;
     overflow: hidden;
     position: relative;
 }
 
-.popular__section .product__container .product__items{
+.popular__section .product__container .product__items {
     /*display: flex;*/
     /*justify-content: space-between;*/
     /*gap: 24px;*/
@@ -201,58 +211,58 @@
     gap: 20px;
 }
 
-.product__item{
+.product__item {
     /*width: 500px;*/
     /*flex-basis: 308px;*/
     /*min-width: 308px;*/
     overflow: hidden;
     /*position: relative;*/
-    flex: 0 0 calc(100%/4 - 15px);
+    flex: 0 0 calc(100% / 4 - 15px);
 }
 
-.product__item:last-child{
+.product__item:last-child {
     margin-right: 0;
 }
 
 /*@media screen and (max-width: 900px){*/
 /*    .product__item{*/
-/*        flex: 0 0 calc(calc(100%/3) - 10px);*/
+/*        flex: 0 0 calc(calc(100%/3) - calc(20px / 3 + 10px));*/
 /*    }*/
 /*}*/
 
 /*@media screen and (max-width: 600px){*/
 /*    .product__item{*/
-/*        flex: 0 0 calc(calc(100%/2));*/
+/*        flex: 0 0 calc(calc(100%/3) - calc(20px / 2 + 10px));*/
 /*    }*/
 /*}*/
 
 /*@media screen and (max-width: 400px){*/
 /*    .product__item{*/
-/*        flex: 0 0 100%;*/
+/*        flex: 0 0 calc(calc(100%/3) - calc(20px / 1 + 10px));*/
 /*    }*/
 /*}*/
 
-.product__item .product__content{
+.product__item .product__content {
     border: 1px solid #D9D9D9;
     border-radius: 8px;
     overflow: hidden;
     min-height: 100%;
 }
 
-.product__item img{
+.product__item img {
     width: 100%;
     height: 380px;
     object-fit: cover;
 }
 
-.product__item .product__info{
+.product__item .product__info {
     display: grid;
     width: 90%;
     gap: 14px;
     margin: 14px auto;
 }
 
-.product__item .product__info .product__status{
+.product__item .product__info .product__status {
     padding: 8px 8px;
     width: fit-content;
     border-radius: 4px;
@@ -262,42 +272,44 @@
     font-weight: 600;
 }
 
-.product__item .product__info .product__name{
+.product__item .product__info .product__name {
     font-weight: 460;
     font-size: 20px;
+    line-height: 24px;
 }
 
-.product__item .product__info .product__review{
+.product__item .product__info .product__review {
     display: flex;
     align-items: center;
     align-content: center;
     gap: 8px;
 }
 
-.product__item .product__info .product__review .review__icon .icon__item{
+.product__item .product__info .product__review .review__icon .icon__item {
     color: #F7B500;
     font-size: 16px;
 }
 
-.product__item .product__info .product__review .number__turns--ratting{
+.product__item .product__info .product__review .number__turns--ratting {
     font-size: 16px;
     color: var(--blue-color-high);
 }
 
-.product__item .product__info .product__price{
+.product__item .product__info .product__price {
     font-weight: 600;
 }
 
-.product__item .product__info .product__price .sale__price{
+.product__item .product__info .product__price .sale__price {
     font-size: 24px;
+    margin-right: 6px;
 }
 
-.product__item .product__info .product__price .original__price{
-    font-size: 16px;
+.product__item .product__info .product__price .original__price {
+    font-size: 18px;
     color: #D9D9D9;
 }
 
-#left__button, #right__button{
+#left__button, #right__button {
     top: 50%;
     transform: translateY(-50%);
     height: 50px;
@@ -307,7 +319,7 @@
     opacity: 30%;
 }
 
-#left__button:hover, #right__button:hover{
+#left__button:hover, #right__button:hover {
     opacity: 100%;
 }
 
@@ -325,13 +337,13 @@
     border-bottom-left-radius: 10px;
 }
 
-#discovery__us--section{
+#discovery__us--section {
     height: auto;
     width: inherit;
     opacity: 68%;
 }
 
-#discovery__us--section .discovery__container{
+#discovery__us--section .discovery__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -341,17 +353,17 @@
     padding: 64px;
 }
 
-#discovery__us--section .discovery__container .section__title{
+#discovery__us--section .discovery__container .section__title {
     width: 100%;
-    font-weight: 700;
+    /*font-weight: 700;*/
     text-align: center;
-    font-size: 36px;
-    margin-bottom: 50px;
+    /*font-size: 36px;*/
+    margin: 0 0 50px;
     position: relative;
     line-height: 44px;
 }
 
-#discovery__us--section .discovery__content{
+#discovery__us--section .discovery__content {
     display: flex;
     width: 100%;
     justify-content: space-evenly;
@@ -359,25 +371,23 @@
     text-align: left;
 }
 
-#discovery__us--section .discovery__content .disco_thing{
+#discovery__us--section .discovery__content .disco_thing {
     border-left: black 2px solid;
     padding-left: 10px;
     text-align: left;
 }
 
-#discovery__us--section .discovery__content .disco_thing p:first-child{
+#discovery__us--section .discovery__content .disco_thing p:first-child {
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 12px;
 }
 
-.step__guide--section .section__title{
-    font-size: 36px;
-    font-weight: 700;
-    margin-bottom: 30px;
+.step__guide--section .section__title {
+    /*font-size: 36px;*/
+    /*font-weight: 700;*/
+    /*margin-bottom: 30px;*/
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .step__guide--section .guide__content .step__item {
@@ -387,26 +397,26 @@
     min-height: 100%;
 }
 
-.step__guide--section .guide__content .step__item img{
+.step__guide--section .guide__content .step__item img {
     width: 100%;
     height: 300px;
     object-fit: cover;
 }
 
-.step__guide--section .guide__content .step__item .description_step{
+.step__guide--section .guide__content .step__item .description_step {
     text-align: center;
 }
 
-.step__guide--section .guide__content .step__item .description_step span{
+.step__guide--section .guide__content .step__item .description_step span {
     font-weight: 700;
     font-size: 24px;
 }
 
-.step__guide--section .guide__content .step__item .description_step p{
+.step__guide--section .guide__content .step__item .description_step p {
     padding: 16px 20px;
     line-height: 20px;
 }
 
-.popular__section,.step__guide--section,#discovery__us--section{
-    margin-bottom: 30px;
+.popular__section, .step__guide--section, #discovery__us--section {
+    margin-bottom: 70px;
 }
