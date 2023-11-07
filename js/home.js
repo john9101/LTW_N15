@@ -60,6 +60,12 @@ document.addEventListener("DOMContentLoaded", function() {
     ];
 
 
+    function renderTrendingProductItems(trendingProductItems){
+
+    }
+    renderTrendingProductItems(trendingProductItems)
+
+
     function sliderImageController(){
         const sliderItemsElement = document.querySelector(".slider__items");
         const prevButtonElement = document.querySelector(".nav__prev");
