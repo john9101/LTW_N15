@@ -377,6 +377,120 @@ Tự hào sản xuất tại Việt Nam`,
         basePrice: 199000.0,
         salePrice: 99000.0
     },
+    {
+        id: "product33",
+        name: `Shorts thể thao 7" Movement`,
+        categoryId: " category04",
+        imgSrc: "product33.jpg",
+        size: '["x","xl","xxl"]',
+        desc: `Chất liệu: 100% Polyester kết hợp tính năng: Wicking (Thấm hút nhanh), 4-way Mechanical stretch (Co giãn 4 chiều) và Quick-Dry (Nhanh khô)
+Vải siêu nhẹ chỉ 106 gsm, mang lại cảm giác mặc như không mặc
+Phù hợp với: mặc thể thao chạy nhẹ hoặc tập gym
+Vải được dệt kiểu Double Weaving và nhuộm bằng công nghệ Zero Water Discharge (Không nước thải) theo đuổi xu hướng yếu tố thời trang bền vững
+Độ dài quần: 7 inch
+Tự hào sản xuất tại Việt Nam`,
+        basePrice: 239000.0,
+        salePrice: 119000.0
+    },
+
+    {
+        id: "product34",
+        name: `Quần Joggers Daily Wear`,
+        categoryId: " category11",
+        imgSrc: "product34.jpg",
+        size: '["x","xl","xxl"]',
+        desc: `Chất liệu: 100% Polyester
+Công nghệ ứng dụng: Quần jogger nam Daily Wear ứng dụng HeiQ ViroBlock giúp ức chế và tiêu diệt vi khuẩn trên bề mặt vải
+Quần jogger thể thao hoàn thiện tính năng trượt nước và chống UV 99%
+Tính năng kháng nước của vải hiệu quả lên đến 30 lần giặt
+Tự hào sản xuất tại Việt Nam
+Người mẫu: 1m77 - 69kg, mặc quần size XL`,
+        basePrice: 299000.0,
+        salePrice: 269000.0
+    },
+
+    {
+        id: "product35",
+        name: `Polo thể thao V1`,
+        categoryId: " category05",
+        imgSrc: "product35.jpg",
+        size: '["x","xl","xxl"]',
+        desc: `Chất liệu: 100% Recycled Polyester
+Định lượng vải 130gsm siêu nhẹ
+Công nghệ ứng dụng: Wicking & Quick-Dry
+Kiểu dáng: áo Polo thể thao vừa vặn
+Nhà cung cấp vải lĩnh vực đồ thể thao hàng đầu: Promax
+Tự hào sản xuất tại Việt Nam 
+Người mẫu: 184 cm - 73 kg, mặc áo size 2XL`,
+        basePrice: 249000.0,
+        salePrice: 199000.0
+    },
+
+    {
+        id: "product36",
+        name: `Sơ mi dài tay Easycare`,
+        categoryId: " category06",
+        imgSrc: "product36.jpg",
+        size: '["x","xl","xxl"]',
+        desc: `Chất liệu: 100% sợi Polyester Nano-tech
+Chất liệu thấm hút tốt đem lại sự thoáng khí
+Không nhăn tự nhiên
+Xử lý chống tia tử ngoại, bảo vệ sức khoẻ
+Tự hào sản xuất tại Việt Nam
+Người mẫu: 1m77 - 74kg * Mặc size XL`,
+        basePrice: 450000.0,
+        salePrice: 199000.0
+    },
+
+    {
+        id: "product37",
+        name: `Quần dài Kaki Excool`,
+        categoryId: " category09",
+        imgSrc: "product37.jpg",
+        size: '["x","xl","xxl"]',
+        desc: `Chất liệu: 43% Sợi Sorona + 57% Polyester co giãn
+Công nghệ Excool: Co giãn 4 chiều, Nhẹ, Thoáng khí, Chống tia UV SPF50+
+Phù hợp với: đi làm, đi chơi
+Kiểu dáng hơi ôm một chút
+Người mẫu: 175 cm - 69 kg, mặc quần size XL
+Tự hào sản xuất tại Việt Nam`,
+        basePrice: 499000.0,
+        salePrice: 429000.0
+    },
+
+    {
+        id: "product38",
+        name: `Jeans Copper Denim Straight`,
+        categoryId: " category08",
+        imgSrc: "product38.jpg",
+        size: '["x","xl","xxl"]',
+        desc: `Chất liệu: 100% Cotton / 12 Oz
+Dáng Straight: Dáng suông phóng thoáng, thoải mái, không thùng thình
+Vải Denim được wash trước khi may nên không rút và hạn chế ra màu sau khi giặt
+Cảm giác khi chạm mịn màng
+Người mẫu: 175 cm - 69 kg, mặc áo XL, quần size 32
+Tự hào sản xuất tại Việt Nam
+Lưu ý: Sản phẩm vẫn sẽ bạc màu sau một thời gian dài sử dụng theo tính chất tự nhiên`,
+        basePrice: 599000.0,
+        salePrice: 529000.0
+    },
+
+    {
+        id: "product39",
+        name: `Quần Joggers Excool`,
+        categoryId: " category11",
+        imgSrc: "product39.jpg",
+        size: '["x","xl","xxl"]',
+        desc: `Thành phần: 100% Polyester
+Quần jogger co giãn 4 chiều giúp thoải mái vận động
+Ứng dụng công nghệ Excool thấm hút tốt, nhanh khô, thoáng khí
+Dáng quần Slim fit. Chọn cỡ thông thường hoặc lớn hơn một cỡ nếu thích mặc rộng
+Bo gấu quần jogger cùng chất liệu quần, độ bo vừa phải
+Quần có 4 túi, 2 túi xéo và 1 túi ẩn có khoá; 1 túi sau
+Tự hào sản xuất tại Việt Nam`,
+        basePrice: 279000.0,
+        salePrice: 249000.0
+    },
 
     {
         id: "product4",
@@ -388,7 +502,20 @@ Tự hào sản xuất tại Việt Nam`,
         basePrice: 490000.0,
         salePrice: 2590000.0
     },
-
+    {
+        id: "product40",
+        name: `Shorts chạy bộ 5" Power`,
+        categoryId: " category04",
+        imgSrc: "product40.jpg",
+        size: '["x","xl","xxl"]',
+        desc: `Chất liệu: 43% sợi Recycle, 57% Polyester, theo xu hướng thời trang bền vững
+Công nghệ ứng dụng: xử lý hoàn thiện vải Wicking (Thấm hút nhanh) và Mechanical stretch (Co giãn 2 chiều)
+Phù hợp với: chạy bộ, tập gym và các hoạt động thể thao khác nhau
+Độ dài quần: 5 inch
+Tự hào sản xuất tại Việt Nam`,
+        basePrice: 239000.0,
+        salePrice: 149000.0
+    },
     {
         id: "product41",
         name: `Áo sơ mi sọc`,
