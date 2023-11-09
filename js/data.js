@@ -383,8 +383,8 @@ Tự hào sản xuất tại Việt Nam`,
     },
     {
         id: "product33",
-        name: `Shorts thể thao 7" Movement`,
-        categoryId: " category04",
+        name: `Shorts thể thao 7"Movement`,
+        categoryId: "category04",
         imgSrc: "product33.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Polyester kết hợp tính năng: Wicking (Thấm hút nhanh), 4-way Mechanical stretch (Co giãn 4 chiều) và Quick-Dry (Nhanh khô)
@@ -400,7 +400,7 @@ Tự hào sản xuất tại Việt Nam`,
     {
         id: "product34",
         name: `Quần Joggers Daily Wear`,
-        categoryId: " category11",
+        categoryId: "category11",
         imgSrc: "product34.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Polyester
@@ -416,7 +416,7 @@ Người mẫu: 1m77 - 69kg, mặc quần size XL`,
     {
         id: "product35",
         name: `Polo thể thao V1`,
-        categoryId: " category05",
+        categoryId: "category05",
         imgSrc: "product35.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Recycled Polyester
@@ -433,7 +433,7 @@ Người mẫu: 184 cm - 73 kg, mặc áo size 2XL`,
     {
         id: "product36",
         name: `Sơ mi dài tay Easycare`,
-        categoryId: " category06",
+        categoryId: "category06",
         imgSrc: "product36.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% sợi Polyester Nano-tech
@@ -449,7 +449,7 @@ Người mẫu: 1m77 - 74kg * Mặc size XL`,
     {
         id: "product37",
         name: `Quần dài Kaki Excool`,
-        categoryId: " category09",
+        categoryId: "category09",
         imgSrc: "product37.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 43% Sợi Sorona + 57% Polyester co giãn
@@ -465,7 +465,7 @@ Tự hào sản xuất tại Việt Nam`,
     {
         id: "product38",
         name: `Jeans Copper Denim Straight`,
-        categoryId: " category08",
+        categoryId: "category08",
         imgSrc: "product38.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 100% Cotton / 12 Oz
@@ -482,7 +482,7 @@ Lưu ý: Sản phẩm vẫn sẽ bạc màu sau một thời gian dài sử dụ
     {
         id: "product39",
         name: `Quần Joggers Excool`,
-        categoryId: " category11",
+        categoryId: "category11",
         imgSrc: "product39.jpg",
         size: '["x","xl","xxl"]',
         desc: `Thành phần: 100% Polyester
@@ -508,8 +508,8 @@ Tự hào sản xuất tại Việt Nam`,
     },
     {
         id: "product40",
-        name: `Shorts chạy bộ 5" Power`,
-        categoryId: " category04",
+        name: `Shorts chạy bộ 5"Power`,
+        categoryId: "category04",
         imgSrc: "product40.jpg",
         size: '["x","xl","xxl"]',
         desc: `Chất liệu: 43% sợi Recycle, 57% Polyester, theo xu hướng thời trang bền vững
