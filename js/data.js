@@ -59,7 +59,11 @@ const listCategories = [
         styleGuideImage: "aoBaLoSizeGuide.png",
         ruleSize: '[{"name": "dài áo", "min": 65, "max": 80,"unit": "cm"},{"name": "rộng vai", "min": 27, "max": 35,"unit": "cm"},{"name": "rộng ngực", "min": 39, "max": 65,"unit": "cm"},{"name": "vòng nách trước", "min": 20, "max": 32,"unit": "cm"}]',
     },
-
+    {
+        id: "category11",
+        nameType: "Quần Joggers",
+        styleGuideImage: "quanJoggersSizeGuide.png",
+        ruleSize: '{"name": "dài quần", "min": 90, "max": 110,"unit": "cm"},{"name": "1/2 vòng cạp", "min": 30, "max": 45, "unit": "cm"}, {"name": "1/2 vòng mông", "min": 45, "max": 60, "unit": "cm"}, {"name": "1/2 vòng gấu", "min": 10, "max": 15, "unit": "cm"}]',},
 ]
 
 const listProduct = [
@@ -752,6 +756,7 @@ Tự hào sản xuất tại Việt Nam`,
         name: `Áo nỉ Square Cross`,
         categoryId: "category03",
         imgSrc: "product60.jpg",
+
         size: '["x","xl","xxl"]',
         desc: `Áo nỉ cotton cổ tṛn, tay dài, trang trí họa tiết Square Cross trước ngực., Áo nỉ nam Sandro, Cổ tṛn, Tay áo dài, Vá h́nh Square Cross`,
         basePrice: 610000.0,
