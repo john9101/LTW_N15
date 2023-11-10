@@ -1,4 +1,4 @@
-const cartItemsRequired = [
+let cartItemsRequired = [
     {
         productItem: {
             name: 'Áo polo nam trơn basic form regular vải cá sấu',
@@ -71,33 +71,9 @@ const cartItemsRequired = [
     }
 ];
 
-function formatCurrency(amount) {
-    return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
-}
-
-function getAmountPrice(amountCurrency) {
-    return parseFloat(amountCurrency.replaceAll('₫', '').replaceAll('.', ''));
-}
-
-const emptyShoppingCartHLML =  `<div class="cart__container--empty">
-                                            <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
-                                            <button>Tiếp tục mua sắm</button>
-                                            <img src="../assets/img/continueShopping.svg">
-                                       </div>`;
-
-function updateProvisionalItemNo() {
-    const provisionalPriceText = document.querySelector('.price__text:first-child');
-    provisionalPriceText.textContent = `Tạm tính (${cartItemsRequired.length} mẫu đồ)`;
-    if(cartItemsRequired.length === 0){
-        cartContainerElement.innerHTML = emptyShoppingCartHLML;
-    }
-}
-updateProvisionalItemNo();
-
 const cartContainerElement = document.querySelector(".cart__container");
-
-
-function renderCartItem(cartItemsRequired) {
+function renderCartItem() {
+    // cartItemsRequired = getCartItemsLastArray();
     const cartItemsElement = document.querySelector(".cart__items");
     if(cartItemsRequired.length === 0){
         cartContainerElement.innerHTML = emptyShoppingCartHLML;
@@ -149,8 +125,36 @@ function renderCartItem(cartItemsRequired) {
         })
     }
 }
+renderCartItem();
 
-renderCartItem(cartItemsRequired);
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
+}
+
+function getAmountPrice(amountCurrency) {
+    return parseFloat(amountCurrency.replaceAll('₫', '').replaceAll('.', ''));
+}
+
+const emptyShoppingCartHLML =  `<div class="cart__container--empty">
+                                            <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                                            <button>Tiếp tục mua sắm</button>
+                                            <img src="../assets/img/continueShopping.svg">
+                                       </div>`;
+
+function updateProvisionalItemNo(cartItemsRequired) {
+    const provisionalPriceText = document.querySelector('.price__text:first-child');
+    provisionalPriceText.textContent = `Tạm tính (${cartItemsRequired.length} mẫu đồ)`;
+    if(cartItemsRequired.length === 0){
+        cartContainerElement.innerHTML = emptyShoppingCartHLML;
+    }
+}
+updateProvisionalItemNo(cartItemsRequired);
+
+
+function saveCartToLocalStorage(cartItemsRequired) {
+    localStorage.setItem('cartItemsRequired', JSON.stringify(cartItemsRequired));
+}
+saveCartToLocalStorage(cartItemsRequired);
 
 const voucherItems = [
     {
@@ -219,7 +223,7 @@ const voucherIDs = voucherItems.map((voucherItem) => {
     return voucherItem.voucherID
 });
 
-
+const totalPriceValueElement = document.querySelector(".price__value--final");
 function handleEventShoppingCart() {
     const minusButtonElements = document.querySelectorAll(".minus__quality");
     const plusButtonElements = document.querySelectorAll(".plus__quality");
@@ -229,31 +233,21 @@ function handleEventShoppingCart() {
     const promotionCodeElement = document.getElementById("promotion_code");
     const applyCodeElement = document.getElementById("apply");
     const applyStatusElement = document.querySelector(".apply__status");
-    const totalPriceValueElement = document.querySelector(".price__value--final");
     let subtotalItemElements = document.querySelectorAll(".subtotal__item");
     const removeButtonElements = document.querySelectorAll('.remove__action');
+    const continueCheckoutButton = document.querySelector("#continue--checkout")
 
     function updateSubtotal(index, indexTarget, subtotalItemElements) {
         const quantity = qualityRequiredElements[indexTarget].value;
+        cartItemsRequired[index].quality = quantity;
+
+        saveCartToLocalStorage(cartItemsRequired)
+
         const unitPrice = getAmountPrice(unitPriceElements[indexTarget].textContent);
         console.log(unitPrice)
         const subtotal = quantity * unitPrice;
         subtotalItemElements[index].textContent = formatCurrency(subtotal);
     }
-
-    // function updateSubtotal(index) {
-    //     const quantity = qualityRequiredElements[index].value;
-    //     const unitPrice = getAmountPrice(unitPriceElements[index].textContent);
-    //     const subtotal = quantity * unitPrice;
-    //     subtotalItemElements[index].textContent = formatCurrency(subtotal);
-    // }
-
-    // function updateSubtotal(index, subtotalItemElements) {
-    //     const quantity = qualityRequiredElements[index].value;
-    //     const unitPrice = getAmountPrice(unitPriceElements[index].textContent);
-    //     const subtotal = quantity * unitPrice;
-    //     subtotalItemElements[index].textContent = formatCurrency(subtotal);
-    // }
 
     function calculateProvisionalPrice(subtotalItemElements){
         let provisionalPrice = 0;
@@ -265,28 +259,12 @@ function handleEventShoppingCart() {
     }
     calculateProvisionalPrice(subtotalItemElements)
 
-    // function calculateProvisionalPrice(){
-    //     let provisionalPrice = 0;
-    //     subtotalItemElements.forEach(subtotalItem => {
-    //         const subtotal = getAmountPrice(subtotalItem.textContent);
-    //         provisionalPrice += subtotal;
-    //     });
-    //     return provisionalPrice;
-    // }
-
     function updateProvisionalPrice(subtotalItemElements) {
         const provisionalPrice = calculateProvisionalPrice(subtotalItemElements);
         priceValueElements[0].textContent = formatCurrency(provisionalPrice);
         appliedOrUnappliedVoucher();
     }
     updateProvisionalPrice(subtotalItemElements)
-
-    // function updateProvisionalPrice() {
-    //     const provisionalPrice = calculateProvisionalPrice(subtotalItemElements);
-    //     priceValueElements[0].textContent = formatCurrency(provisionalPrice);
-    //     appliedOrUnappliedVoucher();
-    // }
-    // updateProvisionalPrice(subtotalItemElements)
 
     function updateTotalPriceValue() {
         const provisionalPrice = getAmountPrice(priceValueElements[0].textContent);
@@ -297,6 +275,7 @@ function handleEventShoppingCart() {
             discountPrice = getAmountPrice(priceValueElements[1].textContent);
         }
         totalPriceValueElement.textContent = formatCurrency(provisionalPrice - discountPrice);
+        localStorage.setItem('totalPriceValue', totalPriceValueElement.textContent);
     }
     updateTotalPriceValue();
 
@@ -380,9 +359,11 @@ function handleEventShoppingCart() {
         cartItemElement.classList.add('fade--out');
         setTimeout(()=>{
             cartItemsElement.removeChild(cartItemElement);
-
             cartItemsRequired.splice(index, 1);
-            updateProvisionalItemNo();
+
+            updateProvisionalItemNo(cartItemsRequired);
+
+            saveCartToLocalStorage(cartItemsRequired)
 
             subtotalItemElements = document.querySelectorAll(".subtotal__item");
             updateProvisionalPrice(subtotalItemElements);
@@ -395,56 +376,8 @@ function handleEventShoppingCart() {
             const cartItemElement = removeButton.closest('.cart__item');
             let index = Array.from(cartItemElement.parentElement.children).indexOf(cartItemElement)
             removeCartItem(cartItemsRequired, index);
+
         })
-    })
-
-    // function handleRemoveClick(event) {
-    //     const targetParentElement = event.target.parentElement;
-    //     if (targetParentElement.classList.contains("remove__action")) {
-    //         const targetSpanRemoveElement = targetParentElement;
-    //         // const targetCartDetailInfo = targetSpanRemoveElement.parentElement;
-    //         // const cartItemElement = targetCartDetailInfo.parentElement;
-    //
-    //         const cartItemElement = targetSpanRemoveElement.closest('.cart__item');
-    //         const index = Array.from(cartItemElement.parentElement.children).indexOf(cartItemElement);
-    //         removeCartItem(cartItemsRequired, index);
-    //     }
-    // }
-    // document.querySelector(".cart__items").addEventListener("click", handleRemoveClick);
-
-    // removeButtonElements.forEach((removeButton, index) => {
-    //     removeButton.addEventListener("click", () => {
-    //         cartItemElements[index].classList.add("fade--out");
-    //         let subtotal = getAmountPrice(subtotalItemElements[index].textContent);
-    //         let provisionalPrice = getAmountPrice(priceValueElements[0].textContent);
-    //         provisionalPrice -= subtotal;
-    //         priceValueElements[0].textContent = formatCurrency(provisionalPrice);
-    //
-    //         //cartItemElements[index].parentElement.childElementCount
-    //
-    //         if (cartItemsRequired.length - 1 === 0) {
-    //             setTimeout(() => {
-    //                 document.querySelector(".cart__container").innerHTML = `<div class="cart__container--empty">
-    //                                                                                     <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
-    //                                                                                     <button>Tiếp tục mua sắm</button>
-    //                                                                                     <img src="../assets/img/continueShopping.svg">
-    //                                                                                 </div>`;
-    //             }, 1)
-    //         } else {
-    //             setTimeout(() => {
-    //                 cartItemElements[index].remove();
-    //                 removeCartItem(cartItemsRequired, index);
-    //
-    //
-    //                 updateProvisionalItemNo();
-    //                 subtotalItemElements[index].textContent = formatCurrency(0);
-    //                 qualityRequiredElements[index].value = 0;
-    //                 unitPriceElements[index].textContent = formatCurrency(0);
-    //             }, 300);
-    //         }
-    //         appliedOrUnappliedVoucher();
-    //         updateTotalPriceValue();
-    //     });
-    // });
+    });
 }
 handleEventShoppingCart();
