@@ -78,7 +78,7 @@
                                 </label>
                                 <label class="filter__label check">
                                     <input type="radio" name="payment" class="filter__input" hidden="true">
-                                    Chuyển khoản
+                                    Chuyển khoản ngân hàng
                                 </label>
                                 <label class="filter__label check">
                                     <input type="radio" name="payment" class="filter__input" hidden="true">
@@ -95,6 +95,11 @@
                                 <label class="filter__label check">
                                     <input type="radio" name="passing" class="filter__input" hidden="true">
                                     Chưa xác nhận
+                                </label>
+
+                                <label class="filter__label check">
+                                    <input type="radio" name="passing" class="filter__input" hidden="true">
+                                    Hoàn thành
                                 </label>
                             </article>
 
@@ -135,13 +140,9 @@
                                 <option value="" class="search__option"></option>
                             </select>
                         </article>
-                        <div id="button-add-product" class="button button__add">
-                            <i class="fa-solid fa-plus"></i>
-                            Thêm sản phẩm
-                        </div>
-                        <div id="button-remove-product" class="button button__delete">
+                        <div class="button button__delete">
                             <i class="fa-solid fa-minus"></i>
-                            Xóa sản phẩm
+                            Xóa đơn hàng
                         </div>
                     </form>
                     <div class="table__wrapper">
@@ -155,13 +156,13 @@
                                 </th>
 
                                 <th class="table__head">Chỉnh sửa</th>
-                                <th class="table__head">Mã sản phẩm</th>
-                                <th class="table__head">Tên sản phẩm</th>
-                                <th class="table__head">
-                                    Phân loại sản phẩm
-                                </th>
-                                <th class="table__head">Giá gốc</th>
-                                <th class="table__head">Giá giảm</th>
+                                <th class="table__head">Mã đơn hàng</th>
+                                <th class="table__head">Ngày tạo</th>
+                                <th class="table__head">Tên khách hàng</th>
+                                <th class="table__head">Trạng thái đơn hàng</th>
+                                <th class="table__head">Phương thức thanh toán</th>
+                                <th class="table__head">Trạng thái vận chuyển</th>
+                                <th class="table__head">Tổng tiền</th>
                             </tr>
                             </thead>
                             <tbody>
