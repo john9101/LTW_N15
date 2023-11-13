@@ -8,10 +8,14 @@ function loadProduct() {
     let reviews = document.querySelector(".review__list");
     let formParameter = document.querySelector(".form__parameter");
 
-    name.innerText = productDetail.name;
+    const vndFormat = Intl.NumberFormat("vi-VI", {
+        style: "currency",
+        currency: "VND",
+    });
 
-    basePrice.innerText = productDetail.basePrice + ".000đ";
-    salePrice.innerText = productDetail.salePrice + ".000đ";
+    name.innerText = productDetail.name;
+    basePrice.innerText = vndFormat.format(productDetail.basePrice);
+    salePrice.innerText = vndFormat.format(productDetail.salePrice);
     desc.innerText = productDetail.desc;
 
     function renderStar(quantity) {
@@ -73,8 +77,6 @@ loadProduct();
 var codeColor;
 var colorChooseElement = document.querySelectorAll(".form__color-check");
 var colorResult = document.querySelector(".form__input-color-code");
-
-
 //Effect when click
 colorChooseElement.forEach(function (element, index) {
     element.onclick = function (e) {
@@ -85,7 +87,6 @@ colorChooseElement.forEach(function (element, index) {
             codeColor = window.getComputedStyle(element).getPropertyValue("background-color");
             colorResult.style.backgroundColor = codeColor;
             colorResult.value = codeColor;
-
             colorChooseElement.forEach((elementOther, indexOther) => {
                 if (indexOther != index) {
                     elementOther.classList.remove("form__color--checked");
@@ -192,10 +193,9 @@ function applyValidateProductForm() {
         formBlockClass: "form__block",
         errorSelector: ".form__error",
         rules: [
-            Validation.isRequired("#color"),
-            Validation.isRequiredRadio(".form__radio")
+            Validation.isRequiredRadio(".form__radio"),
         ],
-        submitSelector: ".form__submit--buy",
+        submitSelector: ".form__submit--add",
         funcAfterSubmit: function () {
         }
     };
