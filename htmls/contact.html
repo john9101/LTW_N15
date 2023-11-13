@@ -113,23 +113,6 @@
                 <input type="submit" class="form__submit" value="Gửi">
             </form>
         </div>
-        <script src="../js/validateContactForm.js"></script>
-        <script>
-            ValidatorContactForm({
-                form: '#contact_us-form',
-                formBlockSelector: '.form__block',
-                errorSelector: '.error-notice',
-                rules: [
-                    ValidatorContactForm.isRequired('#fullname'),
-                    ValidatorContactForm.isRequired('#email'),
-                    ValidatorContactForm.isEmail('#email')
-                ],
-                onSubmit: function (data){
-                    console.log(data)
-                }
-            });
-        </script>
-
     </div>
 </main>
 <!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
@@ -198,4 +181,20 @@
     </div>
 </footer>
 </body>
+<script src="../js/validateContactForm.js"></script>
+<script>
+    ValidatorContactForm({
+        form: '#contact_us-form',
+        formBlockSelector: '.form__block',
+        errorSelector: '.error-notice',
+        rules: [
+            ValidatorContactForm.isRequired('#fullname'),
+            ValidatorContactForm.isRequired('#email'),
+            ValidatorContactForm.isEmail('#email')
+        ],
+        onSubmit: function (data){
+            console.log(data)
+        }
+    });
+</script>
 </html>
