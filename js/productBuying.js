@@ -1,12 +1,11 @@
 
 var listProductElement = document.querySelector(".product__list");
 var htmls = listProduct.map(function (product) {
-    return `<div class = "col-3" >
-                <div class = "model_product item4" >
+    return ` <div class = "model_product" >
                     <img src = "../assets/img/product_img/${product.imgSrc}" >
                     <div class = "information-product" >
                         <span class = "status" > Most required </span>
-                        <a class="name-product" href="../htmls/productDetail.html">${product.name}</a>
+                        <a class="name-product" target="_blank" href="../htmls/productDetail.html">${product.name}</a>
                         <div class="review-product">
                             <div class="icon-review">
                                 <i class="fa-solid fa-star"></i>
@@ -15,19 +14,18 @@ var htmls = listProduct.map(function (product) {
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <a href="#">1000 nhận xét</a>
+                            <a class="name-product" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
                         </div>
                         <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
                     </div>
                 </div>
-          </div>
 `;
 });
 listProductElement.innerHTML = htmls.join("");
 
 //Paging for product cart
 var pagingReview = new Paging({
-    itemSelector: `.product__list > [class ^= "col"]`,
+    itemSelector: `.model_product`,
     displayShowType: "flex",
     limit: 8,
     listPage: ".paging",
@@ -61,7 +59,7 @@ function searchProduct() {
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <a href="#">1000 nhận xét</a>
+                             <a class="name-product" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
                         </div>
                         <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
                     </div>
@@ -75,31 +73,33 @@ function searchProduct() {
 
 //productKeyHint
 let availableKeyWord = [
-    'product 1',
-    'product 2',
-    'product 3',
-    'product 4',
-    'product 5',
-    'product 6',
-    'product 7',
-    'product 8',
-    'product 9',
-    'product 10',
+    // 'product 1',
+    // 'product 2',
+    // 'product 3',
+    // 'product 4',
+    // 'product 5',
+    // 'product 6',
+    // 'product 7',
+    // 'product 8',
+    // 'product 9',
+    // 'product 10',
 ];
 const resultBox = document.querySelector(".result-box");
 const inputBox = document.getElementById("search-input");
 
 inputBox.onkeyup = function () {
-    let result = [];
     let input = inputBox.value;
     if (input.length) {
-        result = availableKeyWord.filter((keyword) => {
-            return keyword.toLowerCase().includes(input.toLowerCase());
+        availableKeyWord =[];
+        listProduct.forEach((product) => {
+            if (product.name.toLowerCase().includes(input.toLowerCase()))  {
+                availableKeyWord.push(product.name)
+            }
         });
-        console.log(result)
+        console.log(availableKeyWord)
+        display(availableKeyWord);
     }
-    display(result);
-    if (!result.length) {
+    if (availableKeyWord.length==0) {
         resultBox.innerHTML = '';
     }
 }
@@ -142,14 +142,13 @@ loadCategory();
 
 // categorySearch
 function filterProducts(category) {
-    const filteredProducts = listProduct.filter(product => getCategory(product.idCategory).nameType.toLowerCase().includes(category.toLowerCase()));
+    const filteredProducts = listProduct.filter(product => getCategory(product.categoryId).nameType.toLowerCase().includes(category.toLowerCase()));
     const htmls = filteredProducts.map(product => {
-        return `<div class = "col-3" >
-                <div class = "model_product item4" >
+        return `<div class = "model_product item4" >
                     <img src = "../assets/img/product_img/${product.imgSrc}" >
                     <div class = "information-product" >
                         <span class = "status" > Most required </span>
-                        <a class="name-product" href="../htmls/productDetail.html">${product.name}</a>
+                        <a class="name-product" target="_blank" href="../htmls/productDetail.html">${product.name}</a>
                         <div class="review-product">
                             <div class="icon-review">
                                 <i class="fa-solid fa-star"></i>
@@ -158,13 +157,11 @@ function filterProducts(category) {
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
                             </div>
-                            <a href="#">1000 nhận xét</a>
+                        <a class="name-product" target="_blank" href="../htmls/productDetail.html">1000 nhận xét</a>
                         </div>
                         <span class="price"><strong class="sale-price">${product.salePrice}</strong> <s class="original-price">${product.salePrice}</s></span>
                     </div>
-                </div>
-          </div>
-`;
+                </div>`;
     });
     listProductElement.innerHTML = htmls.join("");
 }
