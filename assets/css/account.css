@@ -13,12 +13,10 @@ body{
 
 }
 .service__order{
-    height: 400px;
-    overflow-y: scroll;
     padding: 20px 0;
 }
 .service__order .block__product{
-    padding: 0 10px;
+    padding: 0 0;
 }
 
 .service__section--show {
@@ -69,11 +67,11 @@ h1{
     height: 100px;
     border-radius: 50%;
 
-    
+
 }
 #photo{
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid black;
@@ -92,7 +90,7 @@ h1{
     transform: translateX(-90%);
     margin-top: 75px;
     background-color: rgb(173,172,172,0.801);
-   ;
+;
 }
 
 .info-compo{
@@ -112,41 +110,42 @@ h1{
     font-size: 18px;
 }
 .gender__option select{
-    width: 750px;
-    height: 40px;
+    width: 100%;
+    padding: 16px 10px;
     border-radius: 8px;
     border: none;
     font-size: 18px;
 }
 .birthday__option{
+    display: flex;
 
 }
 #day{
-    width: 220px;
+    width: 30%;
     font-size: 18px;
 }
 #month{
-    width: 200px;
+    width: 30%;
     padding: 18px 10px;
     border-radius: 8px;
     border: none;
     margin: 0px 50px;
+    font-size: 18px;
 }
 #year{
-    width: 220px;
+    width: 30%;
     font-size: 18px;
 }
 .save {
     float: right;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    margin-right: 40px;
+    margin: 30px 0;
+    margin-right: 150px;
 }
 
 .save button {
     border-radius: 50px;
     height: 50px;
-    width: 170px;
+    width: 150%;
     background-color: #76f876;
     font-weight: bold;
     border: none;
@@ -185,9 +184,7 @@ h1{
 .info__oldPass, .info__newPass , .info__newPass--confirm{
     margin: 5px 100px;
 }
-.save__changePass{
-    margin-right: 100px;
-}
+
 .form__error {
     display: block;
     height: 20px;
@@ -203,23 +200,43 @@ h1{
 .invalid .input-compo {
     border: 1px solid red;
 }
-
+.save__changePass{
+    margin-top: 10px;
+}
 .block__product{
     display: flex;
     border-radius: 10px;
     margin-top: 20px;
     background-color: #fff;
     object-fit: cover;
+    padding-left: 0;
 }
 .img__product{
     width: 120px;
     height: 120px;
     border-radius: 10px;
     overflow: hidden;
+    object-fit: cover;
 
 }
 .block__info{
     line-height: 20px;
     margin: 10px 20px;
 }
+.info__product{
+    font-weight: 600;
+}
+.btn{
+    background-color: rgba(121, 121, 121, 0.64);
+    font-size: 18px;
+    height: 50px;
+    padding: 10px 30px;
+    border-radius: 5px;
+    margin: auto ;
+    margin-right: 50px;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: #e0dfdf;
 
+}
