@@ -250,7 +250,7 @@
     border-radius: 8px;
     overflow: hidden;
     background-color: #fff;
-    margin-bottom: 20px;
+    height: 100%;
 }
 
 .product__item img {
@@ -261,9 +261,8 @@
 
 .product__item .product__info {
     display: grid;
-    width: 90%;
     gap: 14px;
-    margin: 14px auto;
+    padding: 16px 14px;
 }
 
 .product__item .product__info .product__status {
