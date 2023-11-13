@@ -1,13 +1,13 @@
 .contact_us{
-    margin: 30px auto;
+    margin: 50px auto;
     gap: 20px;
     align-items: flex-start;
+    position: relative;
 }
 
 .contact_us .title_method-contact{
     flex: 2;
     padding-left: 0px;
-    text-align: justify;
 }
 
 .contact_us .title_method-contact h2{
@@ -66,6 +66,8 @@
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0px 0px 12px rgba(12,12,12,0.1);
+    position: sticky;
+    top: 140px;
 }
 
 #contact_us-form .form__block{
@@ -108,7 +110,6 @@
 #contact_us-form .form__submit{
     width: fit-content;
     padding: 16px 50px;
-    font-family: var(--primary-font);
     font-weight: 600;
     border-radius: 4px;
     font-size: 18px;
@@ -118,7 +119,7 @@
 }
 
 #contact_us-form .form__submit:hover{
-    background-color: var(--blue-color-low);
+    background-color: var(--blue-color-medium);
 }
 
 .input-invalid{
