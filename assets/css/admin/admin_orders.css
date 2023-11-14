@@ -15,14 +15,8 @@ th, td{
     text-align: center;
 }
 
-.table__head:nth-child(2), .table__head:nth-child(3),.table__head:nth-child(4){
-    width: 120px;
-}
-
-.table__head:nth-child(5), .table__head:last-child{
-    width: 160px;
-}
-
-.table__head:nth-child(6), .table__head:nth-child(7), .table__head:nth-child(8), .table__head:nth-child(9){
-    width: 200px;
+.check::after{
+    left: -35%;
+    top: 45%;
+    transform: translate(-50%,-50%);
 }
