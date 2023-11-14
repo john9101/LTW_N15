@@ -87,7 +87,7 @@
                             </article>
 
                             <article class="filler__block">
-                                <h2 class="filler__heading">Trạng thái phê duyệt</h2>
+                                <h2 class="filler__heading">Trạng thái đơn hàng</h2>
                                 <label class="filter__label check">
                                     <input type="radio" name="passing" class="filter__input" hidden="true">
                                     Đã xác nhận
@@ -100,6 +100,18 @@
                                 <label class="filter__label check">
                                     <input type="radio" name="passing" class="filter__input" hidden="true">
                                     Hoàn thành
+                                </label>
+                            </article>
+
+                            <article class="filler__block">
+                                <h2 class="filler__heading">Trạng thái giao dịch</h2>
+                                <label class="filter__label check">
+                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
+                                    Chưa thanh toán
+                                </label>
+                                <label class="filter__label check">
+                                    <input type="radio" name="delivery" class="filter__input" hidden="true">
+                                    Đã thanh toán
                                 </label>
                             </article>
 
@@ -159,8 +171,9 @@
                                 <th class="table__head">Mã đơn hàng</th>
                                 <th class="table__head">Ngày tạo</th>
                                 <th class="table__head">Tên khách hàng</th>
-                                <th class="table__head">Trạng thái đơn hàng</th>
                                 <th class="table__head">Phương thức thanh toán</th>
+                                <th class="table__head">Trạng thái đơn hàng</th>
+                                <th class="table__head">Trạng thái giao dịch</th>
                                 <th class="table__head">Trạng thái vận chuyển</th>
                                 <th class="table__head">Tổng tiền</th>
                             </tr>
@@ -374,5 +387,6 @@
 </div>
 <script src="../../js/data.js"></script>
 <script src="../../js/paging.js"></script>
+<script src="../../js/admin/admin_orders.js"></script>
 </body>
 </html>
