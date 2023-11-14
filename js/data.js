@@ -63,7 +63,8 @@ const listCategories = [
         id: "category11",
         nameType: "Quần Joggers",
         styleGuideImage: "quanJoggersSizeGuide.png",
-        ruleSize: '{"name": "dài quần", "min": 90, "max": 110,"unit": "cm"},{"name": "1/2 vòng cạp", "min": 30, "max": 45, "unit": "cm"}, {"name": "1/2 vòng mông", "min": 45, "max": 60, "unit": "cm"}, {"name": "1/2 vòng gấu", "min": 10, "max": 15, "unit": "cm"}]',},
+        ruleSize: '{"name": "dài quần", "min": 90, "max": 110,"unit": "cm"},{"name": "1/2 vòng cạp", "min": 30, "max": 45, "unit": "cm"}, {"name": "1/2 vòng mông", "min": 45, "max": 60, "unit": "cm"}, {"name": "1/2 vòng gấu", "min": 10, "max": 15, "unit": "cm"}]',
+    },
 ]
 
 const listProduct = [
@@ -951,10 +952,10 @@ var productDetail = {
     basePrice: 499000,
     salePrice: 429000,
     parameter: JSON.parse(getCategory("category06").ruleSize),
-    desc: "Chất liệu: 50% S.Café + 50% Recycled PET\n"+
-        "Phù hợp với: đi làm, đi chơi\n"+
-        "Kiểu dáng: Regular fit dáng suông\n"+
-        "Người mẫu: 177 cm - 74 kg, mặc size XL\n"+
+    desc: "Chất liệu: 50% S.Café + 50% Recycled PET\n" +
+        "Phù hợp với: đi làm, đi chơi\n" +
+        "Kiểu dáng: Regular fit dáng suông\n" +
+        "Người mẫu: 177 cm - 74 kg, mặc size XL\n" +
         "Tự hào sản xuất tại Việt Nam",
     size: ["M", "L", "XL", "XXL"],
     reviews: [
@@ -1028,4 +1029,147 @@ var productReview = {
     ]`,
     quantity: "2",
 }
+
+listOrders = [
+    {
+        id: "1",
+        userId: "5",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Ngụy Ðông Phương",
+        email: "DongPhuong@gmail.com",
+        phone: "0783748159",
+        address: "Xã Nghĩa Hưng, Huyện Chư Păh, Gia Lai', b'1', '1988-07-20",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐANG CHUẨN BỊ",
+        voucherId: "2"
+    },
+    {
+        id: "2",
+        userId: "7",
+        dateOrder: "2022-10-29",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Cáp Hữu Ðạt",
+        email: "HuuDat@gmail.com",
+        phone: "0328012964",
+        address: "Xã Vĩnh Thạnh Trung, Huyện Châu Phú, An Giang",
+        statusOrder: "CHƯA XÁC NHẬN",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐƠN ĐÃ ĐẶT",
+        voucherId: "3"
+    },
+    {
+        id: "3",
+        userId: "4",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Phạm Thị Huyền",
+        email: "huyenpham@gmail.com",
+        phone: "0978223344",
+        address: "Số 456 Đường Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TP.HCM",
+        statusOrder: "CHƯA XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐƠN ĐÃ ĐẶT",
+        voucherId: "4"
+    },
+    {
+        id: "4",
+        userId: "3",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Hoàng Văn Long",
+        email: "longhoang@gmail.com",
+        phone: "0905123456",
+        address: "Số 123 Đường Lê Lai, Phường Phạm Ngũ Lão, Quận 1, TP.HCM', b'0', '1992-07-18",
+        statusOrder: "HOÀN THÀNH",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "7"
+    },
+    {
+        id: "5",
+        userId: "6",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Liễu Thụy Nương",
+        email: "LieuNuong4@gmail.com",
+        phone: "0769506724",
+        address: "Xã Vĩnh Phúc, Huyện Vĩnh Lộc, Thanh Hóa",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THANH TOÁN",
+        statusDelivery: "ĐANG CHUẨN BỊ",
+        voucherId: "6"
+    },
+    {
+        id: "6",
+        userId: "8",
+        dateOrder: "2022-10-29",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Nhan Công Hiếu",
+        email: "CongHieu6@gmail.com",
+        phone: "0325976083",
+        address: "Xã Đắk Choong, Huyện Đắk Glei, Kon Tum",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ CHUẨN BỊ",
+        voucherId: "8"
+    },
+    {
+        id: "7",
+        userId: "10",
+        dateOrder: "2022-10-29",
+        paymentMethod: "CHUYỂN KHOẢN NGÂN HÀNG",
+        fullName: "Thi Hồ Nam",
+        email: "HoNam8@gmail.com",
+        phone: "0886819054",
+        address: "Xã Tham Đôn, Huyện Mỹ Xuyên, Sóc Trăng",
+        statusOrder: "HOÀN THÀNH",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "1"
+    },
+    {
+        id: "8",
+        userId: "9",
+        dateOrder: "2022-10-29",
+        paymentMethod: "TIỀN MẶT",
+        fullName: "Hầu Thanh Long",
+        email: "ThanhLong@egmail.com",
+        phone: "0707405391",
+        address: "Xã An Nông, Huyện Tịnh Biên, An Giang",
+        statusOrder: "HOÀN THÀNH",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "9"
+    },
+    {
+        id: "9",
+        userId: "12",
+        dateOrder: "2022-10-29",
+        paymentMethod: "VÍ ĐIỆN TỬ",
+        fullName: "Quản Xuân Ninh",
+        email: "XuanNinh@gmail.com",
+        phone: "0392703698",
+        address: "Thị trấn Vĩnh Thạnh, Huyện Vĩnh Thạnh, Bình Định",
+        statusOrder: "ĐÃ XÁC NHẬN",
+        statusTransaction: "CHƯA THÀNH TOÁN",
+        statusDelivery: "ĐANG CHUẨN BỊ",
+        voucherId: "10"
+    },
+    {
+        id: "10",
+        userId: "11",
+        dateOrder: "2022-10-29",
+        paymentMethod: "VÍ ĐIỆN TỬ",
+        fullName: "Thục Kim Lan",
+        email: "KimLan@gmail.com",
+        phone: "0797204681",
+        address: "Phường Thốt Nốt, Quận Thốt Nốt, Cần Thơ",
+        statusOrder: "HOÀN THÀNH",
+        statusTransaction: "ĐÃ THANH TOÁN",
+        statusDelivery: "ĐÃ GIAO",
+        voucherId: "7"
+    }
+]
 
