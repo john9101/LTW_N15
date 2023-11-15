@@ -77,6 +77,14 @@ th:nth-child(n+2), td:nth-child(n+2) {
     width: 880px
 }
 
+.grid__updateStatus .update__noted{
+    width: 800px;
+    line-height: 24px;
+    font-size: 18px;
+    border-left: 4px solid var(--blue-color-high);
+    padding: 10px;
+}
+
 .select-menu {
     width: 286px;
 }
@@ -164,11 +172,6 @@ th:nth-child(n+2), td:nth-child(n+2) {
 .products__bought--container{
     display: grid;
     gap: 12px;
-}
-
-.subtitles__order{
-    display: flex;
-    justify-content: space-between;
 }
 
 .order__id, .order__products, .info__text, .order__payment, .order__voucher{
