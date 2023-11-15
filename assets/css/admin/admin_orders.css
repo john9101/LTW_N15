@@ -62,11 +62,6 @@ th:nth-child(n+2), td:nth-child(n+2) {
     word-wrap: break-word;
 }
 
-.info__text {
-    font-weight: 600;
-    font-size: 18px;
-}
-
 .grid__updateStatus {
     grid-area: update;
     display: grid;
@@ -171,13 +166,19 @@ th:nth-child(n+2), td:nth-child(n+2) {
     gap: 12px;
 }
 
-.order__id, .order__products{
+.subtitles__order{
+    display: flex;
+    justify-content: space-between;
+}
+
+.order__id, .order__products, .info__text, .order__payment, .order__voucher{
     border-left: 4px solid var(--blue-color-high);
-    padding: 4px;
+    padding: 6px;
     display: inline-block;
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
     height: fit-content;
+
 }
 
 .order__swapper{
