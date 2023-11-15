@@ -43,24 +43,25 @@ function loadListToTable(listProduct) {
     const allRows = bodyTable.querySelectorAll(".table__row");
     allRows.forEach(function (row) {
         editProduct(row);
-    })
-
+    });
+    paging();
 }
 
+function paging() {
+    // Paging for product cart
+    const paging = new Paging({
+        itemSelector: "tbody .table__row",
+        displayShowType: "table-row",
+        limit: 8,
+        listPage: ".paging",
+        tagNameItemPage: "li",
+        classNameItemPage: "page",
+        activeItemPage: "page--current",
+        prevBtn: "page--prev",
+        nextBtn: "page--next",
+    });
+}
 loadListToTable(listProduct);
-
-// Paging for product cart
-var pagingReview = new Paging({
-    itemSelector: "tbody .table__row",
-    displayShowType: "table-row",
-    limit: 8,
-    listPage: ".paging",
-    tagNameItemPage: "li",
-    classNameItemPage: "page",
-    activeItemPage: "page--current",
-    prevBtn: "page--prev",
-    nextBtn: "page--next",
-});
 
 // Open/close dialog (add + edit dialog)
 var addProductBtn = document.querySelector("#button-add-product");
@@ -99,6 +100,28 @@ function removeSize(formSize) {
     const formSizeDelete = formSize.querySelector(".form__size-delete");
     formSizeDelete.onclick = function (e) {
         formSize.remove();
+    }
+}
+
+// Add/remove form color
+addColor(productDialog);
+
+function addColor(dialog) {
+    const addColorBtn = dialog.querySelector(".form__add-color");
+    const formColors = dialog.querySelector(".form__colors");
+    addColorBtn.onclick = function () {
+        const formSizeHTML = `<div class="form__color" onclick="removeColor(this)">
+                                        <input type="color" name="color" class="form__size-input">
+                                            <i class="form__color-delete fa-solid fa-xmark" ></i>
+                                    </div>`;
+        formColors.insertAdjacentHTML("beforeend", formSizeHTML);
+    }
+}
+
+function removeColor(formColor) {
+    const formSizeDelete = formColor.querySelector(".form__color-delete");
+    formSizeDelete.onclick = function (e) {
+        formColor.remove();
     }
 }
 
@@ -188,6 +211,7 @@ function editProduct(productRow) {
         loadCategoryModal(editDialog);
         const category = editDialog.querySelector(`select[name="idCategory"]`);
         const sizes = editDialog.querySelector(".form__sizes");
+        const colors = editDialog.querySelector(".form__colors");
 
         // fill product data to input
         id.value = product.id;
@@ -210,6 +234,21 @@ function editProduct(productRow) {
                     </div>`;
         });
         sizes.innerHTML = sizeHTML.join("");
+
+        const arrayColor = JSON.parse(product.color);
+        console.log(arrayColor);
+        const colorHTML = arrayColor.map(function (color, index) {
+            if (index == 0) {
+                return `<div class="form__color">
+                            <input type="color" name="color" value="${color}" class="form__color-input">
+                        </div>`;
+            }
+            return `<div class="form__color" onclick="removeColor(this)">
+                        <input type="color" name="color" value="${color}" class="form__color-input">
+                            <i class="form__color-delete fa-solid fa-xmark" ></i>
+                    </div>`;
+        });
+        colors.innerHTML = colorHTML.join("");
     }
     closeDialog.onclick = function () {
         editDialog.style.display = "none";
@@ -218,7 +257,12 @@ function editProduct(productRow) {
         editDialog.style.display = "none";
     }
     addSize(editDialog);
+    addColor(editDialog)
     loadImg(editDialog);
+
+    function setColor(colorCode){
+        this.value = colorCode;
+    }
 }
 
 //load img product
@@ -238,8 +282,43 @@ function loadImg(dialog) {
             })
             reader.readAsDataURL(chooseFile);
         }
-    })
+    });
 }
+
+//Search
+search();
+function search() {
+    const searchObj = {
+        keyword: "",
+        type: "",
+    };
+    const formSearch = document.querySelector("#form-search")
+    const buttonFilter = formSearch.querySelector(".filter__submit");
+    let keyword, type;
+
+    buttonFilter.onsubmit = function (e) {
+        e.preventDefault();
+    }
+    buttonFilter.onclick = function (e) {
+        e.preventDefault();
+        keyword = formSearch.querySelector(`input[name="keyword"]`).value;
+        const select = formSearch.querySelector(".search__select");
+        type = select.options[select.selectedIndex].value;
+        searchObj.keyword = keyword;
+        searchObj.type = type;
+        const listProductFiltered = filter();
+        loadListToTable(listProductFiltered);
+    }
+
+    function filter() {
+        return listProduct.filter(function (product) {
+            const nameProduct = product[searchObj.type].toLowerCase();
+            const nameKeyword = searchObj.keyword.toLowerCase();
+            return nameProduct.includes(nameKeyword);
+        });
+    }
+}
+
 function getParentNode(childElement, parentSelector) {
     while (!childElement.classList.contains(parentSelector)) {
         childElement = childElement.parentElement;
@@ -247,81 +326,3 @@ function getParentNode(childElement, parentSelector) {
     return childElement;
 }
 
-// Search by name Product
-// var keyword = document.querySelector(`input[name="search"]`);
-// var searchType = document.querySelector(`select[name = "searchType"]`);
-//
-// function search() {
-
-//     let listProductField = [];
-//     const name = keyword.value;
-//     console.log(name);
-//     const type = searchType[searchType.selectedIndex];
-//     listProduct.forEach(function (product) {
-//         if (product[type.value].toLowerCase().includes(name.toLowerCase())) listProductField.push(product);
-//     });
-//     loadProduct(listProductField);
-// }
-
-// keyword.onchange = function () {
-//     search();
-// };
-// searchType.onchange = function () {
-//     search();
-// };
-//Filter
-// var search = document.querySelector(`input[name="search"]`);
-// var date = document.querySelector(`input[name="date"]`);
-// var payment = document.querySelector(`input[name="payment"]`);
-// var passing = document.querySelector(`input[name="passing"]`);
-// var delivery = document.querySelector(`input[name="delivery"]`);
-// var searchType = document.querySelector(`select[name = "searchType"]`);
-// var buttonSearch = document.querySelector(".filter__submit");
-//
-// var statePassing = {
-//     verify: "Đã xác nhận",
-//     noVerify: "Chưa xác nhận",
-// }
-// var statePayment = {
-//     atm: "Tiền mặt",
-//     cash: "Chuyển khoản",
-//     wallet: "Ví điện tử",
-// }
-// var stateDelivery = {
-//     ordered: "Đơn đã đặt",
-//     pending: "Đang chuẩn bị",
-//     delivering: "Đang giao",
-//     done: "Đã giao",
-// }
-//
-// function filter() {
-//     const listProduct = [];
-//     const obj = {
-//         search: search.value,
-//         date: date.value,
-//         payment: payment.value,
-//         passing: passing.value,
-//         delivery: delivery.value,
-//         searchType: searchType.value,
-//     };
-//     // Nếu trường đó trống => undified, nếu trường đó sai thì trả về null
-//     console.log(statePayment[obj.passing])
-//     listProduct.forEach(function (product) {
-//         getProductByField()
-//     });
-// }
-//
-// function getProductByField(field, value) {
-//     if (field == undefined) return undefined;
-//     listProduct.forEach(function (product) {
-//         if (product[field] == value) {
-//             return product;
-//         }
-//     })
-//     return null;
-// }
-//
-// buttonSearch.onclick = function (e) {
-//     e.preventDefault();
-//     filter();
-// }

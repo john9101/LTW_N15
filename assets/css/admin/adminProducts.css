@@ -1,8 +1,31 @@
 
-.table__wrapper {
-    /*max-height: 400px;*/
+.filter__date{
+    display: flex;
+    align-items: center;
+}
+.filter__date~ .filter__date{
+    margin-top: 10px;
+}
+.filter__date > span{
+    flex-basis: 50px;
+    font-size: 15px;
+    font-weight: 400;
+}
+.filter__date input{
+    flex: 1;
+}
+.table__head{
+    text-wrap: nowrap;
+    min-width: 100px;
+}
+.table__head:nth-child(4){
+    min-width: 300px;
+}
+.table__cell {
+    text-align: center;
 }
 
+/*Modal*/
 .modal button {
     font-size: 20px;
     font-weight: 500;
@@ -37,8 +60,11 @@
 .form__preview-icon {
     font-size: 100px;
 }
-
-.form__sizes {
+.form__desc{
+   padding-top: 24px;
+}
+/*Sizes*/
+.form__sizes, .form__colors {
     width: 100%;
     display: flex;
     align-items: center;
@@ -46,24 +72,33 @@
     flex-wrap: wrap;
 }
 
-.form__size {
+.form__size, .form__color {
     position: relative;
-    --size: 40px;
     display: inline-block;
+}
+.form__size{
+    --size: 40px;
     width: var(--size);
     height: var(--size);
     border-radius: 5px;
     background-color: #FFFFFF;
     border: 1px solid #ddd;
 }
+.form__color{
+    width: 80px;
+    height: 40px;
+}
 
-.form__size-input {
+.form__size-input, .form__color-input {
     width: 100%;
     height: 100%;
     padding: 0 5px;
 }
+.form__color-input{
+    padding: 0;
+}
 
-.form__size-delete {
+.form__size-delete, .form__color-delete {
     position: absolute;
     top: -10px;
     right: -10px;
@@ -79,12 +114,12 @@
     background-color: #fff;
 }
 
-.form__add-size:hover, .form__size-delete:hover {
+.form__add-size:hover, .form__size-delete:hover, .form__add-color:hover, .form__color--delete:hover {
     cursor: pointer;
     opacity: 0.8;
 }
 
-.form__add-size {
+.form__add-size, .form__add-color {
     display: inline-flex;
     align-items: center;
     justify-content: center;

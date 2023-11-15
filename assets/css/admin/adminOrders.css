@@ -2,6 +2,10 @@
     display: block;
 }
 
+.table__wrapper{
+    height: 600px;
+}
+
 .table {
     width: max-content;
 }
@@ -12,7 +16,8 @@ th:nth-child(n+2), td:nth-child(n+2) {
 }
 
 .modal__content{
-    width: max-content;
+    height: fit-content;
+    padding: 0;
 }
 
 .head__dialog--bar {
@@ -57,9 +62,9 @@ th:nth-child(n+2), td:nth-child(n+2) {
 }
 
 .info__text, .info__value {
-    width: 80px;
     flex: 1;
     word-wrap: break-word;
+    line-height: 20px;
 }
 
 .grid__updateStatus {
@@ -71,27 +76,20 @@ th:nth-child(n+2), td:nth-child(n+2) {
 
 #update__status--container{
     display: flex;
-    gap: 16px;
+    gap: 10px;
     justify-content: space-between;
     min-width: 100%;
-    width: 880px
 }
 
 .grid__updateStatus .update__noted{
-    width: 800px;
     line-height: 24px;
     font-size: 18px;
     border-left: 4px solid var(--blue-color-high);
     padding: 10px;
 }
 
-.select-menu {
-    width: 286px;
-}
-
 .select-menu::before{
     padding-bottom: 8px;
-    font-size: 18px;
     display: inline-block;
     font-weight: 600;
 }
@@ -111,9 +109,9 @@ th:nth-child(n+2), td:nth-child(n+2) {
 .select-menu .select-btn {
     display: flex;
     height: 50px;
+    gap: 8px;
     background: #fff;
-    padding: 16px;
-    font-size: 18px;
+    padding: 14px;
     font-weight: 500;
     border-radius: 8px;
     align-items: center;
@@ -133,7 +131,7 @@ th:nth-child(n+2), td:nth-child(n+2) {
 
 .select-menu .options {
     position: relative;
-    padding: 16px;
+    padding: 14px;
     margin-top: 10px;
     border-radius: 8px;
     background: #fff;
@@ -190,7 +188,7 @@ th:nth-child(n+2), td:nth-child(n+2) {
 }
 
 .order__table{
-    width: 100%;
+    width: max-content;
 }
 
 .order__table th, .order__table td{
