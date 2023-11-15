@@ -11,6 +11,10 @@ th:nth-child(n+2), td:nth-child(n+2) {
     vertical-align: middle;
 }
 
+.modal__content{
+    width: max-content;
+}
+
 .head__dialog--bar {
     margin-bottom: 0px !important;
 }
@@ -18,8 +22,8 @@ th:nth-child(n+2), td:nth-child(n+2) {
 .grid__template {
     display: grid;
     grid-template-areas:
-'update products products products'
-'info products products products';
+'update products'
+'info products';
 }
 
 .grid__block {
@@ -75,11 +79,11 @@ th:nth-child(n+2), td:nth-child(n+2) {
     gap: 16px;
     justify-content: space-between;
     min-width: 100%;
-    width: 440px
+    width: 880px
 }
 
 .select-menu {
-    width: 288px;
+    width: 286px;
 }
 
 .select-menu::before{
@@ -157,8 +161,70 @@ th:nth-child(n+2), td:nth-child(n+2) {
 .grid__productsBought {
     grid-area: products;
     border-left: 1px solid black;
+    height: auto;
+    display: grid;
+    gap: 20px;
 }
 
-.grid__productsBought {
-    height: 100%;
+.products__bought--container{
+    display: grid;
+    gap: 12px;
+}
+
+.order__id, .order__products{
+    border-left: 4px solid var(--blue-color-high);
+    padding: 4px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 500;
+    height: fit-content;
+}
+
+.order__swapper{
+    height: 342px;
+    overflow: auto;
+}
+
+.order__table{
+    width: 100%;
+}
+
+.order__table th, .order__table td{
+    font-size: 16px;
+    border: 1px solid #D9D9D9;
+}
+
+.order__table .row__content{
+    background-color: white;
+}
+
+.row__content{
+    line-height: 18px;
+}
+
+.product__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 260px;
+    text-align: left;
+}
+
+.product__item img{
+    height: 80px;
+    width: auto;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.update__button{
+    width: fit-content;
+    height: fit-content;
+    padding: 16px 80px;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    background-color: #5ee95e;
+    justify-self: flex-end;
+    cursor: pointer;
 }
