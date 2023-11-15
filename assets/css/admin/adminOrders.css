@@ -76,7 +76,7 @@ th:nth-child(n+2), td:nth-child(n+2) {
 
 #update__status--container{
     display: flex;
-    gap: 10px;
+    gap: 8px;
     justify-content: space-between;
     min-width: 100%;
 }
@@ -117,7 +117,8 @@ th:nth-child(n+2), td:nth-child(n+2) {
     align-items: center;
     cursor: pointer;
     justify-content: space-between;
-    box-shadow: 0 0 8px rgba(68, 125, 248, 0.1);
+    box-shadow: 4px 4px 4px rgba(68, 125, 248, 0.1);
+    border: 1px solid var(--blue-color-high);
 }
 
 .select-btn i {
@@ -135,7 +136,8 @@ th:nth-child(n+2), td:nth-child(n+2) {
     margin-top: 10px;
     border-radius: 8px;
     background: #fff;
-    box-shadow: 0 0 8px rgba(68, 125, 248, 0.1);
+    box-shadow: 4px 4px 4px rgba(68, 125, 248, 0.1);
+    border: 1px solid var(--blue-color-high);
     display: none;
 }
 
@@ -172,7 +174,7 @@ th:nth-child(n+2), td:nth-child(n+2) {
     gap: 12px;
 }
 
-.order__id, .order__products, .info__text, .order__payment, .order__voucher{
+.order__id, .order__date, .order__products, .info__text, .order__payment, .order__voucher{
     border-left: 4px solid var(--blue-color-high);
     padding: 6px;
     display: inline-block;
