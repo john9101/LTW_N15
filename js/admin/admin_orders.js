@@ -89,3 +89,15 @@ function handleShowAndUpdateDialogOrder(dialogUpdateOrder){
 }
 handleShowAndUpdateDialogOrder(dialogUpdateOrder);
 
+function handleCloseDialogOrder(dialogUpdateOrder){
+    const modalBlurArea = document.querySelector(".modal__blur");
+    const closeUpdateButton = document.querySelector(".modal__order-close");
+    modalBlurArea.onclick = ()=>{
+        dialogUpdateOrder.style.display = "none"
+    }
+    closeUpdateButton.onclick = ()=>{
+        dialogUpdateOrder.style.display = "none"
+    }
+}
+handleCloseDialogOrder(dialogUpdateOrder);
+
