@@ -2,7 +2,7 @@ function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
 }
 
-function formatLetter(letter){
+function formatLetter(letter) {
     return letter.charAt(0).toUpperCase() + letter.slice(1).toLowerCase();
 }
 
@@ -56,4 +56,24 @@ function renderOrderTable(listOrders) {
     })
     bodyTable.innerHTML = orderHtmlRows.join('');
 }
-renderOrderTable(listOrders)
+
+renderOrderTable(listOrders);
+
+function handleUpdateStatusSelection() {
+    const optionMenus = document.querySelectorAll(".select-menu");
+    optionMenus.forEach(optionMenu => {
+        const selectBtn = optionMenu.querySelector(".select-btn");
+        const options = optionMenu.querySelectorAll(".option");
+        const sBtn_text = optionMenu.querySelector(".sBtn-text");
+        selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));
+        options.forEach(option => {
+            option.addEventListener("click", () => {
+                let selectedOption = option.innerText;
+                sBtn_text.innerText = selectedOption;
+                optionMenu.classList.remove("active");
+            });
+        });
+    })
+}
+
+handleUpdateStatusSelection();
