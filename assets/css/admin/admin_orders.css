@@ -62,3 +62,103 @@ th:nth-child(n+2), td:nth-child(n+2) {
     font-weight: 600;
     font-size: 18px;
 }
+
+.grid__updateStatus {
+    grid-area: update;
+    display: grid;
+    gap: 20px;
+    width: auto;
+}
+
+#update__status--container{
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    min-width: 100%;
+    width: 440px
+}
+
+.select-menu {
+    width: 288px;
+}
+
+.select-menu::before{
+    padding-bottom: 8px;
+    font-size: 18px;
+    display: inline-block;
+    font-weight: 600;
+}
+
+.order__status::before{
+    content: "Trạng thái đơn hàng";
+}
+
+.transaction__status::before{
+    content: "Trạng thái giao dịch";
+}
+
+.delivery__status::before{
+    content: "Trạng thái vận chuyển";
+}
+
+.select-menu .select-btn {
+    display: flex;
+    height: 50px;
+    background: #fff;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 8px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    box-shadow: 0 0 8px rgba(68, 125, 248, 0.1);
+}
+
+.select-btn i {
+    /*font-size: 20px;*/
+    transition: 0.3s;
+}
+
+.select-menu.active .select-btn i {
+    transform: rotate(-180deg);
+}
+
+.select-menu .options {
+    position: relative;
+    padding: 16px;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(68, 125, 248, 0.1);
+    display: none;
+}
+
+.select-menu.active .options {
+    display: block;
+}
+
+.options .option {
+    display: flex;
+    height: 50px;
+    cursor: pointer;
+    padding: 0 16px;
+    border-radius: 8px;
+    align-items: center;
+    background: #fff;
+}
+
+.options .option:hover {
+    background: var(--blue-color-high);
+    opacity: 0.8;
+    color: white;
+}
+
+.grid__productsBought {
+    grid-area: products;
+    border-left: 1px solid black;
+}
+
+.grid__productsBought {
+    height: 100%;
+}
