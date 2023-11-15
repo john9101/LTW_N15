@@ -11,31 +11,54 @@ th:nth-child(n+2), td:nth-child(n+2) {
     vertical-align: middle;
 }
 
-.grid {
+.head__dialog--bar {
+    margin-bottom: 0px !important;
+}
+
+.grid__template {
     display: grid;
     grid-template-areas:
-'info products products'
-'update products products';
-    gap: 20px 30px;
+'update products products products'
+'info products products products';
+}
+
+.grid__block {
+    height: fit-content;
+    padding: 30px 20px;
+}
+
+.grid__template .grid__area--title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--blue-color-high);
 }
 
 .grid__DeliveryInfo {
     grid-area: info;
+    display: grid;
+    gap: 20px;
+    border-top: 1px solid black;
 }
 
-.grid__updateStatus {
-    grid-area: update;
+.grid__DeliveryInfo .info__items {
+    display: grid;
+    gap: 16px;
 }
 
-.grid__productsBought {
-    grid-area: products;
+.grid__DeliveryInfo .info__items .info__item {
+    display: flex;
+    justify-content: space-between;
+    margin: auto 0px;
+    align-items: center;
 }
 
-.grid__block {
-    height: 200px;
-    background-color: red;
+.info__text, .info__value {
+    width: 80px;
+    flex: 1;
+    word-wrap: break-word;
 }
 
-.grid__productsBought {
-    height: 100%;
+.info__text {
+    font-weight: 600;
+    font-size: 18px;
 }
