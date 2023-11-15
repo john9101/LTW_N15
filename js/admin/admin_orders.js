@@ -15,10 +15,8 @@ function renderOrderTable(listOrders) {
                                             <input type="checkbox" name="passing" class="filter__input" hidden="true">
                                         </label>
                                     </td>
-                                    <td class="table__data-edit">
-                                        <label class="" for="">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </label>
+                                    <td class="table__data-update">
+                                        <i class="fa-solid fa-pen-to-square"></i>
                                     </td>
                                     
                                     <td class="table__data">
@@ -50,7 +48,7 @@ function renderOrderTable(listOrders) {
                                     </td>
                                     
                                     <td class="table__data">
-                                        <p class="table__cell">${formatCurrency(240000)}</p>
+                                        <p class="table__cell">${formatCurrency(1316000)}</p>
                                     </td>
                                 </tr>`
     })
@@ -77,3 +75,17 @@ function handleUpdateStatusSelection() {
 }
 
 handleUpdateStatusSelection();
+
+const dialogUpdateOrder = document.querySelector("#dialog-order-update")
+
+function handleShowAndUpdateDialogOrder(dialogUpdateOrder){
+    const orderRows = document.querySelectorAll("tbody .table__row");
+    orderRows.forEach(orderRow =>{
+        const updateOrderButton = orderRow.querySelector(".table__data-update")
+        updateOrderButton.addEventListener("click",()=>{
+            dialogUpdateOrder.style.display = "block"
+        })
+    })
+}
+handleShowAndUpdateDialogOrder(dialogUpdateOrder);
+
