@@ -238,7 +238,8 @@ function validateRadioSections() {
         });
 
         if (allSectionsSelected) {
-            window.location.href = '../htmls/shoppingCart.html';
+            window.location.href = '../index.html';
+            getCartItemsLastArray().slice(0, getCartItemsLastArray().length)
         }
     })
     const radioButtons = document.querySelectorAll('.radio__button');

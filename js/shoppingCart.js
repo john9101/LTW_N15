@@ -71,9 +71,17 @@ let cartItemsRequired = [
     }
 ];
 
+const emptyShoppingCartHLML =  `<div class="cart__container--empty">
+                                            <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                                            <a href="../htmls/productBuying.html"><button>Tiếp tục mua sắm</button></a>
+                                            <img src="../assets/img/continueShopping.svg">
+                                       </div>`;
+
 const cartContainerElement = document.querySelector(".cart__container");
 function renderCartItem() {
-    cartItemsRequired = getCartItemsLastArray();
+    if(getCartItemsLastArray().length > 0){
+        cartItemsRequired = getCartItemsLastArray();
+    }
     const cartItemsElement = document.querySelector(".cart__items");
     if(cartItemsRequired.length === 0){
         cartContainerElement.innerHTML = emptyShoppingCartHLML;
@@ -131,12 +139,6 @@ function formatCurrency(amount) {
 function getAmountPrice(amountCurrency) {
     return parseFloat(amountCurrency.replaceAll('₫', '').replaceAll('.', ''));
 }
-
-const emptyShoppingCartHLML =  `<div class="cart__container--empty">
-                                            <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
-                                            <button>Tiếp tục mua sắm</button>
-                                            <img src="../assets/img/continueShopping.svg">
-                                       </div>`;
 
 function updateProvisionalItemNo(cartItemsRequired) {
     const provisionalPriceText = document.querySelector('.price__text:first-child');
