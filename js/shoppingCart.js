@@ -82,6 +82,9 @@ function renderCartItem() {
     if(getCartItemsLastArray().length > 0){
         cartItemsRequired = getCartItemsLastArray();
     }
+    if(localStorage.getItem("resetShoppingCart")){
+        cartItemsRequired = [];
+    }
     const cartItemsElement = document.querySelector(".cart__items");
     if(cartItemsRequired.length === 0){
         cartContainerElement.innerHTML = emptyShoppingCartHLML;
