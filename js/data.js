@@ -834,6 +834,7 @@ var listUser = [
         password: "ChiHieuNguyen013",
         fullName: "Nguyễn Chí Hiếu",
         email: "HieuNguyen@gmail.com",
+        gender: "Nam",
         phone: "0703637448",
         address: "164 Ngô Tất Tố, Bình Định",
         isVerify: "1",
@@ -846,6 +847,7 @@ var listUser = [
         password: "DungMai15062003",
         fullName: "Mai Tiến Dũng",
         email: "TienDung@gmail.com",
+        gender: "Nam",
         phone: "0902346795",
         address: "Xã Đức Long, Huyện Hoà An, Cao Bằng",
         isVerify: "1",
@@ -858,6 +860,7 @@ var listUser = [
         password: "Long213",
         fullName: "Hoàng Văn Long",
         email: "longhoang@gmail.com",
+        gender: "Nam",
         phone: "0905123456",
         address: "Số 123 Đường Lê Lai, Phường Phạm Ngũ Lão, Quận 1, TP.HCM",
         isVerify: "0",
@@ -870,6 +873,7 @@ var listUser = [
         password: "Huyen123",
         fullName: "Phạm Thị Huyền",
         email: "huyenpham@gmail.com",
+        gender: "Nữ",
         phone: "0978223344",
         address: "Số 456 Đường Lê Thánh Tôn, Phường Bến Nghé, Quận 1, TP.HCM",
         isVerify: "0",
@@ -882,6 +886,7 @@ var listUser = [
         password: "DongPhuong909",
         fullName: "Ngụy Ðông Phương",
         email: "DongPhuong@gmail.com",
+        gender: "Nữ",
         phone: "0783748159",
         address: "Xã Nghĩa Hưng, Huyện Chư Păh, Gia Lai",
         isVerify: "1",
@@ -894,6 +899,7 @@ var listUser = [
         password: "ThuyNuong444",
         fullName: "Liễu Thụy Nương",
         email: "LieuNuong4@gmail.com",
+        gender: "Nữ",
         phone: "0769506724",
         address: "Xã Vĩnh Phúc, Huyện Vĩnh Lộc, Thanh Hóa",
         isVerify: "1",
@@ -906,6 +912,7 @@ var listUser = [
         password: "HuuDat09700",
         fullName: "Cáp Hữu Ðạt",
         email: "HuuDat@gmail.com",
+        gender: "Nam",
         phone: "0328012964",
         address: "Xã Vĩnh Thạnh Trung, Huyện Châu Phú, An Giang",
         isVerify: "1",
@@ -918,6 +925,7 @@ var listUser = [
         password: "CongHieu11",
         fullName: "Nhan Công Hiếu",
         email: "CongHieu6@gmail.com",
+        gender: "Nam",
         phone: "0325976083",
         address: "Xã Đắk Choong, Huyện Đắk Glei, Kon Tum",
         isVerify: "1",
@@ -930,6 +938,7 @@ var listUser = [
         password: "ThanhLongngon1",
         fullName: "Hầu Thanh Long",
         email: "ThanhLong@egmail.com",
+        gender: "Nam",
         phone: "0707405391",
         address: "Xã An Nông, Huyện Tịnh Biên, An Giang",
         isVerify: "1",
@@ -942,6 +951,7 @@ var listUser = [
         password: "HoThiNo",
         fullName: "Thi Hồ Nam",
         email: "HoNam8@gmail.com",
+        gender: "Nữ",
         phone: "0886819054",
         address: "Xã Tham Đôn, Huyện Mỹ Xuyên, Sóc Trăng",
         isVerify: "1",
@@ -954,6 +964,7 @@ var listUser = [
         password: "KangLimChiuChiu213",
         fullName: "Thục Kim Lan",
         email: "KimLan@gmail.com",
+        gender: "Nữ",
         phone: "0797204681",
         address: "Phường Thốt Nốt, Quận Thốt Nốt, Cần Thơ",
         isVerify: "1",
@@ -966,6 +977,7 @@ var listUser = [
         password: "XuanNinh995",
         fullName: "Quản Xuân Ninh",
         email: "XuanNinh@gmail.com",
+        gender: "Nam",
         phone: "039 270 3698",
         address: "Thị trấn Vĩnh Thạnh, Huyện Vĩnh Thạnh, Bình Định",
         isVerify: "1",
@@ -992,35 +1004,41 @@ var productDetail = {
             "nameUser": getUser("KH01").fullName,
             "star": 4,
             "comment": "Sản phẩm tốt, nhưng có một chút vấn đề về kích thước. Tôi sẽ cân nhắc trong lần tiếp theo.",
-            "date": "2023-10-31"
+            "date": "2023-10-31",
+            avatar: "user_avatar-1.jpg"
         }
         , {
             "nameUser": getUser("KH02").fullName,
             "star": 4,
             "comment": "Đồ áo này rất thời trang và chất lượng tốt. Chất liệu mềm mịn, cắt may tinh tế, và màu sắc tươi sáng. Tôi rất hài lòng với sản phẩm này!",
-            "date": "2023-10-30"
+            "date": "2023-10-30",
+            avatar: "user_avatar-2.jpg"
         }, {
             "nameUser": getUser("KH07").fullName,
             "star": 1,
             "comment": "Áo sơ mi này không đúng kích thước và chất lượng kém. Tôi thất vọng.",
-            "date": "2023-10-29"
+            "date": "2023-10-29",
+            avatar: "user_avatar-3.jpg"
         }
 
         , {
             "nameUser": getUser("KH03").fullName,
             "star": 4,
             "comment": "Sản phẩm đáng giá tiền. Rất hài lòng với chất lượng và dịch vụ khách hàng.",
-            "date": "2023-10-28"
+            "date": "2023-10-28",
+            avatar: "user_avatar-4.jpg"
         }
         , {
             "nameUser": getUser("KH04").fullName,
             "star": 5,
             "comment": "Bộ váy này thật sự đẹp và phù hợp cho dịp đặc biệt. Tôi rất hài lòng.",
-            "date": "2023-10-27"
+            "date": "2023-10-27",
+            avatar: "user_avatar-5.jpg"
         }
 
     ],
     srcImg: "product25.jpg",
+    srcList: ["product25_1.jpg", "product25_2.jpg", "product25_3.jpg"],
 }
 
 function getUser(id) {
