@@ -1,4 +1,4 @@
-<%@page contentType  = "text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,41 +7,18 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="../../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
 
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/admin/admin.css">
-    <link rel="stylesheet" href="../../assets/css/admin/adminOrders.css">
+    <link rel="stylesheet" href="assets/font/webfonts/Montserrat.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/admin/admin.css">
+    <link rel="stylesheet" href="assets/css/admin/adminOrders.css">
     <title>Admin</title>
 </head>
 <body>
-<header id="header">
-    <div class="container-xl">
-        <div class="nav__inner">
-            <a href="#" class="logo">
-            </a>
-            <!--Account show (After log in success)-->
-            <div class="account__wrapper">
-                <p class="account__name">Lê Anh Đức</p>
-                <div class="account">
-                    <i class="account__icon fa-regular fa-user"></i>
-                    <div class="setting__list">
-                        <div class="setting__item"><a href="../account.jsp" class="setting__link">Tài khoản
-                                                                                                  của
-                                                                                                  tôi</a>
-                        </div>
-                        <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
-                            xuất</a></d>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<jsp:include page="header.jsp"></jsp:include>
 <main id="main">
     <nav class="navbar">
         <div class="container-xl">
@@ -218,7 +195,7 @@
                                     <td class="td__item">1</td>
                                     <td class="td__item">
                                         <div class="product__item">
-                                            <img src="../../assets/img/product_img/product1.jpg">
+                                            <img src="assets/img/product_img/product1.jpg">
                                             <p class="product__name">Áo polo nam trơn basic form regular vải cá sấu</p>
                                         </div>
                                     </td>
@@ -231,7 +208,7 @@
                                     <td class="td__item">2</td>
                                     <td class="td__item">
                                         <div class="product__item">
-                                            <img src="../../assets/img/product_img/product2.jpg">
+                                            <img src="assets/img/product_img/product2.jpg">
                                             <p class="product__name">Áo polo thể thao unisex nam nữ</p>
                                         </div>
                                     </td>
@@ -245,7 +222,7 @@
                                     <td class="td__item">3</td>
                                     <td class="td__item">
                                         <div class="product__item">
-                                            <img src="../../assets/img/product_img/product3.jpg">
+                                            <img src="assets/img/product_img/product3.jpg">
                                             <p class="product__name">Áo polo phối khóa kéo unisex nam nữ</p>
                                         </div>
                                     </td>
@@ -258,7 +235,7 @@
                                     <td class="td__item">4</td>
                                     <td class="td__item">
                                         <div class="product__item">
-                                            <img src="../../assets/img/product_img/product4.jpg">
+                                            <img src="assets/img/product_img/product4.jpg">
                                             <p class="product__name">Áo hoodie form rộng unisex nam nữ nỉ chân cua</p>
                                         </div>
                                     </td>
@@ -271,7 +248,7 @@
                                     <td class="td__item">5</td>
                                     <td class="td__item">
                                         <div class="product__item">
-                                            <img src="../../assets/img/product_img/product5.jpg">
+                                            <img src="assets/img/product_img/product5.jpg">
                                             <p class="product__name">Áo hoodie zip form boxy unisex nỉ bông dày</p>
                                         </div>
                                     </td>
@@ -348,8 +325,8 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-<script src="../../js/data.js"></script>
-<script src="../../js/paging.js"></script>
-<script src="../../js/admin/adminOrders.js"></script>
+<script src="js/data.js"></script>
+<script src="js/paging.js"></script>
+<script src="js/admin/adminOrders.js"></script>
 </body>
 </html>

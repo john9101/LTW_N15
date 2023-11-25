@@ -1,4 +1,4 @@
-<%@page contentType  = "text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,48 +8,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--Các thư viện hỗ trợ-->
     <!--Font Awesome-->
-    <link rel="stylesheet" href="../../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
     <!--Bootstrap-->
-    <link rel="stylesheet" href="../../assets/bootstrap/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
     <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../../assets/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
     <!--Web font-->
-    <link rel="stylesheet" href="../../assets/font/webfonts/Montserrat.css">
+    <link rel="stylesheet" href="assets/font/webfonts/Montserrat.css">
     <!--CSS-->
-    <link rel="stylesheet" href="../../assets/css/reset.css">
-    <link rel="stylesheet" href="../../assets/css/base.css">
-    <link rel="stylesheet" href="../../assets/css/admin/admin.css">
-    <link rel="stylesheet" href="../../assets/css/admin/adminUsers.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/admin/admin.css">
+    <link rel="stylesheet" href="assets/css/admin/adminUsers.css">
     <title>Quản lí người dùng</title>
 </head>
 <body>
-<header id="header">
-    <div class="container-xl">
-        <div class="nav__inner">
-            <a href="#" class="logo">
-            </a>
-            <!--Account show (After log in success)-->
-            <div class="account__wrapper">
-                <p class="account__name">Lê Anh Đức</p>
-                <div class="account">
-                    <i class="account__icon fa-regular fa-user"></i>
-                    <div class="setting__list">
-                        <div class="setting__item"><a href="../account.jsp" class="setting__link">Tài khoản
-                                                                                                  của
-                                                                                                  tôi</a>
-                        </div>
-                        <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
-                            xuất</a></d>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<jsp:include page="header.jsp"></jsp:include>
 <main id="main">
     <nav class="navbar">
         <div class="container-xl">
@@ -112,8 +89,8 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-<script src="../../js/data.js"></script>
-<script src="../../js/paging.js"></script>
-<script src="../../js/admin/adminUsers.js"></script>
+<script src="js/data.js"></script>
+<script src="js/paging.js"></script>
+<script src="js/admin/adminUsers.js"></script>
 </body>
 </html>

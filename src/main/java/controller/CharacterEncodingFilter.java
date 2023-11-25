@@ -1,11 +1,12 @@
-package servlets;
+package controller;
 
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 
+//@WebFilter(filterName = "CharsetFilter", urlPatterns = "*.jsp")
 public class CharacterEncodingFilter implements Filter {
 
     @Override
@@ -15,8 +16,8 @@ public class CharacterEncodingFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        request.setCharacterEncoding("utf8");
-        response.setCharacterEncoding("utf8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         System.out.println("Filter is being applied to URL: " + ((HttpServletRequest) request).getRequestURI());
         chain.doFilter(request, response);

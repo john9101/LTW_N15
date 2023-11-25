@@ -1,4 +1,4 @@
-<%@page contentType  = "text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,21 +8,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!--Các thư viện hỗ trợ-->
     <!--Font Awesome-->
-    <link rel="stylesheet" href="../assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
+    <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
     <!--Bootstrap-->
-    <link rel="stylesheet" href="../assets/bootstrap/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
     <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="../assets/favicon/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
     <!--Web font-->
-    <link rel="stylesheet" href="../assets/font/webfonts/Montserrat.css">
+    <link rel="stylesheet" href="assets/font/webfonts/Montserrat.css">
 
     <!--CSS-->
-    <link rel="stylesheet" href="../assets/css/reset.css">
-    <link rel="stylesheet" href="../assets/css/base.css">
-    <link rel="stylesheet" href="../assets/css/logIn.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/logIn.css">
 
     <title>Đăng ký</title>
 </head>
@@ -71,7 +71,7 @@
     </div>
 </main>
 <!--JS validate-->
-<script src="../js/validateForm.js"></script>
+<script src="js/validateForm.js"></script>
 <script>
     var validation = new Validation({
         formSelector: ".form",
