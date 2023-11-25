@@ -46,7 +46,8 @@
                 <!--cta == call to action-->
                 <div class="nav__cta">
                     <a href="./signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="./signUp.html" class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                    <a href="./signUp.html" class="nav__button nav__button--signUp button button button--hover">Đăng
+                        ký</a>
                 </div>
 
                 <!--Account show (After log in success)-->
@@ -84,7 +85,12 @@
         <div class="contact_us row">
             <div class="title_method-contact col">
                 <h2>Liên hệ</h2>
-                <p>Bạn có muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy đủ thông tin vào form và chúng sẽ cố gắng phản hồi sớm nhất trong vòng 24h. Hoặc bạn có thể liên hệ với chúng tôi thông qua các phương thức bên dưới</p>
+                <p>Bạn có muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy đủ thông tin vào form và chúng sẽ cố
+                    gắng phản hồi sớm nhất trong vòng 24h. Hoặc bạn có thể liên hệ với chúng tôi thông qua các phương
+                    thức bên dưới</p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2575.4099188860755!2d106.73069501393213!3d10.735821067050642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175257b7549e31f%3A0xf46aadadf7106fd2!2zNzIxIEh14buzbmggVOG6pW4gUGjDoXQsIFBow7ogVGh14bqtbiwgUXXhuq1uIDcsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaA!5e0!3m2!1svi!2s!4v1700835409662!5m2!1svi!2s"
+                        width="100%" height="400" style="margin-top: 20px;border-radius: 4px; border: 1px solid var(--blue-color-high)" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 <div class="get-in-touch">
                     <h2>Phương thức liên hệ</h2>
                     <div class="contact-method">
@@ -117,7 +123,6 @@
                 </div>
                 <img src="../assets/img/contactus.svg">
             </div>
-
             <form method="post" id="contact_us-form" class="col">
                 <div class="form__block">
                     <label for="fullname" class="form__label">Họ và tên *</label>
@@ -221,7 +226,7 @@
             ValidatorContactForm.isRequired('#email'),
             ValidatorContactForm.isEmail('#email')
         ],
-        onSubmit: function (data){
+        onSubmit: function (data) {
             console.log(data)
         }
     });
