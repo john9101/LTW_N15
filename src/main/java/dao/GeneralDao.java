@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GeneralDao {
+
     //Use for select statement
     public static <T>List<T> executeQueryWithSingleTable(String sql, Class<T> type, Object... params) {
         return JDBIConnector.get().withHandle(handle -> {
