@@ -10,88 +10,56 @@ document.addEventListener("DOMContentLoaded", function () {
     const trendingProductItems = [
         {
             name: "Áo polo nam trơn basic form regular vải cá sấu",
-<<<<<<< HEAD:js/home.js
-            image: "../assets/img/product_img/product1.jpg",
-=======
             image: "./assets/img/product_img/product1.jpg",
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/js/home.js
             originPrice: 350000,
             salePrice: 279000,
             ratingStart: 4
         },
         {
             name: "Áo polo thể thao unisex nam nữ",
-<<<<<<< HEAD:js/home.js
-            image: "../assets/img/product_img/product2.jpg",
-=======
             image: "./assets/img/product_img/product2.jpg",
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/js/home.js
             originPrice: 299000,
             salePrice: 239000,
             ratingStart: 4
         },
         {
             name: "Áo polo phối khóa kéo unisex nam nữ",
-<<<<<<< HEAD:js/home.js
-            image: "../assets/img/product_img/product3.jpg",
-=======
             image: "./assets/img/product_img/product3.jpg",
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/js/home.js
             originPrice: 350000,
             salePrice: 289000,
             ratingStart: 4
         },
         {
             name: "Áo hoodie form rộng unisex nam nữ nỉ chân cua",
-<<<<<<< HEAD:js/home.js
-            image: "../assets/img/product_img/product4.jpg",
-=======
             image: "./assets/img/product_img/product4.jpg",
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/js/home.js
             originPrice: 490000,
             salePrice: 259000,
             ratingStart: 5
         },
         {
             name: "Áo hoodie zip form boxy unisex nỉ bông dày dặn",
-<<<<<<< HEAD:js/home.js
-            image: "../assets/img/product_img/product5.jpg",
-=======
             image: "./assets/img/product_img/product5.jpg",
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/js/home.js
             originPrice: 300000,
             salePrice: 250000,
             ratingStart: 5
         },
         {
             name: "Áo sweater unisex nam nữ basic nỉ chân cua",
-<<<<<<< HEAD:js/home.js
-            image: "../assets/img/product_img/product6.jpg",
-=======
             image: "./assets/img/product_img/product6.jpg",
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/js/home.js
             originPrice: 350000,
             salePrice: 288000,
             ratingStart: 5
         },
         {
             name: "Áo sweater nam trơn basic vải da cá",
-<<<<<<< HEAD:js/home.js
-            image: "../assets/img/product_img/product7.jpg",
-=======
             image: "./assets/img/product_img/product7.jpg",
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/js/home.js
             originPrice: 250000,
             salePrice: 200000,
             ratingStart: 5
         },
         {
             name: "Quần jean unisex nam nữ cạp cao ống suông rộng",
-<<<<<<< HEAD:js/home.js
-            image: "../assets/img/product_img/product8.jpg",
-=======
             image: "./assets/img/product_img/product8.jpg",
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/js/home.js
             originPrice: 290000,
             salePrice: 260000,
             ratingStart: 4
