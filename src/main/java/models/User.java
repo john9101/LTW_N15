@@ -1,11 +1,14 @@
 package models;
 
+import utils.Encoding;
+
+import java.io.Serializable;
 import java.sql.Date;
 
-public class User {
+public class User implements Serializable {
     private int id;
     private String username;
-    private String password;
+    private String passwordEncoding;
     private String fullName;
     private String gender;
     private String email;
@@ -16,12 +19,16 @@ public class User {
     private boolean role;
     private String avatar;
 
+    private String tokenVerify;
+    private String tokenResetPassword;
+
     public User() {
     }
+    
 
     public User(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.passwordEncoding = password;
     }
 
     public int getId() {
@@ -40,12 +47,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordEncoding() {
+        return passwordEncoding;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordEncoding(String passwordEncoding) {
+        this.passwordEncoding = passwordEncoding;
     }
 
     public String getFullName() {
@@ -125,7 +132,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", passwordEncoding='" + passwordEncoding + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +
@@ -135,6 +142,24 @@ public class User {
                 ", isVerify=" + isVerify +
                 ", role=" + role +
                 ", avatar='" + avatar + '\'' +
+                ", tokenVerify='" + tokenVerify + '\'' +
+                ", tokenResetPassword='" + tokenResetPassword + '\'' +
                 '}';
+    }
+
+    public String getTokenVerify() {
+        return tokenVerify;
+    }
+
+    public void setTokenVerify(String tokenVerify) {
+        this.tokenVerify = tokenVerify;
+    }
+
+    public String getTokenResetPassword() {
+        return tokenResetPassword;
+    }
+
+    public void setTokenResetPassword(String tokenResetPassword) {
+        this.tokenResetPassword = tokenResetPassword;
     }
 }

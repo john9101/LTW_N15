@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +29,10 @@
 <body>
 <div class="frame">
     <article>
-        <form action="#!" class="form form--forget-password">
+        <form action="updatePassword" class="form form--forget-password" method="post">
+            <c:set var="email" value="${requestScope.email}"/>
+            <input name="email" type="text" value="${email}" hidden="hidden">
+
             <h1 class="heading">Đặt lại mật khẩu</h1>
             <div class="form__block">
                 <label for="password" class="form__label">Mật khẩu</label>
@@ -54,6 +58,7 @@
         <label for="modal__hide" class="modal__blur"></label>
     </div>
 </div>
+
 <script src="js/validateForm.js"></script>
 <script>
     var validation = new Validation({
