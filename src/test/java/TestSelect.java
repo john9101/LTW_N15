@@ -10,6 +10,6 @@ import java.util.List;
 
 public class TestSelect {
     public static void main(String[] args) {
-        System.out.println(GeneralDao.executeQueryWithSingleTable("SELECT id, fullname, username FROM users", User.class));
+        System.out.println(GeneralDao.executeQueryWithJoinTables("SELECT username FROM users WHERE id = ?", 1));
     }
 }

@@ -1,11 +1,13 @@
 package services;
 
+import dao.HomeDao;
 import dao.UserDAO;
 import dao.UserImplement;
 import models.User;
 
 
 public class UserServices {
+
     private static UserServices INSTANCE;
 
     private UserServices() {

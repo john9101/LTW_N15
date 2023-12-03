@@ -33,3 +33,4 @@ target/
 *.zip
 *.tar.gz
 *.rar
+src/main/resources/db.properties

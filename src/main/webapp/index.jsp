@@ -1,6 +1,11 @@
 <%@ page import="models.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="models.Products" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="services.HomeServices" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,7 +30,7 @@
     <!--CSS-->
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/base.css">
-    <link rel="stylesheet" href="./assets/css/home.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/home.css">
 
     <title>Trang chủ</title>
 </head>
@@ -48,10 +53,9 @@
         <div id="slider__category--section">
             <div class="slider__container">
                 <div class="slider__items">
-                    <img class="slider__item" src="./assets/img/slider/T-Shirt.png">
-                    <img class="slider__item" src="./assets/img/slider/Hoodie.png">
-                    <img class="slider__item" src="./assets/img/slider/Vest.png">
-                    <img class="slider__item" src="./assets/img/slider/Pants.png">
+                    <c:forEach items="${list_slide_show}" var="slide">
+                        <img class="slider__item" src="./assets/img/slider/${slide.nameImage}">
+                    </c:forEach>
                 </div>
                 <div class="navigation__button nav__prev">
                     <i class="fa-solid fa-chevron-left"></i>
@@ -92,16 +96,55 @@
             </div>
         </div>
     </div>
-    <div class="popular__section container-xl">
-        <h2 class="section__title">Mẫu đồ phổ biến</h2>
-        <div class="product__container">
-            <div class="product__items">
+    <%--    <div class="popular__section container-xl">--%>
+    <%--        <h2 class="section__title">Mẫu đồ phổ biến</h2>--%>
+    <%--        <div class="product__container">--%>
+    <%--            <div class="product__items">--%>
 
+    <%--            </div>--%>
+    <%--            <button id="left__button"><i class="fa-solid fa-arrow-left"></i></button>--%>
+    <%--            <button id="right__button"><i class="fa-solid fa-arrow-right"></i></button>--%>
+    <%--        </div>--%>
+    <%--    </div>--%>
+
+<%--    <% if(request.getAttribute("list_new_products") == null){--%>
+<%--        request.setAttribute("list_new_products", HomeServices.getINSTANCE().getListNewProducts(false));--%>
+<%--    }%>--%>
+    <div class="new__section container-xl">
+        <div class="new__title">
+            <h2 class="section__title">Sản phẩm mới</h2>
+            <a class="see__more">Xem thêm</a>
+        </div>
+        <div class="product__wrapper">
+            <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
+            <div class="product__items">
+                <c:forEach items="${list_new_products}" var="newProduct">
+                    <div class="product__item">
+                        <div class="product__content">
+                            <img src="./assets/img/product_img/${newProduct['nameimage']}">
+                            <div class="product__info">
+                                <a class="product__name" href="#">${newProduct["name"]}</a>
+                                <div class="product__review">
+                                    <div class="review__icon">
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                    </div>
+                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>
+                                </div>
+                                <span class="product__price"><strong class="sale__price"><fmt:setLocale value = "vi_VN"/> <fmt:formatNumber value = "${newProduct['saleprice']}" type = "currency"/></strong>
+                                    <s class="original__price"><fmt:formatNumber value = "${newProduct['originalprice']}" type = "currency"/></s></span>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
-            <button id="left__button"><i class="fa-solid fa-arrow-left"></i></button>
-            <button id="right__button"><i class="fa-solid fa-arrow-right"></i></button>
+            <button class="right__button"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
+
     <div id="discovery__us--section" class="container-xl">
         <div class="discovery__container">
             <h2 class="section__title">Bạn có thể khám phá được điều gì ở chúng tôi?</h2>

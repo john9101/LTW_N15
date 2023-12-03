@@ -6,11 +6,11 @@
     <nav class="nav">
         <div class="container-xl">
             <div class="nav__inner">
-                <a href="index.jsp" class="logo">
+                <a href="Home" class="logo">
                 </a>
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="index.jsp" class="nav__link">Trang chủ</a>
+                        <a href="Home" class="nav__link">Trang chủ</a>
                     </li>
                     <li class="nav__item">
                         <a href="productBuying.jsp" class="nav__link">Gian hàng</a>
