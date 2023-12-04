@@ -12,7 +12,6 @@ import java.util.Map;
 
 @WebServlet(name = "HomeController", value = "/Home")
 public class HomeController extends HttpServlet {
-
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         List<Map<String, Object>> listTrendingProducts = HomeServices.getINSTANCE().getListTrendingProducts(false);
         List<Map<String, Object>> listNewProducts = HomeServices.getINSTANCE().getListNewProducts(false);
