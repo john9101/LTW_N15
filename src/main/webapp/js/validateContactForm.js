@@ -55,16 +55,18 @@ function ValidatorContactForm(options){
 
 
             if(isFormValid){
-                if(typeof options.onSubmit === 'function'){
-                    var enableInput = contactFormElement.querySelectorAll('[name]:not([disabled])');
-                    var formValues = Array.from(enableInput).reduce(function (values, input){
-                        values[input.name] = input.value
-                        return values;
-                    },{});
-                    options.onSubmit(formValues);
-                }else{
-                    contactFormElement.submit();
-                }
+                contactFormElement.submit();
+                // document.querySelector("success__notification").classList.add("active");
+                // if(typeof options.onSubmit === 'function'){
+                //     var enableInput = contactFormElement.querySelectorAll('[name]:not([disabled])');
+                //     var formValues = Array.from(enableInput).reduce(function (values, input){
+                //         values[input.name] = input.value
+                //         return values;
+                //     },{});
+                //     options.onSubmit(formValues);
+                // }else{
+                //     contactFormElement.submit();
+                // }
             }
         }
 
@@ -125,3 +127,16 @@ ValidatorContactForm.isPhone = function (selector) {
         }
     }
 }
+
+function autoRemoveSuccessNotification (){
+    const successNotification = document.querySelector(".success__notification");
+    setTimeout(function() {
+        if (successNotification) {
+            successNotification.classList.add('slideOut');
+            setTimeout(function() {
+                successNotification.remove();
+            }, 1000);
+        }
+    }, 1000);
+}
+autoRemoveSuccessNotification();

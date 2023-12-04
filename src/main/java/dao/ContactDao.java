@@ -11,8 +11,8 @@ public class ContactDao {
         return GeneralDao.executeQueryWithSingleTable("SELECT id, fullName, phone, email, `subject` FROM contacts", Contacts.class);
     }
 
-    public void addNewRecordUserContact(int userId, String fullName, String phone, String email, String subject, String message){
-        GeneralDao.executeAllTypeUpdate("INSERT INTO contacts(userId, fullName, phone, email, subject, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subject, message);
+    public void addNewRecordUserContact(String fullName, String phone, String email, String subject, String message){
+        GeneralDao.executeAllTypeUpdate("INSERT INTO contact(fullName, phone, email, subject, message) VALUES(?,?,?,?,?)", fullName, phone, email, subject, message);
     }
 
 }
