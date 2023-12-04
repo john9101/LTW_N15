@@ -1,7 +1,7 @@
 package services;
 
 import dao.UserDAO;
-import dao.UserImplement;
+import dao.UserDAOImplement;
 import models.User;
 import utils.Encoding;
 import utils.Token;
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 public class AuthenticateServices {
     private static AuthenticateServices INSTANCE;
 
-    UserDAO userDAO = new UserImplement();
+    UserDAO userDAO = new UserDAOImplement();
 
     private AuthenticateServices() {
     }
@@ -142,7 +142,7 @@ public class AuthenticateServices {
         userDAO.insert(user);
         try {
             IMailServices mailServices = new MailVerifyServices(user.getEmail(), user.getUsername(), tokenVerify);
-            mailServices.sendMail();
+            mailServices.send();
             System.out.println("Send mail success");
         } catch (MessagingException ignored) {
             ignored.printStackTrace();
@@ -183,8 +183,8 @@ public class AuthenticateServices {
         userDAO.updateTokenResetPassword(user.getId(), token);
 //            SEND MAIL
         try {
-            IMailServices mailServices = new MailResetPasswordServices(user.getEmail(), user.getEmail(), user.getTokenResetPassword());
-            mailServices.sendMail();
+            IMailServices mailServices = new MailResetPasswordServices(user.getEmail(), user.getEmail(), token);
+            mailServices.send();
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
@@ -195,7 +195,6 @@ public class AuthenticateServices {
         if (users.size() != 1) return false;
         User user = users.get(0);
         if (token.equals(user.getTokenResetPassword())) {
-            userDAO.updateTokenResetPassword(user.getId(), null);
             return true;
         }
         return false;
@@ -206,7 +205,8 @@ public class AuthenticateServices {
         List<User> users = userDAO.selectByEmail(email, "1");
         User user = users.get(0);
         if (user.getTokenResetPassword() != null) {
-            userDAO.updatePassword(user.getId(), passwordEncoding);
+            System.out.println(passwordEncoding);
+            userDAO.updatePasswordEncoding(user.getId(), passwordEncoding);
             userDAO.updateTokenResetPassword(user.getId(), null);
         }
     }

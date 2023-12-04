@@ -6,15 +6,18 @@
     <h1>Xác thực tài khoản</h1>
     <div class="content" style="background-color: #B6FFFA;padding: 6px 12px;border-radius: 10px;">
         <p>Chúng tôi nhận vừa nhận được thông báo tài khoản <b>%%USERNAME%%</b> vừa được khởi tạo <b>YourStyle</b>.</p>
-        <p>Để có thể tiến hành đăng nhập và sử dụng các dịch vụ của chúng tôi, vui lòng click vào link bên dưới để tiến
+        <p>Để có thể đăng nhập và sử dụng các dịch vụ của chúng tôi, vui lòng click vào link bên dưới để tiến
            hành kích hoạt tài khoản.</p>
         <form
-                action="http://localhost:8080/LTW_project_servlet_war/verify?username=%%USERNAME%%&token-verify=%%TOKENVERIFY%%"
+                action="http://localhost:8080/LTW_project_servlet_war/verify"
                 method="post">
+            <input type="hidden" name="username" value="%%USERNAME%%">
+            <input type="hidden" name="token-verify" value="%%TOKENVERIFY%%">
             <button type="submit"
                     style="padding: 15px 30px;background-color: #80B3FF;display: inline-block;border-radius: 5px;text-decoration: none;color: #fff; outline: none; border: none">
-                Thay đổi mật khẩu
+                Xác thực
             </button>
+
         </form>
     </div>
 </div>

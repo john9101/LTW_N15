@@ -9,9 +9,9 @@ import java.io.IOException;
 
 @WebServlet(name = "updatePassword", value = "/updatePassword")
 public class UpdatePassword extends HttpServlet {
-    String updateSuccess = "";
-    String errorPassword = "Mật khẩu phải có tối thiểu 6 kí tự";
-    String errorPasswordConfirm = "Mật khẩu nhập lại không trùng khớp";
+    String updateSuccess = "Cập nhập mật khẩu thành công.";
+    String errorPassword = "Mật khẩu phải có tối thiểu 6 kí tự.";
+    String errorPasswordConfirm = "Mật khẩu nhập lại không trùng khớp.";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,17 +27,18 @@ public class UpdatePassword extends HttpServlet {
         int countError = 0;
 
         if (password.length() < 6) {
-            request.setAttribute("errorEmail", errorPassword);
+            request.setAttribute("errorPassword", errorPassword);
             countError++;
         }
         if (!password.equals(confirmPassword)) {
-            request.setAttribute("errorConfirm", errorPasswordConfirm);
+            request.setAttribute("errorConfirmPassword", errorPasswordConfirm);
             countError++;
         }
         if (countError == 0) {
             AuthenticateServices.getINSTANCE().updatePassword(email, password);
             request.setAttribute("updateSuccess", updateSuccess);
         }
+        request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
 
     }
 }

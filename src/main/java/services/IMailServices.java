@@ -3,5 +3,5 @@ package services;
 import javax.mail.MessagingException;
 
 public interface IMailServices {
-    void sendMail() throws MessagingException;
+    void send() throws MessagingException;
 }

@@ -14,7 +14,7 @@ public interface UserDAO extends DAO<User> {
 
     List<User> findEmail(String email);
 
-    public int updatePassword(int id, String pass);
+    public int updatePasswordEncoding(int id, String pass);
 
     public List<User> selectTokenVerify(String username);
 

@@ -21,7 +21,7 @@ public class MailResetPasswordServices implements IMailServices {
     }
 
     @Override
-    public void sendMail() throws MessagingException {
+    public void send() throws MessagingException {
         Authenticator auth = new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
