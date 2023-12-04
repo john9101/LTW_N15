@@ -30,7 +30,7 @@
     <!--CSS-->
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="./assets/css/base.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/home.css">
+    <link rel="stylesheet" href="./assets/css/home.css">
 
     <title>Trang chủ</title>
 </head>
@@ -74,42 +74,67 @@
             </div>
             <div class="category__container category__items">
                 <div class="category__item">
-                    <p class="item__text">Áo thun</p>
+                    <p class="item__text">Áo thun / T-Shirt</p>
                     <img class="item__image" src="./assets/img/category/T-shirt.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Áo hoodie</p>
+                    <p class="item__text">Áo hoodie / Hoodie</p>
                     <img class="item__image" src="./assets/img/category/hoodie.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Balo</p>
+                    <p class="item__text">Balo / Backpack</p>
                     <img class="item__image" src="./assets/img/category/backpack.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Quần dài</p>
+                    <p class="item__text">Quần dài / Pants</p>
                     <img class="item__image" src="./assets/img/category/pants.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Nón</p>
+                    <p class="item__text">Nón / Cap</p>
                     <img class="item__image" src="./assets/img/category/hat.png">
                 </div>
             </div>
         </div>
     </div>
-    <%--    <div class="popular__section container-xl">--%>
-    <%--        <h2 class="section__title">Mẫu đồ phổ biến</h2>--%>
-    <%--        <div class="product__container">--%>
-    <%--            <div class="product__items">--%>
 
-    <%--            </div>--%>
-    <%--            <button id="left__button"><i class="fa-solid fa-arrow-left"></i></button>--%>
-    <%--            <button id="right__button"><i class="fa-solid fa-arrow-right"></i></button>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
+    <div class="popular__section container-xl">
+        <div class="popular__title">
+            <h2 class="section__title">Sản phẩm thịnh hành</h2>
+            <a class="see__more">Xem thêm</a>
+        </div>
+        <div class="product__wrapper">
+            <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
+            <div class="product__items">
+                <c:forEach items="${list_trending_products}" var="trendProduct">
+                    <div class="product__item">
+                        <div class="product__content">
+                            <img src="./assets/img/product_img/${trendProduct['nameimage']}">
+                            <div class="product__info">
+                                <span class="product__status">Thịnh hành</span>
+                                <a class="product__name" href="#">${trendProduct["name"]}</a>
+                                <div class="product__review">
+                                    <div class="review__icon">
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                    </div>
+                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>
+                                </div>
+                                <span class="product__price"><strong class="sale__price"><fmt:setLocale value="vi_VN"/> <fmt:formatNumber
+                                        value="${trendProduct['saleprice']}" type="currency"/></strong>
+                                    <s class="original__price"><fmt:formatNumber value="${trendProduct['originalprice']}"
+                                                                                 type="currency"/></s></span>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <button class="right__button"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
 
-<%--    <% if(request.getAttribute("list_new_products") == null){--%>
-<%--        request.setAttribute("list_new_products", HomeServices.getINSTANCE().getListNewProducts(false));--%>
-<%--    }%>--%>
     <div class="new__section container-xl">
         <div class="new__title">
             <h2 class="section__title">Sản phẩm mới</h2>
@@ -134,8 +159,10 @@
                                     </div>
                                     <a class="number__turns--ratting" href="#">1000 nhận xét</a>
                                 </div>
-                                <span class="product__price"><strong class="sale__price"><fmt:setLocale value = "vi_VN"/> <fmt:formatNumber value = "${newProduct['saleprice']}" type = "currency"/></strong>
-                                    <s class="original__price"><fmt:formatNumber value = "${newProduct['originalprice']}" type = "currency"/></s></span>
+                                <span class="product__price"><strong class="sale__price"><fmt:setLocale value="vi_VN"/> <fmt:formatNumber
+                                        value="${newProduct['saleprice']}" type="currency"/></strong>
+                                    <s class="original__price"><fmt:formatNumber value="${newProduct['originalprice']}"
+                                                                                 type="currency"/></s></span>
                             </div>
                         </div>
                     </div>

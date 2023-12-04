@@ -89,75 +89,77 @@ function animationShowCategory() {
 animationShowCategory();
 
 function sliderProductController() {
-    const productWrapper = document.querySelector(".product__wrapper");
-    const productItems = document.querySelector(".product__items");
-    const firstProductWidth = productItems.querySelector(".product__item").offsetWidth;
-    const arrowButtons = document.querySelectorAll(".product__wrapper button");
-    const productItemChildrens = [...productItems.children];
+    const productWrapperElements = document.querySelectorAll(".product__wrapper");
+    productWrapperElements.forEach(productWrapperElement =>{
+        const productItemsElement = productWrapperElement.querySelector(".product__items");
+        const firstProductWidth = productItemsElement.querySelector(".product__item").offsetWidth;
+        const arrowButtons = productWrapperElement.querySelectorAll("button");
+        const productItemChildren = [...productItemsElement.children];
 
-    let isDragging = false, isAutoPlay = true, startX, startScrollLeft, timeoutId;
-    let productPerView = Math.round(productItems.offsetWidth / firstProductWidth);
+        let isDragging = false, isAutoPlay = true, startX, startScrollLeft, timeoutId;
+        let productPerView = Math.round(productItemsElement.offsetWidth / firstProductWidth);
 
-    productItemChildrens.slice(-productPerView).reverse().forEach(product => {
-        productItems.insertAdjacentHTML("afterbegin", product.outerHTML);
-    });
-
-    productItemChildrens.slice(0, productPerView).forEach(product => {
-        productItems.insertAdjacentHTML("beforeend", product.outerHTML);
-    });
-
-    productItems.classList.add("no-transition");
-    productItems.scrollLeft = productItems.offsetWidth;
-    productItems.classList.remove("no-transition");
-
-    arrowButtons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            productItems.scrollLeft += btn.className === "left__button" ? -firstProductWidth : firstProductWidth;
+        productItemChildren.slice(-productPerView).reverse().forEach(product => {
+            productItemsElement.insertAdjacentHTML("afterbegin", product.outerHTML);
         });
-    });
 
-    const dragStart = (e) => {
-        isDragging = true;
-        productItems.classList.add("dragging");
-        startX = e.pageX;
-        startScrollLeft = productItems.scrollLeft;
-    }
+        productItemChildren.slice(0, productPerView).forEach(product => {
+            productItemsElement.insertAdjacentHTML("beforeend", product.outerHTML);
+        });
 
-    const dragging = (e) => {
-        if (!isDragging) return;
-        productItems.scrollLeft = startScrollLeft - (e.pageX - startX);
-    }
+        productItemsElement.classList.add("no-transition");
+        productItemsElement.scrollLeft = productItemsElement.offsetWidth;
+        productItemsElement.classList.remove("no-transition");
 
-    const dragStop = () => {
-        isDragging = false;
-        productItems.classList.remove("dragging");
-    }
+        arrowButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                productItemsElement.scrollLeft += btn.className === "left__button" ? -firstProductWidth : firstProductWidth;
+            });
+        });
 
-    const infiniteScroll = () => {
-        if (productItems.scrollLeft === 0) {
-            productItems.classList.add("no-transition");
-            productItems.scrollLeft = productItems.scrollWidth - (2 * productItems.offsetWidth);
-            productItems.classList.remove("no-transition");
-        } else if (Math.ceil(productItems.scrollLeft) === productItems.scrollWidth - productItems.offsetWidth) {
-            productItems.classList.add("no-transition");
-            productItems.scrollLeft = productItems.offsetWidth;
-            productItems.classList.remove("no-transition");
+        const dragStart = (e) => {
+            isDragging = true;
+            productItemsElement.classList.add("dragging");
+            startX = e.pageX;
+            startScrollLeft = productItemsElement.scrollLeft;
         }
-        clearTimeout(timeoutId);
-        if (!productWrapper.matches(":hover")) autoPlay();
-    }
 
-    const autoPlay = () => {
-        if (window.innerWidth < 800 || !isAutoPlay) return;
-        timeoutId = setTimeout(() => productItems.scrollLeft += firstProductWidth, 2500);
-    }
-    autoPlay();
+        const dragging = (e) => {
+            if (!isDragging) return;
+            productItemsElement.scrollLeft = startScrollLeft - (e.pageX - startX);
+        }
 
-    productWrapper.addEventListener("mousedown", dragStart);
-    productItems.addEventListener("mousemove", dragging);
-    document.addEventListener("mouseup", dragStop);
-    productItems.addEventListener("scroll", infiniteScroll);
-    productWrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
-    productWrapper.addEventListener("mouseleave", autoPlay);
+        const dragStop = () => {
+            isDragging = false;
+            productItemsElement.classList.remove("dragging");
+        }
+
+        const infiniteScroll = () => {
+            if (productItemsElement.scrollLeft === 0) {
+                productItemsElement.classList.add("no-transition");
+                productItemsElement.scrollLeft = productItemsElement.scrollWidth - (2 * productItemsElement.offsetWidth);
+                productItemsElement.classList.remove("no-transition");
+            } else if (Math.ceil(productItemsElement.scrollLeft) === productItemsElement.scrollWidth - productItemsElement.offsetWidth) {
+                productItemsElement.classList.add("no-transition");
+                productItemsElement.scrollLeft = productItemsElement.offsetWidth;
+                productItemsElement.classList.remove("no-transition");
+            }
+            clearTimeout(timeoutId);
+            if (!productWrapperElement.matches(":hover")) autoPlay();
+        }
+
+        const autoPlay = () => {
+            if (window.innerWidth < 800 || !isAutoPlay) return;
+            timeoutId = setTimeout(() => productItemsElement.scrollLeft += firstProductWidth, 2500);
+        }
+        autoPlay();
+
+        productWrapperElement.addEventListener("mousedown", dragStart);
+        productItemsElement.addEventListener("mousemove", dragging);
+        document.addEventListener("mouseup", dragStop);
+        productItemsElement.addEventListener("scroll", infiniteScroll);
+        productWrapperElement.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+        productWrapperElement.addEventListener("mouseleave", autoPlay);
+    })
 }
 sliderProductController();

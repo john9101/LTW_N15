@@ -21,6 +21,10 @@ public class HomeServices {
         return INSTANCE;
     }
 
+    public List<Map<String, Object>> getListTrendingProducts(boolean isSeeMore){
+        return homeDao.getListTrendingProducts(isSeeMore);
+    }
+
     public List<Map<String, Object>> getListNewProducts(boolean isSeeMore){
         return homeDao.getListNewProducts(isSeeMore);
     }

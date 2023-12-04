@@ -14,10 +14,14 @@ import java.util.Map;
 public class HomeController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        List<Map<String, Object>> listTrendingProducts = HomeServices.getINSTANCE().getListTrendingProducts(false);
         List<Map<String, Object>> listNewProducts = HomeServices.getINSTANCE().getListNewProducts(false);
         List<Sliders> listSlideShow = HomeServices.getINSTANCE().getListSlideShow();
+
         request.setAttribute("list_slide_show", listSlideShow);
+        request.setAttribute("list_trending_products", listTrendingProducts);
         request.setAttribute("list_new_products", listNewProducts);
+
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
         requestDispatcher.forward(request, response);
     }

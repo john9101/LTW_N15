@@ -22,23 +22,18 @@
 }
 .hero__slogan h1{
     font-size: 50px;
+    font-weight: 800;
+    color: var(--blue-color-high);
 }
 .hero__slogan p {
-    color: #FFF;
+    color: white;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
-    letter-spacing: 0.08px;
-}
-
-.hero__slogan p:first-child {
-    font-size: 40px;
-}
-
-.hero__slogan p:nth-last-child(2) {
+    line-height: 32px;
     padding-top: 34px;
-    font-size: 25px;
-
+    font-size: 24px;
+    width: 462px;
+    margin: auto;
 }
 
 .hero__button {
@@ -46,13 +41,12 @@
     --height: 80px;
     display: inline-block;
     margin-top: 34px;
-    border-radius: 20px;
+    border-radius: 16px;
 
-    color: #FFF;
-    font-size: 25px;
+    color: white;
+    font-size: 24px;
     font-style: normal;
     font-weight: 600;
-    letter-spacing: 0.064px;
 
     --background-color-hover: var(--blue-color-low);
     --background-color: var(--blue-color-high);
@@ -109,6 +103,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: var(--blue-color-high);
 }
 
 .nav__prev {
@@ -175,6 +170,7 @@
 
 .category__container .category__item .item__text {
     font-size: 18px;
+    font-weight: 600;
     margin: auto;
 }
 
@@ -277,7 +273,7 @@
 .product__item .product__info {
     display: flex;
     flex-direction: column;
-    /*New update*/ gap: 12px; /*New update*/
+    /*New update*/ gap: 10px; /*New update*/
     padding: 16px 14px;
     flex: 1;
 }
@@ -345,11 +341,11 @@
     cursor: pointer;
 }
 
-.left__button:hover, .right__button:hover {
+.left__button:hover, .right__button:hover, .navigation__button:hover {
     opacity: 100%;
 }
 
-.left__button:active, .right__button:active{
+.left__button:active, .right__button:active, .navigation__button:active{
     transform: translateY(-50%) scale(0.85);
 }
 
@@ -425,7 +421,7 @@
 }
 
 #discovery__us--section .discovery__content .disco_thing {
-    border-left: black 2px solid;
+    border-left: var(--blue-color-high) 4px solid;
     padding-left: 10px;
     text-align: left;
 }
@@ -434,10 +430,16 @@
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 12px;
+    color: var(--blue-color-high);
+}
+
+#discovery__us--section .discovery__content .disco_thing p:last-child {
+    font-weight: 600;
 }
 
 .step__guide--section .section__title {
     text-align: center;
+    margin-bottom: 40px;
 }
 
 .step__guide--section .guide__content .step__item {
@@ -458,15 +460,18 @@
 }
 
 .step__guide--section .guide__content .step__item .description_step span {
-    font-weight: 700;
+    font-weight: 800;
     font-size: 24px;
+    color: var(--blue-color-high);
 }
 
 .step__guide--section .guide__content .step__item .description_step p {
     padding: 16px 20px;
     line-height: 20px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .popular__section, .step__guide--section, #discovery__us--section {
-    margin-bottom: 70px;
+    margin: 40px auto;
 }
