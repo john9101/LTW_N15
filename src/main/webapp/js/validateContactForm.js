@@ -26,18 +26,13 @@ function ValidatorContactForm(options){
         }
 
         if(errorMessage){
-<<<<<<< HEAD:js/validateContactForm.js
-=======
+
             errorMessageElement.style.display = 'block';
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/js/validateContactForm.js
             errorMessageElement.innerText = errorMessage;
             errorMessageElement.style.color = '#E40F0A';
             inputElement.classList.add('input-invalid')
         }else {
-<<<<<<< HEAD:js/validateContactForm.js
-=======
             errorMessageElement.style.display = 'none';
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/js/validateContactForm.js
             errorMessageElement.innerText = '';
             inputElement.classList.remove('input-invalid')
         }
@@ -48,11 +43,7 @@ function ValidatorContactForm(options){
     if(contactFormElement){
         contactFormElement.onsubmit = function (e){
             e.preventDefault();
-<<<<<<< HEAD:js/validateContactForm.js
-            isFormValid = true;
-=======
             var isFormValid = true;
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/js/validateContactForm.js
             options.rules.forEach(function (rule){{
                 var inputElement = contactFormElement.querySelector(rule.selector);
                 var errorMessageElement = getRightParent(inputElement, options.formBlockSelector).querySelector(options.errorSelector);
@@ -92,19 +83,13 @@ function ValidatorContactForm(options){
                     validate(inputElement,rule,errorMessageElement);
                 }
                 inputElement.oninput = function (){
-<<<<<<< HEAD:js/validateContactForm.js
-=======
                     errorMessageElement.style.display = 'none';
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/js/validateContactForm.js
                     errorMessageElement.innerText = '';
                     inputElement.classList.remove('input-invalid')
                 }
 
                 inputElement.onfocus = function (){
-<<<<<<< HEAD:js/validateContactForm.js
-=======
                     errorMessageElement.style.display = 'none';
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/js/validateContactForm.js
                     errorMessageElement.innerText = '';
                 }
             }
@@ -129,8 +114,6 @@ ValidatorContactForm.isEmail = function (selector){
             return regex.test(value.trim()) ? undefined : 'Thông tin bạn nhập không phải là email'
         }
     }
-<<<<<<< HEAD:js/validateContactForm.js
-=======
 }
 
 ValidatorContactForm.isPhone = function (selector) {
@@ -141,5 +124,4 @@ ValidatorContactForm.isPhone = function (selector) {
             return regex.test(value.trim()) ? undefined : 'Vui lòng nhập số điện thoại hợp lệ (10 số bắt đầu từ 0)'
         }
     }
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/js/validateContactForm.js
 }

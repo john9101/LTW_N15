@@ -1,38 +1,6 @@
 .contact_us{
     margin: 50px auto;
     gap: 20px;
-<<<<<<< HEAD:assets/css/contact.css
-    align-items: flex-start;
-    position: relative;
-}
-
-.contact_us .title_method-contact{
-    flex: 2;
-    padding-left: 0px;
-}
-
-.contact_us .title_method-contact h2{
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--blue-color-high);
-    padding-bottom: 16px;
-}
-
-.contact_us .title_method-contact p{
-    font-size: 18px;
-    line-height: 24px;
-}
-
-.contact_us .get-in-touch{
-    margin-top: 50px;
-    display: grid;
-    gap: 16px
-}
-
-.contact_us .get-in-touch .contact-method{
-    display: flex;
-    gap: 10px;
-=======
     align-items: stretch;
     position: relative;
 }
@@ -74,32 +42,21 @@
 }
 
 .contact_us .get-in-touch .contact-method .icon-contact{
-<<<<<<< HEAD:assets/css/contact.css
-    min-width: 46px;
-=======
     min-width: 44px;
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/assets/css/contact.css
     background-color: #F8F8F8;
     border-radius: 4px;
     display: flex;
 }
 
 .contact_us .get-in-touch .contact-method i{
-<<<<<<< HEAD:assets/css/contact.css
-    font-size: 20px;
-    margin: auto;
-=======
     font-size: 18px;
     margin: auto;
     color: var(--blue-color-high);
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/assets/css/contact.css
 }
 
 .contact_us .get-in-touch .contact-method .contact-description{
     font-weight: 600;
     text-align: left;
-<<<<<<< HEAD:assets/css/contact.css
-=======
     display: grid;
     gap: 8px;
 }
@@ -107,19 +64,10 @@
 .contact_us .get-in-touch .contact-method .contact-description p:first-child{
     font-size: 18px;
     font-weight: 700;
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/assets/css/contact.css
 }
 
 .contact_us .get-in-touch .contact-method .contact-description p:last-child{
     color: var(--blue-color-high);
-<<<<<<< HEAD:assets/css/contact.css
-    font-weight: 700;
-}
-
-#contact_us-form{
-    display: grid;
-    gap: 24px;
-=======
     line-height: 20px;
     font-size: 15px;
 }
@@ -128,46 +76,10 @@
     display: flex;
     flex-direction: column;
     gap: 26px;
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/assets/css/contact.css
     border: 1px #D9D9D9 solid;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0px 0px 12px rgba(12,12,12,0.1);
-<<<<<<< HEAD:assets/css/contact.css
-    position: sticky;
-    top: 140px;
-}
-
-#contact_us-form .form__block{
-    display: grid;
-}
-
-#contact_us-form .form__block .form__label{
-    font-weight: 600;
-    padding-bottom: 6px;
-}
-
-#contact_us-form .form__block .form__input{
-    width: 100%;
-    /*border: 1px solid black;*/
-    background-color: #F8F8F8;
-    border-radius: 4px;
-    padding: 14px 10px;
-}
-
-#contact_us-form .form__block .form__input:focus, #contact_us-form .form__block .form__textarea:focus{
-    border: 2px var(--blue-color-high) solid;
-}
-
-#contact_us-form .form__block .error-notice{
-    height: auto;
-    font-size: 14px;
-    font-weight: 500;
-    margin-top: 4px;
-}
-
-#contact_us-form .form__block .form__textarea{
-=======
 }
 
 #contact__form .form__block{
@@ -202,24 +114,15 @@
 }
 
 #contact__form .form__block .form__textarea{
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/assets/css/contact.css
     resize: vertical;
     padding: 12px 10px;
     border-radius: 4px;
     outline: none;
-<<<<<<< HEAD:assets/css/contact.css
-    border: none;
-    background-color: #F8F8F8;
-}
-
-#contact_us-form .form__submit{
-=======
     border: 1px solid #aaaaaa;
     background-color: white;
 }
 
 #contact__form .form__submit{
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/assets/css/contact.css
     width: fit-content;
     padding: 16px 50px;
     font-weight: 600;
@@ -230,24 +133,15 @@
     cursor: pointer;
 }
 
-<<<<<<< HEAD:assets/css/contact.css
-#contact_us-form .form__submit:hover{
-=======
 .select__box{
     width: 100%;
 }
 
 #contact__form .form__submit:hover{
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/assets/css/contact.css
     background-color: var(--blue-color-medium);
 }
 
 .input-invalid{
-<<<<<<< HEAD:assets/css/contact.css
-    border: 2px #E40F0A solid;
-}
-
-=======
     border: 2px #E40F0A solid !important;
 }
 
@@ -331,4 +225,3 @@ label[for="subject"]::after{
 label[for="subject"]:hover::after{
     opacity: 1;
 }
->>>>>>> fd1ec53111fa8b87d38d9fd8c8a8e8a451cd8610:src/main/webapp/assets/css/contact.css
