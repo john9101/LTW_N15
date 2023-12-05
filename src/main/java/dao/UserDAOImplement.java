@@ -3,6 +3,7 @@ package dao;
 import database.JDBIConnector;
 import models.User;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,16 +62,16 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> selectTokenVerify(String username) {
-        String query = "SELECT id, tokenVerify FROM users WHERE username = ? AND isVerify = 0";
+        String query = "SELECT id, tokenVerifyTime, tokenVerify FROM users WHERE username = ? AND isVerify = 0";
         return GeneralDao.executeQueryWithSingleTable(query, User.class, username);
     }
 
     @Override
-    public void updateTokenVerify(int id, String token) {
+    public void updateTokenVerify(int id, String token, Timestamp timeTokenExpired) {
         String statement = "UPDATE users " +
-                "SET tokenVerify = ? " +
+                "SET tokenVerify = ?, tokenVerifyTime = ? " +
                 "WHERE id = ?";
-        GeneralDao.executeAllTypeUpdate(statement, token, id);
+        GeneralDao.executeAllTypeUpdate(statement, token, timeTokenExpired, id);
     }
 
     @Override
@@ -83,28 +84,37 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> selectTokenResetPassword(String email) {
-        String query = "SELECT id, tokenResetPassword FROM users WHERE email = ?";
+        String query = "SELECT id, tokenResetPassword, tokenResetPasswordTime FROM users WHERE email = ?";
         return GeneralDao.executeQueryWithSingleTable(query, User.class, email);
     }
 
     @Override
-    public void updateTokenResetPassword(int id, String token) {
+    public void updateTokenResetPassword(int id, String token, Timestamp timeTokenExpired) {
         String query = "UPDATE users " +
-                "SET tokenResetPassword = ? " +
+                "SET tokenResetPassword = ?, tokenResetPasswordTime = ? " +
                 "WHERE id = ?";
-        GeneralDao.executeAllTypeUpdate(query, token, id);
+        GeneralDao.executeAllTypeUpdate(query, token, timeTokenExpired, id);
     }
 
     @Override
     public int insert(User user) {
-        String statement = "INSERT INTO users (username, passwordEncoding, email, isVerify, role, tokenVerify) VALUES (?, ?, ?, ?, ?, ?);";
+        String statement = "INSERT INTO users (username, passwordEncoding, fullName, gender, email, phone, address, birthDay, isVerify, role, avatar, tokenVerifyTime, tokenVerify, tokenResetPasswordTime, tokenResetPassword) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         int count = JDBIConnector.get().withHandle(handle -> handle.createUpdate(statement)
                 .bind(0, user.getUsername())
                 .bind(1, user.getPasswordEncoding())
-                .bind(2, user.getEmail())
-                .bind(3, user.isVerify())
-                .bind(4, user.isRole())
-                .bind(5, user.getTokenVerify())
+                .bind(2, user.getFullName())
+                .bind(3, user.getGender())
+                .bind(4, user.getEmail())
+                .bind(5, user.getPhone())
+                .bind(6, user.getAddress())
+                .bind(7, user.getBirthDay())
+                .bind(8, user.isVerify())
+                .bind(9, user.isRole())
+                .bind(10, user.getAvatar())
+                .bind(11, user.getTokenVerifyTime())
+                .bind(12, user.getTokenVerify())
+                .bind(13, user.getTokenResetPasswordTime())
+                .bind(14, user.getTokenResetPassword())
                 .execute());
         return count;
     }

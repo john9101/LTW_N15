@@ -16,10 +16,11 @@ public class ResetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
-        String tokenVerify = request.getParameter("token-reset-password");
-        boolean status = AuthenticateServices.getINSTANCE().resetPassword(email, tokenVerify);
+        String tokenResetPassword = request.getParameter("token-reset-password");
+        boolean status = AuthenticateServices.getINSTANCE().resetPassword(email, tokenResetPassword);
         if (status) {
             request.setAttribute("email", email);
+            request.setAttribute("token", tokenResetPassword);
             request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
         } else {
             response.sendError(404);

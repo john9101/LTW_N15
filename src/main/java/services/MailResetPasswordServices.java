@@ -42,7 +42,7 @@ public class MailResetPasswordServices implements IMailServices {
 //        Set no reply
         message.setReplyTo(null);
 //        Content
-        InputStream is = MailProperties.class.getClassLoader().getResourceAsStream("templateEmailResetPassword.html");
+        InputStream is = MailProperties.class.getClassLoader().getResourceAsStream("templates/templateEmailResetPassword.html");
         String htmlTemplate = htmlTemplate(is);
         message.setContent(htmlTemplate, "text/html; charset = UTF-8");
 
@@ -63,9 +63,7 @@ public class MailResetPasswordServices implements IMailServices {
             }
             template += line + "\n";
         }
-        if (email != null) {
-            template = template.replace("%%EMAIL%%", email);
-        }
+        template = template.replace("%%EMAIL%%", email);
         template = template.replace("%%TOKENRESETPASSWORD%%", tokenResetPassword);
         return template;
     }

@@ -23,7 +23,6 @@ public class UpdatePassword extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
-
         int countError = 0;
 
         if (password.length() < 6) {
@@ -35,10 +34,13 @@ public class UpdatePassword extends HttpServlet {
             countError++;
         }
         if (countError == 0) {
-            AuthenticateServices.getINSTANCE().updatePassword(email, password);
-            request.setAttribute("updateSuccess", updateSuccess);
+            boolean isSuccess = AuthenticateServices.getINSTANCE().updatePassword(email, password);
+            if (isSuccess) {
+                request.setAttribute("updateSuccess", updateSuccess);
+            } else {
+                response.sendError(404);
+            }
         }
         request.getRequestDispatcher("resetPassword.jsp").forward(request, response);
-
     }
 }

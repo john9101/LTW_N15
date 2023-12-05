@@ -13,7 +13,8 @@ public class MailProperties {
     private static String startTSL;
     private static String email;
     private static String password;
-
+    private static String durationTokenVerify;
+    private static String durationTokenRestPassword;
 
     static {
         InputStream inputStream = DBProperties.class.getClassLoader().getResourceAsStream("mail.properties");
@@ -25,6 +26,8 @@ public class MailProperties {
             startTSL = properties.getProperty("mail.smtp.starttls.enable");
             email = properties.getProperty("mail.email");
             password = properties.getProperty("mail.password");
+            durationTokenVerify = properties.getProperty("mail.verify.durationTime");
+            durationTokenRestPassword = properties.getProperty("mail.resetPassword.durationTime");
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -89,5 +92,21 @@ public class MailProperties {
 
     public static void setPassword(String password) {
         MailProperties.password = password;
+    }
+
+    public static String getDurationTokenVerify() {
+        return durationTokenVerify;
+    }
+
+    public static void setDurationTokenVerify(String durationTokenVerify) {
+        MailProperties.durationTokenVerify = durationTokenVerify;
+    }
+
+    public static String getDurationTokenRestPassword() {
+        return durationTokenRestPassword;
+    }
+
+    public static void setDurationTokenRestPassword(String durationTokenRestPassword) {
+        MailProperties.durationTokenRestPassword = durationTokenRestPassword;
     }
 }

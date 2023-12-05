@@ -29,7 +29,6 @@ public class SignUp extends HttpServlet {
 
         if (validationError.getObjReturn() != null) {
             User newUser = (User) validationError.getObjReturn();
-            System.out.println(newUser);
             AuthenticateServices.getINSTANCE().createUser(newUser);
             request.setAttribute("sendMail", "Send Mail Success");
         } else {

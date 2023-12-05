@@ -8,6 +8,11 @@ import utils.Token;
 import utils.ValidationError;
 
 import javax.mail.MessagingException;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -137,11 +142,18 @@ public class AuthenticateServices {
 
 
     public void createUser(User user) {
+//        Create token
         String tokenVerify = Token.generateToken();
         user.setTokenVerify(tokenVerify);
+
+//        Create Time Stamp
+        Timestamp timestampExpiredToken = addTime(LocalDateTime.now(), MailProperties.getDurationTokenVerify());
+        user.setTokenVerifyTime(timestampExpiredToken);
+
+//        Insert user to db
         userDAO.insert(user);
         try {
-            IMailServices mailServices = new MailVerifyServices(user.getEmail(), user.getUsername(), tokenVerify);
+            IMailServices mailServices = new MailVerifyServices(user.getEmail(), user.getUsername(), tokenVerify, timestampExpiredToken);
             mailServices.send();
             System.out.println("Send mail success");
         } catch (MessagingException ignored) {
@@ -149,13 +161,14 @@ public class AuthenticateServices {
         }
     }
 
-
     public boolean verify(String username, String token) {
         List<User> users = userDAO.selectTokenVerify(username);
         if (users.size() != 1) return false;
         User user = users.get(0);
-        if (token.equals(user.getTokenVerify())) {
-            userDAO.updateTokenVerify(user.getId(), null);
+        Timestamp userTokenExpired = user.getTokenVerifyTime();
+        Timestamp timestampCurrent = Timestamp.valueOf(LocalDateTime.now());
+        if (timestampCurrent.compareTo(userTokenExpired) <= 0) {
+            userDAO.updateTokenVerify(user.getId(), null, null);
             userDAO.updateVerify(user.getId(), true);
             return true;
         }
@@ -180,7 +193,8 @@ public class AuthenticateServices {
     public void sendMailResetPassword(User user) {
 //            Create token
         String token = Token.generateToken();
-        userDAO.updateTokenResetPassword(user.getId(), token);
+        Timestamp timestampExpiredToken = addTime(LocalDateTime.now(), MailProperties.getDurationTokenRestPassword());
+        userDAO.updateTokenResetPassword(user.getId(), token, timestampExpiredToken);
 //            SEND MAIL
         try {
             IMailServices mailServices = new MailResetPasswordServices(user.getEmail(), user.getEmail(), token);
@@ -194,20 +208,36 @@ public class AuthenticateServices {
         List<User> users = userDAO.selectTokenResetPassword(email);
         if (users.size() != 1) return false;
         User user = users.get(0);
-        if (token.equals(user.getTokenResetPassword())) {
+        String userToken = user.getTokenResetPassword();
+        Timestamp userTokenExpired = user.getTokenResetPasswordTime();
+        Timestamp timestampCurrent = Timestamp.valueOf(LocalDateTime.now());
+        return timestampCurrent.compareTo(userTokenExpired) <= 0 && token.equals(userToken);
+    }
+
+    public boolean updatePassword(String email, String password) {
+        String passwordEncoding = Encoding.getINSTANCE().toSHA1(password);
+        List<User> users = userDAO.selectByEmail(email, "1");
+        User user = users.get(0);
+        if (user.getTokenResetPassword() != null) {
+            userDAO.updatePasswordEncoding(user.getId(), passwordEncoding);
+            userDAO.updateTokenResetPassword(user.getId(), null, null);
             return true;
         }
         return false;
     }
 
-    public void updatePassword(String email, String password) {
-        String passwordEncoding = Encoding.getINSTANCE().toSHA1(password);
-        List<User> users = userDAO.selectByEmail(email, "1");
-        User user = users.get(0);
-        if (user.getTokenResetPassword() != null) {
-            System.out.println(passwordEncoding);
-            userDAO.updatePasswordEncoding(user.getId(), passwordEncoding);
-            userDAO.updateTokenResetPassword(user.getId(), null);
-        }
+    private static Timestamp addTime(LocalDateTime dateTime, String duration) {
+        // Format duration to Time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        LocalTime durationTime = LocalTime.parse(duration, formatter);
+
+        // CurrentTime + durationTime
+        LocalDateTime newDateTime = dateTime
+                .plusHours(durationTime.getHour())
+                .plusMinutes(durationTime.getMinute())
+                .plusSeconds(durationTime.getSecond());
+
+        Timestamp result = Timestamp.valueOf(newDateTime);
+        return result;
     }
 }

@@ -6,6 +6,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Timestamp;
 
 @WebServlet(name = "verify", value = "/verify")
 public class Verify extends HttpServlet {
@@ -23,7 +24,7 @@ public class Verify extends HttpServlet {
         if (status) {
             request.getRequestDispatcher("verifySuccess.jsp").forward(request, response);
         }else{
-            request.getRequestDispatcher("verifyFail.jsp").forward(request, response);
+            response.sendError(404);
         }
     }
 }

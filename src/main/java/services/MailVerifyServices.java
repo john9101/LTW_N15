@@ -5,16 +5,24 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 
 public class MailVerifyServices implements IMailServices {
     private String emailTo;
     private String username;
     private String tokenVerify;
-
+    private Timestamp dateExpired;
     public MailVerifyServices(String emailTo, String username, String tokenVerify) {
         this.emailTo = emailTo;
         this.username = username;
         this.tokenVerify = tokenVerify;
+    }
+
+    public MailVerifyServices(String emailTo, String username, String tokenVerify, Timestamp dateExpired) {
+        this.emailTo = emailTo;
+        this.username = username;
+        this.tokenVerify = tokenVerify;
+        this.dateExpired = dateExpired;
     }
 
     @Override
@@ -35,11 +43,12 @@ public class MailVerifyServices implements IMailServices {
 //        To
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo, false));
 //        Subject
-        message.setSubject("Test");
+        String subjectMess = "Xác thực tài khoản";
+        message.setSubject(subjectMess);
 //        Set no reply
         message.setReplyTo(null);
 //        Content
-        InputStream is = MailProperties.class.getClassLoader().getResourceAsStream("templateEmailVerify.html");
+        InputStream is = MailProperties.class.getClassLoader().getResourceAsStream("templates/templateEmailVerify.html");
         String htmlTemplate = htmlTemplate(is);
         message.setContent(htmlTemplate, "text/html; charset = UTF-8");
 
@@ -60,9 +69,7 @@ public class MailVerifyServices implements IMailServices {
             }
             template += line + "\n";
         }
-        if (username != null) {
-            template = template.replace("%%USERNAME%%", username);
-        }
+        template = template.replace("%%USERNAME%%", username);
         template = template.replace("%%TOKENVERIFY%%", tokenVerify);
         return template;
     }
@@ -89,5 +96,13 @@ public class MailVerifyServices implements IMailServices {
 
     public void setTokenVerify(String tokenVerify) {
         this.tokenVerify = tokenVerify;
+    }
+
+    public Timestamp getDateExpired() {
+        return dateExpired;
+    }
+
+    public void setDateExpired(Timestamp dateExpired) {
+        this.dateExpired = dateExpired;
     }
 }
