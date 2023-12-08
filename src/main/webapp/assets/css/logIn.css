@@ -151,13 +151,6 @@ article {
     display: block;
 }
 
-<<<<<<< HEAD
-=======
-.modal {
-    display: block;
-}
-
->>>>>>> 9e386f4701424b048e4133dcaecd04363caafa79
 .modal__notify {
     position: absolute;
     top: 50%;
@@ -179,8 +172,6 @@ article {
 .modal__close:hover {
     cursor: pointer;
     opacity: 0.7;
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
 
 .form__password-error {
@@ -211,8 +202,5 @@ article {
 .error__icon {
     margin-right: 5px;
     font-size: 10px;
-=======
->>>>>>> 9e386f4701424b048e4133dcaecd04363caafa79
-=======
->>>>>>> 9e386f4701424b048e4133dcaecd04363caafa79
+
 }
