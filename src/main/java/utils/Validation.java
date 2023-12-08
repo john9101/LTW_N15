@@ -1,13 +1,13 @@
 package utils;
 
-public class ValidationError {
+public class Validation {
     private String fieldUsername;
     private String fieldPassword;
     private String fieldConfirmPassword;
     private String fieldEmail;
     private Object objReturn;
 
-    public ValidationError() {
+    public Validation() {
     }
 
     public String getFieldUsername() {
