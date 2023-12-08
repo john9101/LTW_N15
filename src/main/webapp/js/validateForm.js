@@ -43,7 +43,6 @@ function Validation(formObj) {
             formElement.onsubmit = function (e) {
                 e.preventDefault()
             }
-
             rules.forEach(function (rule) {
                 handleValidate(rule);
             });
