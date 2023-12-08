@@ -27,7 +27,8 @@ public class TestDB {
         validatePassword.check();
         System.out.println(validatePassword.getErrorMap());
 //        System.out.println(AuthenticateServices.getINSTANCE().checkPasswordTemplate("asdasd"));
-    }
+
+            }
     public void checkUser(int id){
 
     }

@@ -145,6 +145,7 @@
             })
         ],
         submitSelector: "#form__submit",
+
     })
 </script>
 </body>

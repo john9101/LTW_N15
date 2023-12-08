@@ -40,15 +40,23 @@ function Validation(formObj) {
     }
     if (submitElement) {
         submitElement.onclick = function () {
+<<<<<<< HEAD
             formElement.onsubmit = function (e) {
                 e.preventDefault()
             }
+=======
+>>>>>>> 9e386f4701424b048e4133dcaecd04363caafa79
             rules.forEach(function (rule) {
                 handleValidate(rule);
             });
             //Chỉ được thực thi form ko có Error Message
             if (Object.keys(errorMessageObj).length == 0) {
+<<<<<<< HEAD
                 formElement.submit();
+=======
+                formObj.funcAfterSubmit();
+                return false;
+>>>>>>> 9e386f4701424b048e4133dcaecd04363caafa79
             }
         }
     }

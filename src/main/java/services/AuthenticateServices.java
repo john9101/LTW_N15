@@ -9,12 +9,14 @@ import utils.ValidatePassword;
 import utils.Validation;
 
 import javax.mail.MessagingException;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +43,7 @@ public class AuthenticateServices {
 //          Check pass empty
         if (password.isEmpty()) {
             validation.setFieldPassword("Mật khẩu không được để trống");
+
         }
 
 //        Check user in db
@@ -71,6 +74,7 @@ public class AuthenticateServices {
         String errorUsername = "Tên đăng nhập đã tồn tại";
         String errorPassword = "Mật khẩu có không thỏa điều kiện";
         String errorPasswordConfirm = "Mật khẩu nhập lại không hợp lệ";
+
         String emptyField = "Không được để trống trường này";
 
 //        checkEmpty
@@ -96,6 +100,7 @@ public class AuthenticateServices {
 //        Prevent check in db
         if (countError != 0) {
             return validation;
+
         }
 
 //        Check Username Exist
@@ -250,5 +255,4 @@ public class AuthenticateServices {
         Timestamp result = Timestamp.valueOf(newDateTime);
         return result;
     }
-
 }

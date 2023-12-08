@@ -147,6 +147,9 @@ article {
 .modal {
     display: block;
 }
+.modal {
+    display: block;
+}
 
 .modal__notify {
     position: absolute;
@@ -169,6 +172,7 @@ article {
 .modal__close:hover {
     cursor: pointer;
     opacity: 0.7;
+<<<<<<< HEAD
 }
 
 .form__password-error {
@@ -199,4 +203,6 @@ article {
 .error__icon {
     margin-right: 5px;
     font-size: 10px;
+=======
+>>>>>>> 9e386f4701424b048e4133dcaecd04363caafa79
 }

@@ -38,7 +38,6 @@
                     <input id="username" name="username" type="text" class="form__input">
                     <c:set value="${requestScope.usernameError}" var="usernameError"/>
                     <p class="form__error"><c:if test="${usernameError != null}">${usernameError}</c:if></p>
-
                 </div>
                 <div class="form__block">
                     <label for="password" class="form__label">Mật khẩu</label>

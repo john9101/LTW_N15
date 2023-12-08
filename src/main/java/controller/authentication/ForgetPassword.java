@@ -15,7 +15,6 @@ public class ForgetPassword extends HttpServlet {
     String sendMailSuccess = "Email đã được gửi đến hộp thư của bạn";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
     }
 
     @Override

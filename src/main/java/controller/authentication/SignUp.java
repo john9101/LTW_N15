@@ -4,11 +4,13 @@ import models.User;
 import services.AuthenticateServices;
 import utils.Validation;
 
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.Map;
+
 
 @WebServlet(name = "signUp", value = "/signUp")
 public class SignUp extends HttpServlet {
