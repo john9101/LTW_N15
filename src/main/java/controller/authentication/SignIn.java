@@ -1,7 +1,9 @@
-package controller;
+package controller.authentication;
 
 import models.User;
-import services.UserServices;
+import services.AuthenticateServices;
+import utils.Validation;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,22 +18,27 @@ import java.io.IOException;
 public class SignIn extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        User user = UserServices.getINSTANCE().checkSignIn(username, password);
-        String errorMessage = "Tài khoản hoặc mật khẩu sai, vui lòng nhập lại";
-        if (user == null) {
-            request.setAttribute("error", errorMessage);
-            request.getRequestDispatcher("signIn.jsp").forward(request, response);
-        } else {
+        String username = request.getParameter("username").trim();
+        String password = request.getParameter("password").trim();
+
+        Validation validation = AuthenticateServices.getINSTANCE().checkSignIn(username, password);
+
+        if (validation.getObjReturn() != null) {
+            User userAuth = (User) validation.getObjReturn();
             HttpSession session = request.getSession(true);
-            session.setAttribute("auth", user);
+            session.setAttribute("auth", userAuth);
             response.sendRedirect("index.jsp");
+        } else {
+            request.setAttribute("usernameError", validation.getFieldUsername());
+            request.setAttribute("passwordError", validation.getFieldPassword());
+            request.getRequestDispatcher("signIn.jsp").forward(request, response);
         }
     }
 }
+
+
+
