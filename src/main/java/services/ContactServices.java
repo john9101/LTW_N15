@@ -5,6 +5,7 @@ import dao.GeneralDao;
 import models.Contacts;
 
 import java.util.List;
+import java.util.Map;
 
 public class ContactServices {
 
@@ -27,7 +28,15 @@ public class ContactServices {
         return contactDao.getListUserContacts();
     }
 
-    public void addNewRecordUserContact(String fullName, String phone, String email, String subject, String message){
-        contactDao.addNewRecordUserContact(fullName, phone, email, subject, message);
+    public List<Map<String, Object>> getListContactSubjects(){
+        return contactDao.getListContactSubjects();
+    }
+
+    public int getIdContactSubjectByName(String subjectName){
+        return contactDao.getIdContactSubjectByName(subjectName);
+    }
+
+    public void addNewRecordUserContact(String fullName, String phone, String email, int subjectId, String message){
+        contactDao.addNewRecordUserContact(fullName, phone, email, subjectId, message);
     }
 }
