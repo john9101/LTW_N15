@@ -29,7 +29,9 @@ public class SignUp extends HttpServlet {
 
         Validation validation = AuthenticateServices.getINSTANCE().checkSignUp(username, email, password, confirmPassword);
         Map<String, String> mapErrorPassword = AuthenticateServices.getINSTANCE().checkPasswordTemplate(password);
-        if (validation.getObjReturn() != null && mapErrorPassword.isEmpty()) {
+        System.out.println("Obj return " + validation.getObjReturn());
+        System.out.println("errormap: " + mapErrorPassword);
+        if (validation.getObjReturn() != null && mapErrorPassword == null) {
             User newUser = (User) validation.getObjReturn();
             AuthenticateServices.getINSTANCE().createUser(newUser);
             request.setAttribute("sendMail", "Send Mail Success");
@@ -38,13 +40,14 @@ public class SignUp extends HttpServlet {
             request.setAttribute("emailError", validation.getFieldEmail());
             request.setAttribute("passwordError", validation.getFieldPassword());
             request.setAttribute("passwordConfirmError", validation.getFieldConfirmPassword());
-
+            if (mapErrorPassword != null) {
             request.setAttribute("charUpper", mapErrorPassword.get("char-upper"));
             request.setAttribute("charMinLength", mapErrorPassword.get("char-min-length"));
             request.setAttribute("charLower", mapErrorPassword.get("char-lower"));
             request.setAttribute("charNumber", mapErrorPassword.get("char-number"));
             request.setAttribute("charSpecial", mapErrorPassword.get("char-special"));
             request.setAttribute("noSpace", mapErrorPassword.get("no-space"));
+            }
         }
         request.getRequestDispatcher("signUp.jsp").forward(request, response);
     }

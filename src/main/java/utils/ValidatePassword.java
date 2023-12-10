@@ -18,7 +18,7 @@ public class ValidatePassword {
 
     public ValidatePassword(String password) {
         this.password = password;
-        errorMap = new HashMap<>();
+        this.errorMap = new HashMap<>();
     }
 
     public boolean check() {
