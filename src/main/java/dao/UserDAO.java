@@ -29,4 +29,5 @@ public interface UserDAO extends DAO<User> {
 
     @Override
     int delete(User o);
+
 }

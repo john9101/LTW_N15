@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +53,40 @@
                 </div>
             </div>
             <div class="row ">
-                <div class="product__list"></div>
+                <div class="product__list">
+                    <c:set var="list" value="${requestScope.list}"/>
+                    <c:forEach var="item" items="${list}">
+                        <div class="product__item">
+                            <img src="../assets/img/product_img/${item.nameImage}" class="product__img">
+                            <div class="product__info">
+                                <a class="product__name" target="_blank" href="/productDetail.jsp">${item.name}</a>
+                                <div class="product__review">
+                                    <div class="product__review-stars">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <a class="product__review-num" target="_blank"
+                                       href="../htmls/productDetail.jsp">${item.reviews} nhận xét</a>
+                                </div>
+                                <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
+                                                  var="originalPrice"/>
+                                <fmt:formatNumber value="${item.salePrice}" type="currency" currencyCode="VND"
+                                                  var="salePrice"/>
+                                <span class="product__price">
+                                    <strong class="product__price--sale">
+                                            ${salePrice}
+                                    </strong>
+                                    <strong class="product__price--original">
+                                            ${originalPrice}
+                                    </strong>
+                                </span>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
             <ul class="paging">
             </ul>
@@ -59,9 +94,9 @@
     </section>
 </main>
 <%@include file="footer.jsp" %>
-<script src="js/base.js"></script>
-<script src="js/data.js"></script>
-<script src="js/paging.js"></script>
-<script src="js/productBuying.js"></script>
+<%--<script src="js/base.js"></script>--%>
+<%--<script src="js/data.js"></script>--%>
+<%--<script src="js/paging.js"></script>--%>
+<%--<script src="js/productBuying.js"></script>--%>
 </body>
 </html>
