@@ -133,3 +133,18 @@
     padding: 0 10px;
     border-radius: 15px;
 }
+
+/*Admin add products*/
+.product__heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 34px;
+
+    border-bottom: 1px solid var(--blue-color-high);
+    background-color: var(--blue-color-medium);
+    padding: 20px 10px;
+}
+.product__form{
+    border: 1px solid #ccc;
+}
