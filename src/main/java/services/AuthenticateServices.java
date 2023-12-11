@@ -131,7 +131,7 @@ public class AuthenticateServices {
             validation.setFieldConfirmPassword(errorPasswordConfirm);
             countError++;
         }
-
+        System.out.println(countError);
         if (countError == 0) {
             User user = new User();
             user.setUsername(username);
@@ -153,14 +153,20 @@ public class AuthenticateServices {
     public void createUser(User user) {
 //        Create token
         String tokenVerify = Token.generateToken();
-        user.setTokenVerify(tokenVerify);
 
 //        Create Time Stamp
         Timestamp timestampExpiredToken = addTime(LocalDateTime.now(), MailProperties.getDurationTokenVerify());
-        user.setTokenVerifyTime(timestampExpiredToken);
 
+//        Check user exist in db: resend email verify for user
+        List<User> userList = userDAO.findUsername(user.getUsername());
+        if (!userList.isEmpty()) {
+            userDAO.updateTokenVerify(user.getId(), tokenVerify, timestampExpiredToken);
+        } else {
 //        Insert user to db
-        userDAO.insert(user);
+            user.setTokenVerify(tokenVerify);
+            user.setTokenVerifyTime(timestampExpiredToken);
+            userDAO.insert(user);
+        }
         try {
             IMailServices mailServices = new MailVerifyServices(user.getEmail(), user.getUsername(), tokenVerify, timestampExpiredToken);
             mailServices.send();
