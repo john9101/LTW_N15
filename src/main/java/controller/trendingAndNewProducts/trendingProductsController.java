@@ -25,6 +25,7 @@ public class trendingProductsController extends HttpServlet {
         } else {
             page = Integer.parseInt(xPage);
         }
+
         int start, end;
         start = (page - 1) * itemsPerPage;
         end = Math.min(page * itemsPerPage, size);

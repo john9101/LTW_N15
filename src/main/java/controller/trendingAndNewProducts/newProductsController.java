@@ -30,7 +30,6 @@ public class newProductsController extends HttpServlet {
             }
         }
 
-        System.out.println(page);
         int start, end;
         start = (page - 1) * itemsPerPage;
         end = Math.min(page * itemsPerPage, size);
