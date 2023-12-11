@@ -24,10 +24,10 @@ public class HomeDao {
         return GeneralDao.executeQueryWithJoinTables(sql.toString(), 10);
     }
 
-    public List<Map<String, Object>> getListNewProducts(boolean isSeeMore) {
+    public static List<Map<String, Object>> getListNewProducts(boolean isSeeMore) {
         StringBuilder sql = new StringBuilder("SELECT products.name, products.originalPrice, products.salePrice, images.nameImage FROM products");
         sql.append(" INNER JOIN images ON products.id = images.productId");
-        sql.append(" WHERE products.visibility = 1 AND products.createAt >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)");
+        sql.append(" WHERE products.visibility = 1 AND products.createAt >= DATE_SUB('2023-12-01', INTERVAL 1 MONTH)");
         if (!isSeeMore) {
             sql.append(" LIMIT 6");
         }
