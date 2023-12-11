@@ -1,5 +1,5 @@
 # ckfinder.yml
-enabled: true
+
 licenseName: ''
 licenseKey: ''
 roleSessionAttribute: 'CKFinder_UserRole'
@@ -11,8 +11,8 @@ csrfProtection: true
 backends:
   - name: 'default'
     adapter: 'local'
-    baseUrl: 'http://localhost:8080/files'
-    root: '{user.dir}/files'
+    baseUrl: 'http://localhost/userfiles'
+    root: '/path/to/userfiles'
     disallowUnsafeCharacters: true
     forceAscii: false
     hideFolders: ['.*', 'CVS', '__thumbs']
@@ -22,12 +22,12 @@ backends:
     useProxyCommand: false
 
 resourceTypes:
-#  - name: 'Files'
-#    backend: 'default'
-#    directory: '/files'
-#    allowedExtensions: 7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip
-#    deniedExtensions: ~
-#    maxSize: 0
+  - name: 'Files'
+    backend: 'default'
+    directory: '/files'
+    allowedExtensions: 7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip
+    deniedExtensions: ~
+    maxSize: 0
   - name: 'Images'
     backend: 'default'
     directory: '/images'

@@ -32,7 +32,7 @@
         <div class="container-xl">
             <ul class="navbar__list">
                 <li
-                        class="navbar__item"><a href="./adminAddProduct.jsp"
+                        class="navbar__item"><a href="./adminProducts.html"
                                                 class="navbar__link button button button--hover navbar__link--clicked">Sản
                                                                                                                        phẩm</a>
                 </li>
@@ -379,7 +379,7 @@
 </div>
 <script src="js/data.js"></script>
 <script src="js/paging.js"></script>
-<%--<script src="js/admin/adminProducts.js"></script>--%>
+<script src="js/admin/adminProducts.js"></script>
 
 </body>
 </html>
