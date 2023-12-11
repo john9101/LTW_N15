@@ -1,6 +1,8 @@
+
+import dao.CategoryDAO;
+import dao.CategoryDAOImplement;
 import dao.ImageDAO;
-import dao.UserDAO;
-import dao.UserDAOImplement;
+import dao.ImageDAOImplement;
 import models.ProductCart;
 import models.User;
 import services.AuthenticateServices;
@@ -29,7 +31,8 @@ public class TestDB {
 ////            System.out.println( userDAO.updatePasswordEncoding(item.getId(), passEncoding));
 //        }
 //        System.out.println(  userDAO.updateTokenVerify(23, null));
-        images();
+//        images();
+        category();
     }
 
     public static void checkUser(int id) {
@@ -37,12 +40,13 @@ public class TestDB {
     }
 
     public static void images() {
-        ImageDAO imageDAO = new ImageDAO();
+        ImageDAO imageDAO = new ImageDAOImplement();
         System.out.println(imageDAO.getThumbnail(10));
         List<ProductCart> productCartServices = ProductCartServices.getINSTANCE().getAllProductCart();
         productCartServices.stream().forEach(System.out::println);
     }
-    public void method2(){
-
+    public static void category(){
+        CategoryDAO categoryDAO = new CategoryDAOImplement();
+        System.out.println(categoryDAO.getAllCategory());
     }
 }

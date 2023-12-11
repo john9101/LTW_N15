@@ -1,6 +1,7 @@
 package services;
 
 import dao.*;
+import models.Category;
 import models.Image;
 import models.ProductCart;
 import models.Review;
@@ -34,7 +35,7 @@ public class ProductCartServices {
     public List<ProductCart> getAllProductCart() {
         ProductCartDAO productCartDAO = new ProductCartDAOImplement();
         List<ProductCart> productCartList = productCartDAO.getCartAllProduct();
-        ImageDAO imageDAO = new ImageDAO();
+        ImageDAO imageDAO = new ImageDAOImplement();
         for (ProductCart productCart : productCartList) {
 //           Get thumbnail
             int productId = productCart.getId();
@@ -45,5 +46,11 @@ public class ProductCartServices {
             productCart.setStar(star);
         }
         return productCartList;
+    }
+
+    public List<Category> getAllCategory() {
+        CategoryDAO categoryDAO = new CategoryDAOImplement();
+        List<Category> listCategories = categoryDAO.getAllCategory();
+        return listCategories;
     }
 }

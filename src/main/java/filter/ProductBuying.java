@@ -1,5 +1,6 @@
 package filter;
 
+import models.Category;
 import models.ProductCart;
 import services.ProductCartServices;
 
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebFilter("/productBuying.jsp")
-public class ShowProductCarts implements Filter {
+public class ProductBuying implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
 
@@ -19,7 +20,9 @@ public class ShowProductCarts implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         List<ProductCart> productCartList = ProductCartServices.getINSTANCE().getAllProductCart();
-        request.setAttribute("list", productCartList);
+        request.setAttribute("productCartList", productCartList);
+        List<Category> categoryList = ProductCartServices.getINSTANCE().getAllCategory();
+        request.setAttribute("categoryList", categoryList);
         chain.doFilter(request, response);
     }
 }

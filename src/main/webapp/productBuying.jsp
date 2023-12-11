@@ -33,11 +33,9 @@
                 <div class="col-3">
                     <aside class="categories">
                         <ul id="category-list" class="category__list">
-                            <!--                            <li class="category__item">Ao khoac</li>-->
-                            <!--                            <li class="category__item">Quan kaki</li>-->
-                            <!--                            <li class="category__item">Ao so mi</li>-->
-                            <!--                            <li class="category__item">Ao tay ngan</li>-->
-                            <!--                            <li class="category__item">AO tay dai</li>-->
+                            <c:forEach var="item" items="${requestScope.categoryList}">
+                                <li class="category__item">${item.nameType}</li>
+                            </c:forEach>
                         </ul>
                     </aside>
                 </div>
@@ -54,22 +52,26 @@
             </div>
             <div class="row ">
                 <div class="product__list">
-                    <c:set var="list" value="${requestScope.list}"/>
+                    <c:set var="list" value="${requestScope.productCartList}"/>
                     <c:forEach var="item" items="${list}">
                         <div class="product__item">
-                            <img src="../assets/img/product_img/${item.nameImage}" class="product__img">
+                            <c:url var="linkProductDetail" value="/showProductDetail">
+                                <c:param name="id" value="${item.id}"/>
+                            </c:url>
+                            <img src="assets/img/product_img/${item.nameImage}" class="product__img">
                             <div class="product__info">
-                                <a class="product__name" target="_blank" href="/productDetail.jsp">${item.name}</a>
+                                <a class="product__name" target="_blank" href="${linkProductDetail}">${item.name}</a>
                                 <div class="product__review">
                                     <div class="product__review-stars">
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
-                                        <i class="fa-solid fa-star"></i>
+                                        <c:forEach var="starA" begin="1" step="1" end="${item.star}">
+                                            <i class="fa-solid fa-star"></i>
+                                        </c:forEach>
+                                        <c:forEach var="starB" begin="1" step="1" end="${5 - item.star}">
+                                            <i class="fa-regular fa-star"></i>
+                                        </c:forEach>
                                     </div>
                                     <a class="product__review-num" target="_blank"
-                                       href="../htmls/productDetail.jsp">${item.reviews} nhận xét</a>
+                                       href="${linkProductDetail}">${item.reviews} nhận xét</a>
                                 </div>
                                 <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
                                                   var="originalPrice"/>
