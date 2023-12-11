@@ -43,7 +43,8 @@
                     <%= request.getAttribute("successNotification") != null ? request.getAttribute("successNotification") : "" %>
                     <% request.removeAttribute("successNotification"); %>
                     <form method="post" action="Contact" id="contact__form">
-                        <%  String fullNameError = (String) request.getAttribute("fullNameError");
+                        <%
+                            String fullNameError = (String) request.getAttribute("fullNameError");
                             String phoneError = (String) request.getAttribute("phoneError");
                             String emailError = (String) request.getAttribute("emailError");
                         %>
@@ -73,11 +74,6 @@
                                     class="subject__in fo fa-solid fa-circle-info"></i></label>
                             <select class="select__box" name="subject" id="subject" >
                                 <option value="none" selected disabled hidden class="option">Chọn chủ đề</option>
-                                <%
-                                    request.setCharacterEncoding("UTF-8");
-                                    List<Map<String, Object>> listContactSubjects = ContactServices.getINSTANCE().getListContactSubjects();
-                                    request.setAttribute("list_contact_subjects", listContactSubjects);
-                                %>
 
                                 <c:forEach items="${list_contact_subjects}" var="subjectOption">
                                 <option value="${subjectOption["subjectname"]}" <c:if test="${subjectOption['subjectname'] eq requestScope.subject}"> selected </c:if> class="option">${subjectOption["subjectname"]}</option>

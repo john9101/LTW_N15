@@ -124,6 +124,7 @@ const contactFormElement = document.forms["contact__form"];
 let fullNameFieldElement = contactFormElement["fullName"];
 let phoneFieldElement = contactFormElement["phone"];
 let emailFieldElement = contactFormElement["email"];
+let submitElement = contactFormElement.querySelector(".form__submit");
 function handleValidationContactForm(){
 
     contactFormElement.addEventListener("submit", function (event) {
@@ -135,7 +136,7 @@ function handleValidationContactForm(){
 handleValidationContactForm();
 
 function validateInputField(fieldElement){
-    if (fieldElement.value !== '') {
+    if (fieldElement.value.trim() !== '') {
         fieldElement.parentElement.querySelector(".error-notice").style.display = "none";
         fieldElement.parentElement.querySelector(".error-notice").textContent = "";
     }

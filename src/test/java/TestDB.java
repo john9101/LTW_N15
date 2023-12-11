@@ -2,6 +2,7 @@ import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
 import services.AuthenticateServices;
+import utils.Encoding;
 
 public class TestDB {
     public static void main(String[] args) {
@@ -24,6 +25,7 @@ public class TestDB {
 ////            System.out.println( userDAO.updatePasswordEncoding(item.getId(), passEncoding));
 //        }
 //        System.out.println(  userDAO.updateTokenVerify(23, null));
+        System.out.println(Encoding.getINSTANCE().toSHA1("Dong@9810"));
     }
     public void checkUser(int id){
 

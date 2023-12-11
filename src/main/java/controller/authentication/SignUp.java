@@ -29,7 +29,7 @@ public class SignUp extends HttpServlet {
 
         Validation validation = AuthenticateServices.getINSTANCE().checkSignUp(username, email, password, confirmPassword);
         Map<String, String> mapErrorPassword = AuthenticateServices.getINSTANCE().checkPasswordTemplate(password);
-        if (validation.getObjReturn() != null && mapErrorPassword.isEmpty()) {
+        if (validation.getObjReturn() != null && mapErrorPassword == null) {
             User newUser = (User) validation.getObjReturn();
             AuthenticateServices.getINSTANCE().createUser(newUser);
             request.setAttribute("sendMail", "Send Mail Success");

@@ -20,7 +20,7 @@ public class ContactDao {
         return (int) GeneralDao.executeQueryWithJoinTables("SELECT id FROM contact_subjects WHERE subjectName = ?", subjectName).get(0).get("id");
     }
 
-    public void addNewRecordUserContact(String fullName, String phone, String email, int subjectId, String message){
-        GeneralDao.executeAllTypeUpdate("INSERT INTO contact(fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?)", fullName, phone, email, subjectId, message);
+    public void addNewRecordUserContact(int userId, String fullName, String phone, String email, int subjectId, String message){
+        GeneralDao.executeAllTypeUpdate("INSERT INTO contact(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subjectId, message);
     }
 }

@@ -101,12 +101,12 @@
     <div class="popular__section container-xl">
         <div class="popular__title">
             <h2 class="section__title">Sản phẩm thịnh hành</h2>
-            <a class="see__more">Xem thêm</a>
+            <a class="see__more" href="trendingProducts">Xem thêm</a>
         </div>
         <div class="product__wrapper">
             <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
             <div class="product__items">
-                <c:forEach items="${list_trending_products}" var="trendProduct">
+                <c:forEach items="${requestScope.list_trending_products}" var="trendProduct">
                     <div class="product__item">
                         <div class="product__content">
                             <img src="./assets/img/product_img/${trendProduct['nameimage']}">
@@ -139,12 +139,12 @@
     <div class="new__section container-xl">
         <div class="new__title">
             <h2 class="section__title">Sản phẩm mới</h2>
-            <a class="see__more">Xem thêm</a>
+            <a class="see__more" href="newProducts">Xem thêm</a>
         </div>
         <div class="product__wrapper">
             <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
             <div class="product__items">
-                <c:forEach items="${list_new_products}" var="newProduct">
+                <c:forEach items="${requestScope.list_new_products}" var="newProduct">
                     <div class="product__item">
                         <div class="product__content">
                             <img src="./assets/img/product_img/${newProduct['nameimage']}">

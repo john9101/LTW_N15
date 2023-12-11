@@ -1,5 +1,6 @@
 package controller;
 
+import models.User;
 import services.ContactServices;
 
 import javax.servlet.*;
@@ -48,7 +49,14 @@ public class ContactController extends HttpServlet implements Serializable {
 
         if(validationFullName && validationPhone && validationEmail){
             int subjectId = ContactServices.getINSTANCE().getIdContactSubjectByName(subject);
-            ContactServices.getINSTANCE().addNewRecordUserContact(fullName, phone, email, subjectId, message);
+            User userAuth = (User) request.getSession(true).getAttribute("auth");
+            int userAuthId;
+            if(userAuth != null){
+                userAuthId = userAuth.getId();
+            }else{
+                userAuthId = 0;
+            }
+            ContactServices.getINSTANCE().addNewRecordUserContact(userAuthId, fullName, phone, email, subjectId, message);
             String successNotification = successNotificationHTML("Bạn đã gửi liên hệ thành công");
             request.removeAttribute("fullName");
             request.removeAttribute("phone");

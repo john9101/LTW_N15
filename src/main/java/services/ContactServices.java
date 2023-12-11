@@ -36,7 +36,7 @@ public class ContactServices {
         return contactDao.getIdContactSubjectByName(subjectName);
     }
 
-    public void addNewRecordUserContact(String fullName, String phone, String email, int subjectId, String message){
-        contactDao.addNewRecordUserContact(fullName, phone, email, subjectId, message);
+    public void addNewRecordUserContact(int userId, String fullName, String phone, String email, int subjectId, String message){
+        contactDao.addNewRecordUserContact(userId, fullName, phone, email, subjectId, message);
     }
 }
