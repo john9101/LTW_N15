@@ -83,22 +83,59 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
-        <!-- pom.xml -->
+        <!--CKFinder start -->
         <dependency>
-            <groupId>com.cksource</groupId>
-            <artifactId>ckfinder3</artifactId>
-            <version>4.0.0</version>
+            <groupId>com.ckeditor</groupId>
+            <artifactId>ckeditor-java-core</artifactId>
+            <version>3.5.3</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>com.finder</groupId>
+            <artifactId>fileeditor</artifactId>
+            <version>2.6.2.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/CKFinderPlugin-FileEditor-2.6.2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.finder</groupId>
+            <artifactId>imgresize</artifactId>
+            <version>2.6.2.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/CKFinderPlugin-ImageResize-2.6.2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.finder</groupId>
+            <artifactId>watermark</artifactId>
+            <version>2.6.2.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/CKFinderPlugin-Watermark-2.6.2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.finder</groupId>
+            <artifactId>ckfinder</artifactId>
+            <version>2.6.2.1</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/CKFinder-2.6.2.1.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/thumbnailator-0.4.8.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <!--CKFinder end -->
     </dependencies>
-    <repositories>
-        <repository>
-            <id>cksource-mvn-repo</id>
-            <name>CKSource Maven Repository</name>
-            <url>https://maven.cksource.com/</url>
-        </repository>
-    </repositories>
     <build>
         <finalName>LTW_project_servlet</finalName>
     </build>

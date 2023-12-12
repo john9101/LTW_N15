@@ -13,20 +13,25 @@
     <error-code>404</error-code>
     <location>/error404.jsp</location>
   </error-page>
-  <!-- web.xml -->
   <servlet>
-    <servlet-name>CKFinder</servlet-name>
-    <servlet-class>com.cksource.ckfinder.servlet.CKFinderServlet</servlet-class>
-    <multipart-config>
-      <location>/tmp</location>
-      <max-file-size>5242880</max-file-size><!--5MB-->
-      <max-request-size>20971520</max-request-size><!--20MB-->
-      <file-size-threshold>0</file-size-threshold>
-    </multipart-config>
+    <servlet-name>ConnectorServlet</servlet-name>
+    <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
+    <init-param>
+      <description> Path to configuration file can be relative path inside application, absolute path on local file system or UNC path. </description>
+      <param-name>XMLConfig</param-name>
+      <param-value>/WEB-INF/config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
   </servlet>
-
   <servlet-mapping>
-    <servlet-name>CKFinder</servlet-name>
-    <url-pattern>/ckfinder/*</url-pattern>
+    <servlet-name>ConnectorServlet</servlet-name>
+    <url-pattern>/ckfinder/core/connector/java/connector.java </url-pattern>
   </servlet-mapping>
+  <session-config>
+    <session-timeout>10</session-timeout>
+  </session-config>
 </web-app>

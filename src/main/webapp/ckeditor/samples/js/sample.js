@@ -30,7 +30,8 @@ var initSample = ( function() {
 
 		// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
 		if ( wysiwygareaAvailable ) {
-			CKEDITOR.replace( 'editor' );
+			var eidtor = CKEDITOR.replace( 'editor' );
+			CKFinder.setupCKEditor(eidtor);
 		} else {
 			editorElement.setAttribute( 'contenteditable', 'true' );
 			CKEDITOR.inline( 'editor' );

@@ -1,9 +1,7 @@
 //setup ckfinder
 var editor = CKEDITOR.replace('ck-editor');
-// CKFinder.setupCKEditor(editor);
-CKFinder.popup({
-    height: 600
-});
+CKFinder.setupCKEditor(editor, 'ckfinder/');
+
 
 function addSize() {
     const addSizeBtn = document.querySelector(".form__add-size");

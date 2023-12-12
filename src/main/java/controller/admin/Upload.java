@@ -25,6 +25,7 @@ public class Upload extends HttpServlet {
         ServletContext servletContext = getServletContext();
         File root = new File(servletContext.getRealPath("/") + "data/");
         if (!root.exists()) root.mkdirs();
+//        Move
         for (Part part : request.getParts()) {
             part.write(root.getAbsolutePath() + "/" + fileName);
         }

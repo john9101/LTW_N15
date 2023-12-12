@@ -15,8 +15,7 @@
     <!--CK Editor-->
     <script src="ckeditor/ckeditor.js"></script>
     <!--Ck Finder-->
-    <script src="${pageContext.request.contextPath}/ckfinder/ckfinder.js"></script>
-    <%--<script src="ckfinder/ckfinder.js"></script>--%>
+    <script src="ckfinder/ckfinder.js"></script>
     <!--
     Favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
@@ -127,6 +126,7 @@
             <div class="col-12">
                 <div id="ck-finder"></div>
             </div>
+            <div id="ckfinder-widget"></div>
         </div>
     </form>
 </div>
