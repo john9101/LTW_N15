@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -25,14 +26,14 @@ public class HomeFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        List<Map<String, Object>> listTrendingProducts = HomeServices.getINSTANCE().getListTrendingProducts(false);
-        List<Map<String, Object>> listNewProducts = HomeServices.getINSTANCE().getListNewProducts(false);
-        List<Sliders> listSlideShow = HomeServices.getINSTANCE().getListSlideShow();
+        List<Map<String, Object>> listAllTrendingProducts = HomeServices.getINSTANCE().getListTrendingProducts(true);
+        HttpSession session = request.getSession(true);
+        session.setAttribute("listAllTrendingProducts", listAllTrendingProducts);
 
-        request.setAttribute("list_slide_show", listSlideShow);
-        request.setAttribute("list_trending_products", listTrendingProducts);
-        request.setAttribute("list_new_products", listNewProducts);
-
+        String url = request.getServletPath();
+        if(url.contains("index.jsp") && !url.contains("error404.jsp")){
+            response.sendRedirect("Home");
+        }
         filterChain.doFilter(request, response);
     }
 
