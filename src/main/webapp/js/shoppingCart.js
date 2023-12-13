@@ -71,14 +71,9 @@ let cartItemsRequired = [
     }
 ];
 
-<<<<<<< HEAD:js/shoppingCart.js
-const cartContainerElement = document.querySelector(".cart__container");
-function renderCartItem() {
-    // cartItemsRequired = getCartItemsLastArray();
-=======
 const emptyShoppingCartHLML =  `<div class="cart__container--empty">
                                             <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
-                                            <a href="../htmls/productBuying.jsp"><button>Tiếp tục mua sắm</button></a>
+                                            <a href="../htmls/productBuying.html"><button>Tiếp tục mua sắm</button></a>
                                             <img src="../assets/img/continueShopping.svg">
                                        </div>`;
 
@@ -90,37 +85,64 @@ function renderCartItem() {
     if(localStorage.getItem("resetShoppingCart")){
         cartItemsRequired = [];
     }
->>>>>>> 99753fb483b60bc8464a3494b0313ef5e49cc25c:src/main/webapp/js/shoppingCart.js
     const cartItemsElement = document.querySelector(".cart__items");
     if(cartItemsRequired.length === 0){
         cartContainerElement.innerHTML = emptyShoppingCartHLML;
     }else{
         const shoppingCart = cartItemsRequired.map((cartItem, index) => {
-            return `<div class="cart__item"">
-                        <div class="cart__detail--info grid__cart--template">
-                            <div class="product__item">
-                                <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->
-                                    <img src='${cartItem.productItem.image}'>
-                                </a>
-                                <div class="order__product--info">
-                                    <a href="#" class="product__name">${cartItem.productItem.name}</a> <!-- Back-to-detail_product-page-->
-                                    <p class="order__color">Màu sắc: ${cartItem.productItem.color}</p>
-                                    <ul class="order__size--specification">
-                                        Kích thước:
-                                    </ul>
-                                </div>
-                            </div>
-                            <span class="unit__price">${formatCurrency(cartItem.unitPrice)}</span>
-                            <form class="quality__swapper">
-                                <button class="minus__quality change__quality" data-index="${index}"><i class="fa-solid fa-minus"></i></button>
-                                <input type="number" name="quality__required" class="quality__required" min="1" value="${cartItem.quality}">
-                                <button class="plus__quality change__quality" data-index="${index}"><i class="fa-solid fa-plus"></i></button>
-                                <span class="quality__status"></span>
-                            </form>
-                            <span class="subtotal__item">${formatCurrency(cartItem.unitPrice * cartItem.quality)}</span>
-                            <span class="remove__action"><i class="fa-solid fa-trash-can"></i></span>
-                        </div>
-                    </div>`
+            // return `<div class="cart__item"">
+            //             <div class="cart__detail--info grid__cart--template">
+            //                 <div class="product__item">
+            //                     <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->
+            //                         <img src='${cartItem.productItem.image}'>
+            //                     </a>
+            //                     <div class="order__product--info">
+            //                         <a href="#" class="product__name">${cartItem.productItem.name}</a> <!-- Back-to-detail_product-page-->
+            //                         <p class="order__color">Màu sắc: ${cartItem.productItem.color}</p>
+            //                         <ul class="order__size--specification">
+            //                             Kích thước:
+            //                         </ul>
+            //                     </div>
+            //                 </div>
+            //                 <span class="unit__price">${formatCurrency(cartItem.unitPrice)}</span>
+            //                 <form class="quality__swapper">
+            //                     <button class="minus__quality change__quality" data-index="${index}"><i class="fa-solid fa-minus"></i></button>
+            //                     <input type="number" name="quality__required" class="quality__required" min="1" value="${cartItem.quality}">
+            //                     <button class="plus__quality change__quality" data-index="${index}"><i class="fa-solid fa-plus"></i></button>
+            //                     <span class="quality__status"></span>
+            //                 </form>
+            //                 <span class="subtotal__item">${formatCurrency(cartItem.unitPrice * cartItem.quality)}</span>
+            //                 <span class="remove__action"><i class="fa-solid fa-trash-can"></i></span>
+            //             </div>
+            //         </div>`
+
+            return `<tr class="cart__item">
+                                <td class="product__item">
+                                    <div class="product__content">
+                                        <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->
+                                            <img src='${cartItem.productItem.image}'>
+                                        </a>
+                                        <div class="order__product--info">
+                                            <a href="#" class="product__name">${cartItem.productItem.name}</a> <!-- Back-to-detail_product-page-->
+                                            <p class="order__color">Màu sắc: ${cartItem.productItem.color}</p>
+                                            <ul class="order__size--specification">
+                                                Kích thước:
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="unit__price">${formatCurrency(cartItem.unitPrice)}</td>
+                                <td>
+                                    <form class="quality__swapper">
+                                        <button class="minus__quality change__quality" data-index="${index}"><i class="fa-solid fa-minus"></i></button>
+                                        <input type="number" name="quality__required" class="quality__required" min="1" value="${cartItem.quality}">
+                                        <button class="plus__quality change__quality" data-index="${index}"><i class="fa-solid fa-plus"></i></button>
+                                        <span class="quality__status"></span>
+                                    </form>
+                                </td>
+                                <td class="subtotal__item">${formatCurrency(cartItem.unitPrice * cartItem.quality)}</td>
+                                <td class="remove__action"><i class="fa-solid fa-trash-can"></i></td>
+                            </tr>`
         });
         const cartItemsHTML = shoppingCart.join('');
         cartItemsElement.innerHTML = cartItemsHTML;
@@ -143,34 +165,6 @@ renderCartItem();
 function formatCurrency(amount) {
     return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
 }
-<<<<<<< HEAD:js/shoppingCart.js
-
-function getAmountPrice(amountCurrency) {
-    return parseFloat(amountCurrency.replaceAll('₫', '').replaceAll('.', ''));
-}
-
-const emptyShoppingCartHLML =  `<div class="cart__container--empty">
-                                            <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
-                                            <button>Tiếp tục mua sắm</button>
-                                            <img src="../assets/img/continueShopping.svg">
-                                       </div>`;
-
-function updateProvisionalItemNo(cartItemsRequired) {
-    const provisionalPriceText = document.querySelector('.price__text:first-child');
-    provisionalPriceText.textContent = `Tạm tính (${cartItemsRequired.length} mẫu đồ)`;
-    if(cartItemsRequired.length === 0){
-        cartContainerElement.innerHTML = emptyShoppingCartHLML;
-    }
-}
-updateProvisionalItemNo(cartItemsRequired);
-
-
-function saveCartToLocalStorage(cartItemsRequired) {
-    localStorage.setItem('cartItemsRequired', JSON.stringify(cartItemsRequired));
-}
-saveCartToLocalStorage(cartItemsRequired);
-=======
->>>>>>> 99753fb483b60bc8464a3494b0313ef5e49cc25c:src/main/webapp/js/shoppingCart.js
 
 function getAmountPrice(amountCurrency) {
     return parseFloat(amountCurrency.replaceAll('₫', '').replaceAll('.', ''));
@@ -178,7 +172,7 @@ function getAmountPrice(amountCurrency) {
 
 function updateProvisionalItemNo(cartItemsRequired) {
     const provisionalPriceText = document.querySelector('.price__text:first-child');
-    provisionalPriceText.textContent = `Tạm tính (${cartItemsRequired.length} sản phẩm)`;
+    provisionalPriceText.textContent = `Tạm tính (${cartItemsRequired.length} sp)`;
     if(cartItemsRequired.length === 0){
         cartContainerElement.innerHTML = emptyShoppingCartHLML;
     }
@@ -209,6 +203,10 @@ function handleEventShoppingCart() {
     let subtotalItemElements = document.querySelectorAll(".subtotal__item");
     const removeButtonElements = document.querySelectorAll('.remove__action');
     const continueCheckoutButton = document.querySelector("#continue--checkout")
+    const promotionSidebar = document.querySelector(".promotion__sidebar")
+    const promotionDisplayAll = document.querySelector(".promotion__all span:last-child");
+    const iconBackShoppingCart = document.querySelector(".promotion__header i");
+    const buttonBackShoppingCart = document.querySelector(".promotion__footer button")
 
     function updateSubtotal(index, indexTarget, subtotalItemElements) {
         const quantity = qualityRequiredElements[indexTarget].value;
@@ -353,12 +351,53 @@ function handleEventShoppingCart() {
 
         })
     });
-<<<<<<< HEAD:js/shoppingCart.js
-=======
 
     // continueCheckoutButton.addEventListener("click",()=>{
-    //     window.location.href = "../htmls/checkout.jsp"
+    //     window.location.href = "../htmls/checkout.html"
     // })
->>>>>>> 99753fb483b60bc8464a3494b0313ef5e49cc25c:src/main/webapp/js/shoppingCart.js
+
+    promotionDisplayAll.addEventListener("click", ()=>{
+        promotionSidebar.classList.add("visible")
+    })
+
+    iconBackShoppingCart.addEventListener("click",()=>{
+        promotionSidebar.classList.remove("visible")
+    })
+
+    buttonBackShoppingCart.addEventListener("click",()=>{
+        promotionSidebar.classList.remove("visible")
+    })
+
+    function handleCopyDiscountCode(){
+        const copyButtonElements = document.querySelectorAll(".button__copy");
+
+        copyButtonElements.forEach(copyButtonElement =>{
+            let originalContent = copyButtonElement.innerHTML;
+            copyButtonElement.addEventListener('click', ()=>{
+                copyButtonElement.innerHTML = `Đã sao chép <i class="fa-solid fa-copy"></i>`;
+                setTimeout(() => {
+                    copyButtonElement.innerHTML = originalContent;
+                }, 1000);
+
+                const codeToCopy = copyButtonElement.getAttribute('data-code');
+                copyToClipboard(codeToCopy)
+                    .then(() => {
+                        console.log(codeToCopy);
+                    })
+                    .catch(error =>{
+                        console.error("Không thể sao chép: ", error);
+                    });
+            })
+        })
+    }
+    handleCopyDiscountCode();
 }
 handleEventShoppingCart();
+
+async function copyToClipboard(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+    } catch (error) {
+        throw new Error("Không thể sao chép vào clipboard: ", error);
+    }
+}
