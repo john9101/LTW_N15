@@ -1,5 +1,6 @@
 package controller.trendingAndNewProducts;
 
+import models.Products;
 import services.HomeServices;
 
 import javax.servlet.*;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class trendingProductsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Map<String, Object>> listAllTrendingProducts = HomeServices.getINSTANCE().getListTrendingProducts(true);
+        List<Products> listAllTrendingProducts = HomeServices.getINSTANCE().getListTrendProducts(true);
         int page, itemsPerPage = 8;
         int size = listAllTrendingProducts.size();
         int totalPage = (size % itemsPerPage == 0 ? (size / itemsPerPage) : ((size / itemsPerPage)) + 1);
@@ -29,7 +30,7 @@ public class trendingProductsController extends HttpServlet {
         int start, end;
         start = (page - 1) * itemsPerPage;
         end = Math.min(page * itemsPerPage, size);
-        List<Map<String, Object>> listProductsPerPage = getListProductsPerPage(listAllTrendingProducts, start, end);
+        List<Products> listProductsPerPage = getListProductsPerPage(listAllTrendingProducts, start, end);
 
         request.setAttribute("page", page);
         request.setAttribute("totalPage", totalPage);
@@ -44,8 +45,8 @@ public class trendingProductsController extends HttpServlet {
 
     }
 
-    public List<Map<String, Object>> getListProductsPerPage(List<Map<String, Object>> listProducts, int start, int end) {
-        List<Map<String, Object>> listProductsPerPage = new ArrayList<>();
+    public List<Products> getListProductsPerPage(List<Products> listProducts, int start, int end) {
+        List<Products> listProductsPerPage = new ArrayList<>();
         for (int i = start; i < end; i++) {
             listProductsPerPage.add(listProducts.get(i));
         }

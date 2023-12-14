@@ -1,5 +1,6 @@
 package filter;
 
+import models.Products;
 import models.Sliders;
 import services.HomeServices;
 
@@ -26,7 +27,7 @@ public class HomeFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        List<Map<String, Object>> listAllTrendingProducts = HomeServices.getINSTANCE().getListTrendingProducts(true);
+        List<Products> listAllTrendingProducts = HomeServices.getINSTANCE().getListTrendProducts(true);
         HttpSession session = request.getSession(true);
         session.setAttribute("listAllTrendingProducts", listAllTrendingProducts);
 
