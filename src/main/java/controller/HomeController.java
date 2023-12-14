@@ -1,5 +1,7 @@
 package controller;
 
+import models.Images;
+import models.Products;
 import models.Sliders;
 import services.HomeServices;
 
@@ -14,12 +16,17 @@ import java.util.Map;
 public class HomeController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        List<Map<String, Object>> list6TrendingProducts = HomeServices.getINSTANCE().getListTrendingProducts(false);
-        List<Map<String, Object>> list6NewProducts = HomeServices.getINSTANCE().getListNewProducts(false);
+//        List<Map<String, Object>> list6TrendingProducts = HomeServices.getINSTANCE().getListTrendingProducts(false);
+//        List<Map<String, Object>> list6NewProducts = HomeServices.getINSTANCE().getListNewProducts(false);
         List<Sliders> listSlideShow = HomeServices.getINSTANCE().getListSlideShow();
+        List<Products> list6NewProducts = HomeServices.getINSTANCE().getListNewProducts(false);
+        List<Products> list6TrendProducts = HomeServices.getINSTANCE().getListTrendProducts(false);
 
         request.setAttribute("listSlideShow", listSlideShow);
-        request.setAttribute("list6TrendingProducts", list6TrendingProducts);
+//        request.setAttribute("list6TrendingProducts", list6TrendingProducts);
+//        request.setAttribute("list6NewProducts", list6NewProducts);
+
+        request.setAttribute("list6TrendingProducts", list6TrendProducts);
         request.setAttribute("list6NewProducts", list6NewProducts);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
@@ -27,11 +34,11 @@ public class HomeController extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request,response);
+        processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request,response);
+        processRequest(request, response);
     }
 }

@@ -1,6 +1,7 @@
 package services;
 
 import dao.HomeDao;
+import models.Images;
 import models.Products;
 import models.Sliders;
 
@@ -21,15 +22,27 @@ public class HomeServices {
         return INSTANCE;
     }
 
-    public List<Map<String, Object>> getListTrendingProducts(boolean isSeeMore){
-        return homeDao.getListTrendingProducts(isSeeMore);
-    }
+//    public List<Map<String, Object>> getListTrendingProducts(boolean isSeeMore){
+//        return homeDao.getListTrendingProducts(isSeeMore);
+//    }
 
-    public List<Map<String, Object>> getListNewProducts(boolean isSeeMore){
+//    public List<Map<String, Object>> getListNewProducts(boolean isSeeMore){
+//        return homeDao.getListNewProducts(isSeeMore);
+//    }
+
+    public List<Products> getListNewProducts(boolean isSeeMore){
         return homeDao.getListNewProducts(isSeeMore);
     }
 
     public List<Sliders> getListSlideShow(){
         return homeDao.getListSlideShow();
+    }
+
+    public List<Products> getListTrendProducts(boolean isSeeMore){
+        return homeDao.getListTrendProducts(isSeeMore);
+    }
+
+    public List<Images> getListImagesByProductId(int productId){
+        return homeDao.getListImagesByProductId(productId);
     }
 }
