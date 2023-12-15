@@ -12,6 +12,7 @@
     <error-code>404</error-code>
     <location>/error404.jsp</location>
   </error-page>
+<<<<<<< HEAD
   <servlet>
     <servlet-name>ConnectorServlet</servlet-name>
     <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
@@ -33,5 +34,7 @@
   <session-config>
     <session-timeout>10</session-timeout>
   </session-config>
+=======
+>>>>>>> main
 
 </web-app>
