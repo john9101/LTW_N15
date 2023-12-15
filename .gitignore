@@ -34,10 +34,6 @@ target/
 *.ear
 *.zip
 *.tar.gz
-<<<<<<< HEAD
-*.rar
-=======
 
 *.rar
 src/main/resources/db.properties
->>>>>>> main
