@@ -1,6 +1,6 @@
 package models;
 
-public class ProductCart {
+public class ProductCard {
     private int id;
     private String name;
     private String nameImage;

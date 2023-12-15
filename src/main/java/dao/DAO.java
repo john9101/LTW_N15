@@ -1,6 +1,8 @@
 package dao;
 
 import database.JDBIConnector;
+import models.ID;
+import models.ProductCard;
 import models.User;
 
 import java.util.List;
