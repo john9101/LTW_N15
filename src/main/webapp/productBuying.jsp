@@ -71,10 +71,10 @@
                                                       var="moneyTo"/>
                                     <label class="filter__radio-item">
                                         <input name="moneyRange" type="checkbox" class="filter__input filter__radio"
-                                               hidden="" value="${moneyRange}">
+                                               hidden="" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
                                         <span class="filter-radio__icon-wrapper">
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
-                                        </span>${moneyRange.getFrom()}-${moneyRange.getTo()}
+                                        </span>${moneyFrom} - ${moneyTo}
                                     </label>
                                 </c:forEach>
                             </div>
@@ -161,8 +161,7 @@
             </div>
             <ul class="paging">
                 <c:forEach var="page" begin="1" end="${requestScope.quantityPage}">
-                    <c:url var="linkPaing" value="/pagingProduct">
-
+                    <c:url var="linkPaing" value="${requestScope.requestURL}">
                         <c:param name="page" value="${page}"/>
                     </c:url>
                     <a class="page" href="${linkPaing}">${page}</a>

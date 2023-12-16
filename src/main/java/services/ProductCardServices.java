@@ -67,10 +67,15 @@ public class ProductCardServices {
         return (int) quantityPage;
     }
 
-    public List<ProductCard> filter(List<ID> listId, int pageNumber) {
+    public int getQuantityPage(int quantityProduct) {
+        double quantityPage = Math.ceil(Double.parseDouble(quantityProduct + "") / LIMIT);
+        return (int) quantityPage;
+    }
+
+    public List<Product> filter(List<Integer> listId, int pageNumber) {
         ProductCardDAO productCardDAO = new ProductCardDAO();
-        List<ProductCard> productCardList = productCardDAO.pagingAndFilter(listId, pageNumber, LIMIT);
-        return productCardList;
+        List<Product> productList = productCardDAO.pagingAndFilter(listId, pageNumber, LIMIT);
+        return productList;
     }
     public List<Integer> getIdProductFromCategoryId(String[] categoryIds) {
         ProductCardDAO productCardDAO = new ProductCardDAO();
@@ -119,4 +124,5 @@ public class ProductCardServices {
         }
         return listId;
     }
+
 }

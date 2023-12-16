@@ -1,6 +1,7 @@
 package controller.product;
 
 import models.ID;
+import models.Product;
 import models.ProductCard;
 import services.ProductCardServices;
 
@@ -18,39 +19,51 @@ public class FilterProduct extends HttpServlet {
         List<Integer> filterByCategoryId = (List<Integer>) request.getAttribute("filterByCategoryId");
         List<Integer> filterByMoneyRange = (List<Integer>) request.getAttribute("filterByMoneyRange");
         List<Integer> filterBySize = (List<Integer>) request.getAttribute("filterBySize");
-
+        String pageNumber = request.getParameter("pageNumber");
+        int page;
+        try {
+            page = Integer.parseInt(pageNumber);
+        } catch (NumberFormatException e) {
+            page = 1;
+        }
         System.out.println(filterByColor);
         System.out.println(filterByMoneyRange);
         System.out.println(filterByCategoryId);
         System.out.println(filterBySize);
-//        Filter and save list after filter into servletContext
-//        String pageNumber  = request.getParameter("pageNumber");
-//        HashSet<ID> setIdProductFiltered = new HashSet<>();
-//        List<ID> filterByName = (List<ID>) request.getAttribute("filterByName");
-//        System.out.println(filterByName);
-//        if (filterByName != null) {
-//            setIdProductFiltered.addAll(filterByName);
-//        }
-//        String pageNumberParameter = request.getParameter("pageNumber");
-//        int pageNumber;
-//        if (pageNumberParameter == null) {
-//            pageNumber = 1;
-//        } else {
-//            pageNumber = Integer.parseInt(pageNumberParameter);
-//        }
-//        List<ProductCard> productCardFiltered = ProductCardServices.getINSTANCE().filter(new ArrayList<>(setIdProductFiltered), pageNumber);
-//
-//        if (request.getParameter("requestType") != null && request.getParameter("requestType").equals("json")) {
-//            Gson gson = new Gson();
-//            System.out.println("json call");
-//            String json = gson.toJson(productCardFiltered);
-//            response.setContentType("application/json");
-//            response.setCharacterEncoding("UTF-8");
-//            response.getWriter().write(json);
-//        } else {
-//            request.setAttribute("productCardList", productCardFiltered);
-//            request.getRequestDispatcher("productBuying.jsp").forward(request, response);
-//        }
+        List<List<Integer>> listId = new ArrayList<>();
+        if (filterByColor != null) {
+            listId.add(filterBySize);
+        }
+        if (filterByCategoryId != null) {
+            listId.add(filterByCategoryId);
+        }
+        if (filterByMoneyRange != null) {
+            listId.add(filterByMoneyRange);
+        }
+        if (filterBySize != null) {
+            listId.add(filterBySize);
+        }
+        List<Integer> listIDFiltered = findCommonIDs(listId);
+        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page);
+        int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered.size());
+
+        // Getting the request URL
+        StringBuffer requestURL = request.getRequestURL();
+
+        // Getting the query string (parameters)
+        String queryString = request.getQueryString();
+
+        // Combining the request URL and query string to get the full URL with parameters
+        if (queryString != null) {
+            requestURL.append("?").append(queryString);
+        }
+
+        request.setAttribute("requestURL", requestURL);
+        request.setAttribute("productCardList", productCardFiltered);
+        request.setAttribute("quantityPage", quantityPage);
+
+        request.getRequestDispatcher("productBuying.jsp").forward(request, response);
+
     }
 
     @Override

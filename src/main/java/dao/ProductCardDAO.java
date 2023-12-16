@@ -56,15 +56,15 @@ public class ProductCardDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), ProductCard.class);
     }
 
-    public List<ProductCard> pagingAndFilter(List<ID> listId, int pageNumber, int limit) {
+    public List<Product> pagingAndFilter(List<Integer> listId, int pageNumber, int limit) {
         int offset = (pageNumber - 1) * limit;
         StringBuilder listIdString = new StringBuilder();
         if (listId != null && !listId.isEmpty()) {
             listIdString.append("AND id IN (");
             for (int i = 0; i < listId.size(); i++) {
                 if (i == 0)
-                    listIdString.append(listId.get(i).getId());
-                listIdString.append(", ").append(listId.get(i).getId());
+                    listIdString.append(listId.get(i));
+                listIdString.append(", ").append(listId.get(i));
             }
             listIdString.append(")");
         }
@@ -78,7 +78,7 @@ public class ProductCardDAO {
                 .append(" OFFSET ")
                 .append(offset);
         System.out.println(sql.toString());
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), ProductCard.class);
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
     public List<Product> getIdProductByCategoryId(List<String> listIdCategory) {
@@ -164,6 +164,7 @@ public class ProductCardDAO {
                 .append("WHERE visibility = 1 ")
                 .append("AND ")
                 .append(moneyRangeQuery);
+        System.out.println(sql.toString());
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 }

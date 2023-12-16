@@ -17,11 +17,11 @@ import java.util.StringTokenizer;
 public class FilterByMoney implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String[] sizes = request.getParameterValues("monetRange");
-        if (sizes != null) {
+        String[] moneyRange = request.getParameterValues("moneyRange");
+        if (moneyRange != null) {
             List<MoneyRange> moneyRangeList = new ArrayList<>();
             for (String s :
-                    sizes) {
+                    moneyRange) {
                 StringTokenizer token = new StringTokenizer(s, "-");
                 try {
                     double from = Double.parseDouble(token.nextToken());

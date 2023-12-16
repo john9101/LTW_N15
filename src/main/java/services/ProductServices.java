@@ -1,6 +1,6 @@
 package services;
 
-import dao.ProductDao;
+import dao.ProductDAO;
 import models.Color;
 import models.Image;
 import models.Product;
@@ -10,11 +10,11 @@ import java.util.List;
 
 public class ProductServices {
 
-    private ProductDao productDao;
+    private ProductDAO productDao;
     private static ProductServices INSTANCE;
 
     public ProductServices() {
-        productDao = new ProductDao();
+        productDao = new ProductDAO();
     }
 
     public static ProductServices getINSTANCE() {

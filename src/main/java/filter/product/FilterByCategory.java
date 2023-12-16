@@ -16,7 +16,7 @@ public class FilterByCategory implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String[] categoryId = servletRequest.getParameterValues("categoryId");
         if (categoryId != null) {
-            List<Integer> listId = ProductCardServices.getINSTANCE().getIdProductFromSize(categoryId);
+            List<Integer> listId = ProductCardServices.getINSTANCE().getIdProductFromCategoryId(categoryId);
             servletRequest.setAttribute("filterByCategoryId", listId);
         }
         filterChain.doFilter(servletRequest, servletResponse);
