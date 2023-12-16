@@ -1,6 +1,6 @@
 package models;
 
-public class Sizes {
+public class Size {
     private int id;
     private String nameSize;
     private int productId;

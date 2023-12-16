@@ -1,13 +1,9 @@
 package models;
 
-import services.HomeServices;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
-public class Products {
+public class Product {
     private int id;
     private String name;
     private String categoryId;
@@ -17,7 +13,7 @@ public class Products {
     private boolean visibility;
     private Date createAt;
 
-    public Products() {
+    public Product() {
     }
 
     public int getId() {
@@ -102,7 +98,7 @@ public class Products {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Products products = (Products) o;
+        Product products = (Product) o;
         return id == products.id;
     }
 

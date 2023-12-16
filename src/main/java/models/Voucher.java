@@ -2,7 +2,7 @@ package models;
 
 import java.util.Date;
 
-public class Vouchers {
+public class Voucher {
     private int id;
     private String code;
     private String description;

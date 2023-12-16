@@ -1,14 +1,12 @@
 package controller.shoppingCart;
 
-import models.Vouchers;
-import com.google.gson.JsonObject;
+import models.Voucher;
 import services.ShoppingCartServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(name = "ApplyVoucherController", value = "/ApplyVoucher")
@@ -19,7 +17,7 @@ public class ApplyVoucherController extends HttpServlet {
         String code = (String) request.getAttribute("code");
         double temporaryPrice = (double) request.getAttribute("temporaryPrice");
         if(listCodeOfVouchers.contains(code)){
-            Vouchers voucher = ShoppingCartServices.getINSTANCE().getDiscountPercentByCode(temporaryPrice, code);
+            Voucher voucher = ShoppingCartServices.getINSTANCE().getDiscountPercentByCode(temporaryPrice, code);
             if(voucher != null){
                 double discountPercent = voucher.getDiscountPercent();
                 double newTotalPrice = temporaryPrice * (1 - discountPercent);
@@ -45,30 +43,5 @@ public class ApplyVoucherController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-    }
-
-    private void sendErrorResponse(HttpServletResponse response, String errorMessage) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        JsonObject jsonResponse = new JsonObject();
-        jsonResponse.addProperty("errorMessage", errorMessage);
-
-        PrintWriter out = response.getWriter();
-        out.print(jsonResponse.toString());
-        out.flush();
-    }
-
-    private void sendSuccessResponse(HttpServletResponse response, double newTotal, String successMessage) throws IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        JsonObject jsonResponse = new JsonObject();
-        jsonResponse.addProperty("newTotal", newTotal);
-        jsonResponse.addProperty("successMessage", successMessage);
-
-        PrintWriter out = response.getWriter();
-        out.print(jsonResponse.toString());
-        out.flush();
     }
 }

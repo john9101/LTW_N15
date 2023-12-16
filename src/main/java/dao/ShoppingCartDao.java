@@ -1,19 +1,19 @@
 package dao;
 
-import models.Vouchers;
+import models.Voucher;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartDao {
-    public List<Vouchers> getListVouchers(){
+    public List<Voucher> getListVouchers(){
         String sql = "SELECT id, `code`, `description`, minimumPrice, discountPercent, expiryDate FROM vouchers";
-        return GeneralDao.executeQueryWithSingleTable(sql, Vouchers.class);
+        return GeneralDao.executeQueryWithSingleTable(sql, Voucher.class);
     }
 
-    public static Vouchers getDiscountPercentByCode(double temporaryPrice, String code){
+    public static Voucher getDiscountPercentByCode(double temporaryPrice, String code){
         String sql = "SELECT discountPercent, minimumPrice FROM vouchers WHERE minimumPrice <= ? AND expiryDate >= CURDATE() AND `code` = ?";
-        List<Vouchers> listVouchers = GeneralDao.executeQueryWithSingleTable(sql, Vouchers.class, temporaryPrice, code);
+        List<Voucher> listVouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, temporaryPrice, code);
         if (!listVouchers.isEmpty()){
             return listVouchers.get(0);
         }else{
@@ -24,8 +24,8 @@ public class ShoppingCartDao {
     public List<String> getListCodeOfVouchers(){
         List<String> listCodeOfVouchers = new ArrayList<>();
         String sql = "SELECT `code` FROM Vouchers";
-        List<Vouchers> listVouchers = GeneralDao.executeQueryWithSingleTable(sql, Vouchers.class);
-        for (Vouchers voucher: listVouchers){
+        List<Voucher> listVouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class);
+        for (Voucher voucher: listVouchers){
             listCodeOfVouchers.add(voucher.getCode());
         }
         return listCodeOfVouchers;

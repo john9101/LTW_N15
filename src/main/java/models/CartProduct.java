@@ -3,24 +3,24 @@ package models;
 import java.util.Objects;
 
 public class CartProduct {
-    private Products product;
+    private Product product;
     private int quantity;
     private String color;
     private String size;
     private double priorityPrice;
 
-    public CartProduct(Products product, int quantity, String color, String size) {
+    public CartProduct(Product product, int quantity, String color, String size) {
         this.product = product;
         this.quantity = quantity;
         this.color = color;
         this.size = size;
     }
 
-    public Products getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Products product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

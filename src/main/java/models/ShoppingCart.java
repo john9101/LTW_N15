@@ -2,9 +2,7 @@ package models;
 
 import utils.ProductFactory;
 
-import java.net.CacheRequest;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class ShoppingCart {
     public void add(int productId, int quantity, String color, String size) {
         if (shoppingCartMap.containsKey(productId)) {
             List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
-            Products product = ProductFactory.getProductById(productId);
+            Product product = ProductFactory.getProductById(productId);
             CartProduct cartProduct = new CartProduct(product, quantity, color, size);
             if(!listCartProducts.contains(cartProduct)){
                 listCartProducts.add(cartProduct);
@@ -38,7 +36,7 @@ public class ShoppingCart {
             }
         } else {
             List<CartProduct> listCartProducts = new ArrayList<>();
-            Products product = ProductFactory.getProductById(productId);
+            Product product = ProductFactory.getProductById(productId);
             if(product == null){
                 return;
             }else{

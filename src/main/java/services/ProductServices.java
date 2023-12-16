@@ -1,11 +1,10 @@
 package services;
 
-import dao.HomeDao;
 import dao.ProductDao;
-import models.Colors;
-import models.Images;
-import models.Products;
-import models.Sizes;
+import models.Color;
+import models.Image;
+import models.Product;
+import models.Size;
 
 import java.util.List;
 
@@ -24,15 +23,15 @@ public class ProductServices {
         return INSTANCE;
     }
 
-    public List<Images> getListImagesByProductId(int productId){
+    public List<Image> getListImagesByProductId(int productId){
         return productDao.getListImagesByProductId(productId);
     }
 
-    public List<Colors> getListColorsByProductId(int productId){
+    public List<Color> getListColorsByProductId(int productId){
         return productDao.getListColorsByProductId(productId);
     }
 
-    public List<Sizes> getListSizesByProductId(int productId){
+    public List<Size> getListSizesByProductId(int productId){
         return productDao.getListSizesByProductId(productId);
     }
 
@@ -40,7 +39,7 @@ public class ProductServices {
         return productDao.getPriceSizeByName(nameSize, productId);
     }
 
-    public Products getProductByProductId(int productId){
+    public Product getProductByProductId(int productId){
         return productDao.getProductByProductId(productId);
     }
 }
