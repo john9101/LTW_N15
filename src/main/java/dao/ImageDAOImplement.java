@@ -1,7 +1,5 @@
 package dao;
 
-import models.Image;
-
 import java.util.List;
 
 public class ImageDAOImplement implements ImageDAO {

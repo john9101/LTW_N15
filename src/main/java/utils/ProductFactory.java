@@ -1,9 +1,8 @@
 package utils;
 
-import models.Colors;
-import models.Images;
-import models.Products;
-import models.Sizes;
+import dao.ReviewDAO;
+import dao.ReviewDAOImplement;
+import models.*;
 import services.HomeServices;
 import services.ProductServices;
 
@@ -29,5 +28,16 @@ public class ProductFactory {
 
     public static double getPriceSizeByName(String nameSize, int productId){
         return ProductServices.getINSTANCE().getPriceSizeByName(nameSize, productId);
+    }
+
+    public static int calculateStar(Products product) {
+        ReviewDAO reviewDAO = new ReviewDAOImplement();
+        List<Review> list = reviewDAO.getReviewStar(product.getId());
+        if (list.isEmpty()) return 0;
+        int totalStar = 0;
+        for (Review item : list) {
+            totalStar += item.getRatingStar();
+        }
+        return totalStar / list.size();
     }
 }

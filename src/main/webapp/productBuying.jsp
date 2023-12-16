@@ -3,6 +3,7 @@
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setLocale value="vi_VN"/>
 <fmt:setBundle basename="java.text.resources.LocaleElements_vi_VN"/>
+<jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,11 +119,14 @@
                         <c:set var="list" value="${requestScope.productCardList}"/>
                         <c:forEach var="item" items="${list}">
                             <div class="product__item">
-                                <c:url var="linkProductDetail" value="/showProductDetail">
-                                    <c:param name="id" value="${item.id}"/>
-                                </c:url>
-                                <img src="assets/img/product_img/${item.nameImage}" class="product__img" alt=""/>
+                                <c:set value="${productFactory.getListImagesByProductId(item.id)}"
+                                       var="listProductImage"/>
+                                <img src="assets/img/product_img/${listProductImage.get(0).getNameImage()}"
+                                     class="product__img" alt=""/>
                                 <div class="product__info">
+                                    <c:url var="linkProductDetail" value="/showProductDetail">
+                                        <c:param name="id" value="${item.id}"/>
+                                    </c:url>
                                     <a class="product__name" target="_blank"
                                        href="${linkProductDetail}">${item.name}</a>
                                     <div class="product__review">
@@ -172,5 +176,5 @@
 <%--<script src="js/data.js"></script>--%>
 <%--<script src="js/paging.js"></script>--%>
 <%--<script src="js/productBuying.js"></script>--%>
-<%--</body>--%>
+</body>
 </html>

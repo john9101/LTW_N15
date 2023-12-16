@@ -1,8 +1,5 @@
 package dao;
 
-import models.Color;
-import models.Size;
-
 import java.util.List;
 
 public class ColorDAOImplement implements ColorDAO {

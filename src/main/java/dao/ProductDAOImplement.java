@@ -1,7 +1,6 @@
 package dao;
 
 import models.ID;
-import models.Product;
 
 import java.util.List;
 

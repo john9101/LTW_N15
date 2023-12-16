@@ -34,16 +34,6 @@ public class ProductCardServices {
     public List<ProductCard> getAllProductCart() {
         ProductCardDAO productCardDAO = new ProductCardDAOImplement();
         List<ProductCard> productCardList = productCardDAO.getCartAllProduct();
-        ImageDAO imageDAO = new ImageDAOImplement();
-        for (ProductCard productCard : productCardList) {
-//           Get thumbnail
-            int productId = productCard.getId();
-            List<Image> imageList = imageDAO.getThumbnail(productId);
-            productCard.setNameImage(imageList.getFirst().getNameImage());
-//           Calculate starRating
-            int star = calculateStar(productCard);
-            productCard.setStar(star);
-        }
         return productCardList;
     }
 
@@ -65,19 +55,9 @@ public class ProductCardServices {
         return listSize;
     }
 
-    public List<ProductCard> getProducts(int numberPage) {
+    public List<ProductCard> getProducts(int numberPage){
         ProductCardDAO productCardDAO = new ProductCardDAOImplement();
         List<ProductCard> productCardList = productCardDAO.getProducts(LIMIT, numberPage);
-        ImageDAO imageDAO = new ImageDAOImplement();
-        for (ProductCard productCard : productCardList) {
-//           Get thumbnail
-            int productId = productCard.getId();
-            List<Image> imageList = imageDAO.getThumbnail(productId);
-            productCard.setNameImage(imageList.getFirst().getNameImage());
-//           Calculate starRating
-            int star = calculateStar(productCard);
-            productCard.setStar(star);
-        }
         return productCardList;
     }
 
@@ -87,24 +67,9 @@ public class ProductCardServices {
         return (int) quantityPage;
     }
 
-    public List<ID> findIdByName(String name) {
-        ProductDAO productDAO = new ProductDAOImplement();
-        return productDAO.findIdByName(name);
-    }
-
     public List<ProductCard> filter(List<ID> listId, int pageNumber) {
         ProductCardDAO productCardDAO = new ProductCardDAOImplement();
         List<ProductCard> productCardList = productCardDAO.pagingAndFilter(listId, pageNumber, LIMIT);
-        ImageDAO imageDAO = new ImageDAOImplement();
-        for (ProductCard productCard : productCardList) {
-//           Get thumbnail
-            int productId = productCard.getId();
-            List<Image> imageList = imageDAO.getThumbnail(productId);
-            productCard.setNameImage(imageList.getFirst().getNameImage());
-//           Calculate starRating
-            int star = calculateStar(productCard);
-            productCard.setStar(star);
-        }
         return productCardList;
     }
 
