@@ -23,4 +23,12 @@ public class ShoppingCartServices {
     public List<Vouchers> getListVouchers(){
         return shoppingCartDao.getListVouchers();
     }
+
+    public Vouchers getDiscountPercentByCode(double temporaryPrice, String code){
+        return shoppingCartDao.getDiscountPercentByCode(temporaryPrice, code);
+    }
+
+    public List<String> getListCodeOfVouchers(){
+        return shoppingCartDao.getListCodeOfVouchers();
+    }
 }

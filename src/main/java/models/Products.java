@@ -103,11 +103,11 @@ public class Products {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Products products = (Products) o;
-        return id == products.id && Double.compare(originalPrice, products.originalPrice) == 0 && Double.compare(salePrice, products.salePrice) == 0 && visibility == products.visibility && Objects.equals(name, products.name) && Objects.equals(categoryId, products.categoryId) && Objects.equals(description, products.description) && Objects.equals(createAt, products.createAt);
+        return id == products.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, categoryId, description, originalPrice, salePrice, visibility, createAt);
+        return Objects.hash(id);
     }
 }

@@ -175,10 +175,11 @@
                                 <img src="./assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
                                 <span class="product__tag">Thịnh hành</span>
 
-                                <c:url var="atc" value="AddToCart">
-                                    <c:param name="productId" value="${trendProduct.id}"/>
-                                </c:url>
-                                <form action="${atc}" class="action__bar" method="post">
+<%--                                <c:url var="atc" value="AddToCart">--%>
+<%--                                    <c:param name="productId" value="${trendProduct.id}"/>--%>
+<%--                                </c:url>--%>
+                                <form action="AddToCart" class="action__bar" method="post">
+                                    <input type="hidden" name="productId" value="${trendProduct.id}">
                                     <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>
                                     <a class="see__detail" href="ProductDetails?pid=${trendProduct.id}">Xem chi tiết <i class="fa-solid fa-eye"></i></a>
                                 </form>
@@ -200,7 +201,7 @@
                                     <c:choose>
                                         <c:when test="${trendProduct.salePrice == null}">
                                             <strong class="priority__price">
-                                                <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>
+                                                <fmt:formatNumber value="${trendProduct.originalPrice}" type="currency"/>
                                             </strong>
                                         </c:when>
                                         <c:otherwise>
@@ -291,10 +292,11 @@
                                 <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                     <span class="product__tag">Thịnh hành</span>
                                 </c:if>
-                                <c:url var="atc" value="AddToCart">
-                                    <c:param name="productId" value="${newProduct.id}"/>
-                                </c:url>
-                                <form class="action__bar" action="${atc}" method="post">
+<%--                                <c:url var="atc" value="AddToCart">--%>
+<%--                                    <c:param name="productId" value="${newProduct.id}"/>--%>
+<%--                                </c:url>--%>
+                                <form class="action__bar" action="AddToCart" method="post">
+                                    <input type="hidden" name="productId" value="${newProduct.id}">
                                     <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>
                                     <a href="" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i></a>
                                 </form>
@@ -404,5 +406,31 @@
 <!--Footer-->
 <%@include file="footer.jsp" %>
 <script src="./js/home.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    function addToCartAjax(){
+        $(document).ready(function (){
+            $('.action__bar').each(function (index, actionBar){
+                $(actionBar).on('submit', function (event){
+                    event.preventDefault();
+                    const form = $(actionBar);
+                    let productId = form.find('input[name="productId"]').val();
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: {productId: productId},
+                        success: function (response) {
+                            $('.qlt__value').text(response);
+                        },
+                        error: function (error){
+                            console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                        }
+                    })
+                })
+            })
+        })
+    }
+    addToCartAjax();
+</script>
 </body>
 </html>

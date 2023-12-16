@@ -66,4 +66,17 @@ public class Vouchers {
     public void setAvailableTurns(int availableTurns) {
         this.availableTurns = availableTurns;
     }
+
+    @Override
+    public String toString() {
+        return "Vouchers{" +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", description='" + description + '\'' +
+                ", minimumPrice=" + minimumPrice +
+                ", discountPercent=" + discountPercent +
+                ", expiryDate=" + expiryDate +
+                ", availableTurns=" + availableTurns +
+                '}';
+    }
 }

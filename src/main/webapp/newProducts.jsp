@@ -95,12 +95,11 @@
                             <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                 <span class="product__tag">Thịnh hành</span>
                             </c:if>
-                            <div class="action__bar">
-                                <button type="submit" class="add__cart">Thêm vào giỏ hàng <i
-                                        class="fa-solid fa-cart-shopping"></i></button>
-                                <button type="submit" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i>
-                                </button>
-                            </div>
+                            <form action="AddToCart" class="action__bar" method="post">
+                                <input type="hidden" name="productId" value="${newProduct.id}">
+                                <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>
+                                <a class="see__detail" href="ProductDetails?pid=${newProduct.id}">Xem chi tiết <i class="fa-solid fa-eye"></i></a>
+                            </form>
                         </div>
                         <div class="product__info">
                             <a class="product__name" href="#">${newProduct.name}</a>
@@ -162,6 +161,32 @@
     </div>
 </main>
 <%@ include file="footer.jsp" %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    function addToCartAjax(){
+        $(document).ready(function (){
+            $('.action__bar').each(function (index, actionBar){
+                $(actionBar).on('submit', function (event){
+                    event.preventDefault();
+                    const form = $(actionBar);
+                    let productId = form.find('input[name="productId"]').val();
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: {productId: productId},
+                        success: function (response) {
+                            $('.qlt__value').text(response);
+                        },
+                        error: function (error){
+                            console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                        }
+                    })
+                })
+            })
+        })
+    }
+    addToCartAjax();
+</script>
 </body>
 <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--%>
 <%--<script>--%>

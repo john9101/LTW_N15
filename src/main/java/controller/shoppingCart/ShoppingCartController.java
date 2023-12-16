@@ -1,5 +1,6 @@
-package controller;
+package controller.shoppingCart;
 
+import models.ShoppingCart;
 import models.Vouchers;
 import services.ShoppingCartServices;
 
@@ -14,7 +15,8 @@ public class ShoppingCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Vouchers> listVouchers = ShoppingCartServices.getINSTANCE().getListVouchers();
-        request.setAttribute("listVouchers", listVouchers);
+        HttpSession session = request.getSession(true);
+        session.setAttribute("listVouchers", listVouchers);
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("shoppingCart.jsp");
         requestDispatcher.forward(request, response);
@@ -22,6 +24,11 @@ public class ShoppingCartController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        String code = request.getParameter("promotion__code");
+        double temporaryPrice = Double.parseDouble(request.getParameter("tempPrice"));
+        request.setAttribute("code", code);
+        request.setAttribute("temporaryPrice", temporaryPrice);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("ApplyVoucher");
+        requestDispatcher.forward(request, response);
     }
 }

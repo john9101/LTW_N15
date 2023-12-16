@@ -1,8 +1,6 @@
 package dao;
 
-import models.Images;
-import models.Products;
-import models.Sliders;
+import models.*;
 
 import javax.management.ObjectName;
 import java.awt.*;
@@ -56,14 +54,5 @@ public class HomeDao {
             sql.append(" LIMIT 6");
         }
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Products.class, 10);
-    }
-
-    public List<Images> getListImagesByProductId(int productId){
-        String sql = "SELECT id, nameImage, productId FROM Images WHERE productId = ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, Images.class, productId);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getListNewProducts(true));
     }
 }
