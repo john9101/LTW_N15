@@ -14,10 +14,10 @@ public class CategoryDAOImplement implements CategoryDAO {
     }
 
     @Override
-    public List<Category> getCategory(String id) {
+    public List<Category> getCategory(int id) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, nameType ")
-                .append("FROM categories")
+                .append("FROM categories ")
                 .append("WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Category.class, id);
     }

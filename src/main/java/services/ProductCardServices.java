@@ -2,6 +2,7 @@ package services;
 
 import dao.*;
 import models.*;
+import utils.FilterPaging;
 
 import java.util.*;
 
@@ -107,9 +108,6 @@ public class ProductCardServices {
         return productCardList;
     }
 
-//    public List<ProductCard> filter(String[] categoryId, String[] moneyRange, String[] size, String[] color, int pageNumber) {
-//
-//    }
 
     private List<Integer> findCommonIDs(List<List<ID>> lists) {
         List<Integer> commonIDs = new ArrayList<>();

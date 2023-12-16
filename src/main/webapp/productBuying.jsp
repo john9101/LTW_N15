@@ -70,7 +70,7 @@
                                                       var="moneyTo"/>
                                     <label class="filter__radio-item">
                                         <input name="moneyRange" type="checkbox" class="filter__input filter__radio"
-                                               hidden="" value="${moneyFrom} - ${moneyTo}">
+                                               hidden="" value="${moneyRange}">
                                         <span class="filter-radio__icon-wrapper">
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
                                         </span>${moneyFrom} - ${moneyTo}
@@ -171,6 +171,6 @@
 <%--<script src="js/base.js"></script>--%>
 <%--<script src="js/data.js"></script>--%>
 <%--<script src="js/paging.js"></script>--%>
-<script src="js/productBuying.js"></script>
+<%--<script src="js/productBuying.js"></script>--%>
 <%--</body>--%>
 </html>
