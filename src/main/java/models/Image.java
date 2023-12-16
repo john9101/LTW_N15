@@ -1,11 +1,11 @@
 package models;
 
-public class Images {
+public class Image {
     private int id;
     private String nameImage;
     private int productId;
 
-    public Images() {
+    public Image() {
     }
 
     public int getId() {

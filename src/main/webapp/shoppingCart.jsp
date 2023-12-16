@@ -239,10 +239,10 @@
                         </div><!-- New update template -->
                     </div>
                     <div class="invoice__promotion col">
-                        <form class="apply__promotion" action="ShoppingCart" method="post">
+                        <div class="apply__promotion">
                             <h2>Khuyến mãi</h2>
 
-                            <div id="promotion__form">
+                            <form id="promotion__form" action="ShoppingCart" method="post">
                                 <!-- New update template -->
                                 <div class="promotion__all">
                                     <span><i class="fa-solid fa-ticket-simple"></i> Mã giảm giá</span>
@@ -261,8 +261,8 @@
                                         ${requestScope.failedApply}
                                     </c:if>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                         <div class="summary__invoice">
                             <h2>Tổng đơn hàng</h2>
                             <div class="invoice__detail--info">

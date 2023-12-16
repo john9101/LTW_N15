@@ -1,6 +1,6 @@
 package models;
 
-public class Colors {
+public class Color {
     private int id;
     private String codeColor;
     private int productId;

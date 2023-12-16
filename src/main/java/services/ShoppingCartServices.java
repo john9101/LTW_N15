@@ -1,7 +1,7 @@
 package services;
 
 import dao.ShoppingCartDao;
-import models.Vouchers;
+import models.Voucher;
 
 import java.util.List;
 
@@ -20,11 +20,11 @@ public class ShoppingCartServices {
             INSTANCE = new ShoppingCartServices();
         return INSTANCE;
     }
-    public List<Vouchers> getListVouchers(){
+    public List<Voucher> getListVouchers(){
         return shoppingCartDao.getListVouchers();
     }
 
-    public Vouchers getDiscountPercentByCode(double temporaryPrice, String code){
+    public Voucher getDiscountPercentByCode(double temporaryPrice, String code){
         return shoppingCartDao.getDiscountPercentByCode(temporaryPrice, code);
     }
 

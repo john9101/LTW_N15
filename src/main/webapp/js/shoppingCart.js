@@ -197,7 +197,7 @@ function handleEventShoppingCart() {
 //     const unitPriceElements = document.querySelectorAll(".unit__price");
 //     // const priceTextElements = document.querySelectorAll(".price__text");
 //     const priceValueElements = document.querySelectorAll(".price__value");
-//     const promotionCodeElement = document.getElementById("promotion_code");
+    const promotionCodeElement = document.getElementById("promotion_code");
 //     const applyCodeElement = document.getElementById("apply");
 //     const applyStatusElement = document.querySelector(".apply__status");
 //     let subtotalItemElements = document.querySelectorAll(".subtotal__item");
@@ -401,3 +401,14 @@ async function copyToClipboard(text) {
         throw new Error("Không thể sao chép vào clipboard: ", error);
     }
 }
+
+function preventSubmitWithEmptyCode(){
+    const promoApplyForm = document.getElementById('promotion__form');
+    const inputPromoCode = promoApplyForm.getElementById('promotion_code');
+    if(inputPromoCode.value.trim() === '' || inputPromoCode.value.trim() === null){
+        promoApplyForm.onsubmit = function (event){
+            event.preventDefault();
+        }
+    }
+}
+preventSubmitWithEmptyCode();

@@ -1,9 +1,9 @@
 <%@ page import="models.User" %>
 <%@ page import="java.util.List" %>
-<%@ page import="models.Products" %>
+<%@ page import="models.Product" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="services.HomeServices" %>
-<%@ page import="models.Images" %>
+<%@ page import="models.Image" %>
 <%@ page import="utils.ProductFactory" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

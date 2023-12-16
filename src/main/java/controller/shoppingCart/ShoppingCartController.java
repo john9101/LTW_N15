@@ -1,7 +1,6 @@
 package controller.shoppingCart;
 
-import models.ShoppingCart;
-import models.Vouchers;
+import models.Voucher;
 import services.ShoppingCartServices;
 
 import javax.servlet.*;
@@ -14,7 +13,7 @@ import java.util.List;
 public class ShoppingCartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Vouchers> listVouchers = ShoppingCartServices.getINSTANCE().getListVouchers();
+        List<Voucher> listVouchers = ShoppingCartServices.getINSTANCE().getListVouchers();
         HttpSession session = request.getSession(true);
         session.setAttribute("listVouchers", listVouchers);
 
