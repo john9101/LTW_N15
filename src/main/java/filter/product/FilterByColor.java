@@ -1,12 +1,10 @@
 package filter.product;
 
-import dao.ColorDAO;
 import services.ProductCardServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 @WebFilter(filterName = "FilterByColor",
@@ -22,7 +20,7 @@ public class FilterByColor implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         String[] colors = request.getParameterValues("color");
         if (colors != null) {
-            List<Integer> listId = ProductCardServices.getINSTANCE().getIdProductFromColors(colors);
+            List<Integer> listId = ProductCardServices.getINSTANCE().getIdProductFromColor(colors);
             request.setAttribute("filterByColor", listId);
         }
         chain.doFilter(request, response);

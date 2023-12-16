@@ -1,6 +1,7 @@
 package filter.product;
 
 import models.Category;
+import models.Color;
 import models.ProductCard;
 import models.Size;
 import services.ProductCardServices;
