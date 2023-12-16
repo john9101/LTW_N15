@@ -1,6 +1,5 @@
 package controller.product;
 
-import com.google.gson.Gson;
 import models.ID;
 import models.ProductCard;
 import services.ProductCardServices;
@@ -15,12 +14,15 @@ import java.util.*;
 public class FilterProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String[] categoryId = (String[]) request.getAttribute("categoryId");
-        String[] moneyRange = request.getParameterValues("moneyRange");
-        String[] size = request.getParameterValues("size");
-        String[] color = request.getParameterValues("color");
+        List<Integer> filterByColor = (List<Integer>) request.getAttribute("filterByColor");
+        List<Integer> filterByCategoryId = (List<Integer>) request.getAttribute("filterByCategoryId");
+        List<Integer> filterByMoneyRange = (List<Integer>) request.getAttribute("filterByMoneyRange");
+        List<Integer> filterBySize = (List<Integer>) request.getAttribute("filterBySize");
 
-
+        System.out.println(filterByColor);
+        System.out.println(filterByMoneyRange);
+        System.out.println(filterByCategoryId);
+        System.out.println(filterBySize);
 //        Filter and save list after filter into servletContext
 //        String pageNumber  = request.getParameter("pageNumber");
 //        HashSet<ID> setIdProductFiltered = new HashSet<>();
@@ -57,6 +59,15 @@ public class FilterProduct extends HttpServlet {
         doGet(request, response);
     }
 
-
+    private List<Integer> findCommonIDs(List<List<Integer>> lists) {
+        if (lists.isEmpty()) return null;
+        if (lists.size() == 1) return lists.get(0);
+        List<Integer> result = new ArrayList<>();
+        result = lists.get(0);
+        for (int i = 1; i < lists.size(); i++) {
+            result.retainAll(lists.get(i));
+        }
+        return result;
+    }
 
 }

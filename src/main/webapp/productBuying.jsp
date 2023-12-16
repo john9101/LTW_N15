@@ -74,7 +74,7 @@
                                                hidden="" value="${moneyRange}">
                                         <span class="filter-radio__icon-wrapper">
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
-                                        </span>${moneyFrom} - ${moneyTo}
+                                        </span>${moneyRange.getFrom()}-${moneyRange.getTo()}
                                     </label>
                                 </c:forEach>
                             </div>

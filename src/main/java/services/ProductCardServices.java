@@ -2,7 +2,7 @@ package services;
 
 import dao.*;
 import models.*;
-import utils.FilterPaging;
+import utils.MoneyRange;
 
 import java.util.*;
 
@@ -20,7 +20,7 @@ public class ProductCardServices {
     }
 
     private int calculateStar(ProductCard productCard) {
-        ReviewDAO reviewDAO = new ReviewDAOImplement();
+        ReviewDAO reviewDAO = new ReviewDAO();
         List<Review> list = reviewDAO.getReviewStar(productCard.getId());
         productCard.setReviews(list.size());
         if (list.isEmpty()) return 0;
@@ -32,78 +32,91 @@ public class ProductCardServices {
     }
 
     public List<ProductCard> getAllProductCart() {
-        ProductCardDAO productCardDAO = new ProductCardDAOImplement();
+        ProductCardDAO productCardDAO = new ProductCardDAO();
         List<ProductCard> productCardList = productCardDAO.getCartAllProduct();
         return productCardList;
     }
 
     public List<Category> getAllCategory() {
-        CategoryDAO categoryDAO = new CategoryDAOImplement();
+        CategoryDAO categoryDAO = new CategoryDAO();
         List<Category> listCategories = categoryDAO.getAllCategory();
         return listCategories;
     }
 
     public List<Color> getAllColor() {
-        ColorDAO colorDAO = new ColorDAOImplement();
+        ColorDAO colorDAO = new ColorDAO();
         List<Color> listColor = colorDAO.getAllColor();
         return listColor;
     }
 
     public List<Size> getAllSize() {
-        SizeDAO sizeDAO = new SizeDAOImplement();
+        SizeDAO sizeDAO = new SizeDAO();
         List<Size> listSize = sizeDAO.getAllSize();
         return listSize;
     }
 
     public List<ProductCard> getProducts(int numberPage){
-        ProductCardDAO productCardDAO = new ProductCardDAOImplement();
+        ProductCardDAO productCardDAO = new ProductCardDAO();
         List<ProductCard> productCardList = productCardDAO.getProducts(LIMIT, numberPage);
         return productCardList;
     }
 
     public int getQuantityPage() {
-        ProductCardDAO productCardDAO = new ProductCardDAOImplement();
+        ProductCardDAO productCardDAO = new ProductCardDAO();
         double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct() + "") / LIMIT);
         return (int) quantityPage;
     }
 
     public List<ProductCard> filter(List<ID> listId, int pageNumber) {
-        ProductCardDAO productCardDAO = new ProductCardDAOImplement();
+        ProductCardDAO productCardDAO = new ProductCardDAO();
         List<ProductCard> productCardList = productCardDAO.pagingAndFilter(listId, pageNumber, LIMIT);
         return productCardList;
     }
-
-
-    private List<Integer> findCommonIDs(List<List<ID>> lists) {
-        List<Integer> commonIDs = new ArrayList<>();
-
-        if (lists.isEmpty()) {
-            return commonIDs; // Return an empty list if no lists are provided
+    public List<Integer> getIdProductFromCategoryId(String[] categoryIds) {
+        ProductCardDAO productCardDAO = new ProductCardDAO();
+        List<Product> listProduct = productCardDAO.getIdProductByCategoryId(Arrays.asList(categoryIds));
+        if (listProduct.isEmpty()) return null;
+        List<Integer> listId = new ArrayList<>();
+        for (Product p :
+                listProduct) {
+            listId.add(p.getId());
         }
+        return listId;
+    }
 
-        // Use a set to store IDs of the first list
-        Set<Integer> idSet = new HashSet<>();
-        for (ID element : lists.get(0)) {
-            idSet.add(element.getId());
+    public List<Integer> getIdProductFromSize(String[] sizes) {
+        ProductCardDAO productCardDAO = new ProductCardDAO();
+        List<Product> listProduct = productCardDAO.getIdProductBySize(Arrays.asList(sizes));
+        if (listProduct.isEmpty()) return null;
+        List<Integer> listId = new ArrayList<>();
+        for (Product p :
+                listProduct) {
+            listId.add(p.getId());
         }
+        return listId;
+    }
 
-        // Iterate through each list starting from the second list
-        for (int i = 1; i < lists.size(); i++) {
-            List<ID> currentList = lists.get(i);
-
-            // Create a set for the current list IDs to find common elements efficiently
-            Set<Integer> currentIdSet = new HashSet<>();
-            for (ID element : currentList) {
-                currentIdSet.add(element.getId());
-            }
-
-            // Retain only IDs present in both sets
-            idSet.retainAll(currentIdSet);
+    public List<Integer> getIdProductFromColor(String[] colors) {
+        ProductCardDAO productCardDAO = new ProductCardDAO();
+        List<Product> listProduct = productCardDAO.getIdProductByColor(Arrays.asList(colors));
+        if (listProduct.isEmpty()) return null;
+        List<Integer> listId = new ArrayList<>();
+        for (Product p :
+                listProduct) {
+            listId.add(p.getId());
         }
+        return listId;
+    }
 
-        // Add common IDs to the output list
-        commonIDs.addAll(idSet);
-
-        return commonIDs;
+    public List<Integer> getIdProductFromMoneyRange(List<MoneyRange> moneyRangeList) {
+        ProductCardDAO productCardDAO = new ProductCardDAO();
+        List<Product> listProduct = productCardDAO.getIdProductByMoneyRange(moneyRangeList);
+        if (listProduct.isEmpty()) return null;
+        List<Integer> listId = new ArrayList<>();
+        for (Product p :
+                listProduct) {
+            listId.add(p.getId());
+        }
+        return listId;
     }
 }

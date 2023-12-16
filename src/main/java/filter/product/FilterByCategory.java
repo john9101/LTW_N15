@@ -1,6 +1,7 @@
 package filter.product;
 
 import services.CategoryService;
+import services.ProductCardServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -15,8 +16,8 @@ public class FilterByCategory implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String[] categoryId = servletRequest.getParameterValues("categoryId");
         if (categoryId != null) {
-            List<Integer> listId = CategoryService.getINSTANCE().checkIDValid(categoryId);
-            servletRequest.setAttribute("categoryId", listId);
+            List<Integer> listId = ProductCardServices.getINSTANCE().getIdProductFromSize(categoryId);
+            servletRequest.setAttribute("filterByCategoryId", listId);
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

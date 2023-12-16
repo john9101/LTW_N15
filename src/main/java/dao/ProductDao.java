@@ -1,35 +1,17 @@
 package dao;
 
-import models.Color;
-import models.Image;
-import models.Product;
-import models.Size;
+import models.ID;
 
 import java.util.List;
 
-public class ProductDao {
-    public List<Image> getListImagesByProductId(int productId){
-        String sql = "SELECT id, nameImage, productId FROM Images WHERE productId = ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, Image.class, productId);
-    }
-
-    public List<Color> getListColorsByProductId(int productId){
-        String sql = "SELECT id, codeColor, productId FROM colors WHERE productId = ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, Color.class, productId);
-    }
-
-    public List<Size> getListSizesByProductId(int productId){
-        String sql = "SELECT id, nameSize, productId, sizePrice FROM sizes WHERE productId = ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, Size.class, productId);
-    }
-
-    public double getPriceSizeByName(String nameSize, int productId){
-        String sql = "SELECT sizePrice FROM sizes WHERE nameSize = ? AND productId = ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, Size.class,nameSize, productId).get(0).getSizePrice();
-    }
-
-    public Product getProductByProductId(int productId){
-        String sql = "SELECT id, `name`, `description`, salePrice, originalPrice FROM products WHERE id = ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, Product.class, productId).get(0);
+public class ProductDAO {
+    public List<ID> findIdByName(String name) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id ")
+                .append("FROM products ")
+                .append("WHERE name LIKE CONCAT('% ', ?, ' %') ")
+                .append("OR name LIKE CONCAT(?, ' %') ")
+                .append("OR name LIKE CONCAT('% ', ?) ");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), ID.class, name, name, name);
     }
 }
