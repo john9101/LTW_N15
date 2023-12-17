@@ -1,13 +1,11 @@
 package filter.product;
 
-import models.Category;
-import models.Color;
-import models.ProductCard;
-import models.Size;
+import models.*;
 import services.ProductCardServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,16 +22,28 @@ public class ProductBuying implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        List<ProductCard> productCardList = ProductCardServices.getINSTANCE().getProducts(1);
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+
+        List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(1);
         request.setAttribute("productCardList", productCardList);
+
         List<Category> categoryList = ProductCardServices.getINSTANCE().getAllCategory();
         request.setAttribute("categoryList", categoryList);
+
         List<Size> sizeList = ProductCardServices.getINSTANCE().getAllSize();
         request.setAttribute("sizeList", sizeList);
+
         List<Color> colorList = ProductCardServices.getINSTANCE().getAllColor();
         request.setAttribute("colorList", colorList);
+
         int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage();
         request.setAttribute("quantityPage", quantityPage);
+
+        request.setAttribute("currentPage", 1);
+
+        String requestURL = "/filterProduct?";
+        request.setAttribute("requestURL", requestURL);
+
         chain.doFilter(request, response);
     }
 }

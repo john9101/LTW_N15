@@ -102,10 +102,4 @@ public class ValidatePassword {
     public Map<String, String> getErrorMap() {
         return errorMap;
     }
-
-    public static void main(String[] args) {
-        Pattern pattern = Pattern.compile(REGEX_NO_SPACE);
-        Matcher matcher = pattern.matcher("    ");
-        System.out.println(!matcher.find());
-    }
 }

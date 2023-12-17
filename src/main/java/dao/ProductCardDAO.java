@@ -1,24 +1,13 @@
 package dao;
 
-import models.ID;
 import models.Product;
-import models.ProductCard;
 import utils.MoneyRange;
 
 import java.util.List;
 
 public class ProductCardDAO {
 
-    public List<ProductCard> getCartAllProduct() {
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id, `name`, originalPrice, salePrice ")
-                .append("FROM products ")
-                .append("WHERE visibility = 1 ");
-        List<ProductCard> list = GeneralDao.executeQueryWithSingleTable(sql.toString(), ProductCard.class);
-        return list;
-    }
-
-    public List<ProductCard> getProducts(int limit, int pageNumber) {
+    public List<Product> getProducts(int limit, int pageNumber) {
         int offset = (pageNumber - 1) * limit;
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, `name`, originalPrice, salePrice ")
@@ -29,32 +18,16 @@ public class ProductCardDAO {
                 .append(" OFFSET ")
                 .append(offset);
 
-        List<ProductCard> list = GeneralDao.executeQueryWithSingleTable(sql.toString(), ProductCard.class);
+        List<Product> list = GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
         return list;
     }
 
     public int getQuantityProduct() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM products where visibility = 1");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), ProductCard.class).size();
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class).size();
     }
 
-    public List<ProductCard> findById(List<ID> listId) {
-        StringBuilder listIdString = new StringBuilder();
-        for (int i = 0; i < listId.size(); i++) {
-            if (i == 0)
-                listIdString.append(listId.get(i).getId());
-            listIdString.append(", ").append(listId.get(i).getId());
-        }
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id, `name`, originalPrice, salePrice ")
-                .append("FROM products ")
-                .append("WHERE visibility = 1 ")
-                .append("AND id IN (")
-                .append(listIdString)
-                .append(")");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), ProductCard.class);
-    }
 
     public List<Product> pagingAndFilter(List<Integer> listId, int pageNumber, int limit) {
         int offset = (pageNumber - 1) * limit;
@@ -77,7 +50,7 @@ public class ProductCardDAO {
                 .append(limit)
                 .append(" OFFSET ")
                 .append(offset);
-        System.out.println(sql.toString());
+        System.out.println(sql);
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
@@ -148,7 +121,6 @@ public class ProductCardDAO {
 
     public List<Product> getIdProductByMoneyRange(List<MoneyRange> moneyRangeList) {
         StringBuilder moneyRangeQuery = new StringBuilder();
-
         for (int i = 0; i < moneyRangeList.size(); i++) {
             if (i != 0) {
                 moneyRangeQuery.append(" OR ");
@@ -162,9 +134,9 @@ public class ProductCardDAO {
         sql.append("SELECT id ")
                 .append("FROM products ")
                 .append("WHERE visibility = 1 ")
-                .append("AND ")
-                .append(moneyRangeQuery);
-        System.out.println(sql.toString());
+                .append("AND (")
+                .append(moneyRangeQuery)
+                .append(")");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 }

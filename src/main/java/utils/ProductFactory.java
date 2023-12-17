@@ -2,6 +2,7 @@ package utils;
 
 import dao.ReviewDAO;
 import models.*;
+import services.ProductCardServices;
 import services.ProductServices;
 
 import java.util.List;
@@ -28,14 +29,10 @@ public class ProductFactory {
         return ProductServices.getINSTANCE().getPriceSizeByName(nameSize, productId);
     }
 
-    public static int calculateStar(Product product) {
-        ReviewDAO reviewDAO = new ReviewDAO();
-        List<Review> list = reviewDAO.getReviewStar(product.getId());
-        if (list.isEmpty()) return 0;
-        int totalStar = 0;
-        for (Review item : list) {
-            totalStar += item.getRatingStar();
-        }
-        return totalStar / list.size();
+    public static int getReviewCount(int productId) {
+        return ProductCardServices.getINSTANCE().getReviewCount(productId);
+    }
+    public static int calculateStar(int productId) {
+       return ProductCardServices.getINSTANCE().calculateStar(productId);
     }
 }

@@ -1,11 +1,11 @@
 package utils;
 
-import models.ProductCard;
+import models.Product;
 
 import java.util.List;
 
 public class FilterPaging {
-    private List<ProductCard> productCardList;
+    private List<Product> productCardList;
     private List<Integer> categoryId;
     private List<MoneyRange> moneyRange;
     private List<String> size;

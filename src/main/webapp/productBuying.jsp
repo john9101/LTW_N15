@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -37,12 +38,6 @@
             <div class="row ">
                 <div class="col-3">
                     <form action="filterProduct" class="form__filter">
-<%--                        <div class="filter__group">--%>
-<%--                            <span class="filter__title">Tên sản phẩm</span>--%>
-<%--                            <input name="nameProduct" type="text" autocomplete="off" class="filter__search filter__input"--%>
-<%--                                   placeholder="Nhập sản phẩm bạn muốn tìm tại đây.">--%>
-<%--                        </div>--%>
-                        <span class="filter__separate"></span>
                         <div class="filter__group">
                             <span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">
@@ -121,7 +116,7 @@
                             <div class="product__item">
                                 <c:set value="${productFactory.getListImagesByProductId(item.id)}"
                                        var="listProductImage"/>
-                                <img src="assets/img/product_img/${listProductImage.get(0).getNameImage()}"
+                                <img src="assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
                                      class="product__img" alt=""/>
                                 <div class="product__info">
                                     <c:url var="linkProductDetail" value="/showProductDetail">
@@ -131,15 +126,18 @@
                                        href="${linkProductDetail}">${item.name}</a>
                                     <div class="product__review">
                                         <div class="product__review-stars">
-                                            <c:forEach var="starA" begin="1" step="1" end="${item.star}">
+                                            <c:forEach var="starA" begin="1" step="1"
+                                                       end="${productFactory.calculateStar(item.id)}">
                                                 <i class="fa-solid fa-star"></i>
                                             </c:forEach>
-                                            <c:forEach var="starB" begin="1" step="1" end="${5 - item.star}">
+                                            <c:forEach var="starB" begin="1" step="1"
+                                                       end="${5 - productFactory.calculateStar(item.id)}">
                                                 <i class="fa-regular fa-star"></i>
                                             </c:forEach>
                                         </div>
                                         <a class="product__review-num" target="_blank"
-                                           href="${linkProductDetail}">${item.reviews} nhận xét</a>
+                                           href="${linkProductDetail}">${productFactory.getReviewCount(item.id)} nhận
+                                                                                                                 xét</a>
                                     </div>
                                     <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
                                                       var="originalPrice"/>
@@ -160,20 +158,41 @@
                 </div>
             </div>
             <ul class="paging">
-                <c:forEach var="page" begin="1" end="${requestScope.quantityPage}">
+                <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
                     <c:url var="linkPaing" value="${requestScope.requestURL}">
-                        <c:param name="page" value="${page}"/>
+                        <c:param name="page" value="${pageNumber}"/>
                     </c:url>
-                    <a class="page" href="${linkPaing}">${page}</a>
+                    <c:choose>
+                        <c:when test="${pageNumber == requestScope.currentPage}">
+                            <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a class="page" href="${linkPaing}">${pageNumber}</a>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </ul>
         </div>
     </section>
 </main>
 <%@include file="footer.jsp" %>
-<%--<script src="js/base.js"></script>--%>
-<%--<script src="js/data.js"></script>--%>
-<%--<script src="js/paging.js"></script>--%>
 <%--<script src="js/productBuying.js"></script>--%>
+<script>
+    function checkedInputTag(name) {
+        let inputElements = document.querySelectorAll("input");
+        inputElements.forEach(function (element) {
+            if (element.value === name)
+                element.checked = true;
+        })
+    }
+
+    <%List<String> inputChecked =(List<String>) request.getAttribute("listInputChecked");
+     if (inputChecked!=null && !inputChecked.isEmpty()){
+         for (String input : inputChecked) {
+    %>
+    checkedInputTag("<%=input%>");
+    <%}
+     }%>
+</script>
 </body>
 </html>

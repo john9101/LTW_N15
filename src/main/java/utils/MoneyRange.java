@@ -24,4 +24,5 @@ public class MoneyRange {
     public void setTo(double to) {
         this.to = to;
     }
+
 }

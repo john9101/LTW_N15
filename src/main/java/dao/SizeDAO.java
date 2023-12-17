@@ -1,6 +1,6 @@
 package dao;
 
-import models.ID;
+import models.Product;
 import models.Size;
 
 import java.util.List;
@@ -12,9 +12,9 @@ public class SizeDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Size.class);
     }
 
-    public List<ID> getIdProduct(String size) {
+    public List<Product> getIdProduct(String size) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT productId ").append(" FROM sizes ").append("WHERE nameSize = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), ID.class, size);
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, size);
     }
 }

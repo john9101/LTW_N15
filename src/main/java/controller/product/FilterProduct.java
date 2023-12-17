@@ -1,14 +1,15 @@
 package controller.product;
 
-import models.ID;
 import models.Product;
-import models.ProductCard;
+
 import services.ProductCardServices;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.*;
 
 @WebServlet(name = "filterProduct", value = "/filterProduct")
@@ -19,20 +20,16 @@ public class FilterProduct extends HttpServlet {
         List<Integer> filterByCategoryId = (List<Integer>) request.getAttribute("filterByCategoryId");
         List<Integer> filterByMoneyRange = (List<Integer>) request.getAttribute("filterByMoneyRange");
         List<Integer> filterBySize = (List<Integer>) request.getAttribute("filterBySize");
-        String pageNumber = request.getParameter("pageNumber");
+        String pageNumber = request.getParameter("page");
         int page;
         try {
             page = Integer.parseInt(pageNumber);
         } catch (NumberFormatException e) {
             page = 1;
         }
-        System.out.println(filterByColor);
-        System.out.println(filterByMoneyRange);
-        System.out.println(filterByCategoryId);
-        System.out.println(filterBySize);
         List<List<Integer>> listId = new ArrayList<>();
         if (filterByColor != null) {
-            listId.add(filterBySize);
+            listId.add(filterByColor);
         }
         if (filterByCategoryId != null) {
             listId.add(filterByCategoryId);
@@ -45,25 +42,26 @@ public class FilterProduct extends HttpServlet {
         }
         List<Integer> listIDFiltered = findCommonIDs(listId);
         List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page);
-        int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered.size());
-
-        // Getting the request URL
-        StringBuffer requestURL = request.getRequestURL();
-
-        // Getting the query string (parameters)
-        String queryString = request.getQueryString();
-
-        // Combining the request URL and query string to get the full URL with parameters
-        if (queryString != null) {
-            requestURL.append("?").append(queryString);
+        int quantityPage;
+        if (!listIDFiltered.isEmpty()) {
+            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered.size());
+        } else {
+            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage();
         }
 
+        StringBuffer requestURL = request.getRequestURL();
+        String queryString = request.getQueryString();
+        queryString = cutParameterInURL(queryString, "page");
+        requestURL.append("?").append(queryString);
+
+        List<String> listInputChecked = listValueChecked(queryString);
+        System.out.println(listInputChecked);
         request.setAttribute("requestURL", requestURL);
         request.setAttribute("productCardList", productCardFiltered);
         request.setAttribute("quantityPage", quantityPage);
-
+        request.setAttribute("currentPage", page);
+        request.setAttribute("listInputChecked", listInputChecked);
         request.getRequestDispatcher("productBuying.jsp").forward(request, response);
-
     }
 
     @Override
@@ -73,7 +71,7 @@ public class FilterProduct extends HttpServlet {
     }
 
     private List<Integer> findCommonIDs(List<List<Integer>> lists) {
-        if (lists.isEmpty()) return null;
+        if (lists.isEmpty()) return new ArrayList<>();
         if (lists.size() == 1) return lists.get(0);
         List<Integer> result = new ArrayList<>();
         result = lists.get(0);
@@ -83,4 +81,36 @@ public class FilterProduct extends HttpServlet {
         return result;
     }
 
+    private String cutParameterInURL(String queryString, String key) {
+        if (queryString != null) {
+            String[] params = queryString.split("&");
+            StringBuilder updatedQueryString = new StringBuilder();
+            for (String param : params) {
+                String[] keyValue = param.split("=");
+                if (keyValue.length == 2 && key.equals(keyValue[0])) {
+                    continue;
+                } else {
+                    updatedQueryString.append(param).append("&");
+                }
+            }
+            return updatedQueryString.toString();
+        }
+        return null;
+    }
+
+    public List<String> listValueChecked(String queryString) {
+        List<String> result = new ArrayList<>();
+        if (queryString != null) {
+            String[] params = queryString.split("&");
+            for (String param : params) {
+                String[] keyValue = param.split("=");
+                try {
+                    result.add(URLDecoder.decode(keyValue[1], "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        return result;
+    }
 }

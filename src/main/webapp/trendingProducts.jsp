@@ -131,11 +131,11 @@
                 </div>
             </c:forEach>
         </div>
-        <c:set value="${requestScope.page}" var="page"/>
+        <c:set value="${requestScope.page}" var="pageNumber"/>
         <div class="pagination">
-            <c:if test="${page > 1}">
+            <c:if test="${pageNumber > 1}">
                 <c:url var="prevURLPage" value="trendingProducts">
-                    <c:param name="page" value="${page - 1}"/>
+                    <c:param name="page" value="${pageNumber - 1}"/>
                 </c:url>
                 <a href="${prevURLPage}" class="previous__page"><i class="fa-solid fa-chevron-left"></i></a>
             </c:if>
@@ -143,11 +143,11 @@
                 <c:url var="trURLPage" value="trendingProducts">
                     <c:param name="page" value="${i}"/>
                 </c:url>
-                <a class="${i == page ? "active" : "page__forward"}" href="${trURLPage}">${i}</a>
+                <a class="${i == pageNumber ? "active" : "page__forward"}" href="${trURLPage}">${i}</a>
             </c:forEach>
-            <c:if test="${page < requestScope.totalPage}">
+            <c:if test="${pageNumber < requestScope.totalPage}">
                 <c:url var="nextURLPage" value="trendingProducts">
-                    <c:param name="page" value="${page + 1}"/>
+                    <c:param name="page" value="${pageNumber + 1}"/>
                 </c:url>
                 <a href="${nextURLPage}" class="next__page"><i class="fa-solid fa-chevron-right"></i></a>
             </c:if>
