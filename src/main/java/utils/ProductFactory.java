@@ -26,7 +26,15 @@ public class ProductFactory {
         return ProductServices.getINSTANCE().getListSizesByProductId(productId);
     }
 
-    public static double getPriceSizeByName(String nameSize, int productId){
-        return ProductServices.getINSTANCE().getPriceSizeByName(nameSize, productId);
+//    public static double getPriceSizeByName(String nameSize, int productId){
+//        return ProductServices.getINSTANCE().getPriceSizeByName(nameSize, productId);
+//    }
+
+    public static Size getSizeByNameSizeWithProductId(String nameSize, int productId){
+        return ProductServices.getINSTANCE().getSizeByNameSizeWithProductId(nameSize, productId);
+    }
+
+    public static Color getColorByCodeColorWithProductId(String codeColor, int productId){
+        return ProductServices.getINSTANCE().getColorByCodeColorWithProductId(codeColor, productId);
     }
 }
