@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class Size {
     private int id;
     private String nameSize;
@@ -46,5 +48,18 @@ public class Size {
                 ", productId=" + productId +
                 ", sizePrice=" + sizePrice +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Size size = (Size) o;
+        return id == size.id && Double.compare(sizePrice, size.sizePrice) == 0 && Objects.equals(nameSize, size.nameSize);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nameSize, sizePrice);
     }
 }

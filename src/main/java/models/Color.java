@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class Color {
     private int id;
     private String codeColor;
@@ -36,5 +38,18 @@ public class Color {
                 ", codeColor='" + codeColor + '\'' +
                 ", productId=" + productId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Color color = (Color) o;
+        return id == color.id && Objects.equals(codeColor, color.codeColor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, codeColor);
     }
 }
