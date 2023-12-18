@@ -152,12 +152,12 @@
                                     <%--                                            <td class="remove__action"><i class="fa-solid fa-trash-can"></i></td>--%>
                                     <%--                                        </tr>--%>
                                     <%--                                    </c:forEach>--%>
-                                    <c:set value="0" var="temporaryPrice"/>
+<%--                                    <c:set value="0" var="temporaryPrice"/>--%>
                                     <c:forEach items="${sessionScope.cart.shoppingCartMap.keySet()}" var="productId">
                                         <c:forEach items="${sessionScope.cart.shoppingCartMap.get(productId)}" var="cartProduct">
                                             <c:set value="${sessionScope.cart.shoppingCartMap.get(productId).indexOf(cartProduct)}" var="cartProductItem"/>
                                             <tr class="cart__item">
-                                                <fmt:setLocale value="vi_VN"/>
+<%--                                                <fmt:setLocale value="vi_VN"/>--%>
                                                 <td class="product__item">
                                                     <div class="product__content">
                                                         <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->
@@ -173,27 +173,31 @@
 <%--                                                                <c:set var="codeColor"--%>
 <%--                                                                       value="${listColorsProduct.get(0).codeColor}"/>--%>
 <%--                                                                Màu sắc: ${codeColor}--%>
-                                                                Màu sắc: ${cartProduct.color}
+                                                                Màu sắc: ${cartProduct.color.codeColor}
                                                                     <%--                                                            <jsp:setProperty name="cartProd" property="color" value="${codeColor}"/>--%>
                                                             </p>
                                                             <ul class="order__size--specification">
-                                                                <c:set value="${productFactory.getPriceSizeByName(cartProduct.size, productId)}" var="sizePrice"/>
-                                                                Kích thước: ${cartProduct.size} (Giá kích thứớc: <fmt:formatNumber type="currency" value="${sizePrice}"/>)
+<%--                                                                <c:set value="${productFactory.getPriceSizeByName(cartProduct.size, productId)}" var="sizePrice"/>--%>
+<%--                                                                Kích thước: ${cartProduct.size} (Giá kích thứớc: <fmt:formatNumber type="currency" value="${sizePrice}"/>)--%>
+<%--                                                                <c:set value="${cartProduct.getPriceSizeChoose()}" var="sizePriceChoose"/>--%>
+                                                                Kích thước: ${cartProduct.size.nameSize} (Giá kích thứớc: <fmt:formatNumber type="currency" value="${cartProduct.size.sizePrice}"/>)
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="unit__price">
-                                                    <c:choose>
-                                                        <c:when test="${cartProduct.product.salePrice != null}">
-                                                            <c:set var="prorityPrice" value="${cartProduct.product.salePrice}"/>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <c:set var="prorityPrice" value="${cartProduct.product.originalPrice}"/>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <c:set var="sewingPrice" value="${prorityPrice + sizePrice}"/>
-                                                    <fmt:formatNumber value="${sewingPrice}" type="currency"/>
+<%--                                                    <c:choose>--%>
+<%--                                                        <c:when test="${cartProduct.product.salePrice != null}">--%>
+<%--                                                            <c:set var="prorityPrice" value="${cartProduct.product.salePrice}"/>--%>
+<%--                                                        </c:when>--%>
+<%--                                                        <c:otherwise>--%>
+<%--                                                            <c:set var="prorityPrice" value="${cartProduct.product.originalPrice}"/>--%>
+<%--                                                        </c:otherwise>--%>
+<%--                                                    </c:choose>--%>
+<%--                                                    <c:set var="sewingPrice" value="${prorityPrice + sizePrice}"/>--%>
+<%--                                                    <c:set var="sewingPrice" value="${cartProduct.getSewingPrice()}"/>--%>
+<%--                                                    <fmt:formatNumber value="${sewingPrice}" type="currency"/>--%>
+                                                    ${cartProduct.sewingPriceFormat()}
                                                 </td>
                                                 <td>
                                                     <c:url var="increaseQTY" value="IncreaseQuantity">
@@ -216,8 +220,10 @@
                                                     </div>
                                                 </td>
                                                 <td class="subtotal__item">
-                                                    <fmt:formatNumber value="${sewingPrice * cartProduct.quantity}" type="currency"/>
-                                                    <c:set var="temporaryPrice" value="${temporaryPrice + sewingPrice * cartProduct.quantity}"/>
+<%--                                                    <fmt:formatNumber value="${sewingPrice * cartProduct.quantity}" type="currency"/>--%>
+<%--                                                    <fmt:formatNumber value="${cartProduct.getSubtotal()}" type="currency"/>--%>
+<%--                                                    <c:set var="temporaryPrice" value="${temporaryPrice + sewingPrice * cartProduct.quantity}"/>--%>
+                                                    ${cartProduct.subtotalFormat()}
                                                 </td>
                                                 <td class="remove__action">
                                                     <c:url var="rmCartProduct" value="DeleteCartProduct">
@@ -239,9 +245,9 @@
                         </div><!-- New update template -->
                     </div>
                     <div class="invoice__promotion col">
+                        <c:set var="temporaryPrice" value="${sessionScope.cart.getTemporaryPrice()}"/>
                         <div class="apply__promotion">
                             <h2>Khuyến mãi</h2>
-
                             <form id="promotion__form" action="ShoppingCart" method="post">
                                 <!-- New update template -->
                                 <div class="promotion__all">
@@ -249,16 +255,19 @@
                                     <span>Xem tất cả <i class="fa-solid fa-chevron-right"></i></span>
                                 </div> <!-- New update template -->
                                 <div>
+<%--                                    <input type="hidden" name="tempPrice" value="${temporaryPrice}">--%>
                                     <input type="hidden" name="tempPrice" value="${temporaryPrice}">
-                                    <input type="text" name="promotion__code" id="promotion_code">
+<%--                                    <input type="text" name="promotion__code" id="promotion_code" value="${requestScope.code != null ? requestScope.code : ""}">--%>
+                                    <input type="text" name="promotion__code" id="promotion_code" value="${sessionScope.code != null ? sessionScope.code : ""}">
                                     <input type="submit" name="apply" value="Áp dụng" id="apply">
                                 </div>
                                 <div class="apply__status">
-                                    <c:if test="${requestScope.successApplied != null}">
-                                        ${requestScope.successApplied}
+<%--                                    <fmt:setLocale value="vi_VN"/>--%>
+                                    <c:if test="${sessionScope.successApplied != null}">
+                                        <span class="apply__success"><i class="fa-solid fa-circle-check"></i> <span>${sessionScope.successApplied}</span></span>
                                     </c:if>
-                                    <c:if test="${requestScope.failedApply != null}">
-                                        ${requestScope.failedApply}
+                                    <c:if test="${sessionScope.failedApply != null}">
+                                        <span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i> <span>${sessionScope.failedApply}</span></span>
                                     </c:if>
                                 </div>
                             </form>
@@ -268,30 +277,46 @@
                             <div class="invoice__detail--info">
                                 <ul class="price__items">
                                     <li class="price__item">
-                                        <fmt:setLocale value="vi_VN"/>
-                                        <p class="price__text">Tạm tính (${shoppingCart.getTotalItems()} sp)</p>
-                                        <p class="price__value"><fmt:formatNumber value="${temporaryPrice}" type="currency"/></p>
+<%--                                        <fmt:setLocale value="vi_VN"/>--%>
+                                        <p class="price__text">Tạm tính (${sessionScope.cart.getTotalItems()} sp)</p>
+                                        <p class="price__value">
+<%--                                            <fmt:formatNumber value="${temporaryPrice}" type="currency"/>--%>
+                                            ${sessionScope.cart.temporaryPriceFormat()}
+                                        </p>
                                     </li>
-                                    <li class="price__item">
-                                        <p class="price__text">Giảm giá <i
-                                                class="icon__info fa-solid fa-circle-info"></i> <span
-                                                class="discount__note"></span></p>
-                                        <p class="price__value"></p>
-                                    </li>
+<%--                                    <c:if test="${requestScope.discountPrice != null}">--%>
+<%--                                        <li class="price__item">--%>
+<%--                                            <p class="price__text">Giảm giá <i--%>
+<%--                                                    class="icon__info fa-solid fa-circle-info"></i> <span--%>
+<%--                                                    class="discount__note"></span></p>--%>
+<%--                                            <p class="price__value">${requestScope.discountPrice}</p>--%>
+<%--                                        </li>--%>
+<%--                                    </c:if>--%>
+                                    <c:if test="${sessionScope.cart.getDiscountPrice() != 0}">
+                                        <li class="price__item">
+                                            <p class="price__text">Giảm giá <i
+                                                    class="icon__info fa-solid fa-circle-info"></i> <span
+                                                    class="discount__note"> <fmt:setLocale value="vi_VN"/> ${sessionScope.cart.voucherApplied.description} <fmt:formatNumber type="currency" value="${sessionScope.cart.voucherApplied.minimumPrice}"/> khi áp dụng mã ${sessionScope.cart.voucherApplied.code}</span></p>
+                                            <p class="price__value">
+                                                    ${sessionScope.cart.discountPriceFormat()}
+                                            </p>
+                                        </li>
+                                    </c:if>
                                 </ul>
                                 <div class="price__total">
                                     <p class="price__text">Tổng tiền</p>
                                     <div class="price__content">
                                         <p class="price__value--final">
-                                            <c:choose>
-                                                <c:when test="${requestScope.newTotalPrice != null}">
-                                                    ${requestScope.newTotalPrice}
-                                                </c:when>
-                                                <c:otherwise>
-                                                    ${temporaryPrice}
-                                                </c:otherwise>
-                                            </c:choose>
-
+<%--                                            <c:choose>--%>
+<%--                                                <c:when test="${requestScope.newTotalPrice != null}">--%>
+<%--                                                    <fmt:formatNumber value="${requestScope.newTotalPrice}" type="currency"/>--%>
+<%--                                                </c:when>--%>
+<%--                                                <c:otherwise>--%>
+<%--                                                    <fmt:formatNumber value="${temporaryPrice}" type="currency"/>--%>
+<%--                                                </c:otherwise>--%>
+<%--                                            </c:choose>--%>
+<%--                                            <fmt:formatNumber value="${sessionScope.cart.getTotalPrice()}"/>--%>
+                                            ${sessionScope.cart.totalPriceFormat()}
                                         </p>
                                         <p class="price__value--noted">(Đã bao gồm VAT nếu có)</p>
                                     </div>
@@ -333,7 +358,7 @@
     });
 </script>
 <script src="js/data.js"></script>
-<script src="js/checkout.js"></script>
+<%--<script src="js/checkout.js"></script>--%>
 <script src="js/shoppingCart.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="

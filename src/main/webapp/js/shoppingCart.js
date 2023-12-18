@@ -404,10 +404,12 @@ async function copyToClipboard(text) {
 
 function preventSubmitWithEmptyCode(){
     const promoApplyForm = document.getElementById('promotion__form');
-    const inputPromoCode = promoApplyForm.getElementById('promotion_code');
-    if(inputPromoCode.value.trim() === '' || inputPromoCode.value.trim() === null){
-        promoApplyForm.onsubmit = function (event){
+    const inputPromoCode = promoApplyForm.querySelector("#promotion_code")
+    promoApplyForm.onsubmit = function (event){
+        if(inputPromoCode.value.trim() === '' || inputPromoCode.value.trim() === null){
             event.preventDefault();
+        }else{
+            promoApplyForm.submit();
         }
     }
 }

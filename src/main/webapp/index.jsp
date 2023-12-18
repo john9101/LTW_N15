@@ -413,19 +413,32 @@
             $('.action__bar').each(function (index, actionBar){
                 $(actionBar).on('submit', function (event){
                     event.preventDefault();
-                    const form = $(actionBar);
-                    let productId = form.find('input[name="productId"]').val();
-                    $.ajax({
-                        type: form.attr('method'),
-                        url: form.attr('action'),
-                        data: {productId: productId},
-                        success: function (response) {
-                            $('.qlt__value').text(response);
-                        },
-                        error: function (error){
-                            console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
-                        }
-                    })
+                    let userLoggedIn;
+                    <c:choose>
+                        <c:when test="${sessionScope.auth == null}">
+                            userLoggedIn = false
+                        </c:when>
+                        <c:otherwise>
+                            userLoggedIn = true
+                        </c:otherwise>
+                    </c:choose>
+                    if(userLoggedIn === false){
+                        window.location.href = "signIn.jsp"
+                    }else {
+                        const form = $(actionBar);
+                        let productId = form.find('input[name="productId"]').val();
+                        $.ajax({
+                            type: form.attr('method'),
+                            url: form.attr('action'),
+                            data: {productId: productId},
+                            success: function (response) {
+                                $('.qlt__value').text(response);
+                            },
+                            error: function (error){
+                                console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                            }
+                        })
+                    }
                 })
             })
         })

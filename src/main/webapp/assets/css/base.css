@@ -259,6 +259,7 @@ body {
     align-items: center;
     gap: 8px;
     white-space: nowrap;
+    font-size: 18px;
 }
 
 .cart .qlt__swapper{
