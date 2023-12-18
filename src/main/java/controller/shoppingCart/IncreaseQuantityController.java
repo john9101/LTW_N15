@@ -1,6 +1,9 @@
 package controller.shoppingCart;
 
 import models.ShoppingCart;
+import models.Voucher;
+import services.ShoppingCartServices;
+import utils.FormatCurrency;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -23,6 +26,27 @@ public class IncreaseQuantityController extends HttpServlet {
         }
 
         cart.increase(productId, cartProductIndex);
+
+        String code = (String) session.getAttribute("code");
+        if(code != null){
+            Voucher voucher = cart.getVoucherApplied();
+            if (voucher == null){
+                voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
+                double minPriceToApply = voucher.getMinimumPrice();
+                if (cart.getTemporaryPrice() >= minPriceToApply){
+                    session.removeAttribute("failedApply");
+                    cart.setVoucherApplied(voucher);
+                    session.setAttribute("successApplied", "Bạn đá áp dụng mã " + code + " thành công");
+                }else {
+                    double currentTempPrice = cart.getTemporaryPrice();
+                    double priceBuyMore = minPriceToApply - currentTempPrice;
+                    String priceBuyMoreFormat = FormatCurrency.vietNamCurrency(priceBuyMore);
+                    session.removeAttribute("successApplied");
+                    session.setAttribute("failedApply", "Bạn chưa đủ điều kiện để áp dụng mã " + code + ". Hãy mua thêm " + priceBuyMoreFormat);
+                }
+            }
+        }
+
         session.setAttribute("cart", cart);
 //        int quantityIncreased = cart.getShoppingCartMap().get(productId).get(cartProductIndex).getQuantity();
 //        response.getWriter().write(String.valueOf(quantityIncreased));

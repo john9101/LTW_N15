@@ -1,6 +1,9 @@
 package controller.shoppingCart;
 
 import models.ShoppingCart;
+import models.Voucher;
+import services.ShoppingCartServices;
+import utils.FormatCurrency;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -22,6 +25,25 @@ public class DeleteCartProductController extends HttpServlet {
             exception.printStackTrace();
         }
         cart.remove(productId, cartProductIndex);
+
+        String code = (String) session.getAttribute("code");
+        if(code != null){
+            Voucher voucher = cart.getVoucherApplied();
+            if (voucher == null){
+                voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
+            }
+            if (cart.getTemporaryPrice() < voucher.getMinimumPrice()){
+                double minPriceToApply = voucher.getMinimumPrice();
+                double currentTempPrice = cart.getTemporaryPrice();
+
+                double priceBuyMore = minPriceToApply - currentTempPrice;
+                String priceBuyMoreFormat = FormatCurrency.vietNamCurrency(priceBuyMore);
+                session.removeAttribute("successApplied");
+                cart.setVoucherApplied(null);
+                session.setAttribute("failedApply", "Bạn chưa đủ điều kiện để áp dụng mã " + code + ". Hãy mua thêm " + priceBuyMoreFormat);
+            }
+        }
+
         session.setAttribute("cart", cart);
 
         response.sendRedirect("shoppingCart.jsp");
