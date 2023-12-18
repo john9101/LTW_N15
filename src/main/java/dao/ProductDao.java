@@ -23,9 +23,19 @@ public class ProductDao {
         return GeneralDao.executeQueryWithSingleTable(sql, Size.class, productId);
     }
 
-    public double getPriceSizeByName(String nameSize, int productId){
-        String sql = "SELECT sizePrice FROM sizes WHERE nameSize = ? AND productId = ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, Size.class,nameSize, productId).get(0).getSizePrice();
+//    public double getPriceSizeByName(String nameSize, int productId){
+//        String sql = "SELECT sizePrice, nameSize FROM sizes WHERE nameSize = ? AND productId = ?";
+//        return GeneralDao.executeQueryWithSingleTable(sql, Size.class,nameSize, productId).get(0).getSizePrice();
+//    }
+
+    public Size getSizeByNameSizeWithProductId(String nameSize, int productId){
+        String sql = "SELECT id, sizePrice, nameSize FROM sizes WHERE nameSize = ? AND productId = ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, Size.class, nameSize, productId).get(0);
+    }
+
+    public Color getColorByCodeColorWithProductId(String codeColor, int productId){
+        String sql = "SELECT id, codeColor FROM colors WHERE codeColor = ? AND productId = ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, Color.class, codeColor, productId).get(0);
     }
 
     public Product getProductByProductId(int productId){
