@@ -1,12 +1,9 @@
 package services;
 
 import dao.HomeDao;
-import models.Images;
-import models.Products;
-import models.Sliders;
+import models.*;
 
 import java.util.List;
-import java.util.Map;
 
 public class HomeServices {
     private HomeDao homeDao;
@@ -30,19 +27,15 @@ public class HomeServices {
 //        return homeDao.getListNewProducts(isSeeMore);
 //    }
 
-    public List<Products> getListNewProducts(boolean isSeeMore){
+    public List<Product> getListNewProducts(boolean isSeeMore){
         return homeDao.getListNewProducts(isSeeMore);
     }
 
-    public List<Sliders> getListSlideShow(){
+    public List<Slider> getListSlideShow(){
         return homeDao.getListSlideShow();
     }
 
-    public List<Products> getListTrendProducts(boolean isSeeMore){
+    public List<Product> getListTrendProducts(boolean isSeeMore){
         return homeDao.getListTrendProducts(isSeeMore);
-    }
-
-    public List<Images> getListImagesByProductId(int productId){
-        return homeDao.getListImagesByProductId(productId);
     }
 }

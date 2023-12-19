@@ -1,17 +1,12 @@
 package dao;
 
-import models.Images;
-import models.Products;
-import models.Sliders;
+import models.*;
 
-import javax.management.ObjectName;
-import java.awt.*;
 import java.util.List;
-import java.util.Map;
 
 public class HomeDao {
-    public List<Sliders> getListSlideShow() {
-        return GeneralDao.executeQueryWithSingleTable("SELECT nameSlide, nameImage FROM sliders WHERE visibility = 1", Sliders.class);
+    public List<Slider> getListSlideShow() {
+        return GeneralDao.executeQueryWithSingleTable("SELECT nameSlide, nameImage FROM sliders WHERE visibility = 1", Slider.class);
     }
 //    public List<Map<String, Object>> getListTrendingProducts(boolean isSeeMore) {
 //        StringBuilder sql = new StringBuilder("SELECT products.id, products.`name`, products.salePrice, products.originalPrice, images.nameImage FROM products");
@@ -36,16 +31,16 @@ public class HomeDao {
 //        return GeneralDao.executeQueryWithJoinTables(sql.toString());
 //    }
 
-    public static List<Products> getListNewProducts(boolean isSeeMore) {
+    public static List<Product> getListNewProducts(boolean isSeeMore) {
         StringBuilder sql = new StringBuilder("SELECT id, `name`, `description`, salePrice, originalPrice FROM products");
         sql.append(" WHERE visibility = 1 AND createAt >= DATE_SUB('2023-12-01', INTERVAL 1 MONTH)");
         if (!isSeeMore) {
             sql.append(" LIMIT 6");
         }
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(),Products.class);
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
-    public List<Products> getListTrendProducts(boolean isSeeMore){
+    public List<Product> getListTrendProducts(boolean isSeeMore){
         StringBuilder sql = new StringBuilder("SELECT products.id, products.`name`, products.`description`, products.salePrice, products.originalPrice FROM products");
         sql.append(" INNER JOIN order_details ON products.id = order_details.productId");
         sql.append(" WHERE products.visibility = 1");
@@ -55,15 +50,6 @@ public class HomeDao {
         if(!isSeeMore){
             sql.append(" LIMIT 6");
         }
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Products.class, 10);
-    }
-
-    public List<Images> getListImagesByProductId(int productId){
-        String sql = "SELECT id, nameImage, productId FROM Images WHERE productId = ?";
-        return GeneralDao.executeQueryWithSingleTable(sql, Images.class, productId);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getListNewProducts(true));
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, 10);
     }
 }
