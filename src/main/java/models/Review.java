@@ -57,4 +57,16 @@ public class Review {
     public void setReviewDate(Date reviewDate) {
         this.reviewDate = reviewDate;
     }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", orderDetailId=" + orderDetailId +
+                ", ratingStar=" + ratingStar +
+                ", feedback='" + feedback + '\'' +
+                ", reviewDate=" + reviewDate +
+                '}';
+    }
 }

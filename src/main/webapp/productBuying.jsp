@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <fmt:setLocale value="vi_VN"/>
-<fmt:setBundle basename="java.text.resources.LocaleElements_vi_VN"/>
 <jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,6 +120,7 @@
                                 <div class="product__info">
                                     <c:url var="linkProductDetail" value="/showProductDetail">
                                         <c:param name="id" value="${item.id}"/>
+
                                     </c:url>
                                     <a class="product__name" target="_blank"
                                        href="${linkProductDetail}">${item.name}</a>

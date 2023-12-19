@@ -29,4 +29,6 @@ public class ProductDAO {
         String sql = "SELECT id, `name`, `description`, salePrice, originalPrice FROM products WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Product.class, productId).get(0);
     }
+
+
 }
