@@ -1,8 +1,10 @@
 package utils;
 
-import dao.ReviewDAO;
-import models.*;
 import services.ProductCardServices;
+import models.Color;
+import models.Image;
+import models.Product;
+import models.Size;
 import services.ProductServices;
 
 import java.util.List;
@@ -33,6 +35,13 @@ public class ProductFactory {
         return ProductCardServices.getINSTANCE().getReviewCount(productId);
     }
     public static int calculateStar(int productId) {
-       return ProductCardServices.getINSTANCE().calculateStar(productId);
+        return ProductCardServices.getINSTANCE().calculateStar(productId);
+    }
+    public static Size getSizeByNameSizeWithProductId(String nameSize, int productId){
+        return ProductServices.getINSTANCE().getSizeByNameSizeWithProductId(nameSize, productId);
+    }
+
+    public static Color getColorByCodeColorWithProductId(String codeColor, int productId){
+        return ProductServices.getINSTANCE().getColorByCodeColorWithProductId(codeColor, productId);
     }
 }

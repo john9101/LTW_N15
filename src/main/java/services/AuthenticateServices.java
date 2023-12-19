@@ -131,7 +131,7 @@ public class AuthenticateServices {
             validation.setFieldConfirmPassword(errorPasswordConfirm);
             countError++;
         }
-        System.out.println(countError);
+
         if (countError == 0) {
             User user = new User();
             user.setUsername(username);

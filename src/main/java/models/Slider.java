@@ -3,7 +3,6 @@ package models;
 public class Slider {
     private int id;
     private String nameSlide;
-
     private String nameImage;
     private boolean visibility;
 

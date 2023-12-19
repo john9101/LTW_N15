@@ -14,10 +14,11 @@ public class ValidatePassword {
     static final String REGEX_LEAST_1_CHAR_SPECIAL = "[^\\s\\w]{1,}";
     static final String REGEX_NO_SPACE = "\\s";
 
-    Map<String, String> errorMap = new HashMap<>();
+    Map<String, String> errorMap;
 
     public ValidatePassword(String password) {
         this.password = password;
+        this.errorMap = new HashMap<>();
     }
 
     public boolean check() {

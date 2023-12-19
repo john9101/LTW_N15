@@ -90,11 +90,12 @@
                             <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}" var="listTrendProductImages"/>
                             <img src="./assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
                             <span class="product__tag">Thịnh hành</span>
-                            <form action="AddToCart" class="action__bar" method="post">
-                                <input type="hidden" name="productId" value="${trendProduct.id}">
-                                <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>
-                                <a class="see__detail" href="ProductDetails?pid=${trendProduct.id}">Xem chi tiết <i class="fa-solid fa-eye"></i></a>
-                            </form>
+                            <div class="action__bar">
+                                <button type="submit" class="add__cart">Thêm vào giỏ hàng <i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                                <button type="submit" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="product__info">
                             <a class="product__name" href="#">${trendProduct.name}</a>
@@ -131,11 +132,11 @@
                 </div>
             </c:forEach>
         </div>
-        <c:set value="${requestScope.page}" var="pageNumber"/>
+        <c:set value="${requestScope.page}" var="page"/>
         <div class="pagination">
-            <c:if test="${pageNumber > 1}">
+            <c:if test="${page > 1}">
                 <c:url var="prevURLPage" value="trendingProducts">
-                    <c:param name="page" value="${pageNumber - 1}"/>
+                    <c:param name="page" value="${page - 1}"/>
                 </c:url>
                 <a href="${prevURLPage}" class="previous__page"><i class="fa-solid fa-chevron-left"></i></a>
             </c:if>
@@ -143,11 +144,11 @@
                 <c:url var="trURLPage" value="trendingProducts">
                     <c:param name="page" value="${i}"/>
                 </c:url>
-                <a class="${i == pageNumber ? "active" : "page__forward"}" href="${trURLPage}">${i}</a>
+                <a class="${i == page ? "active" : "page__forward"}" href="${trURLPage}">${i}</a>
             </c:forEach>
-            <c:if test="${pageNumber < requestScope.totalPage}">
+            <c:if test="${page < requestScope.totalPage}">
                 <c:url var="nextURLPage" value="trendingProducts">
-                    <c:param name="page" value="${pageNumber + 1}"/>
+                    <c:param name="page" value="${page + 1}"/>
                 </c:url>
                 <a href="${nextURLPage}" class="next__page"><i class="fa-solid fa-chevron-right"></i></a>
             </c:if>
@@ -156,32 +157,6 @@
     </div>
 </main>
 <%@ include file="footer.jsp" %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script type="text/javascript">
-    function addToCartAjax(){
-        $(document).ready(function (){
-            $('.action__bar').each(function (index, actionBar){
-                $(actionBar).on('submit', function (event){
-                    event.preventDefault();
-                    const form = $(actionBar);
-                    let productId = form.find('input[name="productId"]').val();
-                    $.ajax({
-                        type: form.attr('method'),
-                        url: form.attr('action'),
-                        data: {productId: productId},
-                        success: function (response) {
-                            $('.qlt__value').text(response);
-                        },
-                        error: function (error){
-                            console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
-                        }
-                    })
-                })
-            })
-        })
-    }
-    addToCartAjax();
-</script>
 </body>
 <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>--%>
 <%--<script>--%>
