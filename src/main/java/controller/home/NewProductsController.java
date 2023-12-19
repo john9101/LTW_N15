@@ -1,4 +1,4 @@
-package controller.trendingAndNewProducts;
+package controller.home;
 
 import models.Product;
 import services.HomeServices;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "newProductsController", value = "/newProducts")
-public class newProductsController extends HttpServlet {
+public class NewProductsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Product> listAllNewProducts = HomeServices.getINSTANCE().getListNewProducts(true);

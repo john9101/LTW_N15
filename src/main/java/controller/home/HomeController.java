@@ -1,4 +1,4 @@
-package controller;
+package controller.home;
 
 import models.Product;
 import models.Slider;
