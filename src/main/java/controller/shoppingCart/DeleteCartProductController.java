@@ -19,8 +19,8 @@ public class DeleteCartProductController extends HttpServlet {
         HttpSession session = request.getSession(true);
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         try {
-            productId = Integer.parseInt(request.getParameter("productId"));
-            cartProductIndex = Integer.parseInt(request.getParameter("cartProductIndex"));
+            productId = Integer.parseInt((String) request.getAttribute("productId"));
+            cartProductIndex = Integer.parseInt((String) request.getAttribute("cartProductIndex"));
         }catch (NumberFormatException exception){
             exception.printStackTrace();
         }
@@ -31,8 +31,7 @@ public class DeleteCartProductController extends HttpServlet {
             Voucher voucher = cart.getVoucherApplied();
             if (voucher == null){
                 voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
-            }
-            if (cart.getTemporaryPrice() < voucher.getMinimumPrice()){
+            } else if (cart.getTemporaryPrice() < voucher.getMinimumPrice()){
                 double minPriceToApply = voucher.getMinimumPrice();
                 double currentTempPrice = cart.getTemporaryPrice();
 
@@ -43,12 +42,8 @@ public class DeleteCartProductController extends HttpServlet {
                 session.setAttribute("failedApply", "Bạn chưa đủ điều kiện để áp dụng mã " + code + ". Hãy mua thêm " + priceBuyMoreFormat);
             }
         }
-
         session.setAttribute("cart", cart);
-
         response.sendRedirect("shoppingCart.jsp");
-//        int quantityDecreased = cart.getShoppingCartMap().get(productId).get(cartProductIndex).getQuantity();
-//        response.getWriter().write(String.valueOf(quantityDecreased));
     }
 
     @Override

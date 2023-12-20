@@ -20,8 +20,6 @@ public class ApplyVoucherController extends HttpServlet {
         List<String> listCodeOfVouchers = ShoppingCartServices.getINSTANCE().getListCodeOfVouchers();
         String code = (String) request.getAttribute("code");
         double temporaryPrice = (double) request.getAttribute("temporaryPrice");
-//        String code = request.getParameter("promotion__code");
-//        double temporaryPrice = Double.parseDouble(request.getParameter("tempPrice"));
         HttpSession session = request.getSession(true);
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         if(listCodeOfVouchers.contains(code)){

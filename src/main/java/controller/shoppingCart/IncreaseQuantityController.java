@@ -19,8 +19,8 @@ public class IncreaseQuantityController extends HttpServlet {
         HttpSession session = request.getSession(true);
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         try {
-            productId = Integer.parseInt(request.getParameter("productId"));
-            cartProductIndex = Integer.parseInt(request.getParameter("cartProductIndex"));
+            productId = Integer.parseInt((String) request.getAttribute("productId"));
+            cartProductIndex = Integer.parseInt((String) request.getAttribute("cartProductIndex"));
         }catch (NumberFormatException exception){
             exception.printStackTrace();
         }
@@ -36,7 +36,7 @@ public class IncreaseQuantityController extends HttpServlet {
                 if (cart.getTemporaryPrice() >= minPriceToApply){
                     session.removeAttribute("failedApply");
                     cart.setVoucherApplied(voucher);
-                    session.setAttribute("successApplied", "Bạn đá áp dụng mã " + code + " thành công");
+                    session.setAttribute("successApplied", "Bạn đã áp dụng mã " + code + " thành công");
                 }else {
                     double currentTempPrice = cart.getTemporaryPrice();
                     double priceBuyMore = minPriceToApply - currentTempPrice;
@@ -48,10 +48,9 @@ public class IncreaseQuantityController extends HttpServlet {
         }
 
         session.setAttribute("cart", cart);
-//        int quantityIncreased = cart.getShoppingCartMap().get(productId).get(cartProductIndex).getQuantity();
-//        response.getWriter().write(String.valueOf(quantityIncreased));
         response.sendRedirect("shoppingCart.jsp");
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
