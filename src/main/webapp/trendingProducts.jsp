@@ -33,55 +33,55 @@
 <main id="main">
     <div class="popular__section container-xl">
         <h2 class="section__title">Sản phẩm thịnh hành</h2>
-<%--        <div class="product__items">--%>
-<%--            <c:forEach items="${requestScope.listProductsPerPage}" var="trendProduct">--%>
-<%--                <div class="product__item">--%>
-<%--                    <div class="product__content">--%>
-<%--                        <div class="image--tag">--%>
-<%--                            <img src="./assets/img/product_img/${trendProduct['nameimage']}">--%>
-<%--                            <span class="product__tag">Thịnh hành</span>--%>
-<%--                            <div class="action__bar">--%>
-<%--                                <button type="submit" class="add__cart">Thêm vào giỏ hàng <i--%>
-<%--                                        class="fa-solid fa-cart-shopping"></i></button>--%>
-<%--                                <button type="submit" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i>--%>
-<%--                                </button>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <div class="product__info">--%>
-<%--                            <a class="product__name" href="#">${trendProduct["name"]}</a>--%>
-<%--                            <div class="product__review">--%>
-<%--                                <div class="review__icon">--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
-<%--                                </div>--%>
-<%--                                <a class="number__turns--ratting" href="#">1000 nhận xét</a>--%>
-<%--                            </div>--%>
-<%--                            <span class="product__price">--%>
-<%--                                <fmt:setLocale value="vi_VN"/>--%>
-<%--                                <c:choose>--%>
-<%--                                    <c:when test="${trendProduct['saleprice'] == null}">--%>
-<%--                                        <strong class="priority__price">--%>
-<%--                                            <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>--%>
-<%--                                        </strong>--%>
-<%--                                    </c:when>--%>
-<%--                                    <c:otherwise>--%>
-<%--                                        <strong class="sale__price">--%>
-<%--                                            <fmt:formatNumber value="${trendProduct['saleprice']}" type="currency"/>--%>
-<%--                                        </strong>--%>
-<%--                                        <s class="original__price">--%>
-<%--                                            <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>--%>
-<%--                                        </s>--%>
-<%--                                    </c:otherwise>--%>
-<%--                                </c:choose>--%>
-<%--                            </span>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </c:forEach>--%>
-<%--        </div>--%>
+        <%--        <div class="product__items">--%>
+        <%--            <c:forEach items="${requestScope.listProductsPerPage}" var="trendProduct">--%>
+        <%--                <div class="product__item">--%>
+        <%--                    <div class="product__content">--%>
+        <%--                        <div class="image--tag">--%>
+        <%--                            <img src="./assets/img/product_img/${trendProduct['nameimage']}">--%>
+        <%--                            <span class="product__tag">Thịnh hành</span>--%>
+        <%--                            <div class="action__bar">--%>
+        <%--                                <button type="submit" class="add__cart">Thêm vào giỏ hàng <i--%>
+        <%--                                        class="fa-solid fa-cart-shopping"></i></button>--%>
+        <%--                                <button type="submit" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i>--%>
+        <%--                                </button>--%>
+        <%--                            </div>--%>
+        <%--                        </div>--%>
+        <%--                        <div class="product__info">--%>
+        <%--                            <a class="product__name" href="#">${trendProduct["name"]}</a>--%>
+        <%--                            <div class="product__review">--%>
+        <%--                                <div class="review__icon">--%>
+        <%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
+        <%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
+        <%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
+        <%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
+        <%--                                    <i class="fa-solid fa-star icon__item"></i>--%>
+        <%--                                </div>--%>
+        <%--                                <a class="number__turns--ratting" href="#">1000 nhận xét</a>--%>
+        <%--                            </div>--%>
+        <%--                            <span class="product__price">--%>
+        <%--                                <fmt:setLocale value="vi_VN"/>--%>
+        <%--                                <c:choose>--%>
+        <%--                                    <c:when test="${trendProduct['saleprice'] == null}">--%>
+        <%--                                        <strong class="priority__price">--%>
+        <%--                                            <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>--%>
+        <%--                                        </strong>--%>
+        <%--                                    </c:when>--%>
+        <%--                                    <c:otherwise>--%>
+        <%--                                        <strong class="sale__price">--%>
+        <%--                                            <fmt:formatNumber value="${trendProduct['saleprice']}" type="currency"/>--%>
+        <%--                                        </strong>--%>
+        <%--                                        <s class="original__price">--%>
+        <%--                                            <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>--%>
+        <%--                                        </s>--%>
+        <%--                                    </c:otherwise>--%>
+        <%--                                </c:choose>--%>
+        <%--                            </span>--%>
+        <%--                        </div>--%>
+        <%--                    </div>--%>
+        <%--                </div>--%>
+        <%--            </c:forEach>--%>
+        <%--        </div>--%>
         <div class="product__items">
             <c:forEach items="${requestScope.listProductsPerPage}" var="trendProduct">
                 <div class="product__item">

@@ -90,55 +90,55 @@
 
                             <table id="cart__table">
                                 <thead class="cart__header">
-                                    <tr>
-                                        <th>Sản phẩm</th>
-                                        <th>Giá may</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                        <th>Xóa</th>
-                                    </tr>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th>Giá may</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                    <th>Xóa</th>
+                                </tr>
                                 </thead>
                                 <tbody class="cart__items">
-                                    <c:forEach items="${sessionScope.cart.shoppingCartMap.keySet()}" var="productId">
-                                        <c:forEach items="${sessionScope.cart.shoppingCartMap.get(productId)}" var="cartProduct">
-                                            <c:set value="${sessionScope.cart.shoppingCartMap.get(productId).indexOf(cartProduct)}" var="cartProductItem"/>
-                                            <c:url var="scart" value="ShoppingCart">
-                                                <c:param name="productId" value="${productId}"/>
-                                                <c:param name="cartProductItem" value="${cartProductItem}"/>
-                                            </c:url>
-                                            <form class="shopping__cart--form" action="${scart}" method="post">
-                                                <tr class="cart__item">
-                                                    <td class="product__item">
-                                                        <div class="product__content">
-                                                            <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->
-                                                                <c:set var="listImagesProduct" value="${productFactory.getListImagesByProductId(productId)}"/>
-                                                                <img src='assets/img/product_img/${listImagesProduct.get(0).nameImage}'>
-                                                            </a>
-                                                            <div class="order__product--info">
-                                                                <a href="#" class="product__name">${cartProduct.product.name}</a>
-                                                                <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>
-                                                                <ul class="order__size--specification">
-                                                                    Kích thước: ${cartProduct.size.nameSize} (Giá kích thứớc: <fmt:formatNumber type="currency" value="${cartProduct.size.sizePrice}"/>)
-                                                                </ul>
-                                                            </div>
+                                <c:forEach items="${sessionScope.cart.shoppingCartMap.keySet()}" var="productId">
+                                    <c:forEach items="${sessionScope.cart.shoppingCartMap.get(productId)}" var="cartProduct">
+                                        <c:set value="${sessionScope.cart.shoppingCartMap.get(productId).indexOf(cartProduct)}" var="cartProductItem"/>
+                                        <c:url var="scart" value="ShoppingCart">
+                                            <c:param name="productId" value="${productId}"/>
+                                            <c:param name="cartProductItem" value="${cartProductItem}"/>
+                                        </c:url>
+                                        <form class="shopping__cart--form" action="${scart}" method="post">
+                                            <tr class="cart__item">
+                                                <td class="product__item">
+                                                    <div class="product__content">
+                                                        <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->
+                                                            <c:set var="listImagesProduct" value="${productFactory.getListImagesByProductId(productId)}"/>
+                                                            <img src='assets/img/product_img/${listImagesProduct.get(0).nameImage}'>
+                                                        </a>
+                                                        <div class="order__product--info">
+                                                            <a href="#" class="product__name">${cartProduct.product.name}</a>
+                                                            <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>
+                                                            <ul class="order__size--specification">
+                                                                Kích thước: ${cartProduct.size.nameSize} (Giá kích thứớc: <fmt:formatNumber type="currency" value="${cartProduct.size.sizePrice}"/>)
+                                                            </ul>
                                                         </div>
-                                                    </td>
-                                                    <td class="unit__price">${cartProduct.sewingPriceFormat()}</td>
-                                                    <td>
-                                                        <div class="quality__swapper">
-                                                            <button type="submit" class="minus__quality change__quality" name="action" value="decreaseQuantity"><i class="fa-solid fa-minus"></i></button>
-                                                            <input type="number" name="quality__required" class="quality__required" min="1" value="${cartProduct.quantity}">
-                                                            <button type="submit" class="plus__quality change__quality" name="action" value="increaseQuantity"><i class="fa-solid fa-plus"></i></button>
-                                                        </div>
-                                                    </td>
-                                                    <td class="subtotal__item">${cartProduct.subtotalFormat()}</td>
-                                                    <td class="remove__action">
-                                                        <button type="submit" name="action" value="removeCartProduct" class="remove__item"><i class="fa-solid fa-trash-can"></i></button>
-                                                    </td>
-                                                </tr>
-                                            </form>
-                                        </c:forEach>
+                                                    </div>
+                                                </td>
+                                                <td class="unit__price">${cartProduct.sewingPriceFormat()}</td>
+                                                <td>
+                                                    <div class="quality__swapper">
+                                                        <button type="submit" class="minus__quality change__quality" name="action" value="decreaseQuantity"><i class="fa-solid fa-minus"></i></button>
+                                                        <input type="number" name="quality__required" class="quality__required" min="1" value="${cartProduct.quantity}">
+                                                        <button type="submit" class="plus__quality change__quality" name="action" value="increaseQuantity"><i class="fa-solid fa-plus"></i></button>
+                                                    </div>
+                                                </td>
+                                                <td class="subtotal__item">${cartProduct.subtotalFormat()}</td>
+                                                <td class="remove__action">
+                                                    <button type="submit" name="action" value="removeCartProduct" class="remove__item"><i class="fa-solid fa-trash-can"></i></button>
+                                                </td>
+                                            </tr>
+                                        </form>
                                     </c:forEach>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -164,7 +164,7 @@
                                     <button type="submit" name="action" value="applyVoucher" id="apply">Áp dụng</button>
                                 </div>
                                 <div class="apply__status">
-<%--                                    <fmt:setLocale value="vi_VN"/>--%>
+                                        <%--                                    <fmt:setLocale value="vi_VN"/>--%>
                                     <c:if test="${sessionScope.successApplied != null}">
                                         <span class="apply__success"><i class="fa-solid fa-circle-check"></i> <span>${sessionScope.successApplied}</span></span>
                                     </c:if>
