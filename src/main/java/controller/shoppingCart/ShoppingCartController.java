@@ -43,12 +43,13 @@ public class ShoppingCartController extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        List<Voucher> listVouchers = ShoppingCartServices.getINSTANCE().getListVouchers();
 //        HttpSession session = request.getSession(true);
 //        session.setAttribute("listVouchers", listVouchers);
 //        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 //        cart.setVoucherApplied(null);
 //        session.setAttribute("cart", cart);
+        List<Voucher> listVouchers = ShoppingCartServices.getINSTANCE().getListVouchers();
+        request.setAttribute("listVouchers", listVouchers);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("shoppingCart.jsp");
         requestDispatcher.forward(request, response);
     }

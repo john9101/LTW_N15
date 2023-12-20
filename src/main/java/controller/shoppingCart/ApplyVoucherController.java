@@ -29,7 +29,7 @@ public class ApplyVoucherController extends HttpServlet {
                 cart.setVoucherApplied(voucher);
                 session.setAttribute("cart", cart);
                 session.removeAttribute("failedApply");
-                session.setAttribute("successApplied", "Bạn đá áp dụng mã " + code + " thành công");
+                session.setAttribute("successApplied", "Bạn đã áp dụng mã " + code + " thành công");
             }else {
                 double priceBuyMore = minPriceToApply - temporaryPrice;
                 String priceBuyMoreFormat = FormatCurrency.vietNamCurrency(priceBuyMore);
@@ -45,8 +45,7 @@ public class ApplyVoucherController extends HttpServlet {
             session.setAttribute("failedApply", "Mã " + code + " mà bạn nhập không tồn tại");
         }
         session.setAttribute("code", code);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("shoppingCart.jsp");
-        requestDispatcher.forward(request, response);
+        response.sendRedirect("shoppingCart.jsp");
     }
 
     @Override

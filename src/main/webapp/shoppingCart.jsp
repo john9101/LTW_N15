@@ -37,7 +37,7 @@
                 <span>Mã giảm giá</span>
             </div>
             <div class="promotion__content">
-                <c:forEach items="${sessionScope.listVouchers}" var="voucher">
+                <c:forEach items="${requestScope.listVouchers}" var="voucher">
                     <div class="promotion__item">
                         <div class="discount__percent">
                             <i class="fa-solid fa-fire"></i>

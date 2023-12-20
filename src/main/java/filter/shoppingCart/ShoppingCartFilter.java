@@ -24,11 +24,11 @@ public class ShoppingCartFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
-        List<Voucher> listVouchers = ShoppingCartServices.getINSTANCE().getListVouchers();
-        HttpSession session = request.getSession(true);
-        session.setAttribute("listVouchers", listVouchers);
-
+//
+//        List<Voucher> listVouchers = ShoppingCartServices.getINSTANCE().getListVouchers();
+//        HttpSession session = request.getSession(true);
+//        session.setAttribute("listVouchers", listVouchers);
+//
         String url = request.getServletPath();
         if(url.contains("shoppingCart.jsp") && !url.contains("error404.jsp")){
             response.sendRedirect("ShoppingCart");
