@@ -1,4 +1,4 @@
-package filter;
+package filter.shoppingCart;
 
 import models.ShoppingCart;
 import models.Voucher;

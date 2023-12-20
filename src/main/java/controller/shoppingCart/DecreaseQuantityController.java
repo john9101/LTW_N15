@@ -25,7 +25,6 @@ public class DecreaseQuantityController extends HttpServlet {
             exception.printStackTrace();
         }
         cart.decrease(productId, cartProductIndex);
-
         String code = (String) session.getAttribute("code");
         if (code != null) {
             Voucher voucher = cart.getVoucherApplied();

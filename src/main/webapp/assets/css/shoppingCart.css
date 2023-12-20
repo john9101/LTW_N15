@@ -179,6 +179,10 @@
     border-radius: 4px 0px 0px 4px;
 }
 
+.remove__item{
+    cursor: pointer;
+}
+
 /*invoice && promotions*/
 
 .invoice__promotion{
@@ -274,6 +278,10 @@
     background-color: var(--blue-color-high);
     color: white;
     font-weight: 600;
+    padding: 10px;
+    border-radius: 4px;
+    width: max-content;
+    cursor: pointer;
 }
 
 #promotion__form .apply__status{

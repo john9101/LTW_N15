@@ -1,4 +1,4 @@
-package filter;
+package filter.shoppingCart;
 
 import models.ShoppingCart;
 import models.Voucher;
@@ -25,11 +25,13 @@ public class VoucherValidityFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String requestURI = request.getServletPath();
 
+        System.out.println(request.getRequestURI());
+
         HttpSession session = request.getSession(true);
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 
         if (!requestURI.contains("shoppingCart.jsp") && !requestURI.contains("ShoppingCart") && !requestURI.contains("IncreaseQuantity")
-                && !requestURI.contains("DecreaseQuantity") && !requestURI.contains("DeleteCartProduct")) {
+                && !requestURI.contains("DecreaseQuantity") && !requestURI.contains("DeleteCartProduct") && !requestURI.contains("ApplyVoucher")) {
             session.removeAttribute("successApplied");
             session.removeAttribute("failedApply");
             session.removeAttribute("code");

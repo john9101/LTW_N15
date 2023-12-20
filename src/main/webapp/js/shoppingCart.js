@@ -414,3 +414,8 @@ function preventSubmitWithEmptyCode(){
     }
 }
 preventSubmitWithEmptyCode();
+
+function getActionShoppingCart(action){
+    document.getElementById("increase__decrease").value = action;
+    document.getElementById("increase__decrease").parentElement.submit();
+}
