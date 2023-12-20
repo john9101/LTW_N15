@@ -25,8 +25,6 @@ public class VoucherValidityFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String requestURI = request.getServletPath();
 
-        System.out.println(request.getRequestURI());
-
         HttpSession session = request.getSession(true);
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 

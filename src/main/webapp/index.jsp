@@ -119,8 +119,8 @@
                                 <span class="product__tag">Thịnh hành</span>
                                 <form action="AddToCart" class="action__bar" method="post">
                                     <input type="hidden" name="productId" value="${trendProduct.id}">
-                                    <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>
-                                    <a class="see__detail" href="ProductDetails?pid=${trendProduct.id}">Xem chi tiết <i class="fa-solid fa-eye"></i></a>
+                                    <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
+                                    <a class="see__detail" href="ProductDetails?productId=${trendProduct.id}"><i class="fa-solid fa-eye"></i></a>
                                 </form>
                             </div>
                             <div class="product__info">
@@ -181,8 +181,8 @@
                                 </c:if>
                                 <form class="action__bar" action="AddToCart" method="post">
                                     <input type="hidden" name="productId" value="${newProduct.id}">
-                                    <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>
-                                    <a href="" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i></a>
+                                    <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
+                                    <a class="see__detail" href="ProductDetails?productId=${newProduct.id}"><i class="fa-solid fa-eye"></i></a>
                                 </form>
                             </div>
                             <div class="product__info">
@@ -299,12 +299,12 @@
                     event.preventDefault();
                     let userLoggedIn;
                     <c:choose>
-                    <c:when test="${sessionScope.auth == null}">
-                    userLoggedIn = false
-                    </c:when>
-                    <c:otherwise>
-                    userLoggedIn = true
-                    </c:otherwise>
+                        <c:when test="${sessionScope.auth == null}">
+                            userLoggedIn = false
+                        </c:when>
+                        <c:otherwise>
+                            userLoggedIn = true
+                        </c:otherwise>
                     </c:choose>
                     if(userLoggedIn === false){
                         window.location.href = "signIn.jsp"

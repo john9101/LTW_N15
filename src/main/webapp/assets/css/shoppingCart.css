@@ -181,6 +181,8 @@
 
 .remove__item{
     cursor: pointer;
+    background-color: transparent;
+    font-size: 18px;
 }
 
 /*invoice && promotions*/

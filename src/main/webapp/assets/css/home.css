@@ -286,8 +286,9 @@
 .image--tag:hover .action__bar{
     /*bottom: 50%;*/
     opacity: 80%;
-    height: 50px;
+    height: 46px;
     /*box-sizing: border-box;*/
+    margin-bottom: 14px;
 }
 
 .product__tag{
@@ -305,16 +306,16 @@
 }
 
 .action__bar{
-    width: 100%;
+    width: 92px;
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 50%;
     display: flex;
     justify-content: center;
-    border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
     height: 0;
     opacity: 0;
+    transform: translateX(-50%);
     /*transform: translate3d(-50%, 100%, 0);*/
     transition: all 0.3s ease;
 }
@@ -323,7 +324,7 @@
     /*padding: 14px 0px;*/
     line-height: 16px;
     flex: 1;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     color: white;
     background-color: var(--blue-color-medium);
@@ -333,6 +334,45 @@
     justify-content: center;
     align-items: center;
     gap: 4px;
+    position: relative;
+}
+
+.action__bar button{
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.action__bar .see__detail{
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.action__bar button::before, .action__bar .see__detail::before{
+    position: absolute;
+    top: -35px;
+    padding: 6px;
+    font-size: 12px;
+    background-color: #333333;
+    border-radius: 4px;
+    line-height: normal;
+    margin-bottom: 4px;
+    width: max-content;
+}
+
+.action__bar button:hover::after, .action__bar .see__detail:hover::after{
+    position: absolute;
+    content: "▼";
+    color: #333333;
+    font-size: 18px;
+    top: -14px;
+}
+
+.action__bar button:hover::before{
+    content: "Thêm vào giỏ hàng";
+}
+
+.action__bar .see__detail:hover::before{
+    content: "Xem chi tiết";
 }
 
 .action__bar button:hover, .action__bar .see__detail:hover{
