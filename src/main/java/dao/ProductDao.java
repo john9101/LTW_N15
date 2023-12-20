@@ -30,7 +30,7 @@ public class ProductDao {
     }
 
     public Product getProductByProductId(int productId) {
-        String sql = "SELECT id, `name`, `description`, salePrice, originalPrice FROM products WHERE id = ?";
+        String sql = "SELECT id, `name`, categoryId, `description`, salePrice, originalPrice FROM products WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Product.class, productId).get(0);
     }
 

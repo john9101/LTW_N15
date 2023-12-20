@@ -1,6 +1,4 @@
-//setup ckfinder
-var editor = CKEDITOR.replace('ck-editor');
-CKFinder.setupCKEditor(editor, 'ckfinder/');
+
 
 
 function addSize() {
@@ -44,3 +42,35 @@ function removeColor(formColor) {
         formColor.remove();
     }
 }
+
+const form = document.querySelector(".product__form");
+form.onsubmit = function (e) {
+    e.preventDefault();
+}
+
+function getContent() {
+    const content = editor.getData();
+    console.log('Editor content:', content);
+}
+
+//Dropzone
+Dropzone.autoDiscover = false;
+var dropzone = new Dropzone('#dropzone', { // camelized version of the `id`
+    paramName: "file", // The name that will be used to transfer the file
+    maxFilesize: 100, // MB
+    uploadMultiple: true,
+    parallelUploads: 100,
+    maxFiles: 5,
+    dictDefaultMessage: 'Bạn có thể kéo ảnh hoặc click để chọn',
+    previewsContainer: "#dropzone-preview",
+    addRemoveLinks: true,
+});
+const newButton = document.createElement('button');
+newButton.setAttribute('type', 'submit');
+newButton.setAttribute('class', 'form__submit button button--hover');
+newButton.textContent = 'Thêm sản phẩm';
+newButton.addEventListener('click', getContent); // Attach the click event
+
+// Append the button element to the container
+form.appendChild(newButton);
+// form.innerHTML += `<button type="submit" onclick="getContent()" class="form__submit button button--hover">Thêm sản phẩm</button>`;

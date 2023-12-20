@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
     <!--Bootstrap-->
     <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
-    <!--CK Editor-->
-    <script src="ckeditor/ckeditor.js"></script>
-    <!--Ck Finder-->
-    <script src="ckfinder/ckfinder.js"></script>
-    <!--
-    Favicon-->
+
+    <!--Dropzone.js-->
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css"/>
+    <link rel="stylesheet" href="assets/dropzone/basic.min.css">
+    <link rel="stylesheet" href="assets/dropzone/dropzone.min.css">
+    <!--Favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
@@ -35,7 +36,7 @@
 <body>
 <h1>Thêm sản phẩm</h1>
 <div class="container-xl">
-    <form class="product__form" action="#!">
+    <form class="product__form dropzone" action="#!" method="post" id="dropzone" enctype="multipart/form-data">
         <div class="row">
             <div class="col-12">
                 <h2>Thông tin</h2>
@@ -127,9 +128,30 @@
                 <div id="ck-finder"></div>
             </div>
             <div id="ckfinder-widget"></div>
+            <div class="col-12">
+                <label class="form__label">
+                    <span class="form__title">Hình ảnh
+                        <i class="fa-solid fa-circle-info"></i>
+                        <p>Hình ảnh của sản phẩm</p>
+                    </span>
+                </label>
+                <div  id="dropzone-preview"></div>
+            </div>
         </div>
+
     </form>
 </div>
+<!--CK Editor-->
+<script src="ckeditor/ckeditor.js"></script>
+<!--Ck Finder-->
+<script src="ckfinder/ckfinder.js"></script>
+<script>
+    //setup ckfinder
+    var editor = CKEDITOR.replace('ck-editor', {
+        language: 'vi',
+    });
+    CKFinder.setupCKEditor(editor, '<%=request.getContextPath()%>/ckfinder/');
+</script>
 <script src="js/admin/adminProductDetail.js"></script>
 </body>
 </html>
