@@ -1,6 +1,7 @@
 package models;
 
-import java.sql.Date;
+import java.util.Date;
+import java.util.Objects;
 
 public class Product {
     private int id;
@@ -9,8 +10,11 @@ public class Product {
     private String description;
     private double originalPrice;
     private double salePrice;
-    private boolean visibility ;
+    private boolean visibility;
     private Date createAt;
+
+    public Product() {
+    }
 
     public int getId() {
         return id;
@@ -74,5 +78,32 @@ public class Product {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Products{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", categoryId='" + categoryId + '\'' +
+                ", description='" + description + '\'' +
+                ", originalPrice=" + originalPrice +
+                ", salePrice=" + salePrice +
+                ", visibility=" + visibility +
+                ", createAt=" + createAt +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product products = (Product) o;
+        return id == products.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

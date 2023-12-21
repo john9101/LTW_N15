@@ -4,7 +4,9 @@ public class Image {
     private int id;
     private String nameImage;
     private int productId;
-    private boolean isThumbnail;
+
+    public Image() {
+    }
 
     public int getId() {
         return id;
@@ -30,21 +32,12 @@ public class Image {
         this.productId = productId;
     }
 
-    public boolean isThumbnail() {
-        return isThumbnail;
-    }
-
-    public void setThumbnail(boolean thumbnail) {
-        isThumbnail = thumbnail;
-    }
-
     @Override
     public String toString() {
-        return "Image{" +
+        return "Images{" +
                 "id=" + id +
                 ", nameImage='" + nameImage + '\'' +
                 ", productId=" + productId +
-                ", isThumbnail=" + isThumbnail +
                 '}';
     }
 }
