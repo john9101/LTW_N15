@@ -1,5 +1,6 @@
 const deliveryInfoRadioButtons = document.querySelectorAll(".delivery__info--container .radio__button");
 const paymentMethodRadioButtons = document.querySelectorAll(".payment__method--container .radio__button");
+const deliveryMethodRadioButtons = document.querySelectorAll(".delivery__method--container .radio__button");
 const customizeDeliveryInfo = document.getElementById("customize__info--form");
 
 function sectionSelectionHandleEvent(radioButtonElements) {
@@ -15,7 +16,7 @@ function sectionSelectionHandleEvent(radioButtonElements) {
             }
             if (radioButtonElement.checked) {
                 Object.assign(radioButtonElement.parentElement.style, {
-                    backgroundColor: "var(--blue-color-medium)",
+                    backgroundColor: "var(--blue-color-high)",
                     color: "white",
                     opacity: "0.8"
                 })
@@ -30,10 +31,13 @@ function sectionSelectionHandleEvent(radioButtonElements) {
 
                     Object.assign(customizeDeliveryInfo.style, {
                         display: "grid",
-                        gap: "24px"
+                        gap: "20px"
                     })
+
+                    document.querySelector(".info__items").style.display = "none"
                 } else {
                     customizeDeliveryInfo.style.display = "none"
+                    document.querySelector(".info__items").style.display = "block"
                 }
             }
         })
@@ -41,6 +45,7 @@ function sectionSelectionHandleEvent(radioButtonElements) {
 }
 sectionSelectionHandleEvent(deliveryInfoRadioButtons)
 sectionSelectionHandleEvent(paymentMethodRadioButtons)
+sectionSelectionHandleEvent(deliveryMethodRadioButtons)
 
 function ValidatorCustomizeDeliveryForm(options) {
     let selectorRules = {};
@@ -177,41 +182,61 @@ ValidatorCustomizeDeliveryForm.isPhone = (selector) => {
     }
 }
 
-function getCartItemsLastArray() {
-    const cartItemsRequiredJSON = localStorage.getItem('cartItemsRequired');
-    localStorage.setItem("cartItemsLast", cartItemsRequiredJSON);
-    let cartItemsLastArray = [];
-    const cartItemsLastObject = JSON.parse(cartItemsRequiredJSON);
-    for (let item in cartItemsLastObject) {
-        cartItemsLastArray.push(cartItemsLastObject[item]);
-    }
-    return cartItemsLastArray;
-}
 
-function renderCartItemsLast() {
-    const cartItemsLastArray = getCartItemsLastArray();
-    const orderTableElement = document.querySelector(".order__table");
-    const cartItemsList = cartItemsLastArray.map((cartItem, index) => {
-        return `<tr class="row__content">
-                            <td class="td__item">${index + 1}</td>
-                            <td class="td__item">
-                                <div class="product__item">
-                                    <img src='${cartItem.productItem.image}'>
-                                    <div class="order__product--info">
-                                        <p class="product__name">${cartItem.productItem.name}</p>
-                                        <p class="order__color">Màu sắc: ${cartItem.productItem.color}</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="td__item">${cartItem.quality}</td>
-                            <td class="td__item">${formatCurrency(cartItem.unitPrice)}</td>
-                        </tr>`
+function showNoteDeliveryMethodOption(){
+    let preSelectedButton = null
+    deliveryMethodRadioButtons.forEach((deliveryMethodRadioButton) =>{
+        const noteDeliveryMethodOption = deliveryMethodRadioButton.closest(".method__content").querySelector(".method__content > span")
+        deliveryMethodRadioButton.addEventListener("click", ()=>{
+            if(preSelectedButton){
+                preSelectedButton.closest(".method__content").querySelector(".method__content > span").style.display = "none";
+                preSelectedButton = null
+            }
+
+            if(deliveryMethodRadioButton.checked){
+                noteDeliveryMethodOption.style.display = "block";
+                preSelectedButton = deliveryMethodRadioButton;
+            }
+        })
     })
-    const cartItemsHTML = cartItemsList.join('');
-    orderTableElement.innerHTML += cartItemsHTML;
-    document.querySelector('.total__value').textContent = localStorage.getItem("totalPriceValue");
 }
-renderCartItemsLast();
+showNoteDeliveryMethodOption();
+
+
+// function getCartItemsLastArray() {
+//     const cartItemsRequiredJSON = localStorage.getItem('cartItemsRequired');
+//     localStorage.setItem("cartItemsLast", cartItemsRequiredJSON);
+//     let cartItemsLastArray = [];
+//     const cartItemsLastObject = JSON.parse(cartItemsRequiredJSON);
+//     for (let item in cartItemsLastObject) {
+//         cartItemsLastArray.push(cartItemsLastObject[item]);
+//     }
+//     return cartItemsLastArray;
+// }
+//
+// function renderCartItemsLast() {
+//     const cartItemsLastArray = getCartItemsLastArray();
+//     const orderTableElement = document.querySelector(".order__table");
+//     const cartItemsList = cartItemsLastArray.map((cartItem, index) => {
+//         return `<tr class="row__content">
+//                             <td class="td__item">
+//                                 <div class="product__item">
+//                                     <img src='${cartItem.productItem.image}'>
+//                                     <div class="order__product--info">
+//                                         <p class="product__name">${cartItem.productItem.name}</p>
+//                                         <p class="order__color">Màu sắc: ${cartItem.productItem.color}</p>
+//                                     </div>
+//                                 </div>
+//                             </td>
+//                             <td class="td__item">${cartItem.quality}</td>
+//                             <td class="td__item">${formatCurrency(cartItem.unitPrice)}</td>
+//                         </tr>`
+//     })
+//     const cartItemsHTML = cartItemsList.join('');
+//     orderTableElement.innerHTML += cartItemsHTML;
+//     document.querySelector('.total__value').textContent = localStorage.getItem("totalPriceValue");
+// }
+// renderCartItemsLast();
 
 function validateRadioSections() {
     const placeOrderButton = document.querySelector(".place__order");
@@ -238,7 +263,7 @@ function validateRadioSections() {
         });
 
         if (allSectionsSelected) {
-            window.location.href = '../index.jsp';
+            window.location.href = '../index.html';
             localStorage.setItem('resetShoppingCart', JSON.stringify([]));
         }
     })

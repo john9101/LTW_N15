@@ -29,7 +29,7 @@ public class VoucherValidityFilter implements Filter {
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 
         if (!requestURI.contains("shoppingCart.jsp") && !requestURI.contains("ShoppingCart") && !requestURI.contains("IncreaseQuantity")
-                && !requestURI.contains("DecreaseQuantity") && !requestURI.contains("DeleteCartProduct") && !requestURI.contains("ApplyVoucher")) {
+                && !requestURI.contains("DecreaseQuantity") && !requestURI.contains("DeleteCartProduct") && !requestURI.contains("ApplyVoucher") && !requestURI.contains("checkout.jsp") && !requestURI.contains("Checkout")) {
             session.removeAttribute("successApplied");
             session.removeAttribute("failedApply");
             session.removeAttribute("code");
