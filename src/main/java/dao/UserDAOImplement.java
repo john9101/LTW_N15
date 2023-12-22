@@ -3,6 +3,7 @@ package dao;
 import database.JDBIConnector;
 import models.User;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 public class UserDAOImplement implements UserDAO {
@@ -148,6 +149,18 @@ public class UserDAOImplement implements UserDAO {
     public List<User> searchUsersByName(String search) {
         String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ?";
         return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%");
+    }
+
+    @Override
+    public void insertUser(String username,String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay) {
+        String querry = "INSERT INTO users(username, passwordEncoding, fullname, gender, email, phone, address, birthDay) VALUES(?,?,?,?,?,?,?,?)";
+        GeneralDao.executeAllTypeUpdate(querry, username, passwordEncoding, fullname, gender, email, phone, address, birthDay);
+    }
+
+    @Override
+    public List<User> getUserByID(int id) {
+        String querry = "SELECT * FROM users WHERE id = ?";
+        return GeneralDao.executeQueryWithSingleTable(querry, User.class, id);
     }
 
 

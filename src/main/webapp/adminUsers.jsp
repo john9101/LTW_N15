@@ -57,7 +57,7 @@
                                 <input id="search-input" type="text" name="search" placeholder="Tìm kiếm người dùng">
                             </form>
                         </article>
-                        <button id="button-remove-product" class="button button__delete">
+                        <button id="button-add-user" class="button button__delete">
                             <i class="fa-solid fa-add"></i>
                             Thêm người dùng
                         </button>
@@ -66,6 +66,7 @@
                         <table class="table ">
                             <thead>
                             <tr class="table__row">
+                                <th class="table__head table__id">Chỉnh sửa</th>
                                 <th class="table__head table__id">Mã người dùng</th>
                                 <th class="table__head table__username">Tên người dùng</th>
                                 <th class="table__head table__email">Email</th>
@@ -74,6 +75,7 @@
                                 <th class="table__head table__birthday">Ngày sinh</th>
                                 <th class="table__head table__phone">Số điện thoại</th>
                                 <th class="table__head table__address">Địa chỉ</th>
+                                <th class="table__head table__address">Vai trò</th>
                                 <th class="table__head table__address">Xóa</th>
                             </tr>
                             </thead>
@@ -81,18 +83,21 @@
                             <c:forEach items="${requestScope.lists}" var="user">
                                 <tr class="table__row">
                                     <td class="table__data">
+                                        <a id="updateUser" onclick="openUpdateDialog(${user.id}, '${user.username}', '${user.fullName}', '${user.gender}', '${user.email}', '${user.phone}', '${user.address}', '${user.birthDay}')">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </td>
+                                    <td class="table__data">
                                         <p class="table__cell"><c:out value="${user.id}"/></p>
                                     </td>
                                     <td class="table__data">
                                         <p class="table__cell"><c:out value="${user.username}"/></p>
                                     </td>
-
                                     <td class="table__data">
                                         <p class="table__cell"><c:out value="${user.email}"/></p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell table__data--fullname"><c:out
-                                                value="${user.fullName}"/></p>
+                                        <p class="table__cell table__data--fullname"><c:out value="${user.fullName}"/></p>
                                     </td>
                                     <td class="table__data">
                                         <p class="table__cell"><c:out value="${user.gender}"/></p>
@@ -107,10 +112,17 @@
                                         <p class="table__cell"><c:out value="${user.address}"/></p>
                                     </td>
                                     <td class="table__data">
+                                        <p class="table__cell">
+                                            <c:if test="${user.role == true}">1</c:if>
+                                            <c:if test="${user.role == false}">0</c:if>
+                                        </p>
+                                    </td>
+                                    <td class="table__data">
                                         <a id="deleteUserLink" onclick="openDeleteDialog(${user.id})">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>
                                     </td>
+
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -122,7 +134,7 @@
         </div>
     </section>
 </main>
-<!-- Dialog -->
+<!-- DialogDeleteUser -->
 <div id="delete-dialog" class="modal">
     <div class="modal__content">
         <div class="modal__header">
@@ -139,10 +151,119 @@
         </div>
     </div>
 </div>
+<%--DialogUpdateUser--%>
+<div id="update-user-dialog" class="modal">
+    <div class="modal__content">
+        <div class="modal__header">
+            <h1>Chỉnh sửa thông tin người dùng</h1>
+            <i id="close-update-user-dialog" class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="modal__body">
+            <form id="update-user-form" action="addUser" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username--Update" name="username">
+
+                <label for="fullName">Họ tên:</label>
+                <input type="text" id="fullName--Update" name="fullName">
+
+                <label for="gender">Giới tính:</label>
+                <select id="gender--Update" name="gender" >
+                    <option value="Nam" <c:if test="${user.gender eq 'Nam'}">selected</c:if>>Nam</option>
+                    <option value="Nữ" <c:if test="${user.gender eq 'Nữ'}">selected</c:if>>Nữ</option>
+                </select>
+                </select>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email--Update" name="email" required>
+
+                <label for="phone">Số điện thoại:</label>
+                <input type="tel" id="phone--Update" name="phone" required>
+
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address--Update" name="address" required>
+
+                <label for="birthDay">Ngày sinh:</label>
+                <input type="date" id="birthDay--Update" name="birthDay" required>
+
+                <div class="modal__footer">
+                    <button type="button" id="cancel-update-user" class="button button__cancel">Hủy bỏ</button>
+                    <button type="submit" class="button button__update-user">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Chỉnh sửa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- DialogAddUser-->
+<div id="add-user-dialog" class="modal">
+    <div class="modal__content">
+        <div class="modal__header">
+            <h1>Thêm người dùng</h1>
+            <i id="close-add-user-dialog" class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="modal__body">
+            <form id="add-user-form" action="addUser" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="username">Mật khẩu:</label>
+                <input type="text" id="passwordEncoding" name="passwordEncoding" required>
+
+                <label for="fullName">Họ tên:</label>
+                <input type="text" id="fullName" name="fullName" required>
+
+                <label for="gender">Giới tính:</label>
+                <select id="gender" name="gender">
+                    <option value="male">Nam</option>
+                    <option value="female">Nữ</option>
+                </select>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Số điện thoại:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" name="address" required>
+
+                <label for="birthDay">Ngày sinh:</label>
+                <input type="date" id="birthDay" name="birthDay" required>
+
+                <div class="modal__footer">
+                    <button type="button" id="cancel-add-user" class="button button__cancel">Hủy bỏ</button>
+                    <button type="submit" class="button button__add-user">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Thêm người dùng
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <%--<script src="js/data.js"></script>--%>
 <%--<script src="js/paging.js"></script>--%>
 <script src="js/admin/adminUsers.js"></script>
 </body>
+
+<script>
+    var addUserButton = document.getElementById('button-add-user');
+    var addUserDialog = document.getElementById('add-user-dialog');
+    var closeAddUserDialog = document.getElementById('close-add-user-dialog');
+    var cancelAddUserButton = document.getElementById('cancel-add-user');
+
+    addUserButton.addEventListener('click', function () {
+        addUserDialog.style.display = 'block';
+    });
+    closeAddUserDialog.addEventListener('click', function () {
+        addUserDialog.style.display = 'none';
+    });
+    cancelAddUserButton.addEventListener('click', function () {
+        addUserDialog.style.display = 'none';
+    });
+</script>
 
 </html>

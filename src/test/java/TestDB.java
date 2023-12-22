@@ -24,6 +24,10 @@ public class TestDB {
 ////            System.out.println( userDAO.updatePasswordEncoding(item.getId(), passEncoding));
 //        }
 //        System.out.println(  userDAO.updateTokenVerify(23, null));
+
+        UserDAO getUserByID = new UserDAOImplement();
+        System.out.println(getUserByID.getUserByID(1));
+
     }
     public void checkUser(int id){
 
