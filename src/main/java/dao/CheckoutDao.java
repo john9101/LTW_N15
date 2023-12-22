@@ -17,4 +17,8 @@ public class CheckoutDao {
         return GeneralDao.executeQueryWithSingleTable(sql, PaymentMethod.class);
     }
 
+    public Shipping getShippingById(int id){
+        String sql = "SELECT id, shippingFee, typeShipping FROM shippings";
+        return GeneralDao.executeQueryWithSingleTable(sql, Shipping.class).get(0);
+    }
 }

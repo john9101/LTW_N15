@@ -1,6 +1,7 @@
 package services;
 
 import dao.CheckoutDao;
+import dao.GeneralDao;
 import dao.ProductDao;
 import models.PaymentMethod;
 import models.Shipping;
@@ -27,5 +28,9 @@ public class CheckoutServices {
 
     public List<PaymentMethod> getAllPaymentMethod(){
         return checkoutDao.getAllPaymentMethod();
+    }
+
+    public Shipping getShippingById(int id){
+        return checkoutDao.getShippingById(id);
     }
 }
