@@ -33,4 +33,8 @@ public class CheckoutServices {
     public Shipping getShippingById(int id){
         return checkoutDao.getShippingById(id);
     }
+
+    public PaymentMethod getPaymentMethodById(int id){
+        return checkoutDao.getPaymentMethodById(id);
+    }
 }
