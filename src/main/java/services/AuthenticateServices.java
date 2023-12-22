@@ -7,6 +7,7 @@ import utils.Encoding;
 import utils.Token;
 import utils.ValidatePassword;
 import utils.Validation;
+
 import javax.mail.MessagingException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

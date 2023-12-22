@@ -1,10 +1,7 @@
 package services;
 
 import dao.ProductDao;
-import models.Color;
-import models.Image;
-import models.Product;
-import models.Size;
+import models.*;
 
 import java.util.List;
 
@@ -51,5 +48,6 @@ public class ProductServices {
     public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
         return productDao.getColorByCodeColorWithProductId(codeColor, productId);
     }
+
 
 }

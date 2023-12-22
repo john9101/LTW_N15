@@ -1,7 +1,11 @@
 package database;
 
+import config.LoadImages;
+import utils.CopyImage;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -13,9 +17,7 @@ public class DBProperties {
     private static String port;
     private static String name;
 
-    public static void main(String[] args) {
-        System.out.println(getHost());
-    }
+    public static void main(String[] args) {System.out.println(getHost());}
 
     static {
         InputStream inputStream = DBProperties.class.getClassLoader().getResourceAsStream("db.properties");

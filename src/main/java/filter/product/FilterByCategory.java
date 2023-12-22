@@ -1,12 +1,10 @@
 package filter.product;
 
-import services.CategoryService;
 import services.ProductCardServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebFilter(filterName = "filterCategoryId"

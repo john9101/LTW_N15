@@ -169,7 +169,15 @@ Validation.range = function (selectionInput, min, max) {
                     return "Trường này cần nhập số.";
                 }
             }
-            return (min <= value && value <= max) ? undefined : "Giá trị nhập quá giới hạn."
+            return (min <= value && value <= max) ? undefined : "Giá trị nhập quá giới hạn.";
+        }
+    }
+}
+Validation.isNumber = function (selectionInput) {
+    return {
+        element: selectionInput,
+        check: function (value) {
+            return isNaN(Number(value)) ? undefined : "Trường này cần nhập số.";
         }
     }
 }

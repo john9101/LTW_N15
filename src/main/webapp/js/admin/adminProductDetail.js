@@ -1,14 +1,21 @@
 
-
-
 function addSize() {
     const addSizeBtn = document.querySelector(".form__add-size");
     const formSizes = document.querySelector(".form__sizes");
     addSizeBtn.onclick = function () {
-        const formSizeHTML = `<div class="form__size" onclick="removeSize(this)">
-                                        <input type="text" name="size" class="form__size-input">
-                                            <i class="form__size-delete fa-solid fa-xmark" ></i>
-                                    </div>`;
+        const formSizeHTML = `<div class="form__size" onclick="removeSize(this)">        
+                                         <label>
+                                            Tên kích thước
+                                            <input type="text" name="nameSize"
+                                                   class="form__size-input">
+                                        </label>
+                                        <label class="form__size-price">
+                                            Giá:
+                                            <input type="text" name="sizePrice">
+                                            <span>VNĐ</span>
+                                        </label>
+                                        <i class="form__size-delete fa-solid fa-xmark" ></i>    
+                                      </div>`;
         formSizes.insertAdjacentHTML("beforeend", formSizeHTML);
     }
 }
@@ -44,33 +51,113 @@ function removeColor(formColor) {
 }
 
 const form = document.querySelector(".product__form");
+
 form.onsubmit = function (e) {
     e.preventDefault();
 }
 
-function getContent() {
-    const content = editor.getData();
-    console.log('Editor content:', content);
+const imgPreviews = document.querySelector(".img__previews");
+const inputImg = document.querySelector(".img__input");
+
+inputImg.onchange = function (e) {
+    const files = e.target.files;
+    const htmls = [];
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (!file.name.endsWith(".jpg") && !file.name.endsWith(".png") && !file.name.endsWith(".jpeg")) continue;
+        htmls.push(`<div class="img__preview">
+                      <img src="${URL.createObjectURL(file)}" alt="">
+                   </div>`);
+    }
+    imgPreviews.innerHTML = htmls.join("");
+}
+const inputDesc = document.querySelector("#description")
+editorCK.on('change', function () {
+    inputDesc.value = editorCK.getData();
+});
+//Validate form
+var validate = new Validation({
+    formSelector: ".product__form",
+    formBlockClass: "form__label",
+    errorSelector: ".form__error",
+    rules: [
+        Validation.isRequired("#name"),
+        Validation.isRequired("#originalPrice"),
+        Validation.isNumber("#originalPrice"),
+        Validation.isRequired("#salePrice"),
+        Validation.isNumber("#salePrice"),
+        Validation.isRequired("#description"),
+    ],
+    submitSelector: "#form__submit",
+});
+
+function getDataForm(form) {
+    const name = form.querySelector(`input[name ="name"]`);
+    const selectedIdCategory = form.querySelector(`select[name ="idCategory"]`).selectedIndex;
+    const idCategory = form.querySelector(`select[name ="idCategory"]`).options[selectedIdCategory];
+    const originalPrice = form.querySelector(`input[name ="originalPrice"]`);
+    const salePrice = form.querySelector(`input[name ="salePrice"]`);
+    const description = editorCK.getData();
+    const nameSizes = form.querySelectorAll(`input[name ="nameSize"]`);
+    const priceSizes = form.querySelectorAll(`input[name ="sizePrice"]`);
+    const colors = form.querySelectorAll(`input[name ="color"]`);
+    function getSizes() {
+        return Array.from(nameSizes).map(function (size, index) {
+            return {
+                nameSize: size.value,
+                sizePrice: parseInt(priceSizes[index].value),
+            }
+        });
+    }
+
+    function getColors() {
+        return Array.from(colors).map(function (color) {
+            return color.value;
+        });
+    }
+
+    const product = {};
+    product.name = name.value;
+    product.idCategory = idCategory.value;
+    product.originalPrice = parseInt(originalPrice.value);
+    product.salePrice = parseInt(salePrice.value);
+    product.description = description;
+    product.sizes = getSizes();
+    product.colors = getColors();
+
+    const formData = new FormData(form);
+
+    // Append the file data to the form data
+    const inputFile = document.querySelector(".img__input");
+    if (inputFile && inputFile.files) {
+        for (let i = 0; i < inputFile.files.length; i++) {
+            formData.append('images', inputFile.files[i]);
+        }
+    }
+    return formData;
 }
 
-//Dropzone
-Dropzone.autoDiscover = false;
-var dropzone = new Dropzone('#dropzone', { // camelized version of the `id`
-    paramName: "file", // The name that will be used to transfer the file
-    maxFilesize: 100, // MB
-    uploadMultiple: true,
-    parallelUploads: 100,
-    maxFiles: 5,
-    dictDefaultMessage: 'Bạn có thể kéo ảnh hoặc click để chọn',
-    previewsContainer: "#dropzone-preview",
-    addRemoveLinks: true,
-});
-const newButton = document.createElement('button');
-newButton.setAttribute('type', 'submit');
-newButton.setAttribute('class', 'form__submit button button--hover');
-newButton.textContent = 'Thêm sản phẩm';
-newButton.addEventListener('click', getContent); // Attach the click event
 
-// Append the button element to the container
-form.appendChild(newButton);
-// form.innerHTML += `<button type="submit" onclick="getContent()" class="form__submit button button--hover">Thêm sản phẩm</button>`;
+//Ajax
+const submit = document.querySelector("button.form__submit");
+submit.onclick = function (e) {
+    const formElement = document.querySelector(".product__form");
+    const product = getDataForm(formElement);
+    console.log(Array.from(product))
+    $.ajax({
+        url: "admin-add-product",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        cache: false,
+        data: product,
+        success: function (data) {
+            console.log("Thêm sản phẩm thành công");
+        },
+        error: function (error) {
+
+        },
+    });
+
+}
