@@ -1,0 +1,30 @@
+.dashbord--contain {
+    position: relative;
+    min-height: 90vh;
+    background: #f1f1f1;
+    border-radius: 50px;
+}
+.dashbord--contain h2{
+    padding: 10px 20px;
+}
+.dashbord--contain .cards {
+    padding: 20px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.dashbord--contain .cards .card {
+    width: 250px;
+    height: 150px;
+    background: white;
+    margin: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+img{
+    width: 100px;
+    height: 100px;
+}

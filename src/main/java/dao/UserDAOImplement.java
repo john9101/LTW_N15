@@ -163,6 +163,13 @@ public class UserDAOImplement implements UserDAO {
         return GeneralDao.executeQueryWithSingleTable(querry, User.class, id);
     }
 
+    @Override
+    public void updateUserByID(int id, String username, String fullName, String gender, String email, String phone, String address, Date birthDay) {
+        String query = "UPDATE users SET username = ?, fullname = ?, gender = ?, email = ?, phone = ?, address = ?, birthDay = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(query, username, fullName, gender, email, phone, address, birthDay, id);
+    }
+
+
 
     @Override
     public int deleteAll(List<User> list) {

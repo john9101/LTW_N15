@@ -159,31 +159,32 @@
             <i id="close-update-user-dialog" class="fa-solid fa-xmark"></i>
         </div>
         <div class="modal__body">
-            <form id="update-user-form" action="addUser" method="post">
+            <form id="update-user-form" action="UpdateUser" method="post">
                 <label for="username">Username:</label>
-                <input type="text" id="username--Update" name="username">
+                <input type="text" id="username--Update" name="username" value="${user.username}">
 
                 <label for="fullName">Họ tên:</label>
-                <input type="text" id="fullName--Update" name="fullName">
+                <input type="text" id="fullName--Update" name="fullName" value="${user.fullName}">
 
                 <label for="gender">Giới tính:</label>
-                <select id="gender--Update" name="gender" >
-                    <option value="Nam" <c:if test="${user.gender eq 'Nam'}">selected</c:if>>Nam</option>
-                    <option value="Nữ" <c:if test="${user.gender eq 'Nữ'}">selected</c:if>>Nữ</option>
-                </select>
+                <select id="gender--Update" name="gender">
+                    <option value="Nam" ${user.gender eq 'Nam' ? 'selected' : ''}>Nam</option>
+                    <option value="Nữ" ${user.gender eq 'Nữ' ? 'selected' : ''}>Nữ</option>
                 </select>
 
                 <label for="email">Email:</label>
-                <input type="email" id="email--Update" name="email" required>
+                <input type="email" id="email--Update" name="email" value="${user.email}" required>
 
                 <label for="phone">Số điện thoại:</label>
-                <input type="tel" id="phone--Update" name="phone" required>
+                <input type="tel" id="phone--Update" name="phone" value="${user.phone}" required>
 
                 <label for="address">Địa chỉ:</label>
-                <input type="text" id="address--Update" name="address" required>
+                <input type="text" id="address--Update" name="address" value="${user.address}" required>
 
                 <label for="birthDay">Ngày sinh:</label>
-                <input type="date" id="birthDay--Update" name="birthDay" required>
+                <input type="date" id="birthDay--Update" name="birthDay" value="${user.birthDay}" required>
+
+                <input type="hidden" id="id--Update" name="userID" value="${user.id}">
 
                 <div class="modal__footer">
                     <button type="button" id="cancel-update-user" class="button button__cancel">Hủy bỏ</button>
@@ -193,6 +194,7 @@
                     </button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
@@ -216,8 +218,8 @@
 
                 <label for="gender">Giới tính:</label>
                 <select id="gender" name="gender">
-                    <option value="male">Nam</option>
-                    <option value="female">Nữ</option>
+                    <option value="Nam">Nam</option>
+                    <option value="Nữ">Nữ</option>
                 </select>
 
                 <label for="email">Email:</label>

@@ -20,7 +20,7 @@ public class DeleteUser extends HttpServlet {
                 user.deleteUserById(id);
                 System.out.println("Deleted user with ID: " + id);
             }catch(NumberFormatException e){
-                System.out.println("id không hợp lệ");
+                e.printStackTrace();
             }
         }
         response.sendRedirect("AdminUser");

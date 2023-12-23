@@ -3,6 +3,8 @@ import dao.UserDAOImplement;
 import models.User;
 import services.AuthenticateServices;
 
+import java.sql.Date;
+
 public class TestDB {
     public static void main(String[] args) {
         UserDAO userDAO = new UserDAOImplement();
@@ -27,6 +29,9 @@ public class TestDB {
 
         UserDAO getUserByID = new UserDAOImplement();
         System.out.println(getUserByID.getUserByID(1));
+
+        UserDAO testUpdateUser = new UserDAOImplement();
+        testUpdateUser.updateUserByID(1,"HieuNguyen","Nguyễn Chí Hai","Nam","HieuNguyen@gmail.com","0703637448","164 Ngô Tất Tố, Bình Định", Date.valueOf("1990-01-01"));
 
     }
     public void checkUser(int id){

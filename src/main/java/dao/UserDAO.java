@@ -40,5 +40,7 @@ public interface UserDAO extends DAO<User> {
 
     public List<User> getUserByID(int id);
 
+    public void updateUserByID(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay);
+
 }
 

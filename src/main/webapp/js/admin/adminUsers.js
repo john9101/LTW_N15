@@ -15,6 +15,7 @@ function openUpdateDialog(userId, username, fullName, gender, email, phone, addr
     document.getElementById('update-user-dialog').style.display = 'block';
 
     // Đổ dữ liệu vào các trường input trong dialog update
+    document.getElementById('id--Update').value = userId;
     document.getElementById('username--Update').value = username;
     document.getElementById('fullName--Update').value = fullName;
     document.getElementById('gender--Update').value = gender;
