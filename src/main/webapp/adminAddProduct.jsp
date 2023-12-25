@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
     <!--Bootstrap-->
     <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
+    <%--jquery--%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--CK Editor-->
     <script src="ckeditor/ckeditor.js"></script>
     <!--Ck Finder-->
@@ -165,17 +169,10 @@
 </div>
 
 <script>
-    //setup ckfinder
-    var editorCK = CKEDITOR.replace('ck-editor', {
-        language: 'vi',
-    });
-    CKFinder.setupCKEditor(editorCK, 'ckfinder/');
+    var editorCK = CKEDITOR.replace('ck-editor',);
+    CKFinder.setupCKEditor(editorCK, "ckfinder/");
 </script>
-<!--JQuery-->
 <script src="js/validateForm.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/admin/adminProductDetail.js"></script>
 </body>
 </html>
