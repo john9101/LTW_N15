@@ -1,6 +1,5 @@
 package controller.admin.product;
 
-import config.PathProperties;
 import utils.Token;
 
 import javax.servlet.*;

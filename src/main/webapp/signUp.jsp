@@ -25,16 +25,9 @@
     <link rel="stylesheet" href="assets/font/webfonts/Montserrat.css">
 
     <!--CSS-->
-<<<<<<< HEAD:htmls/signUp.html
-    <link rel="stylesheet" href="../assets/css/reset.css">
-    <link rel="stylesheet" href="../assets/css/base.css">
-    <link rel="stylesheet" href="../assets/css/logIn.css">
-=======
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/logIn.css">
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/signUp.jsp
-
     <title>Đăng ký</title>
 </head>
 <body>

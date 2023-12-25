@@ -60,7 +60,6 @@ h2 {
 
 /*Size*/
 .form__sizes-wrapper, .form__colors-wrapper{
-    margin-top: 10px;
     padding: 10px;
     display: flex;
     align-items: flex-start;

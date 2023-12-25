@@ -3,6 +3,8 @@ package services;
 import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
+import properties.MailProperties;
+import properties.RoleProperties;
 import utils.Encoding;
 import utils.Token;
 import utils.ValidatePassword;
@@ -138,6 +140,7 @@ public class AuthenticateServices {
             user.setUsername(username);
             user.setEmail(email);
             user.setPasswordEncoding(Encoding.getINSTANCE().toSHA1(password));
+            user.setRole(RoleProperties.getINSTANCE().getGuest());
             validation.setObjReturn(user);
         }
         return validation;

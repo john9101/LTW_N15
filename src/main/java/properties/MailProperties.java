@@ -1,6 +1,4 @@
-package services;
-
-import database.DBProperties;
+package properties;
 
 import java.io.InputStream;
 import java.util.Properties;

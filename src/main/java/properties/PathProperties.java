@@ -1,4 +1,4 @@
-package config;
+package properties;
 
 import java.io.File;
 import java.io.InputStream;
@@ -15,8 +15,8 @@ public class PathProperties {
         InputStream inputStream = PathProperties.class.getClassLoader().getResourceAsStream("path.properties");
         try {
             properties.load(inputStream);
-            pathProductWeb = properties.getProperty("product.webapp.path");
-            pathProductLocal = properties.getProperty("product.local.path");
+            pathProductWeb = properties.getProperty("path.product.webapp");
+            pathProductLocal = properties.getProperty("path.product.local");
 
         } catch (Exception e) {
             throw new RuntimeException(e);

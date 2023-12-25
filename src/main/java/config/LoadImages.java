@@ -1,12 +1,10 @@
 package config;
 
+import properties.PathProperties;
 import utils.CopyImage;
 
 import javax.servlet.*;
-import javax.servlet.annotation.*;
-import java.awt.datatransfer.FlavorEvent;
 import java.io.*;
-import java.util.Properties;
 
 //@WebFilter(filterName = "loadImages")
 public class LoadImages implements Filter {
