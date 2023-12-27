@@ -30,9 +30,14 @@ public class ShowProductDetail extends HttpServlet {
         if (product == null) {
             response.sendError(404);
         } else {
+            //            Product
+            request.setAttribute("product", product);
+            //Reviews
             List<Review> listReview = getListReview(id);
             request.setAttribute("listReview", listReview);
-            request.setAttribute("product", product);
+//            Related product
+            List<Product> listProductRelated = getListProductRandom(product.getCategoryId(), 4);
+            request.setAttribute("listProductRelated", listProductRelated);
             request.getRequestDispatcher("/productDetail.jsp").forward(request, response);
         }
     }
@@ -42,6 +47,9 @@ public class ShowProductDetail extends HttpServlet {
         doGet(request, response);
     }
 
+    public List<Product> getListProductRandom(int categoryId, int quantity) {
+        return ProductCardServices.getINSTANCE().getProductByCategoryId(categoryId, quantity, true);
+    }
     public List<Review> getListReview(int productId) {
         return ReviewServices.getINSTANCE().getListReview(productId);
     }

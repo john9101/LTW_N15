@@ -139,4 +139,7 @@ public class ProductCardDAO {
                 .append(")");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
+
+    public List<Product> getProductByCategoryId(int categoryId) {
+    }
 }
