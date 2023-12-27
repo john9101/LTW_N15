@@ -4,6 +4,7 @@ import dao.ProductCardDAO;
 import models.Product;
 import models.Review;
 import services.ProductCardServices;
+
 import services.ProductServices;
 import services.ReviewServices;
 
@@ -29,14 +30,9 @@ public class ShowProductDetail extends HttpServlet {
         if (product == null) {
             response.sendError(404);
         } else {
-//            Product
-            request.setAttribute("product", product);
-            //Reviews
             List<Review> listReview = getListReview(id);
             request.setAttribute("listReview", listReview);
-//            Related product
-            List<Product> listProductRelated = getListProductRandom(product.getCategoryId(), 4);
-            request.setAttribute("listProductRelated", listProductRelated);
+            request.setAttribute("product", product);
             request.getRequestDispatcher("/productDetail.jsp").forward(request, response);
         }
     }
@@ -48,9 +44,5 @@ public class ShowProductDetail extends HttpServlet {
 
     public List<Review> getListReview(int productId) {
         return ReviewServices.getINSTANCE().getListReview(productId);
-    }
-
-    public List<Product> getListProductRandom(int categoryId, int quantity) {
-        return ProductCardServices.getINSTANCE().getProductByCategoryId(categoryId, quantity, true);
     }
 }
