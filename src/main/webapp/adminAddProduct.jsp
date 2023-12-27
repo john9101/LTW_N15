@@ -36,13 +36,22 @@
     <title>Thêm sản phẩm</title>
 </head>
 <body>
-<h1>Thêm sản phẩm</h1>
+<header class="header">
+    <div class="container-xl">
+        <div class="header__wrapper">
+            <a href="adminProducts.jsp">
+                <i class="fa-solid fa-chevron-left"></i>
+                Quản lý sản phẩm</a>
+            <h1>Thêm sản phẩm</h1>
+        </div>
+    </div>
+</header>
 <div class="container-xl">
     <form class="product__form " action="#!" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-12">
                 <h2>Thông tin</h2>
-                <label class="form__label">
+                <label class="form__label form__block">
                     <span class="form__title">Tên sản phẩm
                         <i class="form__detail fa-solid fa-circle-info"></i>
                         <p>Đây là tên của sản phẩm</p>
@@ -50,7 +59,7 @@
                     <input type="text" id="name" name="name" class="form__input">
                     <span class="form__error"></span>
                 </label>
-                <label class="form__label">
+                <label class="form__label form__block">
                     <span class="form__title">Phân loại sản phẩm
                         <i class="form__detail fa-solid fa-circle-info"></i>
                         <p>Lựa chọn phân loại cho sản phẩm!</p>
@@ -67,7 +76,7 @@
                 </label>
                 <div class="row">
                     <div class="col-6">
-                        <label class="form__label">
+                        <label class="form__label form__block">
                             <span class="form__title">Giá bán
                                 <i class="form__detail fa-solid fa-circle-info"></i>
                                 <p>Giá bán của sản phẩm</p>
@@ -82,7 +91,7 @@
                     </div>
 
                     <div class="col-6">
-                        <label class="form__label">
+                        <label class="form__label form__block">
                             <span class="form__title">Giá giảm
                                 <i class="form__detail fa-solid fa-circle-info"></i>
                                 <p>Giá giảm của sản phẩm!</p>
@@ -96,36 +105,48 @@
                         </label>
                     </div>
                 </div>
-                <label class="form__label">
-                    <span class="form__title">Mô tả
+                <label class="form__label form__block">
+                    <span class="form__title form__desc">Mô tả
                         <i class="form__detail fa-solid fa-circle-info"></i>
                         <p>Mô tả của sản phẩm</p>
                     </span>
-                    <textarea id="ck-editor" type="text"
-                              name="description">
+                    <textarea id="ck-editor" type="text">
                     </textarea>
-                    <input type="text" id="description" hidden="hidden">
+                    <input type="text" id="description" name="description" hidden="hidden" value="">
                     <span class="form__error"></span>
                 </label>
 
             </div>
             <div class="col-6">
                 <!--Size-->
-                <h2>Kích thước có sẵn</h2>
-                <div class="form__label">
+
+                <div class="form__label form__block">
+                    <span class="form__title">
+                        <h2>Kích thước</h2>
+                        <i class="form__detail fa-solid fa-circle-info"></i>
+                        <p>Mỗi sản phẩm có ít nhất một kích thước, mỗi kích thước gồm tên kích thước và giá của kích
+                           thước đó. Giá kích thước sẽ được cộng cùng với giá sản phẩm ở trên</p>
+                    </span>
                     <div class="form__sizes-wrapper">
                         <div class="form__sizes">
                             <div class="form__size">
-                                <label>
-                                    Tên kích thước
-                                    <input type="text" name="nameSize"
-                                           class="form__size-input">
-                                </label>
-                                <label class="form__size-price">
-                                    Giá:
-                                    <input type="text" name="sizePrice">
-                                    <span>VNĐ</span>
-                                </label>
+                                <div class="form__block">
+                                    <label>
+                                        Tên kích thước
+                                        <input id="nameSize" type="text" name="nameSize"
+                                               class="form__size-input">
+                                    </label>
+                                    <span class="form__error"></span>
+                                </div>
+                                <div class="form__block">
+                                    <label class="form__size-price">
+                                        Giá:
+                                        <input id="sizePrice" type="text" name="sizePrice">
+                                        <span>VNĐ</span>
+                                    </label>
+                                    <span class="form__error"></span>
+                                </div>
+
                             </div>
                         </div>
                         <span class="form__add-size">Thêm kích cỡ</span>
@@ -135,8 +156,13 @@
 
             <div class="col-6">
                 <!--Color-->
-                <h2>Màu sắc có sẵn</h2>
-                <div class="form__label">
+                <div class="form__label form__block">
+                    <span class="form__title">
+                        <h2>Màu sắc có sẵn</h2>
+                        <i class="form__detail fa-solid fa-circle-info"></i>
+                        <p>Màu sắc của sản phẩm, mỗi sản phẩm phải có ít nhất 1 màu, mã màu được lưu dưới dạng mã
+                           HEX</p>
+                    </span>
                     <div class="form__colors-wrapper">
                         <div class="form__colors">
                             <div class="form__color">
@@ -149,13 +175,18 @@
                 </div>
             </div>
             <div class="col-12">
-                <h2>Hình ảnh</h2>
-                <div class="form__label">
+                <div class="form__label form__block">
+                    <span class="form__title">
+                        <h2>Hình ảnh</h2>
+                        <i class="form__detail fa-solid fa-circle-info"></i>
+                        <p>Hình ảnh của sản phẩm, mỗi sản phẩm cần ít nhất 1 hình ảnh, ảnh đầu tiên sẽ là ảnh bìa của
+                           sản phẩm</p>
+                    </span>
                     <div class="form__img">
                         <div class="img__previews">
                         </div>
                         <label class="img__label">
-                            <input class="img__input" type="file" hidden="hidden" multiple>
+                            <input class="img__input" name="image" type="file" hidden="hidden" multiple>
                             <i class=" img__icon fa-regular fa-images"></i>
                         </label>
                     </div>

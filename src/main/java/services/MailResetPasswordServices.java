@@ -40,7 +40,8 @@ public class MailResetPasswordServices implements IMailServices {
 //        To
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo, false));
 //        Subject
-        message.setSubject("Test");
+        String subjectMess = "Quên mật khấu";
+        message.setSubject(subjectMess);
 //        Set no reply
         message.setReplyTo(null);
 //        Content

@@ -1,22 +1,53 @@
+//Validate form
+var rulesOther = [];
+// var validate = new Validation({
+//     formSelector: ".product__form",
+//     formBlockClass: "form__block",
+//     errorSelector: ".form__error",
+//     rules: [
+//         Validation.isRequired("#name"),
+//         Validation.isRequired("#originalPrice"),
+//         Validation.isNumber("#originalPrice"),
+//         Validation.isRequired("#salePrice"),
+//         Validation.isNumber("#salePrice"),
+//         Validation.isRequired("#description"),
+//         Validation.isRequired("#nameSize"),
+//         Validation.isRequired("#sizePrice"),
+//         Validation.isNumber("#sizePrice"),
+//     ],
+//     submitSelector: "#form__submit",
+// });
 
+var countSize = 0;
 function addSize() {
     const addSizeBtn = document.querySelector(".form__add-size");
     const formSizes = document.querySelector(".form__sizes");
     addSizeBtn.onclick = function () {
+        countSize++;
         const formSizeHTML = `<div class="form__size" onclick="removeSize(this)">        
-                                         <label>
-                                            Tên kích thước
-                                            <input type="text" name="nameSize"
-                                                   class="form__size-input">
-                                        </label>
-                                        <label class="form__size-price">
-                                            Giá:
-                                            <input type="text" name="sizePrice">
-                                            <span>VNĐ</span>
-                                        </label>
+                                          <div class="form__block">
+                                             <label>
+                                                Tên kích thước
+                                                <input type="text" name="nameSize"
+                                                       class="form__size-input" id="nameSize_${countSize}">
+                                            </label>
+                                              <span class="form__error"></span>
+                                          </div>
+                                       <div class="form__block">
+                                            <label class="form__size-price">
+                                                Giá:
+                                                <input type="text" id="sizePrice_${countSize}" name="sizePrice">
+                                                <span>VNĐ</span>
+                                            </label>
+                                              <span class="form__error"></span>
+                                        </div>
                                         <i class="form__size-delete fa-solid fa-xmark" ></i>    
                                       </div>`;
         formSizes.insertAdjacentHTML("beforeend", formSizeHTML);
+        // validate.rulesForm.push(Validation.isRequired(`#nameSize_${countSize}`));
+        // validate.rulesForm.push(Validation.isRequired(`#sizePrice_${countSize}`));
+        // validate.rulesForm.push(Validation.isNumber(`#sizePrice_${countSize}`));
+        // console.log(countSize);
     }
 }
 
@@ -75,21 +106,7 @@ const inputDesc = document.querySelector("#description")
 editorCK.on('change', function () {
     inputDesc.value = editorCK.getData();
 });
-//Validate form
-var validate = new Validation({
-    formSelector: ".product__form",
-    formBlockClass: "form__label",
-    errorSelector: ".form__error",
-    rules: [
-        Validation.isRequired("#name"),
-        Validation.isRequired("#originalPrice"),
-        Validation.isNumber("#originalPrice"),
-        Validation.isRequired("#salePrice"),
-        Validation.isNumber("#salePrice"),
-        Validation.isRequired("#description"),
-    ],
-    submitSelector: "#form__submit",
-});
+
 
 function getDataForm(form) {
     const name = form.querySelector(`input[name ="name"]`);
@@ -128,12 +145,12 @@ function getDataForm(form) {
     const formData = new FormData(form);
 
     // Append the file data to the form data
-    const inputFile = document.querySelector(".img__input");
-    if (inputFile && inputFile.files) {
-        for (let i = 0; i < inputFile.files.length; i++) {
-            formData.append('images', inputFile.files[i]);
-        }
-    }
+    // const inputFile = document.querySelector(".img__input");
+    // if (inputFile && inputFile.files) {
+    //     for (let i = 0; i < inputFile.files.length; i++) {
+    //         formData.append('image', inputFile.files[i]);
+    //     }
+    // }
     return formData;
 }
 
@@ -161,3 +178,13 @@ submit.onclick = function (e) {
     });
 
 }
+function Obj() {
+}
+
+var obj = new Obj({
+    // ... other configuration options
+    rules: [
+        1, 2, 3
+    ]
+});
+console.log(obj)

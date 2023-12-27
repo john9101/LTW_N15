@@ -1,62 +1,67 @@
 package services;
 
+import dao.ColorDAO;
+import dao.ImageDAO;
 import dao.ProductDao;
+import dao.SizeDAO;
 import models.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminProductServices {
+    private static AdminProductServices INSTANCE;
     ProductDao productDAO = new ProductDao();
+    ColorDAO colorDAO = new ColorDAO();
+    ImageDAO imageDAO = new ImageDAO();
+    SizeDAO sizeDAO = new SizeDAO();
 
-    public int getIdProductByName(String name) {
-        return productDAO.getIdProductByName(name).get(0).getId();
+    private AdminProductServices() {
     }
 
-    public boolean addProduct(Product product) {
-//        Check product exist
+    public static AdminProductServices getINSTANCE() {
+        if (INSTANCE == null)
+            INSTANCE = new AdminProductServices();
+        return INSTANCE;
+    }
+
+
+    public int addProduct(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
-        if (productList.isEmpty()) {
-            return productDAO.addProduct(product);
-        } else {
-            return false;
-        }
+        if (!productList.isEmpty()) return 0;
+        productDAO.addProduct(product);
+        return productDAO.getIdProductByName(product.getName()).get(0).getId();
     }
 
-//    public boolean addParameter(Parameter[] parameterArray, String idProduct) {
-//
-//    }
-
-    public boolean addColors(String[] codeColors, int productId) {
-        if (codeColors == null || codeColors.length == 0) return false;
+    public void addColor(String[] codeColors, int productId) {
         Color[] colors = new Color[codeColors.length];
-        for (int i = 0; i < colors.length; i++) {
+        for (int i = 0; i < codeColors.length; i++) {
             colors[i] = new Color();
             colors[i].setCodeColor(codeColors[i]);
             colors[i].setProductId(productId);
         }
-        return productDAO.addColors(colors);
+        colorDAO.addColors(colors);
     }
 
-    public boolean addImages(String[] nameImages, int productId) {
-        if (nameImages.length == 0) return false;
-        Image[] images = new Image[nameImages.length];
-        for (int i = 0; i < images.length; i++) {
-            images[i] = new Image();
-            images[i].setNameImage(nameImages[i]);
-            images[i].setProductId(productId);
+    public void addImages(List<String> nameImages, int productId) {
+        List<Image> imageList = new ArrayList<>();
+        for (int i = 0; i < nameImages.size(); i++) {
+            Image image = new Image();
+            image.setNameImage(nameImages.get(i));
+            image.setProductId(productId);
+            imageList.add(image);
         }
-        return productDAO.addImages(images);
+        imageDAO.addImages(imageList);
     }
 
-    public boolean addSizes(String[] nameSizes, String[] priceSizes, int productId) {
-        if (nameSizes.length != priceSizes.length || nameSizes.length == 0) return false;
+    public void addSize(String[] nameSizes, double[] sizePrices, int productId) {
         Size[] sizes = new Size[nameSizes.length];
         for (int i = 0; i < sizes.length; i++) {
             sizes[i] = new Size();
             sizes[i].setNameSize(nameSizes[i]);
+            sizes[i].setSizePrice(sizePrices[i]);
             sizes[i].setProductId(productId);
-            sizes[i].setSizePrice(Double.parseDouble(priceSizes[i]));
         }
-        return productDAO.addSizes(sizes);
+        sizeDAO.addSizes(sizes);
     }
 }

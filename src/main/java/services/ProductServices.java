@@ -1,17 +1,28 @@
 package services;
 
+import dao.ColorDAO;
+import dao.ImageDAO;
 import dao.ProductDao;
+import dao.SizeDAO;
 import models.*;
 
+import javax.sound.sampled.Port;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServices {
 
     private ProductDao productDao;
+    private ImageDAO imageDAO;
+    private ColorDAO colorDAO;
+    private SizeDAO sizeDAO;
     private static ProductServices INSTANCE;
 
     public ProductServices() {
         productDao = new ProductDao();
+        imageDAO = new ImageDAO();
+        colorDAO = new ColorDAO();
+        sizeDAO = new SizeDAO();
     }
 
     public static ProductServices getINSTANCE() {
@@ -48,6 +59,7 @@ public class ProductServices {
     public Color getColorByCodeColorWithProductId(String codeColor, int productId) {
         return productDao.getColorByCodeColorWithProductId(codeColor, productId);
     }
+
 
 
 }

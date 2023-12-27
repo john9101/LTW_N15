@@ -32,6 +32,4 @@ public class ServletContextConfig implements ServletContextListener {
         ServletContextListener.super.contextDestroyed(sce);
     }
 
-    public static void main(String[] args) {
-    }
 }

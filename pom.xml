@@ -69,8 +69,8 @@
             <version>1.15</version>
         </dependency>
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
         <dependency>
@@ -143,12 +143,13 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/jboss-vfs-3.2.11.Final.jar</systemPath>
         </dependency>
+
         <dependency>
-            <groupId>system.mail</groupId>
-            <artifactId>mail</artifactId>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>mail-1.4.1</artifactId>
             <version>1.4.1</version>
+            <systemPath>${basedir}/lib/mail-1.4.1.jar</systemPath>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/mail-1.4.1.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>system.thumbnailator</groupId>

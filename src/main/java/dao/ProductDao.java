@@ -47,59 +47,10 @@ public class ProductDao {
     }
 
     //    Update
-    public boolean addProduct(Product product) {
+    public void addProduct(Product product) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) ")
                 .append("VALUES (?,?,?,?,?,?,?) ");
         GeneralDao.executeAllTypeUpdate(sql.toString(), product.getName(), product.getCategoryId(), product.getDescription(), product.getOriginalPrice(), product.getSalePrice(), product.isVisibility(), product.getCreateAt());
-        return true;
-    }
-
-    public boolean addColors(Color[] colors) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO colors (codeColor, productId) ")
-                .append("VALUES ");
-        for (int i = 0; i < colors.length; i++) {
-            sql.append(" (")
-                    .append(colors[i].getCodeColor())
-                    .append(", ")
-                    .append(colors[i].getProductId()).append(") ");
-
-        }
-        GeneralDao.executeAllTypeUpdate(sql.toString());
-        return true;
-    }
-
-    public boolean addImages(Image[] images) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO images (nameImage, productId) ")
-                .append("VALUES ");
-        for (int i = 0; i < images.length; i++) {
-            sql.append(" (")
-                    .append(images[i].getNameImage())
-                    .append(", ")
-                    .append(images[i].getProductId()).append(") ");
-
-        }
-        GeneralDao.executeAllTypeUpdate(sql.toString());
-        return true;
-    }
-
-    public boolean addSizes(Size[] sizes) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("INSERT INTO sizes (nameSize, productId, sizePrice) ")
-                .append("VALUES ");
-        for (int i = 0; i < sizes.length; i++) {
-            sql.append(" (")
-                    .append(sizes[i].getNameSize())
-                    .append(", ")
-                    .append(sizes[i].getProductId())
-                    .append(", ")
-                    .append(sizes[i].getSizePrice())
-                    .append(") ");
-
-        }
-        GeneralDao.executeAllTypeUpdate(sql.toString());
-        return true;
     }
 }

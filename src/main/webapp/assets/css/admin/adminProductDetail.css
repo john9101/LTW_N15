@@ -1,24 +1,53 @@
-
 .form__label {
     margin-top: 20px;
 }
-h1 {
+
+body {
+    background-color: var(--blue-color-low);
+}
+
+.header {
     background-color: var(--blue-color-medium);
-    padding: 15px 30px;
+}
+
+.header .header__wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    padding: 20px 0;
+}
+
+.header h1 {
     font-size: 40px;
     color: #fff;
+    text-wrap: nowrap;
+}
+
+.header__wrapper a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+    color: #fff;
+}
+
+.header__wrapper a:hover {
+    font-weight: 500;
+    color: #fff8f8;
 }
 
 h2 {
     font-size: 25px;
     font-weight: 500;
-    padding-top: 10px;
 }
 
 .product__form {
+    --background-form: #fff8f8;
     padding: 10px;
+    margin: 20px 0;
     border-radius: 5px;
     border: 1px solid #3f3f3f;
+    background-color: var(--background-form);
 }
 
 .form__label {
@@ -31,11 +60,14 @@ h2 {
 
 .form__title {
     display: inline-flex;
+    margin-bottom: 10px;
 }
 
 .form__input {
     display: block;
     width: 100%;
+    padding: 0 0 0 10px;
+    background-color: var(--background-form);
 }
 
 .form__select {
@@ -58,6 +90,10 @@ h2 {
     font-size: 15px;
 }
 
+.form__desc {
+    padding-top: 0;
+    padding-bottom: 10px;
+}
 /*Size*/
 .form__sizes-wrapper, .form__colors-wrapper{
     padding: 10px;
@@ -92,19 +128,18 @@ h2 {
     gap: 5px;
 }
 
-.form__size label ~ label {
-    margin-top: 10px;
-}
 
 .form__size input {
     flex: 1;
     border-bottom: 1px solid #ccc;
+    padding: 10px 5px;
 }
 
 
 .form__size-price {
     align-items: center;
     font-size: 16px;
+    margin-top: 10px;
 }
 
 .price-wrapper{
@@ -122,6 +157,7 @@ h2 {
     --background-color: var(--blue-color-medium);
     --background-color-hover: var(--blue-color-high);
     margin-top: 30px;
+    color: #fff;
 }
 
 /*img*/
@@ -175,4 +211,14 @@ h2 {
 
 .img__icon {
     font-size: 30px;
+}
+
+/*Validate*/
+.form__error {
+    display: block;
+    height: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 5px;
+    color: red;
 }
