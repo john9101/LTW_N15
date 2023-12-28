@@ -1,22 +1,54 @@
 //Validate form
-var rulesOther = [];
-// var validate = new Validation({
-//     formSelector: ".product__form",
-//     formBlockClass: "form__block",
-//     errorSelector: ".form__error",
-//     rules: [
-//         Validation.isRequired("#name"),
-//         Validation.isRequired("#originalPrice"),
-//         Validation.isNumber("#originalPrice"),
-//         Validation.isRequired("#salePrice"),
-//         Validation.isNumber("#salePrice"),
-//         Validation.isRequired("#description"),
-//         Validation.isRequired("#nameSize"),
-//         Validation.isRequired("#sizePrice"),
-//         Validation.isNumber("#sizePrice"),
-//     ],
-//     submitSelector: "#form__submit",
-// });
+var ruleObj = {
+    name: [Validation.isRequired("#name")],
+    originalPrice: [Validation.isRequired("#originalPrice"), Validation.isNumber("#originalPrice")],
+    salePrice: [Validation.isRequired("#salePrice"), Validation.isNumber("#salePrice")],
+    description: [Validation.isRequired("#description")],
+    nameSize: [Validation.isRequired("#nameSize")],
+    sizePrice: [Validation.isRequired("#sizePrice"), Validation.isNumber("#sizePrice")],
+};
+var ruleArray = [];
+var validate = new Validation({
+    formSelector: ".product__form",
+    formBlockClass: "form__block",
+    errorSelector: ".form__error",
+    rules: ruleArray,
+    submitSelector: "#form__submit",
+    onSubmit: addNewProduct,
+});
+
+
+function loadRules() {
+    ruleArray = [];
+    for (const key in ruleObj) {
+        for (const keyElement of ruleObj[key]) {
+            ruleArray.push(keyElement);
+        }
+    }
+    validate = new Validation({
+        formSelector: ".product__form",
+        formBlockClass: "form__block",
+        errorSelector: ".form__error",
+        rules: ruleArray,
+        submitSelector: "#form__submit",
+        onSubmit: addNewProduct,
+    });
+}
+
+function pushRule(selectorId, rule) {
+    if (!Array.isArray(ruleObj[selectorId])) {
+        ruleObj[selectorId] = [rule];
+    } else {
+        ruleObj[selectorId].push(rule);
+    }
+    loadRules();
+}
+
+function removeRule(selectorId) {
+    delete ruleObj[selectorId];
+    loadRules();
+}
+
 
 var countSize = 0;
 function addSize() {
@@ -44,10 +76,9 @@ function addSize() {
                                         <i class="form__size-delete fa-solid fa-xmark" ></i>    
                                       </div>`;
         formSizes.insertAdjacentHTML("beforeend", formSizeHTML);
-        // validate.rulesForm.push(Validation.isRequired(`#nameSize_${countSize}`));
-        // validate.rulesForm.push(Validation.isRequired(`#sizePrice_${countSize}`));
-        // validate.rulesForm.push(Validation.isNumber(`#sizePrice_${countSize}`));
-        // console.log(countSize);
+        pushRule(`nameSize_${countSize}`, Validation.isRequired(`#nameSize_${countSize}`));
+        pushRule(`sizePrice_${countSize}`, Validation.isRequired(`#sizePrice_${countSize}`));
+        pushRule(`sizePrice_${countSize}`, Validation.isNumber(`#sizePrice_${countSize}`));
     }
 }
 
@@ -55,9 +86,14 @@ addSize();
 
 function removeSize(formSize) {
     const formSizeDelete = formSize.querySelector(".form__size-delete");
+    const inputs = formSize.querySelectorAll(`input[name]`);
+    for (const input of inputs) {
+        removeRule(input.id);
+    }
     formSizeDelete.onclick = function (e) {
         formSize.remove();
     }
+    loadRules();
 }
 
 function addColor() {
@@ -154,13 +190,10 @@ function getDataForm(form) {
     return formData;
 }
 
-
-//Ajax
-const submit = document.querySelector("button.form__submit");
-submit.onclick = function (e) {
+// Ajax
+function addNewProduct() {
     const formElement = document.querySelector(".product__form");
     const product = getDataForm(formElement);
-    console.log(Array.from(product))
     $.ajax({
         url: "admin-add-product",
         type: "POST",
@@ -178,13 +211,3 @@ submit.onclick = function (e) {
     });
 
 }
-function Obj() {
-}
-
-var obj = new Obj({
-    // ... other configuration options
-    rules: [
-        1, 2, 3
-    ]
-});
-console.log(obj)
