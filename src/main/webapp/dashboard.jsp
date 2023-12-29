@@ -42,7 +42,7 @@
                 <li class="navbar__item"><a href="AdminUser"
                                             class="navbar__link button button button--hover ">Khách
                     hàng</a></li>
-                <li class="navbar__item"><a href="AdminUser"
+                <li class="navbar__item"><a href="dashboard.jsp"
                                             class="navbar__link button button button--hover navbar__link--clicked">Dashboard</a></li>
             </ul>
         </div>
@@ -81,9 +81,29 @@
                                     <img src="./assets/img/oder.png" alt="">
                                 </div>
                             </div>
+                            <div class="card">
+                                <div class="box">
+                                    <h1>2194</h1>
+                                    <h3>Người dùng</h3>
+                                </div>
+                                <div class="icon-case">
+                                    <img src="./assets/img/user.png" alt="">
+                                </div>
+                            </div>
                         </div>
-                        <div class="content-2">
+                        <div class="charts">
+                            <div class="charts__card">
+                                <h2 class="chart__title">Sản phẩm nổi bật</h2>
+                                <div id="bar__chart">
 
+                                </div>
+                            </div>
+                            <div class="charts__card">
+                                <h2 class="chart__title">Thống kê đơn hàng</h2>
+                                <div id="area__chart">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -91,6 +111,7 @@
         </div>
     </section>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
 </body>
-
+<script src="js/admin/dashboard.js"></script>
 </html>

@@ -135,7 +135,7 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> selectALl() {
-        String querry ="Select * from users ";
+        String querry ="Select id, username, email, fullname, phone, address, birthDay from users ";
         return GeneralDao.executeQueryWithSingleTable(querry, User.class);
     }
 

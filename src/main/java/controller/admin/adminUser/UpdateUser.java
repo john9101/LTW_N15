@@ -1,4 +1,4 @@
-package controller.admin;
+package controller.admin.adminUser;
 
 import dao.UserDAO;
 import dao.UserDAOImplement;

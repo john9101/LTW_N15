@@ -1,7 +1,8 @@
-package controller.admin;
+package controller.admin.adminUser;
 
 import dao.UserDAO;
 import dao.UserDAOImplement;
+import utils.Encoding;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -11,7 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@WebServlet(name = "addUser", value = "/addUser")
+@WebServlet(name = "addUser", value = "/AddUser")
 public class AddUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,7 +42,7 @@ public class AddUser extends HttpServlet {
         java.sql.Date sqlBirthDay = new java.sql.Date(birthDay.getTime());
 
         UserDAO user = new UserDAOImplement();
-        user.insertUser(username, passwordEncoding, fullName, gender, email, phone, address, sqlBirthDay);
+        user.insertUser(username, Encoding.getINSTANCE().toSHA1(passwordEncoding), fullName, gender, email, phone, address, sqlBirthDay);
         response.sendRedirect("AdminUser");
 
     }
