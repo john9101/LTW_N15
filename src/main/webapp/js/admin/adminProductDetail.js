@@ -6,8 +6,10 @@ var ruleObj = {
     description: [Validation.isRequired("#description")],
     nameSize: [Validation.isRequired("#nameSize")],
     sizePrice: [Validation.isRequired("#sizePrice"), Validation.isNumber("#sizePrice")],
+    image: [Validation.isRequired("#image")],
 };
 var ruleArray = [];
+loadRules();
 var validate = new Validation({
     formSelector: ".product__form",
     formBlockClass: "form__block",
@@ -117,11 +119,6 @@ function removeColor(formColor) {
     }
 }
 
-const form = document.querySelector(".product__form");
-
-form.onsubmit = function (e) {
-    e.preventDefault();
-}
 
 const imgPreviews = document.querySelector(".img__previews");
 const inputImg = document.querySelector(".img__input");
@@ -138,55 +135,15 @@ inputImg.onchange = function (e) {
     }
     imgPreviews.innerHTML = htmls.join("");
 }
-const inputDesc = document.querySelector("#description")
+
+const inputDesc = document.querySelector(`input[name = "description"]`)
 editorCK.on('change', function () {
     inputDesc.value = editorCK.getData();
 });
 
 
 function getDataForm(form) {
-    const name = form.querySelector(`input[name ="name"]`);
-    const selectedIdCategory = form.querySelector(`select[name ="idCategory"]`).selectedIndex;
-    const idCategory = form.querySelector(`select[name ="idCategory"]`).options[selectedIdCategory];
-    const originalPrice = form.querySelector(`input[name ="originalPrice"]`);
-    const salePrice = form.querySelector(`input[name ="salePrice"]`);
-    const description = editorCK.getData();
-    const nameSizes = form.querySelectorAll(`input[name ="nameSize"]`);
-    const priceSizes = form.querySelectorAll(`input[name ="sizePrice"]`);
-    const colors = form.querySelectorAll(`input[name ="color"]`);
-    function getSizes() {
-        return Array.from(nameSizes).map(function (size, index) {
-            return {
-                nameSize: size.value,
-                sizePrice: parseInt(priceSizes[index].value),
-            }
-        });
-    }
-
-    function getColors() {
-        return Array.from(colors).map(function (color) {
-            return color.value;
-        });
-    }
-
-    const product = {};
-    product.name = name.value;
-    product.idCategory = idCategory.value;
-    product.originalPrice = parseInt(originalPrice.value);
-    product.salePrice = parseInt(salePrice.value);
-    product.description = description;
-    product.sizes = getSizes();
-    product.colors = getColors();
-
     const formData = new FormData(form);
-
-    // Append the file data to the form data
-    // const inputFile = document.querySelector(".img__input");
-    // if (inputFile && inputFile.files) {
-    //     for (let i = 0; i < inputFile.files.length; i++) {
-    //         formData.append('image', inputFile.files[i]);
-    //     }
-    // }
     return formData;
 }
 
@@ -194,6 +151,7 @@ function getDataForm(form) {
 function addNewProduct() {
     const formElement = document.querySelector(".product__form");
     const product = getDataForm(formElement);
+    const buttonForm = formElement.querySelector(`button[type="submit"]`);
     $.ajax({
         url: "admin-add-product",
         type: "POST",
@@ -203,11 +161,70 @@ function addNewProduct() {
         cache: false,
         data: product,
         success: function (data) {
-            console.log("Thêm sản phẩm thành công");
+            if (data.status === true) {
+                notifySuccess();
+            } else {
+                notifyFailed();
+            }
         },
         error: function (error) {
-
+            console.log(error)
         },
     });
+}
 
+const toastList = document.querySelector(".toast__list");
+
+function notifySuccess() {
+    toastList.innerHTML =
+        `<div class="toast" id="snackbar">
+            <div class="toast__header">
+                <span class="toast__icon-wrapper toast__icon--success">
+                    <i class="toast__icon fa-solid fa-check"></i>
+                </span>
+                <strong class="toast__title">Thêm sản phẩm thành công</strong>
+                <i class="toast__icon-close fa-solid fa-xmark"></i>
+            </div>
+            <div class="toast__body">
+                Sản phẩm đã được thêm vào gian hàng.
+            </div>
+        </div>`;
+    // Get the snackbar DIV
+    const x = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+        x.className = x.className.replace("show", "");
+        x.remove();
+    }, 3000);
+}
+
+function notifyFailed() {
+    toastList.innerHTML =
+        `<div class="toast" id="snackbar">
+            <div class="toast__header">
+                <span class="toast__icon-wrapper toast__icon--failed">
+                    <i class="toast__icon fa-solid fa-xmark"></i>
+                </span>
+                <strong class="toast__title">Thêm sản phẩm không thành công thành công</strong>
+                <i class="toast__icon-close fa-solid fa-xmark"></i>
+            </div>
+            <div class="toast__body">
+                Sản phẩm đã có tên trên đã tồn tại vào gian hàng.
+            </div>
+        </div>`;
+    // Get the snackbar DIV
+    const x = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+        x.className = x.className.replace("show", "");
+        x.remove();
+    }, 3000);
 }

@@ -1,6 +1,5 @@
 package controller.product;
 
-import dao.ProductCardDAO;
 import models.Product;
 import models.Review;
 import services.ProductCardServices;

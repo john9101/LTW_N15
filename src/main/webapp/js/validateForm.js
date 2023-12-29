@@ -163,11 +163,11 @@ Validation.isConfirm = function (selectionInput, funcGetConfirmText) {
         }
     }
 }
-Validation.isNumber = function (selestionInput) {
+Validation.isNumber = function (selectionInput) {
     return {
-        element: selestionInput,
+        element: selectionInput,
         check: function (value) {
-            return (isNaN(value)) ? undefined : "Trường này phải nhập số";
+            return (!isNaN(value)) ? undefined : "Trường này phải nhập số";
         }
     }
 }
