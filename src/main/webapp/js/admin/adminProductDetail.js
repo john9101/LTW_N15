@@ -1,22 +1,56 @@
 //Validate form
-var rulesOther = [];
-// var validate = new Validation({
-//     formSelector: ".product__form",
-//     formBlockClass: "form__block",
-//     errorSelector: ".form__error",
-//     rules: [
-//         Validation.isRequired("#name"),
-//         Validation.isRequired("#originalPrice"),
-//         Validation.isNumber("#originalPrice"),
-//         Validation.isRequired("#salePrice"),
-//         Validation.isNumber("#salePrice"),
-//         Validation.isRequired("#description"),
-//         Validation.isRequired("#nameSize"),
-//         Validation.isRequired("#sizePrice"),
-//         Validation.isNumber("#sizePrice"),
-//     ],
-//     submitSelector: "#form__submit",
-// });
+var ruleObj = {
+    name: [Validation.isRequired("#name")],
+    originalPrice: [Validation.isRequired("#originalPrice"), Validation.isNumber("#originalPrice")],
+    salePrice: [Validation.isRequired("#salePrice"), Validation.isNumber("#salePrice")],
+    description: [Validation.isRequired("#description")],
+    nameSize: [Validation.isRequired("#nameSize")],
+    sizePrice: [Validation.isRequired("#sizePrice"), Validation.isNumber("#sizePrice")],
+    image: [Validation.isRequired("#image")],
+};
+var ruleArray = [];
+loadRules();
+var validate = new Validation({
+    formSelector: ".product__form",
+    formBlockClass: "form__block",
+    errorSelector: ".form__error",
+    rules: ruleArray,
+    submitSelector: "#form__submit",
+    onSubmit: addNewProduct,
+});
+
+
+function loadRules() {
+    ruleArray = [];
+    for (const key in ruleObj) {
+        for (const keyElement of ruleObj[key]) {
+            ruleArray.push(keyElement);
+        }
+    }
+    validate = new Validation({
+        formSelector: ".product__form",
+        formBlockClass: "form__block",
+        errorSelector: ".form__error",
+        rules: ruleArray,
+        submitSelector: "#form__submit",
+        onSubmit: addNewProduct,
+    });
+}
+
+function pushRule(selectorId, rule) {
+    if (!Array.isArray(ruleObj[selectorId])) {
+        ruleObj[selectorId] = [rule];
+    } else {
+        ruleObj[selectorId].push(rule);
+    }
+    loadRules();
+}
+
+function removeRule(selectorId) {
+    delete ruleObj[selectorId];
+    loadRules();
+}
+
 
 var countSize = 0;
 function addSize() {
@@ -44,10 +78,9 @@ function addSize() {
                                         <i class="form__size-delete fa-solid fa-xmark" ></i>    
                                       </div>`;
         formSizes.insertAdjacentHTML("beforeend", formSizeHTML);
-        // validate.rulesForm.push(Validation.isRequired(`#nameSize_${countSize}`));
-        // validate.rulesForm.push(Validation.isRequired(`#sizePrice_${countSize}`));
-        // validate.rulesForm.push(Validation.isNumber(`#sizePrice_${countSize}`));
-        // console.log(countSize);
+        pushRule(`nameSize_${countSize}`, Validation.isRequired(`#nameSize_${countSize}`));
+        pushRule(`sizePrice_${countSize}`, Validation.isRequired(`#sizePrice_${countSize}`));
+        pushRule(`sizePrice_${countSize}`, Validation.isNumber(`#sizePrice_${countSize}`));
     }
 }
 
@@ -55,9 +88,14 @@ addSize();
 
 function removeSize(formSize) {
     const formSizeDelete = formSize.querySelector(".form__size-delete");
+    const inputs = formSize.querySelectorAll(`input[name]`);
+    for (const input of inputs) {
+        removeRule(input.id);
+    }
     formSizeDelete.onclick = function (e) {
         formSize.remove();
     }
+    loadRules();
 }
 
 function addColor() {
@@ -81,11 +119,6 @@ function removeColor(formColor) {
     }
 }
 
-const form = document.querySelector(".product__form");
-
-form.onsubmit = function (e) {
-    e.preventDefault();
-}
 
 const imgPreviews = document.querySelector(".img__previews");
 const inputImg = document.querySelector(".img__input");
@@ -102,65 +135,23 @@ inputImg.onchange = function (e) {
     }
     imgPreviews.innerHTML = htmls.join("");
 }
-const inputDesc = document.querySelector("#description")
+
+const inputDesc = document.querySelector(`input[name = "description"]`)
 editorCK.on('change', function () {
     inputDesc.value = editorCK.getData();
 });
 
 
 function getDataForm(form) {
-    const name = form.querySelector(`input[name ="name"]`);
-    const selectedIdCategory = form.querySelector(`select[name ="idCategory"]`).selectedIndex;
-    const idCategory = form.querySelector(`select[name ="idCategory"]`).options[selectedIdCategory];
-    const originalPrice = form.querySelector(`input[name ="originalPrice"]`);
-    const salePrice = form.querySelector(`input[name ="salePrice"]`);
-    const description = editorCK.getData();
-    const nameSizes = form.querySelectorAll(`input[name ="nameSize"]`);
-    const priceSizes = form.querySelectorAll(`input[name ="sizePrice"]`);
-    const colors = form.querySelectorAll(`input[name ="color"]`);
-    function getSizes() {
-        return Array.from(nameSizes).map(function (size, index) {
-            return {
-                nameSize: size.value,
-                sizePrice: parseInt(priceSizes[index].value),
-            }
-        });
-    }
-
-    function getColors() {
-        return Array.from(colors).map(function (color) {
-            return color.value;
-        });
-    }
-
-    const product = {};
-    product.name = name.value;
-    product.idCategory = idCategory.value;
-    product.originalPrice = parseInt(originalPrice.value);
-    product.salePrice = parseInt(salePrice.value);
-    product.description = description;
-    product.sizes = getSizes();
-    product.colors = getColors();
-
     const formData = new FormData(form);
-
-    // Append the file data to the form data
-    // const inputFile = document.querySelector(".img__input");
-    // if (inputFile && inputFile.files) {
-    //     for (let i = 0; i < inputFile.files.length; i++) {
-    //         formData.append('image', inputFile.files[i]);
-    //     }
-    // }
     return formData;
 }
 
-
-//Ajax
-const submit = document.querySelector("button.form__submit");
-submit.onclick = function (e) {
+// Ajax
+function addNewProduct() {
     const formElement = document.querySelector(".product__form");
     const product = getDataForm(formElement);
-    console.log(Array.from(product))
+    const buttonForm = formElement.querySelector(`button[type="submit"]`);
     $.ajax({
         url: "admin-add-product",
         type: "POST",
@@ -170,21 +161,70 @@ submit.onclick = function (e) {
         cache: false,
         data: product,
         success: function (data) {
-            console.log("Thêm sản phẩm thành công");
+            if (data.status === true) {
+                notifySuccess();
+            } else {
+                notifyFailed();
+            }
         },
         error: function (error) {
-
+            console.log(error)
         },
     });
-
-}
-function Obj() {
 }
 
-var obj = new Obj({
-    // ... other configuration options
-    rules: [
-        1, 2, 3
-    ]
-});
-console.log(obj)
+const toastList = document.querySelector(".toast__list");
+
+function notifySuccess() {
+    toastList.innerHTML =
+        `<div class="toast" id="snackbar">
+            <div class="toast__header">
+                <span class="toast__icon-wrapper toast__icon--success">
+                    <i class="toast__icon fa-solid fa-check"></i>
+                </span>
+                <strong class="toast__title">Thêm sản phẩm thành công</strong>
+                <i class="toast__icon-close fa-solid fa-xmark"></i>
+            </div>
+            <div class="toast__body">
+                Sản phẩm đã được thêm vào gian hàng.
+            </div>
+        </div>`;
+    // Get the snackbar DIV
+    const x = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+        x.className = x.className.replace("show", "");
+        x.remove();
+    }, 3000);
+}
+
+function notifyFailed() {
+    toastList.innerHTML =
+        `<div class="toast" id="snackbar">
+            <div class="toast__header">
+                <span class="toast__icon-wrapper toast__icon--failed">
+                    <i class="toast__icon fa-solid fa-xmark"></i>
+                </span>
+                <strong class="toast__title">Thêm sản phẩm không thành công thành công</strong>
+                <i class="toast__icon-close fa-solid fa-xmark"></i>
+            </div>
+            <div class="toast__body">
+                Sản phẩm đã có tên trên đã tồn tại vào gian hàng.
+            </div>
+        </div>`;
+    // Get the snackbar DIV
+    const x = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () {
+        x.className = x.className.replace("show", "");
+        x.remove();
+    }, 3000);
+}

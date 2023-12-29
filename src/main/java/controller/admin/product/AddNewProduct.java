@@ -6,6 +6,7 @@ import models.Color;
 import models.Image;
 import models.Product;
 import models.Size;
+import properties.PathProperties;
 import services.AdminProductServices;
 import services.ProductCardServices;
 import services.ProductServices;
@@ -40,7 +41,8 @@ public class AddNewProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/json; charset=UTF-8");
+        response.setContentType("application/json");
+
         String name = request.getParameter("name");
         String idCategory = request.getParameter("idCategory");
         String originalPrice = request.getParameter("originalPrice");
@@ -49,7 +51,7 @@ public class AddNewProduct extends HttpServlet {
         String[] nameSizes = request.getParameterValues("nameSize");
         String[] sizePrices = request.getParameterValues("sizePrice");
         String[] colors = request.getParameterValues("color");
-        System.out.println(description);
+
 //        Add Product
         Product product = new Product();
         product.setName(name);
@@ -62,23 +64,28 @@ public class AddNewProduct extends HttpServlet {
 
 //        Add Product
         int productId = AdminProductServices.getINSTANCE().addProduct(product);
-        System.out.println(productId);
+
+        StringBuilder objJson = new StringBuilder();
         if (productId == 0) {
-            return;
-        }
+            objJson.append("{\"status\":").append("false}");
+        } else {
 //        Add Size
-        double[] sizePricesDouble = new double[sizePrices.length];
-        for (int i = 0; i < sizePricesDouble.length; i++) {
-            sizePricesDouble[i] = Double.parseDouble(sizePrices[i]);
-        }
-        AdminProductServices.getINSTANCE().addSize(nameSizes, sizePricesDouble, productId);
+            double[] sizePricesDouble = new double[sizePrices.length];
+            for (int i = 0; i < sizePricesDouble.length; i++) {
+                sizePricesDouble[i] = Double.parseDouble(sizePrices[i]);
+            }
+            AdminProductServices.getINSTANCE().addSize(nameSizes, sizePricesDouble, productId);
 
 //        Add Color
-        AdminProductServices.getINSTANCE().addColor(colors, productId);
+            AdminProductServices.getINSTANCE().addColor(colors, productId);
 
 //        Add Images
-        Collection<Part> images = request.getParts();
-        uploadImg(images, productId);
+            Collection<Part> images = request.getParts();
+            uploadImg(images, 2);
+            objJson.append("{\"status\":").append("true}");
+        }
+        System.out.println(objJson.toString());
+        response.getWriter().write(objJson.toString());
     }
 
     public static boolean isPartImage(Part part) {
@@ -94,7 +101,7 @@ public class AddNewProduct extends HttpServlet {
     public void uploadImg(Collection<Part> parts, int productId) throws IOException {
         ServletContext servletContext = getServletContext();
         List<String> nameImages = new ArrayList<>();
-        File root = new File(servletContext.getRealPath("/") + "data/");
+        File root = new File(servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb());
         if (!root.exists()) root.mkdirs();
 //        Move
         for (Part part : parts) {
