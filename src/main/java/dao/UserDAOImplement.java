@@ -16,10 +16,10 @@ public class UserDAOImplement implements UserDAO {
     public List<User> selectAccount(String username, String isVerify) {
         String query;
         if (isVerify == null) {
-            query = "SELECT id, username, passwordEncoding, role, isVerify FROM users WHERE username = ?";
+            query = "SELECT id, username, fullName, email, phone, address, passwordEncoding, role, isVerify FROM users WHERE username = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username);
         } else {
-            query = "SELECT id, username, passwordEncoding, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
+            query = "SELECT id, username, fullName, email, phone, address, passwordEncoding, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username, isVerify);
         }
     }

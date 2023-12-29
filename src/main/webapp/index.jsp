@@ -179,7 +179,8 @@
                                 <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
                                     <span class="product__tag">Thịnh hành</span>
                                 </c:if>
-                                <form class="action__bar" action="AddToCart" method="post">
+<%--                                action="AddToCart" method="post"--%>
+                                <form class="action__bar">
                                     <input type="hidden" name="productId" value="${newProduct.id}">
                                     <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
                                     <a class="see__detail" href="ProductDetails?productId=${newProduct.id}"><i class="fa-solid fa-eye"></i></a>
@@ -308,7 +309,8 @@
                     </c:choose>
                     if(userLoggedIn === false){
                         window.location.href = "signIn.jsp"
-                    }else {
+                    }
+                    else {
                         const form = $(actionBar);
                         let productId = form.find('input[name="productId"]').val();
                         $.ajax({

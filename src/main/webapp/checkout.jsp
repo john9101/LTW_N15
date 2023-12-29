@@ -39,78 +39,182 @@
                     <h1 class="checkout__title">Thanh toán</h1>
                     <h2 class="checkout__subtitle">Thông tin giao hàng</h2>
                     <span class="non__selected">Vui lòng chọn thông tin giao hàng</span>
-                    <form id="delivery__info--form" class="radio__section">
-                        <div>
-                            <div class="delivery__default section__info--selection">
-                                <input type="radio" name="default__selection" class="radio__button"
-                                       value="default__selection"
-                                       id="default__selection">
-                                <label class="label__selection" for="default__selection">Sử dụng thông tin mặc định khi nhận hàng</label>
-                            </div>
-                            <ul class="info__items">
-                                <li class="info__item">Họ và tên: Cáp Hữu Ðạt</li>
-                                <li class="info__item">Email: HuuDat@gmail.com</li>
-                                <li class="info__item">Số điện thoại: 0328012964</li>
-                                <li class="info__item">Địa chỉ: Xã Vĩnh Thạnh Trung, Huyện Châu Phú, An Giang</li>
-                            </ul>
-                        </div>
-                        <div class="delivery__other">
-                            <div class="section__info--selection">
-                                <input type="radio" name="default__selection" class="radio__button"
-                                       value="other__selection"
-                                       id="other__selection">
-                                <label class="label__selection" for="other__selection">Sử dụng thông tin khác khi nhận
-                                    hàng</label>
-                            </div>
-                        </div>
+                    <%--                    <form id="delivery__info--form" class="radio__section">--%>
+                    <%--                        <div>--%>
+                    <%--                            <div class="delivery__default section__info--selection">--%>
+                    <%--                                <input type="radio" name="typeSelection" class="radio__button"--%>
+                    <%--                                       value="defaultInfo"--%>
+                    <%--                                       id="default__selection">--%>
+                    <%--                                <label class="label__selection" for="default__selection">Sử dụng thông tin mặc định khi--%>
+                    <%--                                    nhận hàng</label>--%>
+                    <%--                            </div>--%>
+
+                    <%--                            <ul class="info__items">--%>
+                    <%--                                <li class="info__item"><span>Họ và tên:</span><span>${sessionScope.auth.fullName}</span>--%>
+                    <%--                                </li>--%>
+                    <%--                                <li class="info__item"><span>Email:</span><span>${sessionScope.auth.email}</span></li>--%>
+                    <%--                                <li class="info__item">--%>
+                    <%--                                    <span>Số điện thoại:</span><span>${sessionScope.auth.phone}</span></li>--%>
+                    <%--                                <li class="info__item"><span>Địa chỉ:</span><span>${sessionScope.auth.address}</span>--%>
+                    <%--                                </li>--%>
+                    <%--                            </ul>--%>
+                    <%--                        </div>--%>
+                    <%--                        <div class="delivery__other">--%>
+                    <%--                            <div class="section__info--selection">--%>
+                    <%--                                <input type="radio" name="typeSelection" class="radio__button"--%>
+                    <%--                                       value="customizeInfo"--%>
+                    <%--                                       id="other__selection">--%>
+                    <%--                                <label class="label__selection" for="other__selection">Sử dụng thông tin khác khi nhận--%>
+                    <%--                                    hàng</label>--%>
+                    <%--                            </div>--%>
+                    <%--                        </div>--%>
+                    <%--                    </form>--%>
+
+                    <form id="delivery__info--form">
+                        <%--                        <div id="default__info" class="delivery__info">--%>
+                        <%--                            <input type="hidden" name="deliveryInfoKey" value="defaultDeliveryInfo">--%>
+                        <%--                            <div class="info__header">--%>
+                        <%--                                <h3>Giao tới <i class="fa-solid fa-turn-down"></i></h3>--%>
+                        <%--                                <a href="">Chỉnh sửa</a>--%>
+                        <%--                            </div>--%>
+                        <%--                            <ul class="info__items">--%>
+                        <%--                                <li class="info__item customer__name">${sessionScope.auth.fullName}<span class="default__tag">Mặc định</span></li>--%>
+                        <%--                                <li class="info__item">Email: ${sessionScope.auth.email}</li>--%>
+                        <%--                                <li class="info__item">Số điện thoại: ${sessionScope.auth.phone}</li>--%>
+                        <%--                                <li class="info__item">Địa chỉ: ${sessionScope.auth.address}</li>--%>
+                        <%--                            </ul>--%>
+                        <%--                            <button class="button__choice" name="typeEdit" value="choiceDeliveryInfo">Đã chọn</button>--%>
+                        <%--                        </div>--%>
+                        <c:set var="userIdCart" value="${String.valueOf(sessionScope.auth.id)}"/>
+                        <c:if test="${sessionScope.deliveryInfoStorage != null}">
+                            <c:forEach items="${sessionScope.deliveryInfoStorage.deliveryInfoMap.keySet()}" var="deliveryInfoKey">
+                                <div <c:if test="${deliveryInfoKey eq 'defaultDeliveryInfo'}">id="default__info"</c:if> class="delivery__info">
+                                    <c:set var="deliveryInfo" value="${sessionScope.deliveryInfoStorage.getDeliveryInfoByKey(deliveryInfoKey)}"/>
+                                    <input data-customer-name="${deliveryInfo.fullName}"
+                                           data-customer-email="${deliveryInfo.email}"
+                                           data-customer-phone="${deliveryInfo.phone}"
+                                           data-customer-address="${deliveryInfo.address}"
+                                           type="hidden"
+                                           name="deliveryInfoKey" value="${deliveryInfoKey}">
+                                    <div class="info__header">
+                                        <h3>Giao tới <i class="fa-solid fa-turn-down"></i></h3>
+                                        <span class="edit__delivery" onclick="showCustomizeDeliveryInfoForm(this, 'Chỉnh sửa thông tin giao hàng')">Chỉnh sửa</span>
+                                    </div>
+                                    <ul class="info__items">
+                                        <li class="info__item customer__name">${deliveryInfo.fullName}<c:if test="${deliveryInfoKey eq 'defaultDeliveryInfo'}"><span class="default__tag">Mặc định</span></c:if></li>
+                                        <li class="info__item">Email: ${deliveryInfo.email}</li>
+                                        <li class="info__item">Số điện thoại: ${deliveryInfo.phone}</li>
+                                        <li class="info__item">Địa chỉ: ${deliveryInfo.address}</li>
+                                    </ul>
+
+                                    <c:choose>
+                                        <c:when test="${deliveryInfo eq sessionScope[userIdCart].deliveryInfo}">
+                                            <c:set var="statusChoice" value="Đã chọn"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:set var="statusChoice" value="Chọn"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <div class="choice__remove">
+                                        <button type="submit" class="button__choice" name="typeEdit" value="choiceDeliveryInfo">${statusChoice}</button>
+                                        <c:if test="${deliveryInfoKey ne 'defaultDeliveryInfo'}">
+                                            <button type="submit" class="button__remove" name="typeEdit" value="removeDeliveryInfo">Xóa</button>
+                                        </c:if>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </c:if>
                     </form>
-                    <form id="customize__info--form">
-                        <div class="customize__item">
-                            <label for="full__name" class="input__text">Họ và tên *</label>
-                            <input type="text" name="full__name" class="input__content" id="full__name">
-                            <span class="error__notice"></span>
+                    <p class="other__info">Bạn muốn giao hàng đến địa chỉ khác?
+                        <span onclick="showCustomizeDeliveryInfoForm(this, 'Thêm thông tin giao hàng')" class="add__delivery">Thêm thông tin giao hàng mới</span></p>
+                    <div class="popup__bg">
+                        <div class="popup__form">
+                            <div class="form__header">
+                                <h2 class="form__title"></h2>
+                                <span class="button__close"><i class="fa-solid fa-xmark"></i></span>
+                            </div>
+                            <form id="customize__info--form">
+                                <input type="hidden" name="deliveryInfoTarget">
+                                <div class="customize__item">
+                                    <label for="fullName" class="input__text">Họ và tên <span
+                                            class="compulsory">*</span></label>
+                                    <input type="text" name="fullName" class="input__content field__content"
+                                           id="fullName" placeholder="Họ và tên của bạn">
+                                    <span id="fullNameError" class="error__notice"></span>
+                                </div>
+                                <div class="customize__item">
+                                    <label for="email" class="input__text">Email <span
+                                            class="compulsory">*</span></label>
+                                    <input type="text" name="email" class="input__content field__content" id="email"
+                                           placeholder="Email của bạn">
+                                    <span id="emailError" class="error__notice"></span>
+                                </div>
+                                <div class="customize__item">
+                                    <label for="phone" class="input__text">Số điện thoại <span
+                                            class="compulsory">*</span></label>
+                                    <input type="text" name="phone" class="input__content field__content" id="phone"
+                                           placeholder="Số điện thoại của bạn">
+                                    <span id="phoneError" class="error__notice"></span>
+                                </div>
+                                <div class="customize__item">
+                                    <label for="address" class="input__text">Địa chỉ <span
+                                            class="compulsory">*</span></label>
+                                    <textarea class="textarea__content field__content" name="address" id="address"
+                                              rows="6" placeholder="Địa chỉ của bạn"></textarea>
+                                    <span id="addressError" class="error__notice"></span>
+                                </div>
+                                <%--                        <input type="submit" class="button__custom" value="Đăng ký địa chỉ giao hàng">--%>
+                                <div class="button__forward">
+                                    <button type="button" class="button__cancel">Hủy bỏ</button>
+                                    <button type="submit" class="button__custom" name="action"></button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="customize__item">
-                            <label for="email" class="input__text">Email *</label>
-                            <input type="text" name="email" class="input__content" id="email">
-                            <span class="error__notice"></span>
-                        </div>
-                        <div class="customize__item">
-                            <label for="phone" class="input__text">Số điện thoại *</label>
-                            <input type="text" name="phone" class="input__content" id="phone">
-                            <span class="error__notice"></span>
-                        </div>
-                        <div class="customize__item">
-                            <label for="address" class="input__text">Địa chỉ *</label>
-                            <textarea class="textarea__content" name="address" id="address" rows="10"></textarea>
-                            <span class="error__notice"></span>
-                        </div>
-                        <input type="submit" class="register__address" value="Đăng ký địa chỉ giao hàng">
-                    </form>
+                    </div>
                 </div>
 
                 <!-- New update template -->
                 <c:set var="freeShip" value="5000000"/>
                 <c:choose>
-                    <c:when test="${sessionScope.cart.getTotalPrice() >= freeShip}">
-                        <p class="free__ship"><i class="fa-solid fa-circle-check"></i>Miễn phí vận chuyển cho hóa đơn từ <fmt:setLocale value="vi_VN"/><fmt:formatNumber value="${freeShip}" type="currency"/></p>
+                    <c:when test="${sessionScope[userIdCart].getTotalPrice() >= freeShip}">
+                        <p class="free__ship"><i class="fa-solid fa-circle-check"></i>Miễn phí vận chuyển cho hóa đơn từ
+                            <fmt:setLocale value="vi_VN"/><fmt:formatNumber value="${freeShip}" type="currency"/></p>
                     </c:when>
                     <c:otherwise>
                         <div class="delivery__method--container">
                             <h2 class="checkout__subtitle">Phương thức vận chuyển</h2>
                             <span class="non__selected">Vui lòng chọn phương thức vận chuyển</span>
+                                <%--                            action="Checkout" method="post"--%>
                             <form id="delivery__method--form" class="radio__section">
-                                <c:forEach items="${requestScope.listInfoShipping}" var="infoShipping">
+                                <input type="hidden" name="action" value="choiceDeliveryMethod">
+                                    <%--                                <c:forEach items="${requestScope.listInfoDeliveryMethod}" var="infoDeliveryMethod">--%>
+                                    <%--                                    <div class="method__content">--%>
+                                    <%--                                        <div class="method__item section__info--selection ${sessionScope.deliveryMethodSelected eq infoDeliveryMethod.id ? "selected" : ""}">--%>
+                                    <%--                                            <input type="radio" name="delivery__method" class="radio__button"--%>
+                                    <%--                                                   value="${infoDeliveryMethod.id}"--%>
+                                    <%--                                                   id="delivery__method${infoDeliveryMethod.id}" <c:if test="${sessionScope.deliveryMethodSelected eq infoDeliveryMethod.id}">checked</c:if>>--%>
+                                    <%--                                            <label class="label__selection" for="delivery__method${infoDeliveryMethod.id}">--%>
+                                    <%--                                                <span>${infoDeliveryMethod.typeShipping}</span>--%>
+                                    <%--                                                <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency"--%>
+                                    <%--                                                                                                      value="${infoDeliveryMethod.shippingFee}"/></span>--%>
+                                    <%--                                            </label>--%>
+                                    <%--                                        </div>--%>
+                                    <%--                                        <span><p>${infoDeliveryMethod.description}</p></span>--%>
+                                    <%--                                    </div>--%>
+                                    <%--                                </c:forEach>--%>
+                                <c:forEach items="${requestScope.listDeliveryMethod}" var="deliveryMethod">
                                     <div class="method__content">
                                         <div class="method__item section__info--selection">
-                                            <input type="radio" name="delivery__method" class="radio__button" value="${infoShipping.id}"
-                                                   id="method__shipping${infoShipping.id}">
-                                            <label class="label__selection" for="method__shipping${infoShipping.id}">
-                                                <span>${infoShipping.typeShipping}</span>
-                                                <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency" value="${infoShipping.shippingFee}"/></span>
+                                            <input type="radio" name="delivery__method" class="radio__button"
+                                                   value="${deliveryMethod.id}"
+                                                   id="delivery__method${deliveryMethod.id}">
+                                            <label class="label__selection" for="delivery__method${deliveryMethod.id}">
+                                                <span>${deliveryMethod.typeShipping}</span>
+                                                <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency"
+                                                                                                      value="${deliveryMethod.shippingFee}"/></span>
                                             </label>
                                         </div>
-                                        <span><p>${infoShipping.description}</p></span>
+                                        <span><p>${deliveryMethod.description}</p></span>
                                     </div>
                                 </c:forEach>
                                     <%--                        <div class="method__content">--%>
@@ -160,28 +264,31 @@
                     <h2 class="checkout__subtitle">Phương thức thanh toán</h2>
                     <span class="non__selected">Vui lòng chọn phương thức thanh toán</span>
                     <form id="payment__method--form" class="radio__section">
+                        <input type="hidden" name="action" value="choicePaymentMethod">
                         <c:forEach items="${requestScope.listPaymentMethod}" var="paymentMethod">
                             <div class="method__item section__info--selection">
-                                <input type="radio" name="payment__method" class="radio__button" value="payment__method"
+                                <input type="radio" name="payment__method" class="radio__button"
+                                       value="${paymentMethod.id}"
                                        id="payment__method${paymentMethod.id}">
-                                <label class="label__selection" for="payment__method${paymentMethod.id}">${paymentMethod.typeMethod}</label>
+                                <label class="label__selection"
+                                       for="payment__method${paymentMethod.id}">${paymentMethod.typeMethod}</label>
                             </div>
                         </c:forEach>
-<%--                        <div class="method__item section__info--selection">--%>
-<%--                            <input type="radio" name="payment__method" class="radio__button" value="payment__method"--%>
-<%--                                   id="cash">--%>
-<%--                            <label class="label__selection" for="cash">Thanh toán tiền mặt khi nhận hàng</label>--%>
-<%--                        </div>--%>
-<%--                        <div class="method__item section__info--selection">--%>
-<%--                            <input type="radio" name="payment__method" class="radio__button" value="bank" id="bank">--%>
-<%--                            <label class="label__selection" for="bank">Thanh toán qua atm nội địa / internet--%>
-<%--                                banking</label>--%>
-<%--                        </div>--%>
-<%--                        <div class="method__item section__info--selection">--%>
-<%--                            <input type="radio" name="payment__method" class="radio__button" value="e-wallet"--%>
-<%--                                   id="e-wallet">--%>
-<%--                            <label class="label__selection" for="e-wallet">Thanh toán qua ví điện tử</label>--%>
-<%--                        </div>--%>
+                        <%--                        <div class="method__item section__info--selection">--%>
+                        <%--                            <input type="radio" name="payment__method" class="radio__button" value="payment__method"--%>
+                        <%--                                   id="cash">--%>
+                        <%--                            <label class="label__selection" for="cash">Thanh toán tiền mặt khi nhận hàng</label>--%>
+                        <%--                        </div>--%>
+                        <%--                        <div class="method__item section__info--selection">--%>
+                        <%--                            <input type="radio" name="payment__method" class="radio__button" value="bank" id="bank">--%>
+                        <%--                            <label class="label__selection" for="bank">Thanh toán qua atm nội địa / internet--%>
+                        <%--                                banking</label>--%>
+                        <%--                        </div>--%>
+                        <%--                        <div class="method__item section__info--selection">--%>
+                        <%--                            <input type="radio" name="payment__method" class="radio__button" value="e-wallet"--%>
+                        <%--                                   id="e-wallet">--%>
+                        <%--                            <label class="label__selection" for="e-wallet">Thanh toán qua ví điện tử</label>--%>
+                        <%--                        </div>--%>
                     </form>
                 </div>
             </div>
@@ -190,19 +297,20 @@
                 <div class="order__detail--info">
                     <table class="order__table">
                         <thead>
-                            <tr class="row__header">
-                                <th class="thead__item">Sản phầm</th>
-                                <th class="thead__item">Số lượng</th>
-                                <th class="thead__item">Đơn giá</th>
-                            </tr>
+                        <tr class="row__header">
+                            <th class="thead__item">Sản phầm</th>
+                            <th class="thead__item">Số lượng</th>
+                            <th class="thead__item">Đơn giá</th>
+                        </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${sessionScope.cart.shoppingCartMap.keySet()}" var="productId">
-                            <c:forEach items="${sessionScope.cart.shoppingCartMap.get(productId)}" var="cartProduct">
+                        <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.keySet()}" var="productId">
+                            <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.get(productId)}" var="cartProduct">
                                 <tr class="row__content">
                                     <td class="td__item">
                                         <div class="product__item">
-                                            <c:set var="listImagesProduct" value="${productFactory.getListImagesByProductId(productId)}"/>
+                                            <c:set var="listImagesProduct"
+                                                   value="${productFactory.getListImagesByProductId(productId)}"/>
                                             <img src='assets/img/product_img/${listImagesProduct.get(0).nameImage}'>
                                             <div class="order__product--info">
                                                 <p class="product__name">${cartProduct.product.name}</p>
@@ -221,24 +329,26 @@
                 <div class="invoice--final">
                     <div class="invoice__content">
                         <div class="price__item--detail">
-                            <div>
-                                <span>Tạm tính (${sessionScope.cart.getTotalItems()} sản phẩm)</span>
-                                <span>${sessionScope.cart.temporaryPriceFormat()}</span>
+                            <div class="temporary__container">
+                                <span>Tạm tính (${sessionScope[userIdCart].getTotalItems()} sản phẩm)</span>
+                                <span>${sessionScope[userIdCart].temporaryPriceFormat()}</span>
                             </div>
-                            <c:if test="${sessionScope.cart.voucherApplied != null}">
-                                <div>
+                            <c:if test="${sessionScope[userIdCart].voucherApplied != null}">
+                                <div class="discount__container">
                                     <span>Giảm giá</span>
-                                    <span>${sessionScope.cart.discountPriceFormat()}</span>
+                                    <span>${sessionScope[userIdCart].discountPriceFormat()}</span>
                                 </div>
                             </c:if>
-                            <div>
+                            <div class="shipping__container"
+                                 <c:if test="${sessionScope[userIdCart].deliveryMethod != null}">style="display: flex !important;"</c:if>>
                                 <span>Phí vận chuyển</span>
-                                <span></span>
+                                <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency"
+                                                                                      value="${sessionScope.cart.deliveryMethod.shippingFee}"/></span>
                             </div>
                         </div>
                         <div class="total__price--final">
                             <span class="total__label">Tổng tiền</span>
-                            <span class="total__value">${sessionScope.cart.totalPriceFormat()}</span>
+                            <span class="total__value">${sessionScope[userIdCart].totalPriceFormat()}</span>
                         </div>
                     </div>
                     <div class="ground__button--forward">
@@ -255,31 +365,192 @@
 </main>
 <%@include file="footer.jsp" %>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="js/base.js"></script>
 <script src="js/checkout.js"></script>
-<script>
-    ValidatorCustomizeDeliveryForm({
-        form: '#customize__info--form',
-        formBlockSelector: '.customize__item',
-        errorSelector: '.error__notice',
-        rules: [
-            ValidatorCustomizeDeliveryForm.isRequired('#full__name'),
-            ValidatorCustomizeDeliveryForm.isRequired('#phone'),
-            ValidatorCustomizeDeliveryForm.isPhone('#phone'),
-            ValidatorCustomizeDeliveryForm.isRequired('#address'),
-            ValidatorCustomizeDeliveryForm.isRequired('#email'),
-            ValidatorCustomizeDeliveryForm.isEmail('#email')
-        ],
-        onSubmit: function (dataInput) {
-            const otherDeliveryLabelElement = document.querySelector('label[for="other__selection"]');
-            otherDeliveryLabelElement.innerHTML = `<ul class="info__items">
-                                                      <li class="info__item">Họ và tên: ${dataInput['full__name']}</li>
-                                                        <li class="info__item">Email: ${dataInput['email']}</li>
-                                                        <li class="info__item">Số điện thoại: ${dataInput['phone']}</li>
-                                                        <li class="info__item">Địa chỉ: ${dataInput['address']}</li>
-                                                   </ul>`;
-        }
-    });
+<%--<script>--%>
+<%--    ValidatorCustomizeDeliveryForm({--%>
+<%--        form: '#customize__info--form',--%>
+<%--        formBlockSelector: '.customize__item',--%>
+<%--        errorSelector: '.error__notice',--%>
+<%--        rules: [--%>
+<%--            ValidatorCustomizeDeliveryForm.isRequired('#fullName'),--%>
+<%--            ValidatorCustomizeDeliveryForm.isRequired('#phone'),--%>
+<%--            ValidatorCustomizeDeliveryForm.isRequired('#address'),--%>
+<%--            ValidatorCustomizeDeliveryForm.isRequired('#email'),--%>
+<%--        ],--%>
+<%--        onSubmit: function (dataInput) {--%>
+<%--            &lt;%&ndash;const otherDeliveryLabelElement = document.querySelector('label[for="other__selection"]');&ndash;%&gt;--%>
+<%--            &lt;%&ndash;otherDeliveryLabelElement.innerHTML = `<ul class="info__items">&ndash;%&gt;--%>
+<%--            &lt;%&ndash;                                          <li class="info__item">Họ và tên: ${dataInput['full__name']}</li>&ndash;%&gt;--%>
+<%--            &lt;%&ndash;                                            <li class="info__item">Email: ${dataInput['email']}</li>&ndash;%&gt;--%>
+<%--            &lt;%&ndash;                                            <li class="info__item">Số điện thoại: ${dataInput['phone']}</li>&ndash;%&gt;--%>
+<%--            &lt;%&ndash;                                            <li class="info__item">Địa chỉ: ${dataInput['address']}</li>&ndash;%&gt;--%>
+<%--            &lt;%&ndash;                                       </ul>`;&ndash;%&gt;--%>
+<%--        }--%>
+<%--    });--%>
+<%--</script>--%>
+<script type="text/javascript">
+
+    function handleChoiceDeliveryMethod() {
+        $(document).ready(function () {
+            $('input[name="delivery__method"]').change(function () {
+                let action = $('#delivery__method--form input[type=hidden][name="action"]').val();
+                let deliveryMethodId = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'Checkout',
+                    data: {
+                        action: action,
+                        deliveryMethodId: deliveryMethodId
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        $(this).prop('checked', true);
+                        $('.total__price--final .total__value').text(response.newTotalPrice);
+                        $('.shipping__container').attr('style', 'display: flex !important');
+                        $('.shipping__container span:last-child').text(response.shippingFee);
+                    }
+                })
+            })
+        })
+    }
+
+    handleChoiceDeliveryMethod();
+
+    function handleChoicePaymentMethod() {
+        $(document).ready(function () {
+            $('input[name="payment__method"]').change(function () {
+                let action = $('#payment__method--form input[type=hidden][name="action"]').val();
+                let paymentMethodId = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'Checkout',
+                    data: {
+                        action: action,
+                        deliveryMethodId: paymentMethodId
+                    },
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (response) {
+                        $(this).prop('checked', true)
+                    }
+                })
+            })
+        })
+    }
+
+    handleChoicePaymentMethod();
+
+    function handleChoiceDeliveryInfo() {
+        $(document).ready(function () {
+            $('#delivery__info--form').on('click', '.button__choice', function (event) {
+                event.preventDefault();
+                let buttonChoiceClicked = $(this);
+                if (buttonChoiceClicked.text() === 'Chọn') {
+                    let deliveryInfo = buttonChoiceClicked.closest('.delivery__info');
+                    let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
+                    let typeEdit = buttonChoiceClicked.val();
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Checkout',
+                        data: {
+                            typeEdit: typeEdit,
+                            deliveryInfoKey: deliveryInfoKey
+                        },
+                        success: function (response) {
+                            buttonChoiceClicked.text(response)
+                            $('.button__choice').not(buttonChoiceClicked).text("Chọn")
+                        }
+                    })
+                }
+            })
+        })
+    }
+
+    handleChoiceDeliveryInfo();
+
+    function handleRemoveDeliveryInfo() {
+        $(document).ready(function () {
+            $('#delivery__info--form').on('click', '.button__remove', function (event) {
+                event.preventDefault();
+                let buttonRemoveClicked = $(this);
+                let deliveryInfo = buttonRemoveClicked.closest('.delivery__info');
+                let deliveryInfoKey = deliveryInfo.find('input[type=hidden][name=deliveryInfoKey]').val();
+                let typeEdit = buttonRemoveClicked.val();
+
+                let buttonChoice = deliveryInfo.find('.button__choice');
+                let statusChoice = buttonChoice.text();
+                $.ajax({
+                    type: 'POST',
+                    url: 'Checkout',
+                    data: {
+                        typeEdit: typeEdit,
+                        deliveryInfoKey: deliveryInfoKey,
+                        statusChoice: statusChoice
+                    },
+                    success: function (response) {
+                        deliveryInfo.remove();
+                        if (statusChoice === "Đã chọn") {
+                            $('#default__info').find('.button__choice').text("Đã chọn")
+                        }
+                    }
+                })
+            })
+        })
+    }
+    handleRemoveDeliveryInfo();
+
+    function handlePlaceOrder(){
+        $('.place__order').on('click', function (){
+            console.log(1)
+            const radioSections = $(document).find('.radio__section');
+            let allSectionsSelected = true;
+            radioSections.each(function () {
+                let radioSection = $(this);
+                const radioButtons = radioSection.find('.radio__button');
+                const errorMessage = radioSection.parent().find('.non__selected');
+                let sectionSelected = false;
+
+                radioButtons.each(function (index) {
+                    let radioButton = $(this);
+                    if (radioButton.prop("checked")) {
+                        sectionSelected = true;
+                    }
+                });
+
+                if (!sectionSelected) {
+                    allSectionsSelected = false;
+                    errorMessage.css('display', 'block');
+                } else {
+                    errorMessage.css('display', 'none');
+                }
+            });
+
+            if (allSectionsSelected) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'PlaceOrder',
+                    data: {},
+                    success: function (response){
+                        alert(response)
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("Lỗi AJAX: ", error);
+                    }
+                })
+            }
+        })
+        const radioButtons = $(document).find('.radio__button');
+        radioButtons.change(function (){
+            let radioButton = $(this);
+            const radioSection = radioButton.closest(".radio__section");
+            const errorMessage = radioSection.parent().find('.non__selected');
+            errorMessage.css('display', 'none')
+        })
+    }
+    handlePlaceOrder();
 </script>
 </html>
 

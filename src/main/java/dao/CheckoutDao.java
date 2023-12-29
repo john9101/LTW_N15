@@ -1,16 +1,15 @@
 package dao;
 
 import models.PaymentMethod;
-import models.Shipping;
+import models.DeliveryMethod;
 
 import java.util.List;
-import java.util.Set;
 
 public class CheckoutDao {
 
-    public List<Shipping> getAllInformationShipping(){
-        String sql = "SELECT id, typeShipping, description, shippingFee FROM shippings";
-        return GeneralDao.executeQueryWithSingleTable(sql, Shipping.class);
+    public List<DeliveryMethod> getAllInformationDeliveryMethod(){
+        String sql = "SELECT id, typeShipping, description, shippingFee FROM delivery_methods";
+        return GeneralDao.executeQueryWithSingleTable(sql, DeliveryMethod.class);
     }
 
     public List<PaymentMethod> getAllPaymentMethod(){
@@ -18,9 +17,9 @@ public class CheckoutDao {
         return GeneralDao.executeQueryWithSingleTable(sql, PaymentMethod.class);
     }
 
-    public Shipping getShippingById(int id){
-        String sql = "SELECT id, shippingFee, typeShipping FROM shippings";
-        return GeneralDao.executeQueryWithSingleTable(sql, Shipping.class).get(0);
+    public DeliveryMethod getDeliveryMethodById(int id){
+        String sql = "SELECT id, shippingFee, typeShipping FROM delivery_methods WHERE id = ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, DeliveryMethod.class, id).get(0);
     }
 
     public PaymentMethod getPaymentMethodById(int id){

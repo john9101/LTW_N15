@@ -1,6 +1,7 @@
 package controller.authentication;
 
 import models.User;
+import models.UserSessionAccess;
 import services.AuthenticateServices;
 import utils.Validation;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet(name = "signIn", value = "/signIn")
 public class SignIn extends HttpServlet {
@@ -36,6 +38,7 @@ public class SignIn extends HttpServlet {
             User userAuth = (User) validation.getObjReturn();
             HttpSession session = request.getSession(true);
             session.setAttribute("auth", userAuth);
+
             response.sendRedirect("index.jsp");
         } else {
             request.setAttribute("usernameError", validation.getFieldUsername());

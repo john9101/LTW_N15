@@ -1,6 +1,7 @@
 package controller.shoppingCart;
 
 import models.ShoppingCart;
+import models.User;
 import models.Voucher;
 import services.ShoppingCartServices;
 import utils.FormatCurrency;
@@ -17,7 +18,9 @@ public class DecreaseQuantityController extends HttpServlet {
         int productId = 0;
         int cartProductIndex = 0;
         HttpSession session = request.getSession(true);
-        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        User userAuth = (User) session.getAttribute("auth");
+        String userIdCart = String.valueOf(userAuth.getId());
+        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
         try {
             productId = Integer.parseInt((String) request.getAttribute("productId"));
             cartProductIndex = Integer.parseInt((String) request.getAttribute("cartProductIndex"));
@@ -41,7 +44,7 @@ public class DecreaseQuantityController extends HttpServlet {
                 session.setAttribute("failedApply", "Bạn chưa đủ điều kiện để áp dụng mã " + code + ". Hãy mua thêm " + priceBuyMoreFormat);
             }
         }
-        session.setAttribute("cart", cart);
+        session.setAttribute(userIdCart, cart);
         response.sendRedirect("shoppingCart.jsp");
     }
 

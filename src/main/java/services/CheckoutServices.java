@@ -1,10 +1,8 @@
 package services;
 
 import dao.CheckoutDao;
-import dao.GeneralDao;
-import dao.ProductDao;
 import models.PaymentMethod;
-import models.Shipping;
+import models.DeliveryMethod;
 
 import java.util.List;
 
@@ -22,16 +20,16 @@ public class CheckoutServices {
         return INSTANCE;
     }
 
-    public List<Shipping> getAllInformationShipping(){
-        return checkoutDao.getAllInformationShipping();
+    public List<DeliveryMethod> getAllInformationDeliveryMethod(){
+        return checkoutDao.getAllInformationDeliveryMethod();
     }
 
     public List<PaymentMethod> getAllPaymentMethod(){
         return checkoutDao.getAllPaymentMethod();
     }
 
-    public Shipping getShippingById(int id){
-        return checkoutDao.getShippingById(id);
+    public DeliveryMethod getDeliveryMethodById(int id){
+        return checkoutDao.getDeliveryMethodById(id);
     }
 
     public PaymentMethod getPaymentMethodById(int id){

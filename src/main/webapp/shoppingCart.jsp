@@ -63,8 +63,9 @@
     <div class="container-xl">
         <h1 class="cart__title">Giỏ hàng</h1>
         <div class="cart__container row">
+            <c:set var="userIdCart" value="${String.valueOf(sessionScope.auth.id)}"/>
             <c:choose>
-                <c:when test="${sessionScope.cart.shoppingCartMap.size() == 0}">
+                <c:when test="${sessionScope[userIdCart].getTotalItems() == 0 || sessionScope[userIdCart] == null}">
                     <div class="cart__container--empty">
                         <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
                         <a href="productBuying.jsp">
@@ -99,9 +100,9 @@
                                 </tr>
                                 </thead>
                                 <tbody class="cart__items">
-                                <c:forEach items="${sessionScope.cart.shoppingCartMap.keySet()}" var="productId">
-                                    <c:forEach items="${sessionScope.cart.shoppingCartMap.get(productId)}" var="cartProduct">
-                                        <c:set value="${sessionScope.cart.shoppingCartMap.get(productId).indexOf(cartProduct)}" var="cartProductItem"/>
+                                <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.keySet()}" var="productId">
+                                    <c:forEach items="${sessionScope[userIdCart].shoppingCartMap.get(productId)}" var="cartProduct">
+                                        <c:set value="${sessionScope[userIdCart].shoppingCartMap.get(productId).indexOf(cartProduct)}" var="cartProductItem"/>
                                         <c:url var="scart" value="ShoppingCart">
                                             <c:param name="productId" value="${productId}"/>
                                             <c:param name="cartProductItem" value="${cartProductItem}"/>
@@ -149,7 +150,7 @@
                         </div><!-- New update template -->
                     </div>
                     <div class="invoice__promotion col">
-                        <c:set var="temporaryPrice" value="${sessionScope.cart.getTemporaryPrice()}"/>
+                        <c:set var="temporaryPrice" value="${sessionScope[userIdCart].getTemporaryPrice()}"/>
                         <div class="apply__promotion">
                             <h2>Khuyến mãi</h2>
                             <form id="promotion__form" action="ShoppingCart" method="post">
@@ -179,22 +180,22 @@
                             <div class="invoice__detail--info">
                                 <ul class="price__items">
                                     <li class="price__item">
-                                        <p class="price__text">Tạm tính (${sessionScope.cart.getTotalItems()} sp)</p>
-                                        <p class="price__value">${sessionScope.cart.temporaryPriceFormat()}</p>
+                                        <p class="price__text">Tạm tính (${sessionScope[userIdCart].getTotalItems()} sp)</p>
+                                        <p class="price__value">${sessionScope[userIdCart].temporaryPriceFormat()}</p>
                                     </li>
-                                    <c:if test="${sessionScope.cart.getDiscountPrice() != 0}">
+                                    <c:if test="${sessionScope[userIdCart].getDiscountPrice() != 0}">
                                         <li class="price__item">
                                             <p class="price__text">Giảm giá <i
                                                     class="icon__info fa-solid fa-circle-info"></i> <span
-                                                    class="discount__note"> <fmt:setLocale value="vi_VN"/> ${sessionScope.cart.voucherApplied.description} <fmt:formatNumber type="currency" value="${sessionScope.cart.voucherApplied.minimumPrice}"/> khi áp dụng mã ${sessionScope.cart.voucherApplied.code}</span></p>
-                                            <p class="price__value">${sessionScope.cart.discountPriceFormat()}</p>
+                                                    class="discount__note"> <fmt:setLocale value="vi_VN"/> ${sessionScope[userIdCart].voucherApplied.description} <fmt:formatNumber type="currency" value="${sessionScope.cart.voucherApplied.minimumPrice}"/> khi áp dụng mã ${sessionScope.cart.voucherApplied.code}</span></p>
+                                            <p class="price__value">${sessionScope[userIdCart].discountPriceFormat()}</p>
                                         </li>
                                     </c:if>
                                 </ul>
                                 <div class="price__total">
                                     <p class="price__text">Tổng tiền</p>
                                     <div class="price__content">
-                                        <p class="price__value--final">${sessionScope.cart.totalPriceFormat()}</p>
+                                        <p class="price__value--final">${sessionScope[userIdCart].totalPriceFormat()}</p>
                                         <p class="price__value--noted">(Đã bao gồm VAT nếu có)</p>
                                     </div>
                                 </div>

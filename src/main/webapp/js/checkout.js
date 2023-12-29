@@ -47,6 +47,15 @@ sectionSelectionHandleEvent(deliveryInfoRadioButtons)
 sectionSelectionHandleEvent(paymentMethodRadioButtons)
 sectionSelectionHandleEvent(deliveryMethodRadioButtons)
 
+// function handleSubmitDeliveryMethod(radioButtonElements){
+//     radioButtonElements.forEach((radioButtonElement, index) =>{
+//         radioButtonElement.addEventListener("change", ()=>{
+//             radioButtonElement.closest("form").submit();
+//         })
+//     })
+// }
+// handleSubmitDeliveryMethod(deliveryMethodRadioButtons)
+
 function ValidatorCustomizeDeliveryForm(options) {
     let selectorRules = {};
 
@@ -153,34 +162,35 @@ function ValidatorCustomizeDeliveryForm(options) {
     }
 }
 
-ValidatorCustomizeDeliveryForm.isRequired = (selector) => {
-    return {
-        selector: selector,
-        test: (value) => {
-            return value.trim() ? undefined : 'Vui lòng bạn nhập trường này'
-        }
-    }
-}
+// ValidatorCustomizeDeliveryForm.isRequired = (selector) => {
+//     return {
+//         selector: selector,
+//         test: (value) => {
+//             return value.trim() ? undefined : 'Vui lòng bạn nhập trường này'
+//         }
+//     }
+// }
+//
+// ValidatorCustomizeDeliveryForm.isEmail = (selector) => {
+//     return {
+//         selector: selector,
+//         test: (value) => {
+//             const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+//             return regex.test(value.trim()) ? undefined : 'Thông tin bạn nhập không phải là email'
+//         }
+//     }
+// }
 
-ValidatorCustomizeDeliveryForm.isEmail = (selector) => {
-    return {
-        selector: selector,
-        test: (value) => {
-            const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            return regex.test(value.trim()) ? undefined : 'Thông tin bạn nhập không phải là email'
-        }
-    }
-}
+// ValidatorCustomizeDeliveryForm.isPhone = (selector) => {
+//     return {
+//         selector: selector,
+//         test: (value) => {
+//             const regex = /(84|0[0-9])+([0-9]{8})\b/g;
+//             return regex.test(value.trim()) ? undefined : 'Vui lòng nhập số điện thoại hợp lệ (10 số bắt đầu từ 0)'
+//         }
+//     }
+// }
 
-ValidatorCustomizeDeliveryForm.isPhone = (selector) => {
-    return {
-        selector: selector,
-        test: (value) => {
-            const regex = /(84|0[0-9])+([0-9]{8})\b/g;
-            return regex.test(value.trim()) ? undefined : 'Vui lòng nhập số điện thoại hợp lệ (10 số bắt đầu từ 0)'
-        }
-    }
-}
 
 
 function showNoteDeliveryMethodOption(){
@@ -201,42 +211,6 @@ function showNoteDeliveryMethodOption(){
     })
 }
 showNoteDeliveryMethodOption();
-
-
-// function getCartItemsLastArray() {
-//     const cartItemsRequiredJSON = localStorage.getItem('cartItemsRequired');
-//     localStorage.setItem("cartItemsLast", cartItemsRequiredJSON);
-//     let cartItemsLastArray = [];
-//     const cartItemsLastObject = JSON.parse(cartItemsRequiredJSON);
-//     for (let item in cartItemsLastObject) {
-//         cartItemsLastArray.push(cartItemsLastObject[item]);
-//     }
-//     return cartItemsLastArray;
-// }
-//
-// function renderCartItemsLast() {
-//     const cartItemsLastArray = getCartItemsLastArray();
-//     const orderTableElement = document.querySelector(".order__table");
-//     const cartItemsList = cartItemsLastArray.map((cartItem, index) => {
-//         return `<tr class="row__content">
-//                             <td class="td__item">
-//                                 <div class="product__item">
-//                                     <img src='${cartItem.productItem.image}'>
-//                                     <div class="order__product--info">
-//                                         <p class="product__name">${cartItem.productItem.name}</p>
-//                                         <p class="order__color">Màu sắc: ${cartItem.productItem.color}</p>
-//                                     </div>
-//                                 </div>
-//                             </td>
-//                             <td class="td__item">${cartItem.quality}</td>
-//                             <td class="td__item">${formatCurrency(cartItem.unitPrice)}</td>
-//                         </tr>`
-//     })
-//     const cartItemsHTML = cartItemsList.join('');
-//     orderTableElement.innerHTML += cartItemsHTML;
-//     document.querySelector('.total__value').textContent = localStorage.getItem("totalPriceValue");
-// }
-// renderCartItemsLast();
 
 function validateRadioSections() {
     const placeOrderButton = document.querySelector(".place__order");
@@ -263,8 +237,7 @@ function validateRadioSections() {
         });
 
         if (allSectionsSelected) {
-            window.location.href = '../index.html';
-            localStorage.setItem('resetShoppingCart', JSON.stringify([]));
+
         }
     })
     const radioButtons = document.querySelectorAll('.radio__button');
@@ -276,4 +249,175 @@ function validateRadioSections() {
         })
     })
 }
-validateRadioSections();
+// validateRadioSections();
+
+
+function handleCustomizeDeliveryInfo(){
+    const form = $('#customize__info--form');
+    let fullNameField = form.find('input[name="fullName"]');
+    let emailField = form.find('input[name="email"]');
+    let phoneField = form.find('input[name="phone"]');
+    let addressField = form.find('textarea[name="address"]');
+    let buttonCustom = form.find('.button__custom');
+
+    $(document).ready(function (){
+        form.on('submit', function (event){
+            event.preventDefault();
+            let fullName = fullNameField.val().trim();
+            let email = emailField.val().trim();
+            let phone = phoneField.val().trim();
+            let address = addressField.val().trim();
+            let action = buttonCustom.val();
+
+            let objectData = {
+                action: action,
+                fullName: fullName,
+                email: email,
+                phone: phone,
+                address: address,
+            }
+
+            let deliveryInfoKey
+            if(action === 'editDeliveryInfo'){
+                let deliveryInfoKeyTarget = form.find('input[name="deliveryInfoTarget"]');
+                deliveryInfoKey = deliveryInfoKeyTarget.val();
+                objectData.deliveryInfoKey = deliveryInfoKey;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "Checkout",
+                data: objectData,
+                dataType: 'json',
+                success: function (response){
+                    if(response.isRegisterValid || response.isUpdateValid){
+                        let duplicateError = response.duplicateError;
+                        if(duplicateError !== undefined && duplicateError !== null){
+                            alert(duplicateError);
+                        }else {
+                            $('.popup__bg').css('display', 'none');
+                            if(action === 'addDeliveryInfo'){
+                                let deliInfoKey = response.deliInfoKey;
+                                let newDeliveryInfo = `
+                                            <div class="delivery__info">
+                                                <input data-customer-name="${fullName}"
+                                                       data-customer-email="${email}"
+                                                       data-customer-phone="${phone}"
+                                                       data-customer-address="${address}" 
+                                                       type="hidden" name="deliveryInfoKey" value="${deliInfoKey}">
+                                                <div class="info__header">
+                                                    <h3>Giao tới <i class="fa-solid fa-turn-down"></i></h3>
+                                                    <span class="edit__delivery" onclick="showCustomizeDeliveryInfoForm(this, 'Chỉnh sửa thông tin giao hàng')">Chỉnh sửa</span>
+                                                </div>
+                                                <ul class="info__items">
+                                                    <li class="info__item customer__name">${fullName}</li>
+                                                    <li class="info__item">Email: ${email}</li>
+                                                    <li class="info__item">Số điện thoại: ${phone}</li>
+                                                    <li class="info__item">Địa chỉ: ${address}</li>
+                                                </ul>
+                                                <div class="choice__remove">
+                                                    <button type="submit" class="button__choice" name="typeEdit" value="choiceDeliveryInfo">Chọn</button>
+                                                    <button type="submit" class="button__remove" name="typeEdit" value="removeDeliveryInfo">Xóa</button>
+                                                </div>
+                                            </div>`;
+                                $('#delivery__info--form').append(newDeliveryInfo);
+                            }
+                            else if(action === 'editDeliveryInfo'){
+                                let deliveryInfoKeyTarget = $(document).find('input[name=deliveryInfoKey][value="' + deliveryInfoKey + '"]');
+                                deliveryInfoKeyTarget.data('customerName', response.newFullName)
+                                deliveryInfoKeyTarget.data('customerEmail', response.newEmail)
+                                deliveryInfoKeyTarget.data('customerPhone', response.newPhone)
+                                deliveryInfoKeyTarget.data('customerAddress', response.newAddress)
+                                let infoItems = deliveryInfoKeyTarget.closest(".delivery__info").find('.info__items');
+                                let newInfoItemsContent = `
+                                                                    <li class="info__item customer__name">${response.newFullName}</li>
+                                                                    <li class="info__item">Email: ${response.newEmail}</li>
+                                                                    <li class="info__item">Số điện thoại: ${response.newPhone}</li>
+                                                                    <li class="info__item">Địa chỉ: ${response.newAddress}</li>
+                                                                `;
+                                infoItems.html(newInfoItemsContent);
+                            }
+                        }
+                    }else {
+                        $.each(response.errorFields, function(errorField, errorMessage) {
+                            errorField = `#${errorField}`;
+                            $(errorField).text(errorMessage).show();
+                            $(errorField).parent().find('.field__content').addClass('input-invalid');
+                        });
+                    }
+                },
+            })
+        })
+    })
+}
+handleCustomizeDeliveryInfo();
+
+function showCustomizeDeliveryInfoForm(elementOpenForm, title){
+    document.querySelectorAll('.field__content').forEach(fieldContent =>{
+        fieldContent.classList.remove("input-invalid");
+        fieldContent.parentElement.querySelector('.error__notice').style.display = 'none'
+    })
+
+    const fieldFullName = document.querySelector('.field__content#fullName');
+    const fieldEmail = document.querySelector('.field__content#email');
+    const fieldPhone = document.querySelector('.field__content#phone');
+    const fieldAddress = document.querySelector('.field__content#address');
+    document.querySelector('.button__custom').value = 'addDeliveryInfo';
+
+    fieldFullName.value = '';
+    fieldEmail.value = '';
+    fieldPhone.value = '';
+    fieldAddress.value = '';
+
+    document.querySelector('.popup__bg').style.display = 'flex';
+    document.querySelector('.form__header .form__title').innerText = title;
+    document.querySelector(".button__custom").innerText = title;
+
+    if(elementOpenForm.classList.contains("edit__delivery")){
+        const deliveryInfoTarget = elementOpenForm.closest('.delivery__info');
+        let datasetDelivery = deliveryInfoTarget.querySelector('input[type=hidden][name=deliveryInfoKey]')
+        document.querySelector('.button__custom').value = 'editDeliveryInfo';
+
+        let customerName = datasetDelivery.dataset.customerName;
+        let customerEmail = datasetDelivery.dataset.customerEmail;
+        let customerPhone = datasetDelivery.dataset.customerPhone;
+        let customerAddress = datasetDelivery.dataset.customerAddress;
+        let deliveryInfoKey = datasetDelivery.value;
+        document.querySelector("input[type=hidden][name=deliveryInfoTarget]").value = deliveryInfoKey;
+
+        fieldFullName.value = customerName;
+        fieldEmail.value = customerEmail;
+        fieldPhone.value = customerPhone;
+        fieldAddress.value = customerAddress;
+    }
+
+
+    document.querySelector('.button__close').addEventListener('click', function() {
+        document.querySelector('.popup__bg').style.display = 'none';
+    });
+
+    document.querySelector('.button__cancel').addEventListener('click', function() {
+        document.querySelector('.popup__bg').style.display = 'none';
+    });
+
+    document.querySelector('.button__close').addEventListener('click', function() {
+        document.querySelector('.popup__bg').style.display = 'none';
+    });
+
+    document.querySelector('.popup__bg').addEventListener('click', function(event) {
+        if (event.target === this) {
+            document.querySelector('.popup__bg').style.display = 'none';
+        }
+    });
+}
+
+function handleRemoveErrorInputting(){
+    let fieldContents = document.querySelectorAll('.field__content');
+    fieldContents.forEach(fieldContent=>{
+        fieldContent.addEventListener('input',()=>{
+            fieldContent.classList.remove('input-invalid');
+            fieldContent.parentElement.querySelector('.error__notice').innerText = '';
+        })
+    })
+}
+handleRemoveErrorInputting();

@@ -1,6 +1,6 @@
 package models;
 
-public class Shipping {
+public class DeliveryMethod {
     private int id;
     private String typeShipping;
     private String description;
@@ -40,7 +40,7 @@ public class Shipping {
 
     @Override
     public String toString() {
-        return "Shipping{" +
+        return "DeliveryMethod{" +
                 "id=" + id +
                 ", typeShipping='" + typeShipping + '\'' +
                 ", description='" + description + '\'' +
