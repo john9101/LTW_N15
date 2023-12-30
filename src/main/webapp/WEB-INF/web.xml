@@ -15,6 +15,12 @@
     <location>/error404.jsp</location>
   </error-page>
 
+  <error-page>
+    <error-code>403</error-code>
+    <location>/error404.jsp</location>
+  </error-page>
+
+  <!--Cấu hình servlet cho ckeditor và ckfinder-->
   <servlet>
     <servlet-name>ConnectorServlet</servlet-name>
     <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
@@ -35,9 +41,4 @@
     <servlet-name>ConnectorServlet</servlet-name>
     <url-pattern>/ckfinder/core/connector/java/connector.java</url-pattern>
   </servlet-mapping>
-
-  <session-config>
-    <session-timeout>10</session-timeout>
-  </session-config>
-
 </web-app>
