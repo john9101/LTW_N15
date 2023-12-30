@@ -6,8 +6,6 @@ import dao.ProductDao;
 import dao.SizeDAO;
 import models.*;
 
-import javax.sound.sampled.Port;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServices {

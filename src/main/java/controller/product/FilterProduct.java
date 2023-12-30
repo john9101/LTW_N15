@@ -14,6 +14,12 @@ import java.util.*;
 
 @WebServlet(name = "filterProduct", value = "/filterProduct")
 public class FilterProduct extends HttpServlet {
+    private String requestPage;
+
+    public FilterProduct(String requestPage) {
+        this.requestPage = requestPage;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Integer> filterByColor = (List<Integer>) request.getAttribute("filterByColor");
@@ -40,7 +46,10 @@ public class FilterProduct extends HttpServlet {
         if (filterBySize != null) {
             listId.add(filterBySize);
         }
-        List<Integer> listIDFiltered = findCommonIDs(listId);
+        List<Integer> listIDFiltered = new ArrayList<>();
+        if (!listId.isEmpty()) {
+            listIDFiltered = findCommonIDs(listId);
+        }
         List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page);
         int quantityPage;
         if (!listIDFiltered.isEmpty()) {
@@ -50,18 +59,22 @@ public class FilterProduct extends HttpServlet {
         }
 
         StringBuffer requestURL = request.getRequestURL();
+        System.out.println("requestURL: " + requestURL);
         String queryString = request.getQueryString();
+        System.out.println("queryString: " + queryString);
         queryString = cutParameterInURL(queryString, "page");
         requestURL.append("?").append(queryString);
+        System.out.println("queryString: " + queryString);
 
+//        Lấy ra các value đã check
         List<String> listInputChecked = listValueChecked(queryString);
-        System.out.println(listInputChecked);
+
         request.setAttribute("requestURL", requestURL);
         request.setAttribute("productCardList", productCardFiltered);
         request.setAttribute("quantityPage", quantityPage);
         request.setAttribute("currentPage", page);
         request.setAttribute("listInputChecked", listInputChecked);
-        request.getRequestDispatcher("productBuying.jsp").forward(request, response);
+        request.getRequestDispatcher(requestPage).forward(request, response);
     }
 
     @Override
@@ -69,11 +82,10 @@ public class FilterProduct extends HttpServlet {
             ServletException, IOException {
         doGet(request, response);
     }
-
     private List<Integer> findCommonIDs(List<List<Integer>> lists) {
         if (lists.isEmpty()) return new ArrayList<>();
         if (lists.size() == 1) return lists.get(0);
-        List<Integer> result = new ArrayList<>();
+        List<Integer> result;
         result = lists.get(0);
         for (int i = 1; i < lists.size(); i++) {
             result.retainAll(lists.get(i));
@@ -98,9 +110,9 @@ public class FilterProduct extends HttpServlet {
         return null;
     }
 
-    public List<String> listValueChecked(String queryString) {
+    private List<String> listValueChecked(String queryString) {
         List<String> result = new ArrayList<>();
-        if (queryString != null) {
+        if (queryString != null && !queryString.isBlank()) {
             String[] params = queryString.split("&");
             for (String param : params) {
                 String[] keyValue = param.split("=");

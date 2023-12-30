@@ -1,9 +1,6 @@
 package services;
 
-import dao.ColorDAO;
-import dao.ImageDAO;
-import dao.ProductDao;
-import dao.SizeDAO;
+import dao.*;
 import models.*;
 
 import java.util.ArrayList;
@@ -11,10 +8,12 @@ import java.util.List;
 
 public class AdminProductServices {
     private static AdminProductServices INSTANCE;
+    private static final int LIMIT = 10;
     ProductDao productDAO = new ProductDao();
     ColorDAO colorDAO = new ColorDAO();
     ImageDAO imageDAO = new ImageDAO();
     SizeDAO sizeDAO = new SizeDAO();
+    ProductCardDAO productCardDAO = new ProductCardDAO();
 
     private AdminProductServices() {
     }
@@ -64,4 +63,5 @@ public class AdminProductServices {
         }
         sizeDAO.addSizes(sizes);
     }
+
 }

@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.util.List;
 
 @WebFilter(
-        servletNames = {"pagingProduct"},
-        urlPatterns = {"/productBuying.jsp", "/filterProduct"})
-public class ProductBuying implements Filter {
+        servletNames = {"formSearch"},
+        urlPatterns = {"/productBuying.jsp", "/filterProduct", "/adminProducts.jsp"})
+public class FormSearch implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
     }

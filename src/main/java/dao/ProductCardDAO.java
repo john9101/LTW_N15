@@ -10,7 +10,7 @@ public class ProductCardDAO {
     public List<Product> getProducts(int limit, int pageNumber) {
         int offset = (pageNumber - 1) * limit;
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id, `name`, originalPrice, salePrice ")
+        sql.append("SELECT id, `name`, categoryId, originalPrice, salePrice ")
                 .append("FROM products ")
                 .append("WHERE visibility = 1 ")
                 .append("LIMIT ")
@@ -50,7 +50,6 @@ public class ProductCardDAO {
                 .append(limit)
                 .append(" OFFSET ")
                 .append(offset);
-        System.out.println(sql);
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 

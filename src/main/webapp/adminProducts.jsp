@@ -1,4 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<fmt:setLocale value="vi_VN"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +25,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/admin/admin.css">
+    <link rel="stylesheet" href="assets/css/productBuying.css">
     <link rel="stylesheet" href="assets/css/admin/adminProducts.css">
     <title>Quản lý sản phẩm</title>
 </head>
@@ -50,47 +54,107 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-3">
-                    <aside class="filler">
-                        <form action="#" class="form" id="form-search">
-                            <!--Search-->
-                            <article class="form__search-block filler__block">
-                                <i class="search__icon fa-solid fa-magnifying-glass"></i>
-                                <input type="text" name="keyword">
-                                <select name="searchType" class="search__select">
-                                    <option value="id" name="type" class="search__option">Mã sản phẩm</option>
-                                    <option value="name" name="type" class="search__option">Tên sản phẩm</option>
-                                    <option value="categoryId" name="type" class="search__option">Tên phân loại</option>
-                                </select>
-                            </article>
+                    <form action="filterProduct" class="form__filter">
+                        <div class="filter__group">
+                            <span class="filter__title">Tên sản phẩm</span>
+                            <div class="filter__text-block">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input class="filter__input filter__text" type="text" name="keyword">
+                            </div>
+                        </div>
+                        <span class="filter__separate"></span>
+                        <div class="filter__group">
+                            <span class="filter__title">Thời gian cập nhập</span>
+                            <div class="filter__date-block">
+                                <div class="filter__date">
+                                    <span>Từ:</span>
 
-                            <article class="filler__block">
-                                <h2 class="filler__heading">Thời gian cập nhập</h2>
-                                <div>
-                                    <div class="filter__date">
-                                        <span>Từ:</span>
-
-                                        <input type="date" name="date"
-                                               id="date-start">
-
-                                    </div>
-                                    <div class="filter__date">
-                                        <span>Đến:</span>
-
-                                        <input type="date" name="date"
-                                               id="date-end">
-
-                                    </div>
+                                    <input type="date" name="date"
+                                           id="date-start">
 
                                 </div>
-                            </article>
+                                <div class="filter__date">
+                                    <span>Đến:</span>
 
-                            <div class="filter__buttons">
-                                <input type="reset" class="button filter__button button--hover" value="Chọn lại">
-                                <button class="button filter__button button--hover filter__submit" type="submit">Lọc
-                                </button>
+                                    <input type="date" name="date"
+                                           id="date-end">
+
+                                </div>
                             </div>
-                        </form>
-                    </aside>
+                        </div>
+                        <span class="filter__separate"></span>
+                        <div class="filter__group">
+                            <span class="filter__title">Phân loại sản phẩm</span>
+                            <div class="filter__radio-list">
+                                <c:forEach items="${pageContext.servletContext.getAttribute('categoryList')}"
+                                           var="category">
+                                    <label class="filter__radio-item">
+                                        <input name="categoryId" type="checkbox" class="filter__input filter__radio"
+                                               hidden="hidden" value="${category.id}">
+                                        <span class="filter-radio__icon-wrapper">
+                                            <i class="fa-solid fa-check filter-radio__icon"></i>
+                                        </span>
+                                            ${category.nameType}
+                                    </label>
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <span class="filter__separate"></span>
+                        <div class="filter__group">
+                            <span class="filter__title">Mức giá</span>
+
+                            <div class="filter__radio-list">
+                                <c:forEach items="${pageContext.servletContext.getAttribute('moneyRangeList')}"
+                                           var="moneyRange">
+                                    <fmt:formatNumber value="${moneyRange.from}" type="currency" currencyCode="VND"
+                                                      var="moneyFrom"/>
+                                    <fmt:formatNumber value="${moneyRange.to}" type="currency" currencyCode="VND"
+                                                      var="moneyTo"/>
+                                    <label class="filter__radio-item">
+                                        <input name="moneyRange" type="checkbox" class="filter__input filter__radio"
+                                               hidden="hidden" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
+                                        <span class="filter-radio__icon-wrapper">
+                                            <i class="fa-solid fa-check filter-radio__icon"></i>
+                                        </span>${moneyFrom} - ${moneyTo}
+                                    </label>
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <span class="filter__separate"></span>
+                        <div class="filter__group">
+                            <span class="filter__title">Kích cỡ</span>
+                            <div class="filter__radio-list">
+                                <c:forEach items="${requestScope.sizeList}" var="item">
+                                    <label class="filter__radio-item">
+                                        <input name="size" value="${item.nameSize}" type="checkbox"
+                                               class="filter__input filter__radio"
+                                               hidden="hidden">
+                                        <span class="filter-radio__icon-wrapper">
+                                            <i class="fa-solid fa-check filter-radio__icon"></i>
+                                        </span>
+                                            ${item.nameSize}
+                                    </label>
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <span class="filter__separate"></span>
+                        <div class="filter__group">
+                            <span class="filter__title">Màu sắc</span>
+                            <div class="filter__color-list">
+                                <c:forEach items="${requestScope.colorList}" var="item">
+                                    <label class="filter__color-item">
+                                        <input name="color" type="checkbox" value="${item.codeColor}"
+                                               class="filter__input filter__color"
+                                               hidden="hidden">
+                                        <span class="filter__color-show" style="background-color: ${item.codeColor}">
+                                        </span>
+                                    </label>
+                                </c:forEach>
+                            </div>
+                        </div>
+                        <button class="filter__reset button--hover button" type="reset">Chọn lại</button>
+                        <button class="filter__submit button--hover button" type="submit">Lọc</button>
+                    </form>
                 </div>
                 <div class="col-9">
                     <div>
