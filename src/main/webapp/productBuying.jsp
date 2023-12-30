@@ -175,8 +175,11 @@
         </div>
     </section>
 </main>
-<%@include file="footer.jsp" %>
-<%--<script src="js/productBuying.js"></script>--%>
+<%--<%@include file="footer.jsp" %>--%>
+<%
+    List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
+    System.out.println("inputChecked (UI):" + inputChecked);
+%>
 <script>
     function checkedInputTag(name) {
         let inputElements = document.querySelectorAll("input");
@@ -186,7 +189,7 @@
         })
     }
 
-    <%List<String> inputChecked =(List<String>) request.getAttribute("listInputChecked");
+    <%
      if (inputChecked!=null && !inputChecked.isEmpty()){
          for (String input : inputChecked) {
     %>
