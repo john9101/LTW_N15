@@ -175,7 +175,7 @@
         </div>
     </section>
 </main>
-<%@include file="footer.jsp" %>
+<%--<%@include file="footer.jsp" %>--%>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
     System.out.println("inputChecked (UI):" + inputChecked);
