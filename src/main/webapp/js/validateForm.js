@@ -2,6 +2,7 @@ function Validation(formObj) {
     var formElement = document.querySelector(formObj.formSelector);
     var rules = formObj.rules;
     var submitElement = document.querySelector(formObj.submitSelector);
+    var onSubmit = formObj.onSubmit;
     var ruleFuncs = {};
     var errorMessageObj = {};
 
@@ -24,7 +25,7 @@ function Validation(formObj) {
                 ruleFuncs[rule.element].push(rule.check);
             }
             const inputElements = formElement.querySelectorAll(rule.element);
-            inputElements.forEach(function (inputElement){
+            inputElements.forEach(function (inputElement) {
                 inputElement.oninput = function (e) {
                     handleValidate(rule);
                 };
@@ -48,8 +49,11 @@ function Validation(formObj) {
             });
             //Chỉ được thực thi form ko có Error Message
             if (Object.keys(errorMessageObj).length == 0) {
-                formElement.submit();
-
+                if (typeof onSubmit == "function") {
+                    onSubmit();
+                } else {
+                    formElement.submit();
+                }
             }
         }
     }
@@ -159,7 +163,14 @@ Validation.isConfirm = function (selectionInput, funcGetConfirmText) {
         }
     }
 }
-
+Validation.isNumber = function (selectionInput) {
+    return {
+        element: selectionInput,
+        check: function (value) {
+            return (!isNaN(value)) ? undefined : "Trường này phải nhập số";
+        }
+    }
+}
 Validation.range = function (selectionInput, min, max) {
     return {
         element: selectionInput,

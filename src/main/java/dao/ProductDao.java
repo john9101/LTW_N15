@@ -1,9 +1,6 @@
 package dao;
 
-import models.Color;
-import models.Image;
-import models.Product;
-import models.Size;
+import models.*;
 
 import java.util.List;
 
@@ -44,5 +41,16 @@ public class ProductDao {
         return GeneralDao.executeQueryWithSingleTable(sql, Color.class, codeColor, productId).get(0);
     }
 
+    public List<Product> getIdProductByName(String name) {
+        String sql = "SELECT id, name FROM products WHERE name = ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, Product.class, name);
+    }
 
+    //    Update
+    public void addProduct(Product product) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) ")
+                .append("VALUES (?,?,?,?,?,?,?) ");
+        GeneralDao.executeAllTypeUpdate(sql.toString(), product.getName(), product.getCategoryId(), product.getDescription(), product.getOriginalPrice(), product.getSalePrice(), product.isVisibility(), product.getCreateAt());
+    }
 }

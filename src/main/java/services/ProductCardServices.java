@@ -151,11 +151,4 @@ public class ProductCardServices {
         }
         return result;
     }
-
-    public static void main(String[] args) {
-        ProductCardServices.getINSTANCE().getProductByCategoryId(2, 4, true).forEach(System.out::println);
-        Random rd = new Random();
-        System.out.println(rd.nextInt(10));
-    }
-
 }

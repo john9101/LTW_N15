@@ -1,9 +1,9 @@
 package controller.product;
 
-import dao.ProductCardDAO;
 import models.Product;
 import models.Review;
 import services.ProductCardServices;
+
 import services.ProductServices;
 import services.ReviewServices;
 
@@ -29,7 +29,7 @@ public class ShowProductDetail extends HttpServlet {
         if (product == null) {
             response.sendError(404);
         } else {
-//            Product
+            //            Product
             request.setAttribute("product", product);
             //Reviews
             List<Review> listReview = getListReview(id);
@@ -46,11 +46,10 @@ public class ShowProductDetail extends HttpServlet {
         doGet(request, response);
     }
 
-    public List<Review> getListReview(int productId) {
-        return ReviewServices.getINSTANCE().getListReview(productId);
-    }
-
     public List<Product> getListProductRandom(int categoryId, int quantity) {
         return ProductCardServices.getINSTANCE().getProductByCategoryId(categoryId, quantity, true);
+    }
+    public List<Review> getListReview(int productId) {
+        return ReviewServices.getINSTANCE().getListReview(productId);
     }
 }
