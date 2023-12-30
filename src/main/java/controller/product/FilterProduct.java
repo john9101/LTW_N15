@@ -1,8 +1,6 @@
 package controller.product;
 
-import models.Product;
-
-import services.ProductCardServices;
+import utils.FilterProductBuying;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,51 +14,8 @@ import java.util.*;
 public class FilterProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Integer> filterByColor = (List<Integer>) request.getAttribute("filterByColor");
-        List<Integer> filterByCategoryId = (List<Integer>) request.getAttribute("filterByCategoryId");
-        List<Integer> filterByMoneyRange = (List<Integer>) request.getAttribute("filterByMoneyRange");
-        List<Integer> filterBySize = (List<Integer>) request.getAttribute("filterBySize");
-        String pageNumber = request.getParameter("page");
-        int page;
-        try {
-            page = Integer.parseInt(pageNumber);
-        } catch (NumberFormatException e) {
-            page = 1;
-        }
-        List<List<Integer>> listId = new ArrayList<>();
-        if (filterByColor != null) {
-            listId.add(filterByColor);
-        }
-        if (filterByCategoryId != null) {
-            listId.add(filterByCategoryId);
-        }
-        if (filterByMoneyRange != null) {
-            listId.add(filterByMoneyRange);
-        }
-        if (filterBySize != null) {
-            listId.add(filterBySize);
-        }
-        List<Integer> listIDFiltered = findCommonIDs(listId);
-        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page);
-        int quantityPage;
-        if (!listIDFiltered.isEmpty()) {
-            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered.size());
-        } else {
-            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage();
-        }
-
-        StringBuffer requestURL = request.getRequestURL();
-        String queryString = request.getQueryString();
-        queryString = cutParameterInURL(queryString, "page");
-        requestURL.append("?").append(queryString);
-
-        List<String> listInputChecked = listValueChecked(queryString);
-        System.out.println(listInputChecked);
-        request.setAttribute("requestURL", requestURL);
-        request.setAttribute("productCardList", productCardFiltered);
-        request.setAttribute("quantityPage", quantityPage);
-        request.setAttribute("currentPage", page);
-        request.setAttribute("listInputChecked", listInputChecked);
+        utils.FilterProduct filterProduct = new FilterProductBuying(request);
+        filterProduct.doFilter();
         request.getRequestDispatcher("productBuying.jsp").forward(request, response);
     }
 
