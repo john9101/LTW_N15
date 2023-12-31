@@ -1,9 +1,10 @@
 package controller.admin.product;
 
-import models.Product;
-import models.Review;
+import models.*;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import services.ProductServices;
+import utils.ProductFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -32,13 +33,32 @@ public class ShowProduct extends HttpServlet {
             return;
         }
 
-
         Product product = ProductServices.getINSTANCE().getProductByProductId(id);
         if (product == null) {
             response.sendError(404);
             return;
         }
-        JSONObject jsonObject = new JSONObject(product);
-        response.getWriter().write(jsonObject.toString());
+        List<Size> sizeList = ProductFactory.getListSizesByProductId(id);
+        List<Color> colorList = ProductFactory.getListColorsByProductId(id);
+        List<Image> imageList = ProductFactory.getListImagesByProductId(id);
+
+        JSONObject jsonProduct = new JSONObject(product);
+        JSONArray jsonSizes = new JSONArray(sizeList);
+        JSONArray jsonColors = new JSONArray(colorList);
+        JSONArray jsonImages = new JSONArray(imageList);
+
+//        StringBuilder jsonCombined = new StringBuilder();
+//        jsonCombined.append("{ \"product\": ").append(product)
+//                .append(", \"sizes\": ").append(jsonSize)
+//                .append(", \"colors\": ").append(jsonColor)
+//                .append(", \"images\": ").append(jsonImage)
+//                .append(" }");
+
+        JSONObject jsonResponse = new JSONObject();
+        jsonResponse.put("product", jsonProduct);
+        jsonResponse.put("sizes", jsonSizes);
+        jsonResponse.put("colors", jsonColors);
+        jsonResponse.put("images", jsonImages);
+        response.getWriter().write(jsonResponse.toString());
     }
 }

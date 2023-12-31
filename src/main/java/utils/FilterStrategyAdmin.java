@@ -76,7 +76,6 @@ public class FilterStrategyAdmin extends FilterStrategy {
         requestURL.append("?").append(queryString);
 
         List<String> listInputChecked = listValueChecked(queryString);
-        System.out.println("listInputChecked (BE): " + listInputChecked);
         request.setAttribute("requestURL", requestURL);
         request.setAttribute("productCardList", productCardFiltered);
         request.setAttribute("quantityPage", quantityPage);
@@ -87,6 +86,7 @@ public class FilterStrategyAdmin extends FilterStrategy {
     private List<Integer> filterByTimeUpdate() throws ParseException {
         String[] dates = request.getParameterValues("date");
         List<Integer> listId = null;
+        if (dates == null) return listId;
         if (dates.length == 2) {
             try {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

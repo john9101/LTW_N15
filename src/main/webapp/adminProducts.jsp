@@ -160,6 +160,9 @@
                 <div class="col-9">
                     <div>
                         <h1>Danh sách sản phẩm</h1>
+                        <span class="reload__btn">
+                            <i class="reload__icon fa-solid fa-rotate"></i>
+                        </span>
                         <a href="adminAddProduct.jsp" id="button-add-product" class="button button__add">
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm

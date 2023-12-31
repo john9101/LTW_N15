@@ -35,3 +35,7 @@ dataViewElement.forEach(function (element) {
         }, `${currentOrigin}/addNewProduct.jsp`);
     }
 })
+//Load page
+document.querySelector(".reload__btn").onclick = function () {
+    window.location.reload();
+}

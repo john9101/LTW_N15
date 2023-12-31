@@ -27,6 +27,8 @@ public class AdminProducts implements Filter {
         request.setAttribute("productCardList", productCardList);
         int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
         request.setAttribute("quantityPage", quantityPage);
+        String requestURL = "/filterProductAdmin?";
+        request.setAttribute("requestURL", requestURL);
         chain.doFilter(request, response);
     }
 }

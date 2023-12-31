@@ -33,11 +33,7 @@ public class FormSearch implements Filter {
 
         List<Color> colorList = ProductCardServices.getINSTANCE().getAllColor();
         request.setAttribute("colorList", colorList);
-
         request.setAttribute("currentPage", 1);
-
-        String requestURL = "/filterProduct?";
-        request.setAttribute("requestURL", requestURL);
 
         chain.doFilter(request, response);
     }

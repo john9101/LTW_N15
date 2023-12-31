@@ -238,17 +238,9 @@ window.addEventListener('message', function(event) {
         const categoryId = form.querySelector(`select[name ="idCategory"]`);
         const originalPrice = form.querySelector(`input[name ="originalPrice"]`);
         const salePrice = form.querySelector(`input[name ="salePrice"]`);
-        const description = editorCK.getData();
-        const nameSizes = form.querySelectorAll(`input[name ="nameSize"]`);
-        const priceSizes = form.querySelectorAll(`input[name ="sizePrice"]`);
-        const colors = form.querySelectorAll(`input[name ="color"]`);
-
-        // Setup form to view
-        setUpForm(form);
 
         // Use ajax call -> Show productDetail
         callAjax();
-
 
         function setUpForm(form) {
             // Remove button
@@ -278,24 +270,39 @@ window.addEventListener('message', function(event) {
             editor.addEventListener('mousedown', function (event) {
                 event.preventDefault();
             });
+
             editor = CKEDITOR.instances['ck-editor'];
             const toolbar = editor.container.$.querySelector('.cke_top');
             if (toolbar) {
                 toolbar.style.display = 'none';
             }
+
+            if (document.querySelector(".img__label")){
+                document.querySelector(".img__label").remove();
+            }
         }
 
         function applyDateToForm(data) {
+            const product = data["product"];
+            const sizes = data["sizes"];
+            const colors = data["colors"];
+            const images = data["images"];
             // Name
-            name.value = data.name;
+            name.value = product.name;
             // Category
-            categoryId.querySelector(`option[value="${data.categoryId}"]`).selected = true;
+            categoryId.querySelector(`option[value="${product.categoryId}"]`).selected = true;
             // Original Price
-            originalPrice.value = data.originalPrice;
+            originalPrice.value = product.originalPrice;
             // Sale Price
-            salePrice.value = data.salePrice;
+            salePrice.value = product.salePrice;
             // Description
-            editorCK.setData(data.description);
+            editorCK.setData(product.description);
+            // Sizes
+            addSize(sizes);
+            // Colors
+            addColor(colors);
+            // Images
+            addImages(images);
         }
 
         function callAjax() {
@@ -310,12 +317,59 @@ window.addEventListener('message', function(event) {
                 success: function (data) {
                     console.log(data)
                     applyDateToForm(data);
+                    // Setup form to view
+                    setUpForm(form);
                 },
                 error: function (error) {
                 },
             });
         }
 
+        function addSize(sizes) {
+            const formSizes = document.querySelector(".form__sizes");
+            formSizes.innerHTML = "";
+            const formSizesHTML = sizes.map(function (size) {
+                return `<div class="form__size">        
+                              <div>
+                                 <label>
+                                    Tên kích thước
+                                    <input type="text" name="nameSize"
+                                           class="form__size-input"  value="${size.nameSize}">
+                                </label>
+                              </div>
+                               <div>
+                                    <label class="form__size-price">
+                                        Giá:
+                                        <input type="text"  name="sizePrice" value="${size.sizePrice}">
+                                        <span>VNĐ</span>
+                                    </label>
+                                </div>
+                         </div>`;
+            });
+            formSizes.innerHTML = formSizesHTML.join("");
+        }
 
+        function addColor(colors) {
+            const formColors = document.querySelector(".form__colors");
+            formColors.innerHTML = "";
+            formColors.style.display = "flex";
+            formColors.style.flexWrap = "wrap";
+            formColors.style.gap = "10px";
+            const formColorsHTML = colors.map(function (color) {
+                return `<div style="border: 1px solid #ccc" class="form__color" onclick="removeColor(this)">
+                            <span style="display:inline-block; background-color: ${color["codeColor"]}"  class="form__size-input"></span>
+                        </div>`;
+            });
+            formColors.innerHTML = formColorsHTML.join("");
+        }
+
+        function addImages(images) {
+            const imagesHTML = images.map(function (image) {
+                return `<div class="img__preview">
+                      <img src="assets/img/product_img/${image["nameImage"]}" alt="">
+                   </div>`
+            })
+            imgPreviews.innerHTML = imagesHTML.join("");
+        }
     }
 });
