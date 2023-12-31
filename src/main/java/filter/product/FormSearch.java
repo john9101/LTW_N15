@@ -11,7 +11,10 @@ import java.util.List;
 
 @WebFilter(
         servletNames = {"formSearch"},
-        urlPatterns = {"/productBuying.jsp", "/filterProduct", "/adminProducts.jsp"})
+        urlPatterns = {"/productBuying.jsp",
+                "/adminProducts.jsp",
+                "/filterProductBuying",
+                "/filterProductAdmin"})
 public class FormSearch implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
@@ -22,11 +25,6 @@ public class FormSearch implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-
-        List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(1);
-        request.setAttribute("productCardList", productCardList);
-
         List<Category> categoryList = ProductCardServices.getINSTANCE().getAllCategory();
         request.setAttribute("categoryList", categoryList);
 
@@ -35,9 +33,6 @@ public class FormSearch implements Filter {
 
         List<Color> colorList = ProductCardServices.getINSTANCE().getAllColor();
         request.setAttribute("colorList", colorList);
-
-        int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage();
-        request.setAttribute("quantityPage", quantityPage);
 
         request.setAttribute("currentPage", 1);
 

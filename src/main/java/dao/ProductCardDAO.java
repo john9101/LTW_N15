@@ -1,8 +1,10 @@
 package dao;
 
+import models.Category;
 import models.Product;
 import utils.MoneyRange;
 
+import java.sql.Date;
 import java.util.List;
 
 public class ProductCardDAO {
@@ -145,7 +147,26 @@ public class ProductCardDAO {
                 .append("FROM products  ")
                 .append("WHERE visibility = 1 ")
                 .append("AND categoryId = ?");
-        System.out.println(sql);
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, categoryId);
     }
+
+    public static List<Product> getIdProductByName(String name) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id ").append("FROM products ").append("WHERE name LIKE ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, "%" + name + "%");
+    }
+
+    public List<Product> getProductByTimeCreated(Date dateBegin, Date dateEnd) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id ").append("FROM products ").append("WHERE createAt BETWEEN ? AND ? ");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, dateBegin, dateEnd);
+    }
+
+    public List<Category> getNameCategoryById(int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT categories.nameType ").append("FROM products JOIN categories ON products.categoryId = categories.id ")
+                .append("WHERE products.id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Category.class, id);
+    }
+
 }

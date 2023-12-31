@@ -30,3 +30,12 @@
 .filter__date input[type="date"]{
     flex: 1;
 }
+/*Modal*/
+.modal__product{
+    width: 90%;
+    height: 500px;
+}
+.modal__product-iframe{
+    width: 100%;
+    height: 100%;
+}

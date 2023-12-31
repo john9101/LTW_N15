@@ -3,17 +3,18 @@ package utils;
 import services.ProductCardServices;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public abstract class FilterProduct {
+public abstract class FilterStrategy {
     protected HttpServletRequest request;
 
-    public FilterProduct(HttpServletRequest request) {
+    public FilterStrategy(HttpServletRequest request) {
         this.request = request;
     }
 
@@ -96,15 +97,29 @@ public abstract class FilterProduct {
         return null;
     }
 
+    //    Lấy ra các value của các key trên query string
     protected List<String> listValueChecked(String queryString) {
-        List<String> result = new ArrayList<>();
-        if (queryString != null && !queryString.isBlank()) {
-            String[] params = queryString.split("&");
-            for (String param : params) {
-                String[] keyValue = param.split("=");
-                result.add(URLDecoder.decode(keyValue[1], StandardCharsets.UTF_8));
+        List<String> values = new ArrayList<>();
+
+        try {
+            URI uri = new URI("?" + queryString); // Appending "?" to make it a valid URI
+            String query = uri.getQuery();
+
+            if (query != null) {
+                String[] queryParams = query.split("&");
+                for (String param : queryParams) {
+                    String[] keyValue = param.split("=");
+                    if (keyValue.length == 2) {
+                        String key = keyValue[0];
+                        String value = keyValue[1];
+                        values.add(value); // Add the value to the list
+                    }
+                }
             }
+        } catch (URISyntaxException e) {
+            e.printStackTrace(); // Handle URISyntaxException
         }
-        return result;
+
+        return values;
     }
 }

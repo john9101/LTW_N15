@@ -1,64 +1,34 @@
-var bodyTable = document.querySelector(".table tbody");
+// Date format (now)
+const dateInputs = document.querySelectorAll(`input[type="date"]`);
+dateInputs.forEach(function (dateInput) {
+// Get today's date
+    const today = new Date();
 
-function productToHTML(product) {
-    const vndFormat = Intl.NumberFormat("vi-VI", {
-        style: "currency",
-        currency: "VND",
-    });
-    return `<tr class="table__row">
-                <td class="table__date-checkbox">
-                    <label class="check">
-                        <input type="checkbox" class="filter__input" hidden="true">
-                    </label>
-                </td>
-                <td class="table__data-edit">
-                    <label class="">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </label>
-                </td>
-                <td class="table__data table__data-id">
-                    <p class="table__cell">${product.id}</p>
-                </td>
-                <td class="table__data">
-                    <p class="table__cell">${product.name}</p>
-                </td>
-                <td class="table__data">
-                    <p class="table__cell">${getCategory(product.categoryId).nameType}</p>
-                </td>
-                <td class="table__data">
-                    <p class="table__cell">${vndFormat.format(product.basePrice)}</p>
-                </td>
-                <td class="table__data">
-                    <p class="table__cell">${vndFormat.format(product.salePrice)}</p>
-                </td>
-        </tr>`;
+// Format today's date as yyyy-mm-dd (required by input type="date")
+    const formattedToday = today.toISOString().split('T')[0];
+
+    // Set the default value to today's date in dd/mm/yyyy format
+    dateInput.value = formattedToday;
+})
+
+//View product
+const iframe = document.querySelector(".modal__product-iframe");
+// Get the current window's origin
+const currentOrigin = window.location.origin;
+const dataViewElement = document.querySelectorAll(".table__data-view");
+const modalView = document.querySelector("#dialog-product-view");
+const elementClose = document.querySelector(".modal__product-close");
+elementClose.onclick = function (){
+    modalView.style.display = "none";
 }
+dataViewElement.forEach(function (element) {
+    element.onclick = function () {
+        // Open dialog
+        modalView.style.display = "block";
+        // Send via iframe
+        const tableRow = this.parentNode;
+        const productId = tableRow.querySelector(".table__data-id").textContent.trim();
+        iframe.contentWindow.postMessage(productId, `${currentOrigin}/addNewProduct.jsp`);
+    }
 
-function loadListToTable(listProduct) {
-    const htmls = listProduct.map(function (product) {
-        return productToHTML(product);
-    });
-    bodyTable.innerHTML = htmls.join("");
-
-    const allRows = bodyTable.querySelectorAll(".table__row");
-    allRows.forEach(function (row) {
-        editProduct(row);
-    });
-    paging();
-}
-
-function paging() {
-    // Paging for product cart
-    const paging = new Paging({
-        itemSelector: "tbody .table__row",
-        displayShowType: "table-row",
-        limit: 8,
-        listPage: ".paging",
-        tagNameItemPage: "li",
-        classNameItemPage: "page",
-        activeItemPage: "page--current",
-        prevBtn: "page--prev",
-        nextBtn: "page--next",
-    });
-}
-loadListToTable(listProduct);
+})

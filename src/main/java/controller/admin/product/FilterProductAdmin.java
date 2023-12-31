@@ -1,6 +1,8 @@
 package controller.admin.product;
 
-import controller.product.FilterProduct;
+
+import utils.FilterStrategy;
+import utils.FilterStrategyAdmin;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -11,11 +13,9 @@ import java.io.IOException;
 public class FilterProductAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        FilterProduct filterProduct = new FilterProduct("filterProductAdmin");
-//Lọc theo tên sản phẩm
-
-//Lọc theo thời gian cập nhập
-
+        FilterStrategy filterStrategy = new FilterStrategyAdmin(request);
+        filterStrategy.doFilter();
+        request.getRequestDispatcher("adminProducts.jsp").forward(request, response);
     }
 
     @Override

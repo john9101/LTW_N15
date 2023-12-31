@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterProductBuying extends FilterProduct {
-    public FilterProductBuying(HttpServletRequest request) {
+public class FilterStrategyBuying extends FilterStrategy {
+    private final int LIMIT = 9;
+
+    public FilterStrategyBuying(HttpServletRequest request) {
         super(request);
     }
 
@@ -40,12 +42,12 @@ public class FilterProductBuying extends FilterProduct {
         }
         List<Integer> listIDFiltered = findCommonIDs(listId);
         System.out.println(listIDFiltered);
-        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page);
+        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page, LIMIT);
         int quantityPage;
         if (!listIDFiltered.isEmpty()) {
             quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered.size());
         } else {
-            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage();
+            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
         }
 
         StringBuffer requestURL = request.getRequestURL();

@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
 <fmt:setLocale value="vi_VN"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +37,7 @@
         <div class="container-xl">
             <ul class="navbar__list">
                 <li
-                        class="navbar__item"><a href="./adminProducts.html"
+                        class="navbar__item"><a href="adminProducts.jsp"
                                                 class="navbar__link button button button--hover navbar__link--clicked">Sản
                                                                                                                        phẩm</a>
                 </li>
@@ -54,32 +55,32 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-3">
-                    <form action="filterProduct" class="form__filter">
+                    <form action="filterProductAdmin" class="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Tên sản phẩm</span>
-                            <div class="filter__text-block">
+                            <label class="filter__text-block">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                                 <input class="filter__input filter__text" type="text" name="keyword">
-                            </div>
+                            </label>
                         </div>
                         <span class="filter__separate"></span>
                         <div class="filter__group">
                             <span class="filter__title">Thời gian cập nhập</span>
                             <div class="filter__date-block">
-                                <div class="filter__date">
+                                <label class="filter__date">
                                     <span>Từ:</span>
 
                                     <input type="date" name="date"
-                                           id="date-start">
+                                           id="date-start" placeholder="dd-mm-yyyy">
 
-                                </div>
-                                <div class="filter__date">
+                                </label>
+                                <label class="filter__date">
                                     <span>Đến:</span>
 
                                     <input type="date" name="date"
                                            id="date-end">
 
-                                </div>
+                                </label>
                             </div>
                         </div>
                         <span class="filter__separate"></span>
@@ -172,10 +173,7 @@
                         <table class="table">
                             <thead>
                             <tr class="table__row">
-                                <th class="table__checkbox">
-
-                                </th>
-
+                                <th class="table__head">Xem</th>
                                 <th class="table__head">Chỉnh sửa</th>
                                 <th class="table__head">Mã sản phẩm</th>
                                 <th class="table__head">Tên sản phẩm</th>
@@ -187,267 +185,81 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <!--                            <tr class="table__row">-->
-                            <!--                                <td class="table__date-checkbox">-->
-                            <!--                                    <label class="check">-->
-                            <!--                                        <input type="checkbox" name="passing" class="filter__input" hidden="true">-->
-                            <!--                                    </label>-->
-                            <!--                                </td>-->
-                            <!--                                <td class="table__data-edit">-->
-                            <!--                                    <label class="" for="">-->
-                            <!--                                        <i class="fa-solid fa-pen-to-square"></i>-->
-                            <!--                                    </label>-->
-                            <!--                                </td>-->
-                            <!--                                <td class="table__data">-->
-                            <!--                                    <p class="table__cell">Lorem ipsum dolor sit amet, consectetur adipisicing elit.-->
-                            <!--                                                           Culpa, ullam.</p>-->
-                            <!--                                </td>-->
-                            <!--                                <td class="table__data">-->
-                            <!--                                    <p class="table__cell">Lorem ipsum dolor sit amet, consectetur adipisicing elit.-->
-                            <!--                                                           Iure, quasi!</p>-->
-                            <!--                                </td>-->
-                            <!--                                <td class="table__data">-->
-                            <!--                                    <p class="table__cell">Lorem ipsum dolor sit amet, consectetur adipisicing elit.-->
-                            <!--                                                           Ipsam, nobis?</p>-->
-                            <!--                                </td>-->
-                            <!--                                <td class="table__data">-->
-                            <!--                                    <p class="table__cell">Lorem ipsum dolor sit amet, consectetur adipisicing elit.-->
-                            <!--                                                           Autem, consequatur?</p>-->
-                            <!--                                </td>-->
-                            <!--                            </tr>-->
+                            <c:set var="list" value="${requestScope.productCardList}"/>
+                            <c:forEach var="item" items="${list}">
+                                <tr class="table__row">
+                                    <td class="table__data-view">
+                                        <label>
+                                            <i class="fa-solid fa-eye"></i>
+                                        </label>
+                                    </td>
+                                    <td class="table__data-edit">
+                                        <label>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </label>
+                                    </td>
+                                    <td class="table__data table__data-id">
+                                        <p class="table__cell">${item.id}</p>
+                                    </td>
+                                    <td class="table__data">
+                                        <p class="table__cell">${item.name}</p>
+                                    </td>
+                                    <td class="table__data">
+                                        <p class="table__cell">${productFactory.getNameCategoryById(item.id)}</p>
+                                    </td>
+                                    <fmt:formatNumber value="${item.originalPrice}" type="currency" currencyCode="VND"
+                                                      var="originalPrice"/>
+                                    <fmt:formatNumber value="${item.salePrice}" type="currency" currencyCode="VND"
+                                                      var="salePrice"/>
+                                    <td class="table__data">
+                                        <p class="table__cell">${salePrice}</p>
+                                    </td>
+                                    <td class="table__data">
+                                        <p class="table__cell">${originalPrice}</p>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
                     <!--Paging-->
-                    <ul class="paging"></ul>
+                    <ul class="paging">
+                        <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
+                            <c:url var="linkPaing" value="${requestScope.requestURL}">
+                                <c:param name="page" value="${pageNumber}"/>
+                            </c:url>
+                            <c:choose>
+                                <c:when test="${pageNumber == requestScope.currentPage}">
+                                    <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="page" href="${linkPaing}">${pageNumber}</a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 </main>
-<div id="dialog-product-add" class="modal">
+<div id="dialog-product-view" class="modal">
     <article class="modal__content modal__product">
         <div>
             <h1>Thêm sản phẩm</h1>
             <i class="modal__product-close fa-solid fa-xmark"></i>
         </div>
-        <form action="#!" class="product__form">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-7">
-                        <label class="form__label">
-                            <span class="form__title">Mã sản phẩm
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Đây là mã sản phẩm, mã sản phẩm này không được trùng với mã sản phẩm khác!</p>
-                            </span>
-
-                            <input type="text" name="id" class="form__input">
-                        </label>
-                        <label class="form__label">
-                            <span class="form__title">Tên đơn hàng
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Đây là tên của sản phẩm</p>
-                            </span>
-
-                            <input type="text" name="name" class="form__input">
-                        </label>
-
-                        <label class="form__label">
-                            <span class="form__title">Phân loại sản phẩm
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Lựa chọn phân loại cho sản phẩm!</p>
-                            </span>
-                            <select type="text" name="idCategory" class="form__select">
-                                <!-- <option name="category" value="" class="form__option">Áo dài tay</option>-->
-                            </select>
-                        </label>
-
-                        <label class="form__label">
-                            <span class="form__title">Giá bán
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Giá bán của sản phẩm</p>
-                            </span>
-
-                            <input type="text" name="originalPrice" class="form__input">
-                        </label>
-
-                        <label class="form__label">
-                            <span class="form__title">Giá giảm
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Giá giảm của sản phẩm!</p>
-                            </span>
-                            <input type="text" name="salePrice" class="form__input">
-                        </label>
-
-                        <div class="form__label">
-                            <span class="form__title">Kích cỡ
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Kích thước mặc định có sẵn</p>
-                            </span>
-                            <div>
-                                <div class="form__sizes">
-                                    <div class="form__size">
-                                        <input type="text" name="size" class="form__size-input">
-                                    </div>
-                                </div>
-                                <span class="form__add-size">Thêm kích cỡ</span>
-                            </div>
-                        </div>
-
-                        <div class="form__label">
-                            <span class="form__title">Màu sắc
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Màu sắc mặc định có sẵn</p>
-                            </span>
-                            <div>
-                                <div class="form__colors">
-                                    <div class="form__color">
-                                        <input type="color" name="color" class="form__color-input">
-                                    </div>
-                                </div>
-                                <span class="form__add-color">Thêm màu sắc</span>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-5">
-                        <label class="form__preview-img">
-                            <img src="" alt="">
-                            <i class="form__preview-icon fa-solid fa-image"></i>
-                            <input type="file" class="form__file" hidden="true">
-                        </label>
-                    </div>
-
-                    <div class="col-12">
-                        <label class="form__desc">
-                            <span class="form__title">Mô tả
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Mô tả của sản phẩm</p>
-                            </span>
-                            <textarea class="form__textarea" name="description"></textarea>
-                        </label>
-                        <button class="button">Thêm sản phẩm</button>
-                    </div>
-                </div>
-            </div>
-        </form>
+        <iframe class="modal__product-iframe" src="adminAddProduct.jsp" frameborder="0"></iframe>
     </article>
     <div class="modal__blur"></div>
 </div>
-<div id="dialog-product-edit" class="modal">
-    <article class="modal__content modal__product">
-        <div>
-            <h1>Chỉnh sửa thông tin</h1>
-            <i class="modal__product-close fa-solid fa-xmark"></i>
-        </div>
-        <form action="#!" class="product__form">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-7">
-                        <label class="form__label">
-                            <span class="form__title">Mã sản phẩm
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Đây là mã sản phẩm, mã sản phẩm này không được trùng với mã sản phẩm khác!</p>
-                            </span>
+<script>
 
-                            <input type="text" name="id" class="form__input">
-                        </label>
-                        <label class="form__label">
-                            <span class="form__title">Tên đơn hàng
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Đây là tên của sản phẩm</p>
-                            </span>
-
-                            <input type="text" name="name" class="form__input">
-                        </label>
-                        <label class="form__label">
-                            <span class="form__title">Phân loại sản phẩm
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Lựa chọn phân loại cho sản phẩm!</p>
-                            </span>
-                            <select type="text" name="idCategory" class="form__select">
-                                <!--<option name="category" value="" class="form__option">Áo dài tay</option>-->
-                            </select>
-                        </label>
-
-                        <label class="form__label">
-                            <span class="form__title">Giá bán
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Giá bán của sản phẩm</p>
-                            </span>
-
-                            <input type="text" name="originalPrice" class="form__input">
-                        </label>
-
-                        <label class="form__label">
-                            <span class="form__title">Giá giảm
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Giá giảm của sản phẩm!</p>
-                            </span>
-                            <input type="text" name="salePrice" class="form__input">
-                        </label>
-
-                        <label class="form__label">
-                            <span class="form__title">Kích cỡ cho trước
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Kích thước mặc định có sẵn</p>
-                            </span>
-                            <div>
-                                <div class="form__sizes">
-                                    <div class="form__size">
-                                        <input type="text" name="size" class="form__size-input">
-                                    </div>
-                                </div>
-                                <span class="form__add-size">Thêm kích cỡ</span>
-                            </div>
-                        </label>
-
-                        <div class="form__label">
-                            <span class="form__title">Màu sắc
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Màu sắc mặc định có sẵn</p>
-                            </span>
-                            <div>
-                                <div class="form__colors">
-                                    <div class="form__color">
-                                        <input type="color" name="color" class="form__color-input">
-                                    </div>
-                                </div>
-                                <span class="form__add-color">Thêm màu sắc</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-5">
-                        <label class="form__preview-img">
-                            <img src="" alt="">
-                            <i class="form__preview-icon fa-solid fa-image"></i>
-                            <input type="file" class="form__file" hidden="true">
-                        </label>
-                    </div>
-
-                    <div class="col-12">
-                        <label class="form__desc">
-                            <span class="form__title">Mô tả
-                                <i class="form__detail fa-solid fa-circle-info"></i>
-                                <p>Mô tả của sản phẩm</p>
-                            </span>
-                            <textarea class="form__textarea" name="description"></textarea>
-                        </label>
-                        <button class="button">Cập nhập</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </article>
-    <div class="modal__blur"></div>
-</div>
-
-<form method="post" enctype="multipart/form-data" action="upload">
-    <input type="file" name="file">
-    <input type="submit" value="Upload">
-</form>
-<script src="js/data.js"></script>
-<script src="js/paging.js"></script>
+</script>
+<%--<form method="post" enctype="multipart/form-data" action="upload">--%>
+<%--    <input type="file" name="file">--%>
+<%--    <input type="submit" value="Upload">--%>
+<%--</form>--%>
 <script src="js/admin/adminProducts.js"></script>
 
 </body>

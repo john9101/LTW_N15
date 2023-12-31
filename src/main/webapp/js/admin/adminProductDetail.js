@@ -228,3 +228,9 @@ function notifyFailed() {
         x.remove();
     }, 3000);
 }
+
+window.addEventListener('message', function(event) {
+    // Access the received data
+    const receivedData = event.data;
+    console.log(receivedData);
+});
