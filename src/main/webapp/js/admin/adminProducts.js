@@ -25,10 +25,13 @@ dataViewElement.forEach(function (element) {
     element.onclick = function () {
         // Open dialog
         modalView.style.display = "block";
+
         // Send via iframe
         const tableRow = this.parentNode;
         const productId = tableRow.querySelector(".table__data-id").textContent.trim();
-        iframe.contentWindow.postMessage(productId, `${currentOrigin}/addNewProduct.jsp`);
+        iframe.contentWindow.postMessage({
+            productId: productId,
+            state: 0,
+        }, `${currentOrigin}/addNewProduct.jsp`);
     }
-
 })

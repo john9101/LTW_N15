@@ -151,7 +151,6 @@ function getDataForm(form) {
 function addNewProduct() {
     const formElement = document.querySelector(".product__form");
     const product = getDataForm(formElement);
-    const buttonForm = formElement.querySelector(`button[type="submit"]`);
     $.ajax({
         url: "admin-add-product",
         type: "POST",
@@ -229,8 +228,94 @@ function notifyFailed() {
     }, 3000);
 }
 
+// 1: Xem sản phẩm
 window.addEventListener('message', function(event) {
     // Access the received data
     const receivedData = event.data;
-    console.log(receivedData);
+    if (receivedData.state === 0) {
+        const form = document.querySelector(".product__form");
+        const name = form.querySelector(`input[name ="name"]`);
+        const categoryId = form.querySelector(`select[name ="idCategory"]`);
+        const originalPrice = form.querySelector(`input[name ="originalPrice"]`);
+        const salePrice = form.querySelector(`input[name ="salePrice"]`);
+        const description = editorCK.getData();
+        const nameSizes = form.querySelectorAll(`input[name ="nameSize"]`);
+        const priceSizes = form.querySelectorAll(`input[name ="sizePrice"]`);
+        const colors = form.querySelectorAll(`input[name ="color"]`);
+
+        // Setup form to view
+        setUpForm(form);
+
+        // Use ajax call -> Show productDetail
+        callAjax();
+
+
+        function setUpForm(form) {
+            // Remove button
+            if (form.querySelector(`button[type="submit"]`))
+                form.querySelector(`button[type="submit"]`).remove();
+
+            // Remove các add btn size và color
+            if (form.querySelector(".form__add-size"))
+                form.querySelector(".form__add-size").remove();
+            if (form.querySelector(".form__add-color"))
+                form.querySelector(".form__add-color").remove();
+
+            // disable tất cả các thẻ input
+            const allInputs = document.querySelectorAll(`input[name]`)
+
+            allInputs.forEach(function (input) {
+                input.readOnly = true;
+                input.disable = true;
+            })
+            categoryId.addEventListener('mousedown', function (event) {
+                event.preventDefault();
+            });
+
+            let editor = form.querySelector("#ck-editor + div");
+            editor.style.userSelect = "none";
+            editor.style.pointerEvents = "none";
+            editor.addEventListener('mousedown', function (event) {
+                event.preventDefault();
+            });
+            editor = CKEDITOR.instances['ck-editor'];
+            const toolbar = editor.container.$.querySelector('.cke_top');
+            if (toolbar) {
+                toolbar.style.display = 'none';
+            }
+        }
+
+        function applyDateToForm(data) {
+            // Name
+            name.value = data.name;
+            // Category
+            categoryId.querySelector(`option[value="${data.categoryId}"]`).selected = true;
+            // Original Price
+            originalPrice.value = data.originalPrice;
+            // Sale Price
+            salePrice.value = data.salePrice;
+            // Description
+            editorCK.setData(data.description);
+        }
+
+        function callAjax() {
+            console.log(1);
+            $.ajax({
+                url: "admin-show-product?id=" + receivedData.productId,
+                type: "POST",
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                cache: false,
+                success: function (data) {
+                    console.log(data)
+                    applyDateToForm(data);
+                },
+                error: function (error) {
+                },
+            });
+        }
+
+
+    }
 });
