@@ -1,6 +1,7 @@
 package utils;
 
 import models.Product;
+import services.AdminProductServices;
 import services.ProductCardServices;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,13 +62,16 @@ public class FilterStrategyAdmin extends FilterStrategy {
         }
 
         List<Integer> listIDFiltered = findCommonIDs(listId);
-        System.out.println(listIDFiltered);
-        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page, LIMIT);
+        List<Product> productCardFiltered = AdminProductServices.getINSTANCE().filter(listIDFiltered, page, LIMIT);
+
         int quantityPage;
-        if (!listIDFiltered.isEmpty()) {
-            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered.size());
+        if (listIDFiltered.isEmpty()) {
+            quantityPage = 0;
         } else {
-            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
+            if (listIDFiltered.size() < LIMIT)
+                quantityPage = 1;
+            else
+                quantityPage = AdminProductServices.getINSTANCE().getQuantityPage(LIMIT);
         }
 
         StringBuffer requestURL = request.getRequestURL();
@@ -113,4 +117,5 @@ public class FilterStrategyAdmin extends FilterStrategy {
         }
         return listId;
     }
+
 }

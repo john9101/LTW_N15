@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@WebServlet(name = "admin-add-product", value = "/admin-add-product")
+@WebServlet(name = "adminCreateProduct", value = "/admin-create-product")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 12024,
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 100
 )
-public class AddProduct extends HttpServlet {
+public class CreateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -30,10 +30,6 @@ public class AddProduct extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json");
-
         String name = request.getParameter("name");
         String idCategory = request.getParameter("idCategory");
         String originalPrice = request.getParameter("originalPrice");

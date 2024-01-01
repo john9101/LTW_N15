@@ -11,31 +11,70 @@ dateInputs.forEach(function (dateInput) {
     dateInput.value = formattedToday;
 })
 
-//View product
-const iframe = document.querySelector(".modal__product-iframe");
-// Get the current window's origin
-const currentOrigin = window.location.origin;
-const dataViewElement = document.querySelectorAll(".table__data-view");
-const modalView = document.querySelector("#dialog-product-view");
-const elementClose = document.querySelector(".modal__product-close");
-elementClose.onclick = function (){
-    modalView.style.display = "none";
+//Load page btn
+document.querySelector(".reload__btn").onclick = function () {
+    window.location.reload();
 }
+
+
+function getClose(modal) {
+    return modal.querySelector(".modal__product-close");
+}
+
+
+const pageTarget = window.location.origin + "/adminProductForm.jsp";
+
+//Read product
+const iframeRead = document.querySelector("#dialog-product-read .modal__product-iframe");
+const dataViewElement = document.querySelectorAll(".table__data-view");
+const modalRead = document.querySelector("#dialog-product-read");
+const elementCloseRead = getClose(modalRead);
+
+elementCloseRead.onclick = function () {
+    modalRead.style.display = "none";
+};
+
 dataViewElement.forEach(function (element) {
     element.onclick = function () {
         // Open dialog
-        modalView.style.display = "block";
+        modalRead.style.display = "block";
 
         // Send via iframe
         const tableRow = this.parentNode;
         const productId = tableRow.querySelector(".table__data-id").textContent.trim();
-        iframe.contentWindow.postMessage({
+        iframeRead.contentWindow.postMessage({
             productId: productId,
-            state: 0,
-        }, `${currentOrigin}/addNewProduct.jsp`);
+            state: 1,
+        }, pageTarget);
     }
-})
-//Load page
-document.querySelector(".reload__btn").onclick = function () {
-    window.location.reload();
+});
+
+//Create product
+const iframeCreate = document.querySelector("#dialog-product-create .modal__product-iframe");
+const modalCreateBtn = document.querySelector("#button-create-product");
+const modalCreate = document.querySelector("#dialog-product-create");
+const elementCloseCreate = getClose(modalCreate);
+
+elementCloseCreate.onclick = function () {
+    modalCreate.style.display = "none";
 }
+
+modalCreateBtn.onclick = function () {
+    modalCreate.style.display = "block";
+
+    // Send via iframe
+    iframeCreate.contentWindow.postMessage({
+        state: 0,
+    }, pageTarget);
+}
+
+// Listen for messages from the iframe
+window.addEventListener('message', function (event) {
+    // Check the origin of the iframe sending the message
+    if (event.origin === `${window.location.origin}` + "/adminProductForm.jsp") {
+        // Log the message received from the iframe
+        console.log('Message from iframe:', event.data);
+
+        // Do something with the received message
+    }
+});

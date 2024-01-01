@@ -8,7 +8,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "ProductBuying", urlPatterns = {"/filterProductBuying", "/productBuying.jsp"})
+@WebFilter(filterName = "productBuying", urlPatterns = {"/filterProductBuying", "/productBuying.jsp"})
 public class ProductBuying implements Filter {
     private final int LIMIT = 9;
     private final int DEFAULT_PAGE = 1;
@@ -24,6 +24,7 @@ public class ProductBuying implements Filter {
         List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(DEFAULT_PAGE, LIMIT);
         request.setAttribute("productCardList", productCardList);
         int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
+        System.out.println("quantityPage: " + quantityPage);
         request.setAttribute("quantityPage", quantityPage);
         String requestURL = "/filterProductBuying?";
         request.setAttribute("requestURL", requestURL);

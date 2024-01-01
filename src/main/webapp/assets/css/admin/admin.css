@@ -293,9 +293,10 @@ tbody .table__row:has(input:checked), tbody .table__row:hover {
 
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border-bottom: 1px solid #3f3f3f;
-    background-color: #ccc;
     padding: 20px 10px;
+
+    background-color: var(--blue-color-medium);
+    color: #fff;
 }
 
 .modal__product h1 {

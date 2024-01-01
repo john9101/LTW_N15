@@ -41,15 +41,22 @@ public class FilterStrategyBuying extends FilterStrategy {
             listId.add(filterBySize);
         }
         List<Integer> listIDFiltered = findCommonIDs(listId);
-        System.out.println(listIDFiltered);
-        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page, LIMIT);
-        int quantityPage;
-        if (!listIDFiltered.isEmpty()) {
-            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered.size());
-        } else {
-            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
-        }
 
+        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page, LIMIT, true);
+//        listIDFiltered lọc dựa trên visibility
+//        listIDFiltered == 0 -> 0
+//        listIDFiltered.size() < LIMIT -> 1
+//        listIDFiltered.size() >= LIMIT
+        int quantityPage;
+        if (productCardFiltered.isEmpty()) {
+            quantityPage = 0;
+        } else {
+            if (productCardFiltered.size() < LIMIT)
+                quantityPage = 1;
+            else
+                quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
+        }
+        System.out.println("quantityPage: " + quantityPage);
         StringBuffer requestURL = request.getRequestURL();
         String queryString = request.getQueryString();
         queryString = cutParameterInURL(queryString, "page");

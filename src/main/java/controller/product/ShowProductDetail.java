@@ -29,7 +29,7 @@ public class ShowProductDetail extends HttpServlet {
         if (product == null) {
             response.sendError(404);
         } else {
-            //            Product
+//            Product
             request.setAttribute("product", product);
             //Reviews
             List<Review> listReview = getListReview(id);
@@ -37,7 +37,7 @@ public class ShowProductDetail extends HttpServlet {
 //            Related product
             List<Product> listProductRelated = getListProductRandom(product.getCategoryId(), 4);
             request.setAttribute("listProductRelated", listProductRelated);
-            request.getRequestDispatcher("/productDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("productDetail.jsp").forward(request, response);
         }
     }
 

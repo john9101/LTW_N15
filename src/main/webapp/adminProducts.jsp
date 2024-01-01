@@ -163,10 +163,10 @@
                         <span class="reload__btn">
                             <i class="reload__icon fa-solid fa-rotate"></i>
                         </span>
-                        <a href="adminAddProduct.jsp" id="button-add-product" class="button button__add">
+                        <span id="button-create-product" class="button button__add">
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
-                        </a>
+                        </span>
                         <div id="button-remove-product" class="button button__delete">
                             <i class="fa-solid fa-minus"></i>
                             Xóa sản phẩm
@@ -227,42 +227,47 @@
                     </div>
                     <!--Paging-->
                     <ul class="paging">
-                        <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
-                            <c:url var="linkPaing" value="${requestScope.requestURL}">
-                                <c:param name="page" value="${pageNumber}"/>
-                            </c:url>
-                            <c:choose>
-                                <c:when test="${pageNumber == requestScope.currentPage}">
-                                    <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a class="page" href="${linkPaing}">${pageNumber}</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
+                        <c:if test="${requestScope.quantityPage != 0}">
+                            <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
+                                <c:url var="linkPaing" value="${requestScope.requestURL}">
+                                    <c:param name="page" value="${pageNumber}"/>
+                                </c:url>
+                                <c:choose>
+                                    <c:when test="${pageNumber == requestScope.currentPage}">
+                                        <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a class="page" href="${linkPaing}">${pageNumber}</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </c:if>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 </main>
-<div id="dialog-product-view" class="modal">
+<div id="dialog-product-read" class="modal">
+    <article class="modal__content modal__product">
+        <div>
+            <h1>Xem sản phẩm</h1>
+            <i class="modal__product-close fa-solid fa-xmark"></i>
+        </div>
+        <iframe class="modal__product-iframe" src="adminProductForm.jsp" frameborder="0"></iframe>
+    </article>
+    <div class="modal__blur"></div>
+</div>
+<div id="dialog-product-create" class="modal">
     <article class="modal__content modal__product">
         <div>
             <h1>Thêm sản phẩm</h1>
             <i class="modal__product-close fa-solid fa-xmark"></i>
         </div>
-        <iframe class="modal__product-iframe" src="adminAddProduct.jsp" frameborder="0"></iframe>
+        <iframe class="modal__product-iframe" src="adminProductForm.jsp" frameborder="0"></iframe>
     </article>
     <div class="modal__blur"></div>
 </div>
-<script>
-
-</script>
-<%--<form method="post" enctype="multipart/form-data" action="upload">--%>
-<%--    <input type="file" name="file">--%>
-<%--    <input type="submit" value="Upload">--%>
-<%--</form>--%>
 <script src="js/admin/adminProducts.js"></script>
 
 </body>

@@ -10,35 +10,6 @@ body {
     background-color: var(--blue-color-low);
 }
 
-.header {
-    background-color: var(--blue-color-medium);
-}
-
-.header .header__wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    padding: 20px 0;
-}
-
-.header h1 {
-    font-size: 40px;
-    color: #fff;
-    text-wrap: nowrap;
-}
-
-.header__wrapper a {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 18px;
-    color: #fff;
-}
-
-.header__wrapper a:hover {
-    font-weight: 500;
-    color: #fff8f8;
-}
 
 h2 {
     font-size: 25px;

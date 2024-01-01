@@ -158,24 +158,26 @@
                 </div>
             </div>
             <ul class="paging">
-                <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
-                    <c:url var="linkPaing" value="${requestScope.requestURL}">
-                        <c:param name="page" value="${pageNumber}"/>
-                    </c:url>
-                    <c:choose>
-                        <c:when test="${pageNumber == requestScope.currentPage}">
-                            <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="page" href="${linkPaing}">${pageNumber}</a>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
+                <c:if test="${requestScope.quantityPage != 0}">
+                    <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
+                        <c:url var="linkPaing" value="${requestScope.requestURL}">
+                            <c:param name="page" value="${pageNumber}"/>
+                        </c:url>
+                        <c:choose>
+                            <c:when test="${pageNumber == requestScope.currentPage}">
+                                <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="page" href="${linkPaing}">${pageNumber}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:if>
             </ul>
         </div>
     </section>
 </main>
-<%--<%@include file="footer.jsp" %>--%>
+<%@include file="footer.jsp" %>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
     System.out.println("inputChecked (UI):" + inputChecked);

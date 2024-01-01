@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @WebFilter(filterName = "user",
         urlPatterns = {
-                "/adminAddProduct.jsp",
+                "/adminProductForm.jsp",
                 "/adminProducts.jsp",
                 "/adminUsers.jsp",
                 "/adminOrders.jsp",

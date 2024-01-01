@@ -64,4 +64,13 @@ public class AdminProductServices {
         sizeDAO.addSizes(sizes);
     }
 
+    public List<Product> filter(List<Integer> listId, int pageNumber, int limit) {
+        List<Product> productList = productCardDAO.pagingAndFilter(listId, pageNumber, limit);
+        return productList;
+    }
+
+    public int getQuantityPage(int limit) {
+        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct() + "") / limit);
+        return (int) quantityPage;
+    }
 }

@@ -36,16 +36,6 @@
     <title>Thêm sản phẩm</title>
 </head>
 <body>
-<header class="header">
-    <div class="container-xl">
-        <div class="header__wrapper">
-            <a href="adminProducts.jsp">
-                <i class="fa-solid fa-chevron-left"></i>
-                Quản lý sản phẩm</a>
-            <h1>Thêm sản phẩm</h1>
-        </div>
-    </div>
-</header>
 <div class="container-xl">
     <form class="product__form " action="#!" method="post" enctype="multipart/form-data">
         <div class="row">
@@ -146,7 +136,6 @@
                                     </label>
                                     <span class="form__error"></span>
                                 </div>
-
                             </div>
                         </div>
                         <span class="form__add-size">Thêm kích cỡ</span>

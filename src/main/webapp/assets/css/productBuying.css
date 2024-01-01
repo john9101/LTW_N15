@@ -183,6 +183,7 @@
 .filter__color-list {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
 }
 
 .filter__color:checked + .filter__color-show {

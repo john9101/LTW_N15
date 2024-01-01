@@ -1,6 +1,7 @@
 package filter.adminPage;
 
 import models.Product;
+import services.AdminProductServices;
 import services.ProductCardServices;
 
 import javax.servlet.*;
@@ -12,7 +13,7 @@ import java.util.List;
         "/adminProducts.jsp", "/filterProductAdmin"
 })
 public class AdminProducts implements Filter {
-    private final int LIMIT = 20;
+    private final int LIMIT = 15;
     private final int DEFAULT_PAGE = 1;
 
     public void init(FilterConfig config) throws ServletException {
@@ -25,7 +26,7 @@ public class AdminProducts implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(DEFAULT_PAGE, LIMIT);
         request.setAttribute("productCardList", productCardList);
-        int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
+        int quantityPage = AdminProductServices.getINSTANCE().getQuantityPage(LIMIT);
         request.setAttribute("quantityPage", quantityPage);
         String requestURL = "/filterProductAdmin?";
         request.setAttribute("requestURL", requestURL);

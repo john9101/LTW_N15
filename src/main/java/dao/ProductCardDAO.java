@@ -24,14 +24,42 @@ public class ProductCardDAO {
         return list;
     }
 
+    public int getQuantityProduct(boolean visibility) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id FROM products where visibility = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
+    }
+
     public int getQuantityProduct() {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id FROM products where visibility = 1");
+        sql.append("SELECT id FROM products ");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class).size();
     }
 
-
     public List<Product> pagingAndFilter(List<Integer> listId, int pageNumber, int limit) {
+        int offset = (pageNumber - 1) * limit;
+        StringBuilder listIdString = new StringBuilder();
+        if (listId != null && !listId.isEmpty()) {
+            listIdString.append("WHERE id IN (");
+            for (int i = 0; i < listId.size(); i++) {
+                if (i == 0)
+                    listIdString.append(listId.get(i));
+                listIdString.append(", ").append(listId.get(i));
+            }
+            listIdString.append(")");
+        }
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id, `name`, originalPrice, salePrice, visibility ")
+                .append("FROM products ")
+                .append(listIdString)
+                .append(" LIMIT ")
+                .append(limit)
+                .append(" OFFSET ")
+                .append(offset);
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
+    }
+
+    public List<Product> pagingAndFilter(List<Integer> listId, int pageNumber, int limit, boolean visibility) {
         int offset = (pageNumber - 1) * limit;
         StringBuilder listIdString = new StringBuilder();
         if (listId != null && !listId.isEmpty()) {
@@ -46,13 +74,13 @@ public class ProductCardDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, `name`, originalPrice, salePrice ")
                 .append("FROM products ")
-                .append("WHERE visibility = 1 ")
+                .append("WHERE visibility = ? ")
                 .append(listIdString)
                 .append(" LIMIT ")
                 .append(limit)
                 .append(" OFFSET ")
                 .append(offset);
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
     }
 
     public List<Product> getIdProductByCategoryId(List<String> listIdCategory) {

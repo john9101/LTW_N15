@@ -12,8 +12,8 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "admin-show-product", value = "/admin-show-product")
-public class ShowProduct extends HttpServlet {
+@WebServlet(name = "adminReadProduct", value = "/admin-read-product")
+public class ReadProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
@@ -46,13 +46,6 @@ public class ShowProduct extends HttpServlet {
         JSONArray jsonSizes = new JSONArray(sizeList);
         JSONArray jsonColors = new JSONArray(colorList);
         JSONArray jsonImages = new JSONArray(imageList);
-
-//        StringBuilder jsonCombined = new StringBuilder();
-//        jsonCombined.append("{ \"product\": ").append(product)
-//                .append(", \"sizes\": ").append(jsonSize)
-//                .append(", \"colors\": ").append(jsonColor)
-//                .append(", \"images\": ").append(jsonImage)
-//                .append(" }");
 
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("product", jsonProduct);
