@@ -4,11 +4,11 @@ import dao.*;
 import models.*;
 import utils.MoneyRange;
 
-import java.sql.Date;
 import java.util.*;
 
 public class ProductCardServices {
     private static ProductCardServices INSTANCE;
+    private static final int LIMIT = 9;
     private ProductCardDAO productCardDAO;
     private ReviewDAO reviewDAO;
     private SizeDAO sizeDAO;
@@ -44,29 +44,25 @@ public class ProductCardServices {
         return listSize;
     }
 
-
-    public List<Product> getProducts(int numberPage, int limit) {
-        List<Product> productCardList = productCardDAO.getProducts(limit, numberPage);
+    public List<Product> getProducts(int numberPage) {
+        List<Product> productCardList = productCardDAO.getProducts(LIMIT, numberPage);
         return productCardList;
     }
 
-    public int getQuantityPage(int limit) {
-        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(true) + "") / limit);
+    public int getQuantityPage() {
+        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct() + "") / LIMIT);
         return (int) quantityPage;
     }
 
-    public int getQuantityPage(List<Integer> listId, int limit) {
-        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(listId, true) + "") / limit);
+    public int getQuantityPage(int quantityProduct) {
+        double quantityPage = Math.ceil(Double.parseDouble(quantityProduct + "") / LIMIT);
         return (int) quantityPage;
     }
 
-
-
-    public List<Product> filter(List<Integer> listId, int pageNumber, int limit, boolean visibility) {
-        List<Product> productList = productCardDAO.pagingAndFilter(listId, pageNumber, limit, visibility);
+    public List<Product> filter(List<Integer> listId, int pageNumber) {
+        List<Product> productList = productCardDAO.pagingAndFilter(listId, pageNumber, LIMIT);
         return productList;
     }
-
     public List<Integer> getIdProductFromCategoryId(String[] categoryIds) {
         List<Product> listProduct = productCardDAO.getIdProductByCategoryId(Arrays.asList(categoryIds));
         if (listProduct.isEmpty()) return null;
@@ -155,12 +151,4 @@ public class ProductCardServices {
         }
         return result;
     }
-
-
-    public String getNameCategoryById(int id) {
-        List<Category> listProduct = productCardDAO.getNameCategoryById(id);
-        if (listProduct.isEmpty()) return null;
-        return listProduct.get(0).getNameType();
-    }
-
 }
