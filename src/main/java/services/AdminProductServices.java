@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminProductServices {
+    private static final int LIMIT = 15;
     private static AdminProductServices INSTANCE;
-    private static final int LIMIT = 10;
     ProductDao productDAO = new ProductDao();
     ColorDAO colorDAO = new ColorDAO();
     ImageDAO imageDAO = new ImageDAO();
@@ -24,7 +24,6 @@ public class AdminProductServices {
             INSTANCE = new AdminProductServices();
         return INSTANCE;
     }
-
 
     public int addProduct(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
@@ -65,21 +64,20 @@ public class AdminProductServices {
         sizeDAO.addSizes(sizes);
     }
 
-    public List<Product> filter(List<Integer> listId, int pageNumber, int limit) {
-        List<Product> productList = productCardDAO.pagingAndFilter(listId, pageNumber, limit);
+    public List<Product> filter(List<Integer> listId, int pageNumber) {
+        List<Product> productList = productCardDAO.pagingAndFilter(listId, pageNumber, LIMIT);
         return productList;
     }
 
-    public int getQuantityPage(int limit) {
-        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct() + "") / limit);
+    public int getQuantityPage() {
+        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct() + "") / LIMIT);
         return (int) quantityPage;
     }
 
-    public int getQuantityPage(List<Integer> listId, int limit) {
-        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(listId) + "") / limit);
+    public int getQuantityPage(List<Integer> listId) {
+        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(listId) + "") / LIMIT);
         return (int) quantityPage;
     }
-
 
     public List<Integer> getProductByName(String name) {
         List<Product> listProduct = productCardDAO.getIdProductByName(name);
@@ -101,5 +99,9 @@ public class AdminProductServices {
             listId.add(p.getId());
         }
         return listId;
+    }
+    public List<Product> getProducts(int numberPage) {
+        List<Product> productList = productCardDAO.getProducts(numberPage, LIMIT);
+        return productList;
     }
 }

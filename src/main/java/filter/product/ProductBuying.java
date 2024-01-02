@@ -10,7 +10,6 @@ import java.util.List;
 
 @WebFilter(filterName = "productBuying", urlPatterns = {"/filterProductBuying", "/productBuying.jsp"})
 public class ProductBuying implements Filter {
-    private final int LIMIT = 9;
     private final int DEFAULT_PAGE = 1;
 
     public void init(FilterConfig config) throws ServletException {
@@ -21,9 +20,9 @@ public class ProductBuying implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(DEFAULT_PAGE, LIMIT);
+        List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(DEFAULT_PAGE);
         request.setAttribute("productCardList", productCardList);
-        int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
+        int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage();
         request.setAttribute("quantityPage", quantityPage);
         String requestURL = "/filterProductBuying?";
         request.setAttribute("requestURL", requestURL);

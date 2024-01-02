@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterStrategyAdmin extends FilterStrategy {
-    private final int LIMIT = 15;
 
     public FilterStrategyAdmin(HttpServletRequest request) {
         super(request);
@@ -63,13 +62,13 @@ public class FilterStrategyAdmin extends FilterStrategy {
         }
 
         List<Integer> listIDFiltered = findCommonIDs(listId);
-        List<Product> productCardFiltered = AdminProductServices.getINSTANCE().filter(listIDFiltered, page, LIMIT);
+        List<Product> productCardFiltered = AdminProductServices.getINSTANCE().filter(listIDFiltered, page);
 
         int quantityPage;
         if (productCardFiltered.isEmpty()) {
             quantityPage = 0;
         } else {
-            quantityPage = AdminProductServices.getINSTANCE().getQuantityPage(listIDFiltered, LIMIT);
+            quantityPage = AdminProductServices.getINSTANCE().getQuantityPage(listIDFiltered);
         }
 
         StringBuffer requestURL = request.getRequestURL();

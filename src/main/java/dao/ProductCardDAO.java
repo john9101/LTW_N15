@@ -8,13 +8,26 @@ import java.sql.Date;
 import java.util.List;
 
 public class ProductCardDAO {
-
-    public List<Product> getProducts(int limit, int pageNumber) {
+    public List<Product> getProducts(int pageNumber, int limit, boolean visibility) {
         int offset = (pageNumber - 1) * limit;
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, `name`, categoryId, originalPrice, salePrice ")
                 .append("FROM products ")
-                .append("WHERE visibility = 1 ")
+                .append("WHERE visibility = ? ")
+                .append("LIMIT ")
+                .append(limit)
+                .append(" OFFSET ")
+                .append(offset);
+
+        List<Product> list = GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility);
+        return list;
+    }
+
+    public List<Product> getProducts(int pageNumber, int limit) {
+        int offset = (pageNumber - 1) * limit;
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id, `name`, categoryId, originalPrice, salePrice ")
+                .append("FROM products ")
                 .append("LIMIT ")
                 .append(limit)
                 .append(" OFFSET ")
@@ -24,16 +37,17 @@ public class ProductCardDAO {
         return list;
     }
 
-    public int getQuantityProduct(boolean visibility) {
-        StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id FROM products where visibility = ?");
-        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
-    }
 
     public int getQuantityProduct() {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id FROM products ");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class).size();
+    }
+
+    public int getQuantityProduct(boolean visibility) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id FROM products where visibility = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
     }
 
     public int getQuantityProduct(List<Integer> listId, boolean visibility) {

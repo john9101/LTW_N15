@@ -24,9 +24,9 @@ public class AdminProducts implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(DEFAULT_PAGE, LIMIT);
+        List<Product> productCardList = AdminProductServices.getINSTANCE().getProducts(DEFAULT_PAGE);
         request.setAttribute("productCardList", productCardList);
-        int quantityPage = AdminProductServices.getINSTANCE().getQuantityPage(LIMIT);
+        int quantityPage = AdminProductServices.getINSTANCE().getQuantityPage();
         request.setAttribute("quantityPage", quantityPage);
         String requestURL = "/filterProductAdmin?";
         request.setAttribute("requestURL", requestURL);

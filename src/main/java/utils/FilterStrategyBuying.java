@@ -1,6 +1,7 @@
 package utils;
 
 import models.Product;
+import services.AdminProductServices;
 import services.ProductCardServices;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterStrategyBuying extends FilterStrategy {
-    private final int LIMIT = 9;
 
     public FilterStrategyBuying(HttpServletRequest request) {
         super(request);
@@ -42,7 +42,7 @@ public class FilterStrategyBuying extends FilterStrategy {
         }
         List<Integer> listIDFiltered = findCommonIDs(listId);
 
-        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page, LIMIT, true);
+        List<Product> productCardFiltered = ProductCardServices.getINSTANCE().filter(listIDFiltered, page);
 //        listIDFiltered lọc dựa trên visibility
 //        listIDFiltered == 0 -> 0
 //        listIDFiltered.size() < LIMIT -> 1
@@ -51,7 +51,7 @@ public class FilterStrategyBuying extends FilterStrategy {
         if (productCardFiltered.isEmpty()) {
             quantityPage = 0;
         } else {
-            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered, LIMIT);
+            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered);
         }
 
         StringBuffer requestURL = request.getRequestURL();
@@ -60,7 +60,7 @@ public class FilterStrategyBuying extends FilterStrategy {
         requestURL.append("?").append(queryString);
 
         List<String> listInputChecked = listValueChecked(queryString);
-        System.out.println("listInputChecked (BE): " + listInputChecked);
+
         request.setAttribute("requestURL", requestURL);
         request.setAttribute("productCardList", productCardFiltered);
         request.setAttribute("quantityPage", quantityPage);
