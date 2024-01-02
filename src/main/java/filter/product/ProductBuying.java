@@ -24,7 +24,6 @@ public class ProductBuying implements Filter {
         List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(DEFAULT_PAGE, LIMIT);
         request.setAttribute("productCardList", productCardList);
         int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
-        System.out.println("quantityPage: " + quantityPage);
         request.setAttribute("quantityPage", quantityPage);
         String requestURL = "/filterProductBuying?";
         request.setAttribute("requestURL", requestURL);

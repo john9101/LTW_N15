@@ -51,12 +51,9 @@ public class FilterStrategyBuying extends FilterStrategy {
         if (productCardFiltered.isEmpty()) {
             quantityPage = 0;
         } else {
-            if (productCardFiltered.size() < LIMIT)
-                quantityPage = 1;
-            else
-                quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(LIMIT);
+            quantityPage = ProductCardServices.getINSTANCE().getQuantityPage(listIDFiltered, LIMIT);
         }
-        System.out.println("quantityPage: " + quantityPage);
+
         StringBuffer requestURL = request.getRequestURL();
         String queryString = request.getQueryString();
         queryString = cutParameterInURL(queryString, "page");

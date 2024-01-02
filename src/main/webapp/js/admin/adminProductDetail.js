@@ -134,7 +134,6 @@ window.addEventListener('message', function (event) {
                 formColors.insertAdjacentHTML("beforeend", formSizeHTML);
 
                 const addedFormColor = formColors.lastElementChild;
-                console.log(addedFormColor.querySelector(".form__color-delete"))
                 addedFormColor.querySelector(".form__color-delete").addEventListener("click", function () {
                     removeColor(addedFormColor);
                 });

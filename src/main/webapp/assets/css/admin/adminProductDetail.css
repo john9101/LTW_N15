@@ -190,6 +190,7 @@ h2 {
     --background-color-hover: var(--blue-color-high);
     margin-top: 30px;
     color: #fff;
+    float: right;
 }
 
 /*img*/

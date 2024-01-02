@@ -55,6 +55,12 @@ public class ProductCardServices {
         return (int) quantityPage;
     }
 
+    public int getQuantityPage(List<Integer> listId, int limit) {
+        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(listId, true) + "") / limit);
+        return (int) quantityPage;
+    }
+
+
 
     public List<Product> filter(List<Integer> listId, int pageNumber, int limit, boolean visibility) {
         List<Product> productList = productCardDAO.pagingAndFilter(listId, pageNumber, limit, visibility);
@@ -150,27 +156,6 @@ public class ProductCardServices {
         return result;
     }
 
-    public List<Integer> getProductByName(String name) {
-        List<Product> listProduct = productCardDAO.getIdProductByName(name);
-        if (listProduct.isEmpty()) return null;
-        List<Integer> listId = new ArrayList<>();
-        for (Product p :
-                listProduct) {
-            listId.add(p.getId());
-        }
-        return listId;
-    }
-
-    public List<Integer> getProductByTimeCreated(Date dateBegin, Date dateEnd) {
-        List<Product> listProduct = productCardDAO.getProductByTimeCreated(dateBegin, dateEnd);
-        if (listProduct.isEmpty()) return null;
-        List<Integer> listId = new ArrayList<>();
-        for (Product p :
-                listProduct) {
-            listId.add(p.getId());
-        }
-        return listId;
-    }
 
     public String getNameCategoryById(int id) {
         List<Category> listProduct = productCardDAO.getNameCategoryById(id);

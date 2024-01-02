@@ -42,9 +42,18 @@
                         <ul class="product__img-list">
                             <c:forEach var="image" varStatus="loop"
                                        items="${productFactory.getListImagesByProductId(product.id)}">
-                                <li class="product__img-item product__img-item--clicked ">
-                                    <img src="assets/img/product_img/${image.nameImage}" alt="">
-                                </li>
+                              <c:choose>
+                                  <c:when test="${loop.index == 0}">
+                                      <li class="product__img-item product__img-item--clicked">
+                                          <img src="assets/img/product_img/${image.nameImage}" alt="">
+                                      </li>
+                                  </c:when>
+                                  <c:otherwise>
+                                      <li class="product__img-item">
+                                          <img src="assets/img/product_img/${image.nameImage}" alt="">
+                                      </li>
+                                  </c:otherwise>
+                              </c:choose>
                             </c:forEach>
                         </ul>
                     </div>

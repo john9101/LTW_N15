@@ -36,6 +36,44 @@ public class ProductCardDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class).size();
     }
 
+    public int getQuantityProduct(List<Integer> listId, boolean visibility) {
+        StringBuilder listIdString = new StringBuilder();
+        if (listId != null && !listId.isEmpty()) {
+            listIdString.append(" AND id IN (");
+            for (int i = 0; i < listId.size(); i++) {
+                if (i == 0)
+                    listIdString.append(listId.get(i));
+                listIdString.append(", ").append(listId.get(i));
+            }
+            listIdString.append(")");
+        }
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id ")
+                .append("FROM products ")
+                .append("WHERE visibility = ?")
+                .append(listIdString);
+
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, visibility).size();
+    }
+
+    public int getQuantityProduct(List<Integer> listId) {
+        StringBuilder listIdString = new StringBuilder();
+        if (listId != null && !listId.isEmpty()) {
+            listIdString.append("WHERE id IN (");
+            for (int i = 0; i < listId.size(); i++) {
+                if (i == 0)
+                    listIdString.append(listId.get(i));
+                listIdString.append(", ").append(listId.get(i));
+            }
+            listIdString.append(")");
+        }
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id ")
+                .append("FROM products ")
+                .append(listIdString);
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class).size();
+    }
+
     public List<Product> pagingAndFilter(List<Integer> listId, int pageNumber, int limit) {
         int offset = (pageNumber - 1) * limit;
         StringBuilder listIdString = new StringBuilder();
@@ -86,7 +124,7 @@ public class ProductCardDAO {
     public List<Product> getIdProductByCategoryId(List<String> listIdCategory) {
         StringBuilder categoryIdQuery = new StringBuilder();
         if (!listIdCategory.isEmpty()) {
-            categoryIdQuery.append("AND categoryId IN (");
+            categoryIdQuery.append(" categoryId IN (");
             for (int i = 0; i < listIdCategory.size(); i++) {
                 if (i != 0) {
                     categoryIdQuery.append(", ");
@@ -98,7 +136,7 @@ public class ProductCardDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id ")
                 .append("FROM products  ")
-                .append("WHERE visibility = 1 ")
+                .append("WHERE ")
                 .append(categoryIdQuery);
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
@@ -106,7 +144,7 @@ public class ProductCardDAO {
     public List<Product> getIdProductByColor(List<String> listCodeColor) {
         StringBuilder colorQuery = new StringBuilder();
         if (!listCodeColor.isEmpty()) {
-            colorQuery.append("AND colors.codeColor IN (");
+            colorQuery.append(" colors.codeColor IN (");
             for (int i = 0; i < listCodeColor.size(); i++) {
                 if (i != 0) {
                     colorQuery.append(", ");
@@ -120,7 +158,7 @@ public class ProductCardDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT products.id ")
                 .append("FROM products JOIN colors ON products.id = colors.productId ")
-                .append("WHERE visibility = 1 ")
+                .append("WHERE ")
                 .append(colorQuery);
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
@@ -128,7 +166,7 @@ public class ProductCardDAO {
     public List<Product> getIdProductBySize(List<String> listSize) {
         StringBuilder sizeQuery = new StringBuilder();
         if (!listSize.isEmpty()) {
-            sizeQuery.append("AND sizes.nameSize IN (");
+            sizeQuery.append(" sizes.nameSize IN (");
             for (int i = 0; i < listSize.size(); i++) {
                 if (i != 0) {
                     sizeQuery.append(", ");
@@ -142,7 +180,7 @@ public class ProductCardDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT products.id ")
                 .append("FROM products JOIN sizes ON products.id = sizes.productId ")
-                .append("WHERE visibility = 1 ")
+                .append("WHERE ")
                 .append(sizeQuery);
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
@@ -162,10 +200,8 @@ public class ProductCardDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id ")
                 .append("FROM products ")
-                .append("WHERE visibility = 1 ")
-                .append("AND (")
-                .append(moneyRangeQuery)
-                .append(")");
+                .append("WHERE ")
+                .append(moneyRangeQuery);
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class);
     }
 
@@ -173,12 +209,11 @@ public class ProductCardDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id, `name`, originalPrice, salePrice ")
                 .append("FROM products  ")
-                .append("WHERE visibility = 1 ")
-                .append("AND categoryId = ?");
+                .append("WHERE categoryId = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, categoryId);
     }
 
-    public static List<Product> getIdProductByName(String name) {
+    public List<Product> getIdProductByName(String name) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT id ").append("FROM products ").append("WHERE name LIKE ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, "%" + name + "%");

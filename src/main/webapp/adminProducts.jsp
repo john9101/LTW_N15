@@ -1,3 +1,4 @@
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -67,11 +68,12 @@
                         <div class="filter__group">
                             <span class="filter__title">Thời gian cập nhập</span>
                             <div class="filter__date-block">
+
                                 <label class="filter__date">
                                     <span>Từ:</span>
 
                                     <input type="date" name="date"
-                                           id="date-start" placeholder="dd-mm-yyyy">
+                                           id="date-start" placeholder="dd-mm-yyyy" ">
 
                                 </label>
                                 <label class="filter__date">
@@ -226,6 +228,7 @@
                         </table>
                     </div>
                     <!--Paging-->
+                    <%System.out.println(request.getAttribute("quantityPage"));%>
                     <ul class="paging">
                         <c:if test="${requestScope.quantityPage != 0}">
                             <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
@@ -268,7 +271,53 @@
     </article>
     <div class="modal__blur"></div>
 </div>
-<script src="js/admin/adminProducts.js"></script>
 
+<script src="js/admin/adminProducts.js"></script>
+<%
+    List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
+    Object keyword = request.getAttribute("keyword");
+    Object dateStart = request.getAttribute("sqlDateStart");
+    Object dateEnd = request.getAttribute("sqlDateEnd");
+%>
+<script>
+    function checkDate(inputDate, dateString) {
+        inputDate.value = dateString;
+    }
+
+    function checkNameInput(keyword) {
+        let inputElements = document.querySelector(`input[type = "text"]`);
+        inputElements.value = keyword;
+    }
+
+    function checkedInputTag(name) {
+        let inputElements = document.querySelectorAll("input");
+        inputElements.forEach(function (element) {
+            if (element.value === name)
+                element.checked = true;
+        })
+    }
+
+    <%
+     if (inputChecked!=null && !inputChecked.isEmpty()){
+         for (String input : inputChecked) {
+    %>
+    checkedInputTag("<%=input%>");
+    <%}
+     }%>
+
+    <% if (keyword != null){%>
+    checkNameInput("<%=keyword%>");
+    <%}%>
+
+    <% if (dateStart != null){%>
+    checkDate(document.querySelector("#date-start"), "<%=dateStart%>");
+    <%}%>
+
+    <% if (dateEnd != null){%>
+    checkDate(document.querySelector("#date-end"), "<%=dateEnd%>");
+    <%}%>
+
+
+</script>
 </body>
 </html>

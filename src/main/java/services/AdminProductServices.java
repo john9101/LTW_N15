@@ -3,6 +3,7 @@ package services;
 import dao.*;
 import models.*;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,5 +73,33 @@ public class AdminProductServices {
     public int getQuantityPage(int limit) {
         double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct() + "") / limit);
         return (int) quantityPage;
+    }
+
+    public int getQuantityPage(List<Integer> listId, int limit) {
+        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(listId) + "") / limit);
+        return (int) quantityPage;
+    }
+
+
+    public List<Integer> getProductByName(String name) {
+        List<Product> listProduct = productCardDAO.getIdProductByName(name);
+        if (listProduct.isEmpty()) return null;
+        List<Integer> listId = new ArrayList<>();
+        for (Product p :
+                listProduct) {
+            listId.add(p.getId());
+        }
+        return listId;
+    }
+
+    public List<Integer> getProductByTimeCreated(Date dateBegin, Date dateEnd) {
+        List<Product> listProduct = productCardDAO.getProductByTimeCreated(dateBegin, dateEnd);
+        if (listProduct.isEmpty()) return null;
+        List<Integer> listId = new ArrayList<>();
+        for (Product p :
+                listProduct) {
+            listId.add(p.getId());
+        }
+        return listId;
     }
 }

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FilterStrategyAdmin extends FilterStrategy {
-    private final int LIMIT = 20;
+    private final int LIMIT = 15;
 
     public FilterStrategyAdmin(HttpServletRequest request) {
         super(request);
@@ -48,6 +48,7 @@ public class FilterStrategyAdmin extends FilterStrategy {
         if (filterByName != null) {
             listId.add(filterByName);
         }
+
         if (filterByColor != null) {
             listId.add(filterByColor);
         }
@@ -65,13 +66,10 @@ public class FilterStrategyAdmin extends FilterStrategy {
         List<Product> productCardFiltered = AdminProductServices.getINSTANCE().filter(listIDFiltered, page, LIMIT);
 
         int quantityPage;
-        if (listIDFiltered.isEmpty()) {
+        if (productCardFiltered.isEmpty()) {
             quantityPage = 0;
         } else {
-            if (listIDFiltered.size() < LIMIT)
-                quantityPage = 1;
-            else
-                quantityPage = AdminProductServices.getINSTANCE().getQuantityPage(LIMIT);
+            quantityPage = AdminProductServices.getINSTANCE().getQuantityPage(listIDFiltered, LIMIT);
         }
 
         StringBuffer requestURL = request.getRequestURL();
@@ -94,15 +92,15 @@ public class FilterStrategyAdmin extends FilterStrategy {
         if (dates.length == 2) {
             try {
                 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate dateBegin = LocalDate.parse(dates[0], dateFormatter);
+                LocalDate dateStart = LocalDate.parse(dates[0], dateFormatter);
                 LocalDate dateEnd = LocalDate.parse(dates[1], dateFormatter);
 
                 // Convert LocalDate to java.sql.Date for database operations
-                Date sqlDateBegin = Date.valueOf(dateBegin);
+                Date sqlDateStart = Date.valueOf(dateStart);
                 Date sqlDateEnd = Date.valueOf(dateEnd);
-                System.out.println(sqlDateEnd);
-                System.out.println(dateBegin);
-                listId = ProductCardServices.getINSTANCE().getProductByTimeCreated(sqlDateBegin, sqlDateEnd);
+                request.setAttribute("sqlDateStart", sqlDateStart);
+                request.setAttribute("sqlDateEnd", sqlDateEnd);
+                listId = AdminProductServices.getINSTANCE().getProductByTimeCreated(sqlDateStart, sqlDateEnd);
             } catch (DateTimeParseException | IllegalArgumentException e) {
             }
         }
@@ -113,7 +111,8 @@ public class FilterStrategyAdmin extends FilterStrategy {
         String nameProduct = request.getParameter("keyword");
         List<Integer> listId = null;
         if (nameProduct != null) {
-            listId = ProductCardServices.getINSTANCE().getProductByName(nameProduct);
+            listId = AdminProductServices.getINSTANCE().getProductByName(nameProduct);
+            request.setAttribute("keyword", nameProduct);
         }
         return listId;
     }
