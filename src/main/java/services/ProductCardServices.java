@@ -54,9 +54,16 @@ public class ProductCardServices {
         return (int) quantityPage;
     }
 
-    public int getQuantityPage(int quantityProduct) {
-        double quantityPage = Math.ceil(Double.parseDouble(quantityProduct + "") / LIMIT);
+    public int getQuantityPage(List<Integer> listId, int limit) {
+        double quantityPage = Math.ceil(Double.parseDouble(productCardDAO.getQuantityProduct(listId, true) + "") / limit);
         return (int) quantityPage;
+    }
+
+
+
+    public List<Product> filter(List<Integer> listId, int pageNumber, int limit, boolean visibility) {
+        List<Product> productList = productCardDAO.pagingAndFilter(listId, pageNumber, limit, visibility);
+        return productList;
     }
 
     public List<Product> filter(List<Integer> listId, int pageNumber) {
@@ -151,4 +158,11 @@ public class ProductCardServices {
         }
         return result;
     }
+
+    public String getNameCategoryById(int id) {
+        List<Category> listProduct = productCardDAO.getNameCategoryById(id);
+        if (listProduct.isEmpty()) return null;
+        return listProduct.get(0).getNameType();
+    }
+
 }
