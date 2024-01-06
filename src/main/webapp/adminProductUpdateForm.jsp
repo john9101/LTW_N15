@@ -164,14 +164,28 @@
                     </div>
                 </div>
             </div>
-
+            <!--Hình ảnh của sản phầm (chỉ được xóa)-->
             <div class="col-12">
-                <div class="form__label form__block">
+                <div class="form__label form__block form__img-exist">
                     <span class="form__title">
-                        <h2>Hình ảnh</h2>
+                        <h2>Hình ảnh đã có của sản phẩm</h2>
                         <i class="form__detail fa-solid fa-circle-info"></i>
-                        <p>Hình ảnh của sản phẩm, mỗi sản phẩm cần ít nhất 1 hình ảnh, ảnh đầu tiên sẽ là ảnh bìa của
-                           sản phẩm</p>
+                        <p>Hình ảnh đã có của sản phẩm, các ảnh ở khu vực này chỉ có thể xóa</p>
+                    </span>
+                    <div class="form__img">
+                        <div class="img__previews">
+                        </div>
+                    </div>
+                    <span class="form__error"></span>
+                </div>
+            </div>
+            <!--Hình ảnh cần thêm (chỉ được thêm sản phẩm-->
+            <div class="col-12">
+                <div class="form__label form__block form__img-added">
+                    <span class="form__title">
+                        <h2>Thêm ảnh</h2>
+                        <i class="form__detail fa-solid fa-circle-info"></i>
+                        <p>Hình ảnh cần thêm sản phẩm</p>
                     </span>
                     <div class="form__img ">
                         <div class="img__previews">
@@ -199,6 +213,6 @@
     CKFinder.setupCKEditor(editorCK, "ckfinder/");
 </script>
 <script src="js/validateForm.js"></script>
-<script src="js/admin/adminProductDetail.js"></script>
+<script src="js/admin/adminUpdateProduct.js"></script>
 </body>
 </html>
