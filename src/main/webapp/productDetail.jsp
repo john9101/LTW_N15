@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
+<jsp:useBean id="userFatory" class="utils.UserFactory" scope="session"/>
 <fmt:setLocale value="vi_VN"/>
 <c:set var="product" value="${requestScope.product}"/>
 <!DOCTYPE html>
@@ -174,7 +175,7 @@
                             <c:forEach var="review" items="${requestScope.listReview}">
                                 <article class="review">
                                     <div class="review__avatar">
-                                        <img src="../assets/img/user/user_avatar-5.jpg" alt="" loading="lazy">
+                                        <img src="assets/img/user/${userFatory.getAvatar(review.userId)}" alt="" loading="lazy">
                                     </div>
                                     <div class="review__account">
                                         <h4 class="review__name">User</h4>
