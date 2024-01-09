@@ -34,10 +34,10 @@ public class SuccessOrderController extends HttpServlet {
         try {
             voucherId = cart.getVoucherApplied().getId();
             deliveryMethodId = cart.getDeliveryMethod().getId();
-            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, "", voucherId);
+            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
         }catch (NullPointerException exception){
             exception.printStackTrace();
-            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, "", voucherId);
+            CheckoutServices.getINSTANCE().addNewOrder(invoiceNo, userAuth.getId(), dateOrder, fullNameBuyer, emailBuyer, phoneBuyer, addressBuyer, deliveryMethodId, paymentMethodId, voucherId);
         }
 
         for(int productId : cart.getShoppingCartMap().keySet()){

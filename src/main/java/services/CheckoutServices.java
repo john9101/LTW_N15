@@ -41,8 +41,8 @@ public class CheckoutServices {
         return checkoutDao.getPaymentOwnerByPaymentMethodId(id);
     }
 
-    public void addNewOrder(int orderId, int userId, String dateOrder, String fullName, String email, String phone, String address, Integer deliveryMethodId, int paymentMethodId, String noticeOrder, Integer voucherId){
-        checkoutDao.addNewOrder(orderId, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, noticeOrder, voucherId);
+    public void addNewOrder(int orderId, int userId, String dateOrder, String fullName, String email, String phone, String address, Integer deliveryMethodId, int paymentMethodId, Integer voucherId){
+        checkoutDao.addNewOrder(orderId, userId, dateOrder, fullName, email, phone, address, deliveryMethodId, paymentMethodId, voucherId);
     }
 
     public void addEachOrderDetail(int orderId, int productId, String sizeRequired, String colorRequired, int quantityRequired, double price){
