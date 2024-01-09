@@ -42,7 +42,7 @@
         <div class="col-12">
             <h2 class="order__heading">Bảng số đo</h2>
             <div class="order__guide-size">
-                <img src="assets/img/sizeGuide/aoSoMiTayDaiSizeGuide.png" alt="">
+                <img src="assets/img/sizeGuide/${category.sizeTableImage}" alt="">
             </div>
         </div>
         <c:forEach var="parameter" items="${listParameter}" varStatus="loop">
