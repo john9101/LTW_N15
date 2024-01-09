@@ -712,7 +712,7 @@
     border-radius: 4px;
     outline: none;
     padding: 16px;
-    width: 311px;
+    width: max-content;
     transform: translate(-50%, -50%);
     display: grid;
     gap: 14px;

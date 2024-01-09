@@ -427,6 +427,7 @@
     </div>
     </div>
 </main>
+<div class="popup__deletion"></div>
 <%@include file="footer.jsp" %>
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -542,20 +543,41 @@
 
                 let buttonChoice = deliveryInfo.find('.button__choice');
                 let statusChoice = buttonChoice.text();
-                $.ajax({
-                    type: 'POST',
-                    url: 'Checkout',
-                    data: {
-                        typeEdit: typeEdit,
-                        deliveryInfoKey: deliveryInfoKey,
-                        statusChoice: statusChoice
-                    },
-                    success: function (response) {
-                        deliveryInfo.remove();
-                        if (statusChoice === "Đã chọn") {
-                            $('#default__info').find('.button__choice').text("Đã chọn")
+
+                const popupDeletion = $(document).find('.popup__deletion');
+                popupDeletion.html(`<div class="popup__container">
+                                        <div class="popup__content">
+                                            <div class="title__header">
+                                                <span class="title"><i class="fa-solid fa-triangle-exclamation"></i> Xóa thông tin giao hàng</span>
+                                                <span class="subtitle">Bạn có muốn xóa thông tin giao hàng đang chọn?</span>
+                                            </div>
+                                            <div class="button__control">
+                                                <button class="agree__button">Xác nhận</button>
+                                                <button class="cancel__button">Hủy</button>
+                                            </div>
+                                        </div>
+                                    </div>`);
+                $(popupDeletion).find('.cancel__button').on('click', function (){
+                    $(popupDeletion).find('.popup__container').remove();
+                })
+
+                $(popupDeletion).find('.agree__button').on('click', function (){
+                    $.ajax({
+                        type: 'POST',
+                        url: 'Checkout',
+                        data: {
+                            typeEdit: typeEdit,
+                            deliveryInfoKey: deliveryInfoKey,
+                            statusChoice: statusChoice
+                        },
+                        success: function (response) {
+                            $(popupDeletion).find('.popup__container').remove();
+                            deliveryInfo.remove();
+                            if (statusChoice === "Đã chọn") {
+                                $('#default__info').find('.button__choice').text("Đã chọn")
+                            }
                         }
-                    }
+                    })
                 })
             })
         })
