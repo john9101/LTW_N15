@@ -38,6 +38,8 @@ body, input, select, option, button, textarea {
 }
 body {
     scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
 }
 
 #main {

@@ -3,7 +3,6 @@ window.addEventListener('message', function (event) {
     const receivedData = event.data;
 
     if (receivedData.state === 2) {
-        document.querySelector("#form__submit").innerText = "Cập nhập sản phẩm";
         // Workflow: Get data -> apply data to form -> apply rule for form -> Get obj -> send server
 
         // Get data: Use ajax call -> Read productDetail
@@ -57,20 +56,69 @@ window.addEventListener('message', function (event) {
             // Images
             imgPreviewsAdded.innerHTML = "";
             imgPreviewsExist.innerHTML = "";
-            // asyncImageLoading(images);
+            imagesLoading(images);
         }
 
         const imgPreviewsExist = document.querySelector(".form__img-exist .img__previews");
 
-        async function asyncImageLoading(images) {
+        // async function asyncImageLoading(images) {
+        //     // Get the current URL to fetch img from server
+        //     const currentURL = window.location.href;
+        //     const url = new URL(currentURL);
+        //     const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
+        //
+        //     function addImages(blobUrl) {
+        //         const imageHTML = `<div class="img__preview">
+        //                                     <img src="${blobUrl}" alt="">
+        //                                      <i class="form__img-delete fa-solid fa-xmark"></i>
+        //                                   </div>`
+        //         imgPreviewsExist.insertAdjacentHTML("beforeend", imageHTML);
+        //         const lastElement = imgPreviewsExist.lastElementChild;
+        //         lastElement.querySelector(".form__img-delete").addEventListener("click", function (e) {
+        //             removeImg(lastElement);
+        //         })
+        //     }
+        //
+        //     function removeImg(addedFormImg) {
+        //         addedFormImg.remove()
+        //     }
+        //
+        //     for (let i = 0; i < images.length; i++) {
+        //         const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`
+        //         const response = await fetch(url)
+        //         const blob = await response.blob();
+        //         const blobUrl = URL.createObjectURL(blob);
+        //         addImages(blobUrl);
+        //     }
+        // }
+
+        function imagesLoading(images) {
             // Get the current URL to fetch img from server
             const currentURL = window.location.href;
             const url = new URL(currentURL);
             const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
+            for (let i = 0; i < images.length; i++) {
+                const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`
+                const response = fetch(url)
+                // const blob = response.blob();
+                // const blobUrl = URL.createObjectURL(blob);
+                response.then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok.');
+                    }
+                    return response.blob();
+                })
+                    .then(function (blob) {
+                        addImages(blob);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
 
-            function addImages(blobUrl) {
+            function addImages(blob) {
                 const imageHTML = `<div class="img__preview">
-                                            <img src="${blobUrl}" alt="">
+                                            <img src="${URL.createObjectURL(blob)}" alt="">
                                              <i class="form__img-delete fa-solid fa-xmark"></i>    
                                           </div>`
                 imgPreviewsExist.insertAdjacentHTML("beforeend", imageHTML);
@@ -82,14 +130,6 @@ window.addEventListener('message', function (event) {
 
             function removeImg(addedFormImg) {
                 addedFormImg.remove()
-            }
-
-            for (let i = 0; i < images.length; i++) {
-                const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`
-                const response = await fetch(url)
-                const blob = await response.blob();
-                const blobUrl = URL.createObjectURL(blob);
-                addImages(blobUrl);
             }
         }
 

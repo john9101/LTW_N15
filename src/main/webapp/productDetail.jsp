@@ -142,13 +142,11 @@
                                     </div>
                                     <p class="form__error"></p>
                                 </div>
-                                <!--Size Guide-->
-                                <div class="form__guide">Hướng dẫn tùy chỉnh thông số</div>
                             </div>
 
-                            <button type="submit" class="form__submit form__submit--order button "
+                            <a href="showProductOrder?id=${product.id}" type="submit" class="form__submit form__submit--order button "
                                         data="Đặt may theo số đo">
-                            </button>
+                            </a>
                             <button type="submit" class="form__submit form__submit--add button "
                                         data="Thêm vào giỏ hàng">
                             </button>
@@ -264,9 +262,7 @@
 <%@include file="footer.jsp"%>
 <article class="dialog__size-guide"></article>
 <script src="js/base.js"></script>
-<%--<script src="js/data.js"></script>--%>
 <script src="js/validateForm.js"></script>
-<%--<script src="js/paging.js"></script>--%>
 <script src="js/productDetail.js"></script>
 </body>
 </html>

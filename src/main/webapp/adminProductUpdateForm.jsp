@@ -199,7 +199,7 @@
                 </div>
             </div>
             <div class="col-12">
-                <button id="form__submit" type="submit" class="form__submit button button--hover">Thêm sản phẩm</button>
+                <button id="form__submit" type="submit" class="form__submit button button--hover">Cập nhập sản phẩm</button>
 
             </div>
         </div>

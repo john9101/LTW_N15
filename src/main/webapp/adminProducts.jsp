@@ -210,7 +210,7 @@
                                         <p class="table__cell">${item.id}</p>
                                     </td>
                                     <td class="table__data">
-                                        <p class="table__cell">${item.name}</p>
+                                        <p class="table__cell line-clamp line-1">${item.name}</p>
                                     </td>
                                     <td class="table__data">
                                         <p class="table__cell">${productFactory.getNameCategoryById(item.id)}</p>
@@ -231,7 +231,6 @@
                         </table>
                     </div>
                     <!--Paging-->
-                    <%System.out.println(request.getAttribute("quantityPage"));%>
                     <ul class="paging">
                         <c:if test="${requestScope.quantityPage != 0}">
                             <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">

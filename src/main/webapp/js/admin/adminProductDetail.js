@@ -259,9 +259,9 @@ window.addEventListener('message', function (event) {
                 x.className = x.className.replace("show", "");
                 x.remove();
             }, 3000);
-
         }
     }
+
     // Read product: No validate
     if (receivedData.state === 1) {
         const name = form.querySelector(`input[name ="name"]`);
