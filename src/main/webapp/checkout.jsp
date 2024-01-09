@@ -1,3 +1,4 @@
+<%@ page import="services.CheckoutServices" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -38,7 +39,6 @@
                 <div class="delivery__info--container">
                     <h1 class="checkout__title">Thanh toán</h1>
                     <h2 class="checkout__subtitle">Thông tin giao hàng</h2>
-                    <span class="non__selected">Vui lòng chọn thông tin giao hàng</span>
                     <%--                    <form id="delivery__info--form" class="radio__section">--%>
                     <%--                        <div>--%>
                     <%--                            <div class="delivery__default section__info--selection">--%>
@@ -183,7 +183,6 @@
                     <c:otherwise>
                         <div class="delivery__method--container">
                             <h2 class="checkout__subtitle">Phương thức vận chuyển</h2>
-                            <span class="non__selected">Vui lòng chọn phương thức vận chuyển</span>
                                 <%--                            action="Checkout" method="post"--%>
                             <form id="delivery__method--form" class="radio__section">
                                 <input type="hidden" name="action" value="choiceDeliveryMethod">
@@ -205,7 +204,7 @@
                                 <c:forEach items="${requestScope.listDeliveryMethod}" var="deliveryMethod">
                                     <div class="method__content">
                                         <div class="method__item section__info--selection">
-                                            <input type="radio" name="delivery__method" class="radio__button"
+                                            <input <c:if test="${deliveryMethod eq sessionScope[userIdCart].deliveryMethod}">checked</c:if> type="radio" name="delivery__method" class="radio__button"
                                                    value="${deliveryMethod.id}"
                                                    id="delivery__method${deliveryMethod.id}">
                                             <label class="label__selection" for="delivery__method${deliveryMethod.id}">
@@ -214,7 +213,7 @@
                                                                                                       value="${deliveryMethod.shippingFee}"/></span>
                                             </label>
                                         </div>
-                                        <span><p>${deliveryMethod.description}</p></span>
+                                        <span class="description__method"><p>${deliveryMethod.description}</p></span>
                                     </div>
                                 </c:forEach>
                                     <%--                        <div class="method__content">--%>
@@ -262,16 +261,80 @@
                 <!-- New update template -->
                 <div class="payment__method--container">
                     <h2 class="checkout__subtitle">Phương thức thanh toán</h2>
-                    <span class="non__selected">Vui lòng chọn phương thức thanh toán</span>
                     <form id="payment__method--form" class="radio__section">
                         <input type="hidden" name="action" value="choicePaymentMethod">
                         <c:forEach items="${requestScope.listPaymentMethod}" var="paymentMethod">
-                            <div class="method__item section__info--selection">
-                                <input type="radio" name="payment__method" class="radio__button"
-                                       value="${paymentMethod.id}"
-                                       id="payment__method${paymentMethod.id}">
-                                <label class="label__selection"
-                                       for="payment__method${paymentMethod.id}">${paymentMethod.typeMethod}</label>
+                            <div class="method__content">
+                                <div class="method__item section__info--selection">
+                                    <input <c:if test="${paymentMethod eq sessionScope[userIdCart].paymentMethod}">checked</c:if> type="radio" name="payment__method" class="radio__button"
+                                           value="${paymentMethod.id}"
+                                           id="payment__method${paymentMethod.id}">
+                                    <label class="label__selection"
+                                           for="payment__method${paymentMethod.id}">${paymentMethod.typePayment}</label>
+                                </div>
+                                <div class="description__method information__transaction">
+                                    <c:choose>
+                                        <c:when test="${paymentMethod.id > 1}">
+                                            <c:set value="${CheckoutServices.getINSTANCE().getPaymentOwnerByPaymentMethodId(paymentMethod.id)}" var="paymentOwner"/>
+                                            <table class="table__transaction">
+                                                <tbody>
+                                                <tr class="owner__name">
+                                                    <td>Chủ tài khoản</td>
+                                                    <td><span>${paymentOwner.ownerName}</span></td>
+                                                </tr>
+                                                <tr class="account__number">
+                                                    <td>Số tài khoản</td>
+                                                    <td>
+                                                        <div>
+                                                            <span>${paymentOwner.accountNumber}</span>
+                                                            <span class="copy__button"><i class="fa-solid fa-copy"></i> Sao chép</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="payment__platform">
+                                                    <c:if test="${paymentMethod.id eq 2}">
+                                                        <c:set var="qrImage" value="bank.png"/>
+                                                        <td>Ngân hàng</td>
+                                                    </c:if>
+                                                    <c:if test="${paymentMethod.id eq 3}">
+                                                        <c:set var="qrImage" value="e-wallet.png"/>
+                                                        <td>Ví điện tử</td>
+                                                    </c:if>
+                                                    <td><span>${paymentOwner.paymentPlatform}</span></td>
+                                                </tr>
+                                                <tr class="amount__pay">
+                                                    <td>Số tiền</td>
+                                                    <td>
+                                                        <div>
+                                                            <span class="amount">${sessionScope[userIdCart].totalPriceFormat()}</span>
+                                                            <span class="copy__button"><i class="fa-solid fa-copy"></i> Sao chép</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="transaction__content">
+                                                    <td>Nội dung giao dịch</td>
+                                                    <td>
+                                                        <div>
+                                                            <span class="content">${sessionScope.contentForPay}</span>
+                                                            <span class="copy__button"><i class="fa-solid fa-copy"></i> Sao chép</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="payment__qr">
+                                                <img class="qr__code" src="assets/img/paymentQR/${qrImage}">
+                                                <div>
+                                                    <span>Hoặc bạn có thể quét QR code bên cạnh để tiến hành thanh toán một cách nhanh chóng và chính xác hơn</span>
+                                                    <span><strong style="font-weight: 500">* Lưu ý:</strong> Trước khi thanh toán vui lòng kiểm tra thật kỹ số tiền cần thanh toán và nội dung chuyển khoản. Trong trường hợp chuyển khoản sai nội dung hoặc thanh toán với số tiền không đúng thì chúng tôi hoàn toàn không chịu trách nhiệm với số tiền bạn đã chuyển và đơn hàng không thể đóng gói đến bạn</span>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="cod">Khi chọn phương thức trả tiền mặt khi nhận hàng (COD), vui lòng bạn chuẩn bị đầy đủ số tiền cần thanh toán cho nhà vận chuyển khi nhận hàng</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
                             </div>
                         </c:forEach>
                         <%--                        <div class="method__item section__info--selection">--%>
@@ -339,12 +402,13 @@
                                     <span>${sessionScope[userIdCart].discountPriceFormat()}</span>
                                 </div>
                             </c:if>
-                            <div class="shipping__container"
-                                 <c:if test="${sessionScope[userIdCart].deliveryMethod != null}">style="display: flex !important;"</c:if>>
-                                <span>Phí vận chuyển</span>
-                                <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency"
-                                                                                      value="${sessionScope.cart.deliveryMethod.shippingFee}"/></span>
-                            </div>
+                            <c:if test="${sessionScope[userIdCart].deliveryMethod != null}">
+                                <div class="shipping__container">
+                                    <span>Phí vận chuyển</span>
+                                    <span><fmt:setLocale value="vi_VN"/><fmt:formatNumber type="currency"
+                                                                                          value="${sessionScope[userIdCart].deliveryMethod.shippingFee}"/></span>
+                                </div>
+                            </c:if>
                         </div>
                         <div class="total__price--final">
                             <span class="total__label">Tổng tiền</span>
@@ -409,14 +473,13 @@
                     success: function (response) {
                         $(this).prop('checked', true);
                         $('.total__price--final .total__value').text(response.newTotalPrice);
-                        $('.shipping__container').attr('style', 'display: flex !important');
                         $('.shipping__container span:last-child').text(response.shippingFee);
+                        $('.amount__pay .amount').text(response.newTotalPrice);
                     }
                 })
             })
         })
     }
-
     handleChoiceDeliveryMethod();
 
     function handleChoicePaymentMethod() {
@@ -429,18 +492,16 @@
                     url: 'Checkout',
                     data: {
                         action: action,
-                        deliveryMethodId: paymentMethodId
+                        paymentMethodId: paymentMethodId
                     },
-                    contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     success: function (response) {
-                        $(this).prop('checked', true)
+                        $('.transaction__content .content').text(response.contentForPay);
                     }
                 })
             })
         })
     }
-
     handleChoicePaymentMethod();
 
     function handleChoiceDeliveryInfo() {
@@ -468,7 +529,6 @@
             })
         })
     }
-
     handleChoiceDeliveryInfo();
 
     function handleRemoveDeliveryInfo() {
@@ -503,52 +563,81 @@
     handleRemoveDeliveryInfo();
 
     function handlePlaceOrder(){
+        $('#delivery__method--form input[class=radio__button][name=delivery__method]').change(function (){
+            $('#payment__method--form input[class=radio__button][name=payment__method]').prop('disabled', false);
+        })
+
         $('.place__order').on('click', function (){
-            console.log(1)
-            const radioSections = $(document).find('.radio__section');
-            let allSectionsSelected = true;
-            radioSections.each(function () {
-                let radioSection = $(this);
-                const radioButtons = radioSection.find('.radio__button');
-                const errorMessage = radioSection.parent().find('.non__selected');
-                let sectionSelected = false;
+            $.ajax({
+                type: 'POST',
+                url: 'PlaceOrder',
+                data: {},
+                dataType: 'json',
+                success: function (response){
+                    const popupOrder = `<div class="popup__order">
+                                            <div class="bar__loading"></div>
+                                            <p class="message__process">Hệ thống đang xử lý, vui lòng quý khách chờ trong vài giây và không đóng tab này. Trong trường hợp tab bị đóng thì quá trình hiện đang được xử lý sẽ thất bại</p>
+                                        </div>`
+                    $('.place__order').parent().append(popupOrder)
+                    $(document).find('.ground__button--forward a').addClass('disabled-link')
+                    $(document).find('.place__order').css('cursor', 'not-allowed').prop('disabled', 'false')
+                    $(document).find('.radio__button').each(function (index){
+                        $(this).css('cursor', 'not-allowed').prop('disabled', 'false')
+                    })
+                    $(document).find('.popup__order').css('display', 'block')
+                    setTimeout(function() {
+                        $(document).find('.popup__order').addClass('active');
+                    }, 100);
 
-                radioButtons.each(function (index) {
-                    let radioButton = $(this);
-                    if (radioButton.prop("checked")) {
-                        sectionSelected = true;
-                    }
-                });
+                    setTimeout(function() {
+                        let invoiceNo = response.invoiceNo;
+                        let dateOrder = response.dateOrder;
+                        window.location.href = "SuccessOrder?invoiceNo="+invoiceNo;
 
-                if (!sectionSelected) {
-                    allSectionsSelected = false;
-                    errorMessage.css('display', 'block');
-                } else {
-                    errorMessage.css('display', 'none');
+                        // $(document).find('.message__process').html(response);
+                        // $(document).find('.loading__order').removeClass('loading__order').html(`<i class="fa-regular fa-circle-check"></i>`).css({'margin': '16px auto', 'fontSize': '80px'});
+                        // $(document).find('.popup__order').append(`<a href="" style="padding: 14px 16px; background-color: #5ee95e; font-weight: 600; display: inline-block; margin: 16px 0px; border-radius: 6px">Đến trang đánh giá</a>`)
+                    }, 3000);
                 }
-            });
+            })
 
-            if (allSectionsSelected) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'PlaceOrder',
-                    data: {},
-                    success: function (response){
-                        alert(response)
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Lỗi AJAX: ", error);
-                    }
-                })
-            }
+            // console.log(1)
+            // const radioSections = $(document).find('.radio__section');
+
+            // let allSectionsSelected = true;
+            // radioSections.each(function () {
+            //     let radioSection = $(this);
+            //     const radioButtons = radioSection.find('.radio__button');
+            //     const errorMessage = radioSection.parent().find('.non__selected');
+            //     let sectionSelected = false;
+            //
+            //     radioButtons.each(function (index) {
+            //         let radioButton = $(this);
+            //         if (radioButton.prop("checked")) {
+            //             sectionSelected = true;
+            //         }
+            //     });
+            //
+            //     if (!sectionSelected) {
+            //         allSectionsSelected = false;
+            //         errorMessage.css('display', 'block');
+            //     } else {
+            //         errorMessage.css('display', 'none');
+            //     }
+            // });
+
+            // if (allSectionsSelected) {
+            //
+            //
+            // }
         })
-        const radioButtons = $(document).find('.radio__button');
-        radioButtons.change(function (){
-            let radioButton = $(this);
-            const radioSection = radioButton.closest(".radio__section");
-            const errorMessage = radioSection.parent().find('.non__selected');
-            errorMessage.css('display', 'none')
-        })
+        // const radioButtons = $(document).find('.radio__button');
+        // radioButtons.change(function (){
+        //     let radioButton = $(this);
+        //     const radioSection = radioButton.closest(".radio__section");
+        //     const errorMessage = radioSection.parent().find('.non__selected');
+        //     errorMessage.css('display', 'none')
+        // })
     }
     handlePlaceOrder();
 </script>

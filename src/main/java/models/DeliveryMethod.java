@@ -1,16 +1,18 @@
 package models;
 
+import java.util.Objects;
+
 public class DeliveryMethod {
-    private int id;
+    private Integer id;
     private String typeShipping;
     private String description;
     private double shippingFee;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -36,6 +38,19 @@ public class DeliveryMethod {
 
     public void setShippingFee(double shippingFee) {
         this.shippingFee = shippingFee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DeliveryMethod that = (DeliveryMethod) o;
+        return id == that.id && Double.compare(shippingFee, that.shippingFee) == 0 && Objects.equals(typeShipping, that.typeShipping) && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, typeShipping, description, shippingFee);
     }
 
     @Override

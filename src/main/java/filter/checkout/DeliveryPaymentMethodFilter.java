@@ -26,10 +26,10 @@ public class DeliveryPaymentMethodFilter implements Filter {
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
 
         if(!requestURI.contains("Checkout") && !requestURI.contains("checkout.jsp")){
-            if(cart != null && cart.getDeliveryMethod() != null){
-                cart.setDeliveryMethod(null);
-                session.setAttribute("cart", cart);
-            }
+//            if(cart != null && cart.getDeliveryMethod() != null){
+//                cart.setDeliveryMethod(null);
+//                session.setAttribute("cart", cart);
+//            }
         }
         filterChain.doFilter(request, response);
     }

@@ -1,6 +1,5 @@
 package controller.shoppingCart;
 
-import com.sun.source.tree.WhileLoopTree;
 import models.Color;
 import models.ShoppingCart;
 import models.Size;
@@ -11,7 +10,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.Enumeration;
 
 @WebServlet(name = "AddToCartController", value = "/AddToCart")
 public class AddToCartController extends HttpServlet {
@@ -20,7 +18,7 @@ public class AddToCartController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(true);
         User userAuth = (User) session.getAttribute("auth");
 
         if(userAuth == null){
@@ -41,8 +39,6 @@ public class AddToCartController extends HttpServlet {
             int cartProductCount;
             if(cart == null){
                 cart = new ShoppingCart();
-                cartProductCount = 0;
-                session.setAttribute(userIdCart, cart);
             }
             if(quantityRequired <= 0){
                 quantityRequired = 1;

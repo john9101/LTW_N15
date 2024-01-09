@@ -3,6 +3,7 @@ package controller.checkout;
 import models.DeliveryInfo;
 import models.ShoppingCart;
 import models.User;
+import org.json.JSONObject;
 import services.IMailServices;
 import services.MailPlaceOrderService;
 import services.MailResetPasswordServices;
@@ -13,31 +14,26 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @WebServlet(name = "PlaceOrderController", value = "/PlaceOrder")
 public class PlaceOrderController extends HttpServlet {
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        HttpSession session = request.getSession(true);
-        User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
-        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
-        DeliveryInfo deliveryInfoBuyer = cart.getDeliveryInfo();
-        String fullNameBuyer = deliveryInfoBuyer.getFullName();
-        String emailBuyer = deliveryInfoBuyer.getEmail();
-        String phoneBuyer = deliveryInfoBuyer.getPhone();
-        String addressBuyer = deliveryInfoBuyer.getAddress();
-        Timestamp timestampCurrent = Timestamp.valueOf(LocalDateTime.now());
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
-        IMailServices mailPlaceOrderService = new MailPlaceOrderService(emailBuyer, emailBuyer, timestampCurrent);
-        try {
-            mailPlaceOrderService.send();
-        } catch (MessagingException e) {
-            System.out.println(111);
-            throw new RuntimeException(e);
-        }
-        response.getWriter().print("Bạn đã đặt hàng thành công");
+//        HttpSession session = request.getSession(true);
+//        User userAuth = (User) session.getAttribute("auth");
+//        String userIdCart = String.valueOf(userAuth.getId());
+//        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
+        int invoiceNo = Math.abs(UUID.randomUUID().hashCode());
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("invoiceNo", invoiceNo);
+        response.setContentType("application/json");
+        response.getWriter().print(jsonObject);
     }
 
     @Override

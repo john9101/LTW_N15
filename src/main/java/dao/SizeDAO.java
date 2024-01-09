@@ -3,6 +3,7 @@ package dao;
 import models.Product;
 import models.Size;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class SizeDAO {
@@ -18,7 +19,7 @@ public class SizeDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, size);
     }
 
-    public void addSizes(Size[] sizes) {
+    public void addSizes(Size[] sizes){
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO sizes (nameSize, productId, sizePrice) ")
                 .append("VALUES ");

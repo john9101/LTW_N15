@@ -3,58 +3,6 @@ const paymentMethodRadioButtons = document.querySelectorAll(".payment__method--c
 const deliveryMethodRadioButtons = document.querySelectorAll(".delivery__method--container .radio__button");
 const customizeDeliveryInfo = document.getElementById("customize__info--form");
 
-function sectionSelectionHandleEvent(radioButtonElements) {
-    let preRadioButtonElement = null;
-    radioButtonElements.forEach((radioButtonElement, index) => {
-        radioButtonElement.addEventListener("change", () => {
-            if (preRadioButtonElement) {
-                Object.assign(preRadioButtonElement.parentElement.style, {
-                    backgroundColor: null,
-                    color: null,
-                    opacity: null
-                })
-            }
-            if (radioButtonElement.checked) {
-                Object.assign(radioButtonElement.parentElement.style, {
-                    backgroundColor: "var(--blue-color-high)",
-                    color: "white",
-                    opacity: "0.8"
-                })
-                preRadioButtonElement = radioButtonElement;
-            }
-
-            if (radioButtonElements === deliveryInfoRadioButtons) {
-                if (index === radioButtonElements.length - 1) {
-                    customizeDeliveryInfo.querySelectorAll('.error__notice').forEach(errorNotice => {
-                        errorNotice.textContent = "";
-                    });
-
-                    Object.assign(customizeDeliveryInfo.style, {
-                        display: "grid",
-                        gap: "20px"
-                    })
-
-                    document.querySelector(".info__items").style.display = "none"
-                } else {
-                    customizeDeliveryInfo.style.display = "none"
-                    document.querySelector(".info__items").style.display = "block"
-                }
-            }
-        })
-    })
-}
-sectionSelectionHandleEvent(deliveryInfoRadioButtons)
-sectionSelectionHandleEvent(paymentMethodRadioButtons)
-sectionSelectionHandleEvent(deliveryMethodRadioButtons)
-
-// function handleSubmitDeliveryMethod(radioButtonElements){
-//     radioButtonElements.forEach((radioButtonElement, index) =>{
-//         radioButtonElement.addEventListener("change", ()=>{
-//             radioButtonElement.closest("form").submit();
-//         })
-//     })
-// }
-// handleSubmitDeliveryMethod(deliveryMethodRadioButtons)
 
 function ValidatorCustomizeDeliveryForm(options) {
     let selectorRules = {};
@@ -191,66 +139,45 @@ function ValidatorCustomizeDeliveryForm(options) {
 //     }
 // }
 
-
-
-function showNoteDeliveryMethodOption(){
-    let preSelectedButton = null
-    deliveryMethodRadioButtons.forEach((deliveryMethodRadioButton) =>{
-        const noteDeliveryMethodOption = deliveryMethodRadioButton.closest(".method__content").querySelector(".method__content > span")
-        deliveryMethodRadioButton.addEventListener("click", ()=>{
-            if(preSelectedButton){
-                preSelectedButton.closest(".method__content").querySelector(".method__content > span").style.display = "none";
-                preSelectedButton = null
-            }
-
-            if(deliveryMethodRadioButton.checked){
-                noteDeliveryMethodOption.style.display = "block";
-                preSelectedButton = deliveryMethodRadioButton;
-            }
-        })
-    })
-}
-showNoteDeliveryMethodOption();
-
-function validateRadioSections() {
-    const placeOrderButton = document.querySelector(".place__order");
-    placeOrderButton.addEventListener('click', ()=>{
-        const radioSections = document.querySelectorAll('.radio__section');
-        let allSectionsSelected = true;
-        radioSections.forEach(radioSection => {
-            const radioButtons = radioSection.querySelectorAll('.radio__button');
-            const errorMessage = radioSection.parentElement.querySelector('.non__selected');
-            let sectionSelected = false;
-
-            radioButtons.forEach(radioButton => {
-                if (radioButton.checked) {
-                    sectionSelected = true;
-                }
-            });
-
-            if (!sectionSelected) {
-                allSectionsSelected = false;
-                errorMessage.style.display = 'block';
-            } else {
-                errorMessage.style.display = 'none';
-            }
-        });
-
-        if (allSectionsSelected) {
-
+function handleDisplayDescriptionMethodOptionChecked(typeMethodRadioButtons){
+    let previousSelectedButton = null;
+    typeMethodRadioButtons.forEach((typeMethodRadioButton) =>{
+        if(typeMethodRadioButton.checked){
+            let methodContent = typeMethodRadioButton.closest(".method__content");
+            let methodItem = methodContent.querySelector('.method__item');
+            let noteTypeMethodOption = methodContent.querySelector(".description__method")
+            methodItem.classList.add("method__checked");
+            noteTypeMethodOption.style.display = "grid";
+            previousSelectedButton = typeMethodRadioButton;
         }
     })
-    const radioButtons = document.querySelectorAll('.radio__button');
-    radioButtons.forEach(radioButton =>{
-        radioButton.addEventListener("click", ()=>{
-            const radioSection = radioButton.closest(".radio__section");
-            const errorMessage = radioSection.parentElement.querySelector('.non__selected');
-            errorMessage.style.display = 'none';
+
+    typeMethodRadioButtons.forEach((typeMethodRadioButton) =>{
+        let methodContent = typeMethodRadioButton.closest(".method__content");
+        let methodItem = methodContent.querySelector('.method__item');
+        let noteTypeMethodOption = methodContent.querySelector(".description__method")
+
+        typeMethodRadioButton.addEventListener("click", ()=>{
+
+            if(previousSelectedButton){
+                let methodContent = previousSelectedButton.closest(".method__content");
+                let methodItem = methodContent.querySelector('.method__item');
+                let noteTypeMethodOption = methodContent.querySelector(".description__method")
+                noteTypeMethodOption.style.display = "none";
+                methodItem.classList.remove("method__checked")
+                previousSelectedButton = null
+            }
+
+            if(typeMethodRadioButton.checked){
+                noteTypeMethodOption.style.display = "grid";
+                methodItem.classList.add("method__checked");
+                previousSelectedButton = typeMethodRadioButton;
+            }
         })
     })
 }
-// validateRadioSections();
-
+handleDisplayDescriptionMethodOptionChecked(deliveryMethodRadioButtons);
+handleDisplayDescriptionMethodOptionChecked(paymentMethodRadioButtons);
 
 function handleCustomizeDeliveryInfo(){
     const form = $('#customize__info--form');

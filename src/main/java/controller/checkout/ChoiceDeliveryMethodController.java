@@ -26,6 +26,7 @@ public class ChoiceDeliveryMethodController extends HttpServlet {
             exception.printStackTrace();
         }
         DeliveryMethod deliveryMethod = CheckoutServices.getINSTANCE().getDeliveryMethodById(deliveryMethodId);
+        System.out.println(deliveryMethod);
         HttpSession session = request.getSession(true);
         User userAuth = (User) session.getAttribute("auth");
         String userIdCart = String.valueOf(userAuth.getId());
@@ -36,6 +37,7 @@ public class ChoiceDeliveryMethodController extends HttpServlet {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("newTotalPrice", cart.totalPriceFormat());
         jsonObject.put("shippingFee", FormatCurrency.vietNamCurrency(cart.getDeliveryMethod().getShippingFee()));
+        response.setContentType("application/json");
         PrintWriter printWriter = response.getWriter();
         printWriter.print(jsonObject);
 

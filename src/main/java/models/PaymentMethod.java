@@ -1,8 +1,10 @@
 package models;
 
+import java.util.Objects;
+
 public class PaymentMethod {
     private int id;
-    private String typeMethod;
+    private String typePayment;
 
     public int getId() {
         return id;
@@ -12,19 +14,32 @@ public class PaymentMethod {
         this.id = id;
     }
 
-    public String getTypeMethod() {
-        return typeMethod;
+    public String getTypePayment() {
+        return typePayment;
     }
 
-    public void setTypeMethod(String typeMethod) {
-        this.typeMethod = typeMethod;
+    public void setTypePayment(String typePayment) {
+        this.typePayment = typePayment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaymentMethod that = (PaymentMethod) o;
+        return id == that.id && Objects.equals(typePayment, that.typePayment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, typePayment);
     }
 
     @Override
     public String toString() {
-        return "paymentMethod{" +
+        return "PaymentMethod{" +
                 "id=" + id +
-                ", typeMethod='" + typeMethod + '\'' +
+                ", typePayment='" + typePayment + '\'' +
                 '}';
     }
 }

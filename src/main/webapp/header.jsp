@@ -49,18 +49,20 @@
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
                             <c:if test="${auth.role == false}">
-                                <a href="shoppingCart.jsp" class="cart">
-                                    <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
-                                    <span class="qlt__swapper">
-                                        <span class="qlt__value">
-                                            <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
-                                            <c:choose>
-                                                <c:when test="${sessionScope[userIdCart] == null}">0</c:when>
-                                                <c:otherwise>${sessionScope[userIdCart].getTotalItems()}</c:otherwise>
-                                            </c:choose>
+                                <div class="cart__wrapper">
+                                    <a href="shoppingCart.jsp" class="cart">
+                                        <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
+                                        <span class="qlt__swapper">
+                                            <span class="qlt__value">
+                                                <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
+                                                <c:choose>
+                                                    <c:when test="${sessionScope[userIdCart] == null}">0</c:when>
+                                                    <c:otherwise>${sessionScope[userIdCart].getTotalItems()}</c:otherwise>
+                                                </c:choose>
+                                            </span>
                                         </span>
-                                    </span>
-                                </a>
+                                    </a>
+                                </div>
                             </c:if>
                             <div class="account">
                                 <i class="account__icon fa-regular fa-user"></i>

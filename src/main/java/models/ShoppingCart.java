@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ShoppingCart {
-
-    private static HashMap<Integer, List<CartProduct>> shoppingCartMap = new HashMap<>();
+    private HashMap<Integer, List<CartProduct>> shoppingCartMap = new HashMap<>();
     private Voucher voucherApplied;
     private DeliveryMethod deliveryMethod;
     private PaymentMethod paymentMethod;
-
     private DeliveryInfo deliveryInfo;
+
+    private String noteOrder;
 
     public ShoppingCart() {
     }
@@ -57,6 +57,14 @@ public class ShoppingCart {
 
     public void setDeliveryInfo(DeliveryInfo deliveryInfo) {
         this.deliveryInfo = deliveryInfo;
+    }
+
+    public String getNoteOrder() {
+        return noteOrder;
+    }
+
+    public void setNoteOrder(String noteOrder) {
+        this.noteOrder = noteOrder;
     }
 
     // Dùng cho trang productDetail khi người dùng chọn số lượng và nhấn nút "thêm vào giỏ hàng"
@@ -186,23 +194,23 @@ public class ShoppingCart {
 
     public static void main(String[] args) {
         ShoppingCart cart = new ShoppingCart();
-        Color color = new Color();
-        color.setCodeColor("aaa");
-        color.setId(1);
-        color.setProductId(1);
+//        Color color = new Color();
+//        color.setCodeColor("aaa");
+//        color.setId(1);
+//        color.setProductId(1);
+//
+//        Size size = new Size();
+//        size.setNameSize("x");
+//        size.setSizePrice(100000);
+//        size.setId(1);
+//        size.setProductId(1);
+//
+//        cart.add(1, 1, color, size);
+//        cart.add(1, 1, color, size);
+//
+//        Product product1 = ProductFactory.getProductById(1);
+//        Product product2 = ProductFactory.getProductById(1);
 
-        Size size = new Size();
-        size.setNameSize("x");
-        size.setSizePrice(100000);
-        size.setId(1);
-        size.setProductId(1);
-
-        cart.add(1, 1, color, size);
-        cart.add(1, 1, color, size);
-
-        Product product1 = ProductFactory.getProductById(1);
-        Product product2 = ProductFactory.getProductById(1);
-
-        System.out.println(shoppingCartMap);
+//        System.out.println(shoppingCartMap);
     }
 }

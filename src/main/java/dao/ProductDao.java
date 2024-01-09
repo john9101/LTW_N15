@@ -5,10 +5,11 @@ import models.Image;
 import models.Product;
 import models.Size;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProductDao {
-    public List<Image> getListImagesByProductId(int productId){
+    public static List<Image> getListImagesByProductId(int productId){
         String sql = "SELECT id, nameImage, productId FROM Images WHERE productId = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Image.class, productId);
     }
@@ -54,5 +55,9 @@ public class ProductDao {
         sql.append("INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) ")
                 .append("VALUES (?,?,?,?,?,?,?) ");
         GeneralDao.executeAllTypeUpdate(sql.toString(), product.getName(), product.getCategoryId(), product.getDescription(), product.getOriginalPrice(), product.getSalePrice(), product.isVisibility(), product.getCreateAt());
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getListImagesByProductId(1));;
     }
 }

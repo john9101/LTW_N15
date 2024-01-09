@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter("/checkout.jsp")
+@WebFilter(filterName = "checkoutFilter", urlPatterns = {"/checkout.jsp", "/Checkout"})
 public class CheckoutFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -25,33 +25,39 @@ public class CheckoutFilter implements Filter {
 
         HttpSession session = request.getSession(true);
         User userAuth = (User) session.getAttribute("auth");
-        String userIdCart = String.valueOf(userAuth.getId());
-        ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
-        String fullName = userAuth.getFullName();
-        String email = userAuth.getEmail();
-        String phone = userAuth.getPhone();
-        String address = userAuth.getAddress();
+        if(userAuth == null){
+            response.sendRedirect("signIn.jsp");
+        }else {
+            String userIdCart = String.valueOf(userAuth.getId());
+            ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
-        DeliveryInfo deliveryInfoAuth = new DeliveryInfo(fullName, email, phone, address);
+            String fullName = userAuth.getFullName();
+            String email = userAuth.getEmail();
+            String phone = userAuth.getPhone();
+            String address = userAuth.getAddress();
 
-        DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
-        if(deliveryInfoStorage == null){
-            deliveryInfoStorage = new DeliveryInfoStorage();
-            session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
-        }
+            DeliveryInfo deliveryInfoAuth = new DeliveryInfo(fullName, email, phone, address);
 
-        String url = request.getServletPath();
-        if(url.contains("checkout.jsp") && !url.contains("error404.jsp")){
+            DeliveryInfoStorage deliveryInfoStorage = (DeliveryInfoStorage) session.getAttribute("deliveryInfoStorage");
+            if(deliveryInfoStorage == null){
+                deliveryInfoStorage = new DeliveryInfoStorage();
+                session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
+            }
+
             if(cart.getDeliveryInfo() == null){
                 deliveryInfoStorage.add("defaultDeliveryInfo", deliveryInfoAuth);
                 cart.setDeliveryInfo(deliveryInfoAuth);
                 session.setAttribute("deliveryInfoStorage", deliveryInfoStorage);
                 session.setAttribute(userIdCart, cart);
             }
-            response.sendRedirect("Checkout");
+
+            String url = request.getServletPath();
+            if(url.contains("checkout.jsp") && !url.contains("error404.jsp")){
+                response.sendRedirect("Checkout");
+            }
+            filterChain.doFilter(request, response);
         }
-        filterChain.doFilter(request, response);
     }
 
     @Override
