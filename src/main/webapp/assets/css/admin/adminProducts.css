@@ -144,7 +144,7 @@
 .form__add-size:hover, .form__size-delete:hover, .form__add-color:hover, .form__color-delete:hover {
     cursor: pointer;
     opacity: 0.8;
-=======
+}
 .line-clamp {
     display: -webkit-box;
     -webkit-box-orient: vertical;
