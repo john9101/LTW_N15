@@ -1,6 +1,15 @@
 <%@ page import="models.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="models.Product" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="services.HomeServices" %>
+<%@ page import="models.Image" %>
+<%@ page import="utils.ProductFactory" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<jsp:useBean id="productFactory" class="utils.ProductFactory" scope="session"/>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -30,67 +39,9 @@
     <title>Trang chủ</title>
 </head>
 <body>
-<<<<<<< HEAD:index.html
-<!--Header nơi chứa navigation-->
-<header id="header">
-    <nav class="nav">
-        <div class="container-xl">
-            <div class="nav__inner">
-                <a href="index.html" class="logo">
-                </a>
-                <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="index.html" class="nav__link">Trang chủ</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="./htmls/productBuying.html" class="nav__link">Gian hàng</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="./htmls/contact.html" class="nav__link">Liên hệ</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="./htmls/about.html" class="nav__link">Về chúng tôi</a>
-                    </li>
-                </ul>
-                <!--cta == call to action-->
-                <div class="nav__cta">
-                    <a href="./htmls/signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="./htmls/signUp.html"
-                       class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
-                </div>
-                <!--Account show (After log in success)-->
-                <div class="account__wrapper">
-                    <!--Giỏ hàng-->
-                    <a href="./htmls/shoppingCart.html" class="cart">
-                        <i class="cart__icon  fa-solid fa-cart-shopping"></i>
-                    </a>
-
-                    <div class="account">
-                        <i class="account__icon fa-regular fa-user"></i>
-                        <div class="setting__list">
-                            <div class="setting__item"><a href="#!" class="setting__link">
-                                <div class="account__info">
-                                    <i class="account__icon fa-regular fa-user"></i>
-                                    <p class="account__name"></p>
-                                </div>
-                            </a></div>
-                            <div class="setting__item"><a href="./htmls/account.html" class="setting__link">Tài khoản
-                                của tôi</a>
-                            </div>
-                            <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
-                                xuất</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
-=======
 <!--Header-->
-<jsp:include page="header.jsp"></jsp:include>
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/index.jsp
+<c:import url="header.jsp" charEncoding="UTF-8"/>
+<%--<jsp:include page="header.jsp"></jsp:include>--%>
 <!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
 <main id="main">
     <!--Hero-->
@@ -107,10 +58,9 @@
         <div id="slider__category--section">
             <div class="slider__container">
                 <div class="slider__items">
-                    <img class="slider__item" src="./assets/img/slider/T-Shirt.png">
-                    <img class="slider__item" src="./assets/img/slider/Hoodie.png">
-                    <img class="slider__item" src="./assets/img/slider/Vest.png">
-                    <img class="slider__item" src="./assets/img/slider/Pants.png">
+                    <c:forEach items="${requestScope.listSlideShow}" var="slide">
+                        <img class="slider__item" src="./assets/img/slider/${slide.nameImage}">
+                    </c:forEach>
                 </div>
                 <div class="navigation__button nav__prev">
                     <i class="fa-solid fa-chevron-left"></i>
@@ -129,38 +79,267 @@
             </div>
             <div class="category__container category__items">
                 <div class="category__item">
-                    <p class="item__text">Áo thun</p>
+                    <p class="item__text">Áo thun / T-Shirt</p>
                     <img class="item__image" src="./assets/img/category/T-shirt.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Áo hoodie</p>
+                    <p class="item__text">Áo hoodie / Hoodie</p>
                     <img class="item__image" src="./assets/img/category/hoodie.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Balo</p>
+                    <p class="item__text">Balo / Backpack</p>
                     <img class="item__image" src="./assets/img/category/backpack.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Quần dài</p>
+                    <p class="item__text">Quần dài / Pants</p>
                     <img class="item__image" src="./assets/img/category/pants.png">
                 </div>
                 <div class="category__item">
-                    <p class="item__text">Nón</p>
+                    <p class="item__text">Nón / Cap</p>
                     <img class="item__image" src="./assets/img/category/hat.png">
                 </div>
             </div>
         </div>
     </div>
-    <div class="popular__section container-xl">
-        <h2 class="section__title">Mẫu đồ phổ biến</h2>
-        <div class="product__container">
-            <div class="product__items">
 
+    <div class="popular__section container-xl">
+        <div class="popular__title">
+            <h2 class="section__title">Sản phẩm thịnh hành</h2>
+            <a class="see__more" href="trendingProducts">Xem thêm</a>
+        </div>
+        <div class="product__wrapper">
+            <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
+            <%--            <div class="product__items">--%>
+            <%--                <c:forEach items="${requestScope.list6TrendingProducts}" var="trendProduct">--%>
+            <%--                    <div class="product__item">--%>
+            <%--                        <div class="product__content">--%>
+            <%--                            <div class="image--tag">--%>
+            <%--                                <img src="./assets/img/product_img/${trendProduct['nameimage']}">--%>
+            <%--                                <span class="product__tag">Thịnh hành</span>--%>
+
+            <%--                                <c:url var="atc" value="AddToCart">--%>
+            <%--                                    <c:param name="productId" value="${trendProduct['id']}"/>--%>
+            <%--                                </c:url>--%>
+            <%--                                <form action="${atc}" class="action__bar" method="post">--%>
+            <%--                                    <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>--%>
+            <%--                                    <a class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i></a>--%>
+            <%--                                </form>--%>
+            <%--                            </div>--%>
+            <%--                            <div class="product__info">--%>
+            <%--                                <a class="product__name" href="#">${trendProduct["name"]}</a>--%>
+            <%--                                <div class="product__review">--%>
+            <%--                                    <div class="review__icon">--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                    </div>--%>
+            <%--                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>--%>
+            <%--                                </div>--%>
+            <%--                                <span class="product__price">--%>
+            <%--                                    <fmt:setLocale value="vi_VN"/>--%>
+            <%--                                    <c:choose>--%>
+            <%--                                        <c:when test="${trendProduct['saleprice'] == null}">--%>
+            <%--                                            <strong class="priority__price">--%>
+            <%--                                                <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>--%>
+            <%--                                            </strong>--%>
+            <%--                                        </c:when>--%>
+            <%--                                        <c:otherwise>--%>
+            <%--                                            <strong class="sale__price">--%>
+            <%--                                                <fmt:formatNumber value="${trendProduct['saleprice']}" type="currency"/>--%>
+            <%--                                            </strong>--%>
+            <%--                                            <s class="original__price">--%>
+            <%--                                                <fmt:formatNumber value="${trendProduct['originalprice']}" type="currency"/>--%>
+            <%--                                            </s>--%>
+            <%--                                        </c:otherwise>--%>
+            <%--                                    </c:choose>--%>
+            <%--                                </span>--%>
+            <%--                            </div>--%>
+            <%--                        </div>--%>
+            <%--                    </div>--%>
+            <%--                </c:forEach>--%>
+            <%--            </div>--%>
+            <div class="product__items">
+                <c:forEach items="${requestScope.list6TrendingProducts}" var="trendProduct">
+                    <div class="product__item">
+                        <div class="product__content">
+                            <div class="image--tag">
+                                <c:set value="${productFactory.getListImagesByProductId(trendProduct.id)}" var="listTrendProductImages"/>
+                                    <%--                                <c:set var="pid" value="${trendProduct.id}"/>--%>
+                                    <%--                                <%--%>
+                                    <%--                                    int productId = (int) pageContext.getAttribute("pid");--%>
+                                    <%--                                    List<Images> listImageProduct = HomeServices.getINSTANCE().getListImageByProductId(productId);--%>
+                                    <%--                                %>--%>
+                                    <%--                                <img src="./assets/img/product_img/<%= listImageProduct.get(0).getNameImage() %>">--%>
+                                <img src="./assets/img/product_img/${listTrendProductImages.get(0).nameImage}">
+                                <span class="product__tag">Thịnh hành</span>
+
+                                    <%--                                <c:url var="atc" value="AddToCart">--%>
+                                    <%--                                    <c:param name="productId" value="${trendProduct.id}"/>--%>
+                                    <%--                                </c:url>--%>
+                                <form action="AddToCart" class="action__bar" method="post">
+                                    <input type="hidden" name="productId" value="${trendProduct.id}">
+                                    <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
+                                    <a class="see__detail" target="_blank" href="showProductDetail?id=${trendProduct.id}"><i class="fa-solid fa-eye"></i></a>
+                                </form>
+                            </div>
+                            <div class="product__info">
+                                <a class="product__name" href="#">${trendProduct.name}</a>
+                                <div class="product__review">
+                                    <div class="review__icon">
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                    </div>
+                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>
+                                </div>
+                                <span class="product__price">
+                                    <fmt:setLocale value="vi_VN"/>
+                                    <c:choose>
+                                        <c:when test="${trendProduct.salePrice == null}">
+                                            <strong class="priority__price">
+                                                <fmt:formatNumber value="${trendProduct.originalPrice}" type="currency"/>
+                                            </strong>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <strong class="sale__price">
+                                                <fmt:formatNumber value="${trendProduct.salePrice}" type="currency"/>
+                                            </strong>
+                                            <s class="original__price">
+                                                <fmt:formatNumber value="${trendProduct.originalPrice}" type="currency"/>
+                                            </s>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
-            <button id="left__button"><i class="fa-solid fa-arrow-left"></i></button>
-            <button id="right__button"><i class="fa-solid fa-arrow-right"></i></button>
+            <button class="right__button"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
+
+    <div class="new__section container-xl">
+        <div class="new__title">
+            <h2 class="section__title">Sản phẩm mới</h2>
+            <a class="see__more" href="newProducts">Xem thêm</a>
+        </div>
+        <div class="product__wrapper">
+            <button class="left__button"><i class="fa-solid fa-arrow-left"></i></button>
+            <%--            <div class="product__items">--%>
+            <%--                <c:forEach items="${requestScope.list6NewProducts}" var="newProduct">--%>
+            <%--                    <div class="product__item">--%>
+            <%--                        <div class="product__content">--%>
+            <%--                            <div class="image--tag">--%>
+            <%--                                <img src="./assets/img/product_img/${newProduct['nameimage']}">--%>
+            <%--                                <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">--%>
+            <%--                                    <span class="product__tag">Thịnh hành</span>--%>
+            <%--                                </c:if>--%>
+            <%--                                <c:url var="atc" value="AddToCart">--%>
+            <%--                                    <c:param name="productId" value="${newProduct['id']}"/>--%>
+            <%--                                </c:url>--%>
+            <%--                                <form class="action__bar" action="${atc}" method="post">--%>
+            <%--                                    <button type="submit" class="add__cart">Thêm vào giỏ hàng <i class="fa-solid fa-cart-shopping"></i></button>--%>
+            <%--                                    <a href="" class="see__detail">Xem chi tiết <i class="fa-solid fa-eye"></i></a>--%>
+            <%--                                </form>--%>
+            <%--                            </div>--%>
+            <%--                            <div class="product__info">--%>
+            <%--                                <a class="product__name" href="#">${newProduct["name"]}</a>--%>
+            <%--                                <div class="product__review">--%>
+            <%--                                    <div class="review__icon">--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                        <i class="fa-solid fa-star icon__item"></i>--%>
+            <%--                                    </div>--%>
+            <%--                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>--%>
+            <%--                                </div>--%>
+            <%--                                <span class="product__price">--%>
+            <%--                                    <fmt:setLocale value="vi_VN"/>--%>
+            <%--                                    <c:choose>--%>
+            <%--                                        <c:when test="${newProduct['saleprice'] == null}">--%>
+            <%--                                            <strong class="priority__price">--%>
+            <%--                                                <fmt:formatNumber value="${newProduct['originalprice']}" type="currency"/>--%>
+            <%--                                            </strong>--%>
+            <%--                                        </c:when>--%>
+            <%--                                        <c:otherwise>--%>
+            <%--                                            <strong class="sale__price">--%>
+            <%--                                                <fmt:formatNumber value="${newProduct['saleprice']}" type="currency"/>--%>
+            <%--                                            </strong>--%>
+            <%--                                            <s class="original__price">--%>
+            <%--                                                <fmt:formatNumber value="${newProduct['originalprice']}" type="currency"/>--%>
+            <%--                                            </s>--%>
+            <%--                                        </c:otherwise>--%>
+            <%--                                    </c:choose>--%>
+            <%--                                </span>--%>
+            <%--                            </div>--%>
+            <%--                        </div>--%>
+            <%--                    </div>--%>
+            <%--                </c:forEach>--%>
+            <%--            </div>--%>
+            <div class="product__items">
+                <c:forEach items="${requestScope.list6NewProducts}" var="newProduct">
+                    <div class="product__item">
+                        <div class="product__content">
+                            <div class="image--tag">
+                                <c:set value="${productFactory.getListImagesByProductId(newProduct.id)}" var="listNewProductImages"/>
+                                <img src="./assets/img/product_img/${listNewProductImages.get(0).nameImage}">
+                                <c:if test="${fn:contains(sessionScope.listAllTrendingProducts, newProduct)}">
+                                    <span class="product__tag">Thịnh hành</span>
+                                </c:if>
+                                    <%--                                <c:url var="atc" value="AddToCart">--%>
+                                    <%--                                    <c:param name="productId" value="${newProduct.id}"/>--%>
+                                    <%--                                </c:url>--%>
+                                <form class="action__bar" action="AddToCart" method="post">
+                                    <input type="hidden" name="productId" value="${newProduct.id}">
+                                    <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
+                                    <a class="see__detail" target="_blank" href="showProductDetail?id=${newProduct.id}"><i class="fa-solid fa-eye"></i></a>
+                                </form>
+                            </div>
+                            <div class="product__info">
+                                <a class="product__name" href="#">${newProduct.name}</a>
+                                <div class="product__review">
+                                    <div class="review__icon">
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <i class="fa-solid fa-star icon__item"></i>
+                                    </div>
+                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>
+                                </div>
+                                <span class="product__price">
+                                    <fmt:setLocale value="vi_VN"/>
+                                    <c:choose>
+                                        <c:when test="${newProduct.salePrice == null}">
+                                            <strong class="priority__price">
+                                                <fmt:formatNumber value="${newProduct.originalPrice}" type="currency"/>
+                                            </strong>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <strong class="sale__price">
+                                                <fmt:formatNumber value="${newProduct.salePrice}" type="currency"/>
+                                            </strong>
+                                            <s class="original__price">
+                                                <fmt:formatNumber value="${newProduct.originalPrice}" type="currency"/>
+                                            </s>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+            <button class="right__button"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
     <div id="discovery__us--section" class="container-xl">
         <div class="discovery__container">
             <h2 class="section__title">Bạn có thể khám phá được điều gì ở chúng tôi?</h2>
@@ -224,80 +403,56 @@
         </div>
     </div>
 </main>
-<<<<<<< HEAD:index.html
-<!--Footer: chứa các thẻ a link đến các mục khác như contact, license, thông tin địa chỉ, giờ làm việc,...-->
-<footer id="footer">
-    <div class="container-xl">
-        <a href="#" class="logo"></a>
-        <div class="row">
-            <div class="col ">
-                <div class="footer__block">
-                    <p class="footer__title">Giờ làm việc</p>
-                    <p class="footer__desc">9:00 - 17:00</p>
-                </div>
-
-                <div class="footer__block">
-                    <p class="footer__title">Địa chỉ</p>
-                    <a target="_blank" href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh
-                        Tấn Phát,
-                        Phường
-                        Phú Thuận, Quận 7, Tp. Hồ
-                        Chí Minh</a></div>
-            </div>
-            <div class="col">
-                <ul class="footer__block">
-                    <li class="footer__desc">
-                        <a href="./htmls/productBuying.html" class="footer__link">Gian hàng</a>
-                    </li>
-                    <li class="footer__desc">
-                        <a href="./htmls/contact.html" class="footer__link">Liên hệ</a>
-                    </li>
-                    <li class="footer__desc">
-                        <a href="./htmls/about.html" class="footer__link">Về chúng tôi</a>
-                    </li>
-                    <li class="footer__desc">
-                        <a href="./htmls/policy.html" class="footer__link">Chính sách mua hàng</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col">
-                <div class="footer__block">
-                    <div class="footer__title">Kết nối với chúng tôi thông qua</div>
-                    <div class="footer__block social__list">
-                        <a href="#!" class="social__item">
-                            <i class="social__item-icon fa-brands fa-facebook-f"></i>
-                        </a>
-                        <a href="#!" class="social__item">
-                            <i class="social__item-icon fa-brands fa-x-twitter"></i>
-                        </a>
-                        <a href="#!" class="social__item">
-                            <i class="social__item-icon fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="#!" class="social__item">
-                            <i class="social__item-icon fa-brands fa-linkedin-in"></i>
-                        </a>
-                    </div>
-
-                    <div class="footer__block">
-                        <p class="footer__title">Nhận thêm thông tin thông qua</p>
-                        <form action="#" class="footer__form">
-                            <input placeholder="Email" type="email" class="footer__input" required>
-                            <button type="submit" class="footer__submit button button--hover">
-                                <i class="footer__submit-icon fa-regular fa-paper-plane"></i>
-                                Gửi
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<script src="./js/base.js"></script>
-=======
 <!--Footer-->
 <%@include file="footer.jsp" %>
 <script src="./js/home.js"></script>
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/index.jsp
+<script src="js/base.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+    function addToCartAjax(){
+        $(document).ready(function (){
+            $('.action__bar').each(function (index, actionBar){
+                $(actionBar).on('submit', function (event){
+                    event.preventDefault();
+                    let userLoggedIn;
+                    <c:choose>
+                    <c:when test="${sessionScope.auth == null}">
+                    userLoggedIn = false
+                    </c:when>
+                    <c:otherwise>
+                    userLoggedIn = true
+                    </c:otherwise>
+                    </c:choose>
+                    if(userLoggedIn === false){
+                        window.location.href = "signIn.jsp"
+                    }else {
+                        const form = $(actionBar);
+                        let productId = form.find('input[name="productId"]').val();
+                        $.ajax({
+                            type: form.attr('method'),
+                            url: form.attr('action'),
+                            data: {productId: productId},
+                            success: function (response) {
+                                let addToCartSuccessHTML = `<div class="notification__cart">
+                                                                <div class="status__success">
+                                                                    <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
+                                                                    <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
+                                                                </div>
+                                                                <a class="view__cart" href="shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                            </div>`;
+                                $('.cart__wrapper').append(addToCartSuccessHTML)
+                                $('.qlt__value').text(response);
+                            },
+                            error: function (error){
+                                console.error('Lỗi khi thêm sản phẩm vào giỏ hàng', error);
+                            }
+                        })
+                    }
+                })
+            })
+        })
+    }
+    addToCartAjax();
+</script>
 </body>
 </html>

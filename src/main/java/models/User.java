@@ -1,11 +1,13 @@
 package models;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
-public class User {
+public class User implements Serializable {
     private int id;
     private String username;
-    private String password;
+    private String passwordEncoding;
     private String fullName;
     private String gender;
     private String email;
@@ -13,15 +15,14 @@ public class User {
     private String address;
     private Date birthDay;
     private boolean isVerify;
-    private boolean role;
+    private String role;
     private String avatar;
+    private String tokenVerify;
+    private Timestamp tokenVerifyTime;
+    private String tokenResetPassword;
+    private Timestamp tokenResetPasswordTime;
 
     public User() {
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
     }
 
     public int getId() {
@@ -40,12 +41,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordEncoding() {
+        return passwordEncoding;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswordEncoding(String passwordEncoding) {
+        this.passwordEncoding = passwordEncoding;
     }
 
     public String getFullName() {
@@ -104,11 +105,11 @@ public class User {
         isVerify = verify;
     }
 
-    public boolean isRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(boolean role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -120,12 +121,44 @@ public class User {
         this.avatar = avatar;
     }
 
+    public String getTokenVerify() {
+        return tokenVerify;
+    }
+
+    public void setTokenVerify(String tokenVerify) {
+        this.tokenVerify = tokenVerify;
+    }
+
+    public String getTokenResetPassword() {
+        return tokenResetPassword;
+    }
+
+    public void setTokenResetPassword(String tokenResetPassword) {
+        this.tokenResetPassword = tokenResetPassword;
+    }
+
+    public Timestamp getTokenVerifyTime() {
+        return tokenVerifyTime;
+    }
+
+    public void setTokenVerifyTime(Timestamp tokenVerifyTime) {
+        this.tokenVerifyTime = tokenVerifyTime;
+    }
+
+    public Timestamp getTokenResetPasswordTime() {
+        return tokenResetPasswordTime;
+    }
+
+    public void setTokenResetPasswordTime(Timestamp tokenResetPasswordTime) {
+        this.tokenResetPasswordTime = tokenResetPasswordTime;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", passwordEncoding='" + passwordEncoding + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", email='" + email + '\'' +
@@ -135,6 +168,10 @@ public class User {
                 ", isVerify=" + isVerify +
                 ", role=" + role +
                 ", avatar='" + avatar + '\'' +
+                ", tokenVerify='" + tokenVerify + '\'' +
+                ", tokenVerifyTime=" + tokenVerifyTime +
+                ", tokenResetPassword='" + tokenResetPassword + '\'' +
+                ", tokenResetPasswordTime=" + tokenResetPasswordTime +
                 '}';
     }
 }

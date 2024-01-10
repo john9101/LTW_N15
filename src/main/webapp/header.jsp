@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="models.User" %>
+<%@ page import="models.UserSessionAccess" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!--Header-->
 <header id="header">
@@ -22,50 +23,75 @@
                         <a href="about.jsp" class="nav__link">Về chúng tôi</a>
                     </li>
                 </ul>
-                <%User auth = (User) session.getAttribute("auth");%>
-                <%if (auth == null) {%>
-                <!--cta == call to action-->
-                <div class="nav__cta">
-                    <a href="signIn.jsp" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="signUp.jsp"
-                       class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
-                </div>
-                <%} else {%>
-                <!--Account show (After log in success)-->
-                <div class="account__wrapper">
-                    <!--Giỏ hàng-->
-                    <a href="shoppingCart.jsp" class="cart">
-                        <i class="cart__icon  fa-solid fa-cart-shopping"></i>
-                    </a>
 
-                    <div class="account">
-                        <i class="account__icon fa-regular fa-user"></i>
-                        <div class="setting__list">
-                            <div class="setting__item"><a href="#!" class="setting__link">
-                                <div class="account__info">
-                                    <i class="account__icon fa-regular fa-user"></i>
-                                    <p class="account__name">
-                                        <%=auth.getUsername()%>
-                                    </p>
+<%--                <c:forEach items="${sessionScope}" var="sessionAttribute">--%>
+<%--&lt;%&ndash;                    ${sessionAttribute.value['class'].simpleName}&ndash;%&gt;--%>
+<%--                    <c:if test="${sessionAttribute.value.getClass().simpleName eq 'User'}">--%>
+<%--                        <c:if test="${sessionAttribute.key eq UserSessionAccess.getINSTANCE().getUserSessionId()}">--%>
+<%--                            <c:set var="auth" value="${sessionAttribute.value}"/>--%>
+<%--                        </c:if>--%>
+<%--                    </c:if>--%>
+<%--                </c:forEach>--%>
+                <c:set var="auth" value="${sessionScope.auth}"/>
+                <c:choose>
+                    <c:when test="${auth == null}">
+                        <!--cta == call to action-->
+                        <div class="nav__cta">
+                            <a href="signIn.jsp" class="nav__button nav__button--signIn">Đăng nhập</a>
+                            <a href="signUp.jsp"
+                               class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <% System.out.println(session.getId()); %>
+                        <!--Account show (After log in success)-->
+                        <div class="account__wrapper">
+                            <!--Giỏ hàng-->
+                            <c:if test="${auth.role == false}">
+                                <div class="cart__wrapper">
+                                    <a href="shoppingCart.jsp" class="cart">
+                                        <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
+                                        <span class="qlt__swapper">
+                                            <span class="qlt__value">
+                                                <c:set var="userIdCart" value="${String.valueOf(auth.id)}"/>
+                                                <c:choose>
+                                                    <c:when test="${sessionScope[userIdCart] == null}">0</c:when>
+                                                    <c:otherwise>${sessionScope[userIdCart].getTotalItems()}</c:otherwise>
+                                                </c:choose>
+                                            </span>
+                                        </span>
+                                    </a>
                                 </div>
-                            </a></div>
-                            <div class="setting__item"><a href="account.jsp" class="setting__link">Tài
-                                                                                                   khoản
-                                                                                                   của
-                                                                                                   tôi</a>
-                            </div>
-                            <div class="setting__item">
-                                <a href="account.jsp" class="setting__link">
-                                    <c:out value="${sessionScope.auth.username}"/>
-                                </a>
-                            </div>
-                            <div class="setting__item "><a href="logOut" class="setting__link setting__logOut">Đăng
-                                                                                                               xuất</a>
+                            </c:if>
+                            <div class="account">
+                                <i class="account__icon fa-regular fa-user"></i>
+                                <div class="setting__list">
+                                    <div class="setting__item"><a href="#!" class="setting__link">
+                                        <div class="account__info">
+                                            <i class="account__icon fa-regular fa-user"></i>
+                                            <p class="account__name">
+                                                <c:out value="${auth.getUsername()}"/>
+                                            </p>
+                                        </div>
+                                    </a></div>
+                                    <div class="setting__item"><a href="account.jsp" class="setting__link">Tài
+                                        khoản
+                                        của
+                                        tôi</a>
+                                    </div>
+                                    <c:if test="${auth.role == 2 || auth.role == 1}">
+                                        <div class="setting__item"><a href="adminProducts.jsp" class="setting__link">Quản
+                                                                                                                       lý</a>
+                                        </div>
+                                    </c:if>
+                                    <div class="setting__item "><a href="signOut" class="setting__link setting__logOut">Đăng
+                                        xuất</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <%}%>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </nav>

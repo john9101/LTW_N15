@@ -3,10 +3,8 @@ package dao;
 import java.util.List;
 
 public interface DAO<T> {
-    //READ
-    List<T> selectALl();
 
-    T select(int id);
+    T selectById(int id);
 
     //CREATE
     int insert(T o);
