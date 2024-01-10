@@ -72,7 +72,9 @@ public class DecreaseQuantityController extends HttpServlet {
             Voucher voucher = cart.getVoucherApplied();
             if (voucher == null) {
                 voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
-            } else if (cart.getTemporaryPrice() < voucher.getMinimumPrice()) {
+            }
+
+            if (cart.getTemporaryPrice() < voucher.getMinimumPrice()) {
                 double minPriceToApply = voucher.getMinimumPrice();
                 double currentTempPrice = cart.getTemporaryPrice();
 
@@ -92,6 +94,7 @@ public class DecreaseQuantityController extends HttpServlet {
         String newTemporaryPriceFormat = cart.temporaryPriceFormat();
         String discountPriceFormat = cart.discountPriceFormat();
         String newTotalPriceFormat = cart.totalPriceFormat();
+
 
         jsonObject.put("newQuantity", newQuantity);
         jsonObject.put("newSubtotalFormat", newSubtotalFormat);

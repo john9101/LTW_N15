@@ -74,7 +74,9 @@ public class DeleteCartProductController extends HttpServlet {
             Voucher voucher = cart.getVoucherApplied();
             if (voucher == null){
                 voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
-            } else if (cart.getTemporaryPrice() < voucher.getMinimumPrice()){
+            }
+
+            if (cart.getTemporaryPrice() < voucher.getMinimumPrice()){
                 double minPriceToApply = voucher.getMinimumPrice();
                 double currentTempPrice = cart.getTemporaryPrice();
 

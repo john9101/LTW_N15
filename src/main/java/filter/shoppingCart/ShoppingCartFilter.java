@@ -34,8 +34,12 @@ public class ShoppingCartFilter implements Filter {
         if(userAuth == null){
             response.sendRedirect("signIn.jsp");
         }else {
+            String userIdCart = String.valueOf(userAuth.getId());
+            ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
             String url = request.getServletPath();
             if(url.contains("shoppingCart.jsp") && !url.contains("error404.jsp")){
+                cart.setDeliveryMethod(null);
+                session.setAttribute(userIdCart, cart);
                 response.sendRedirect("ShoppingCart");
             }
             filterChain.doFilter(request, response);
