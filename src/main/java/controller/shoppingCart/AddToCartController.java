@@ -34,12 +34,13 @@ public class AddToCartController extends HttpServlet {
             }catch (NumberFormatException exception){
                 exception.printStackTrace();
             }
-            ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+
+            String userIdCart = String.valueOf(userAuth.getId());
+
+            ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
             int cartProductCount;
             if(cart == null){
                 cart = new ShoppingCart();
-                cartProductCount = 0;
-                session.setAttribute("cart", cart);
             }
             if(quantityRequired <= 0){
                 quantityRequired = 1;
@@ -60,7 +61,7 @@ public class AddToCartController extends HttpServlet {
             Color color = ProductFactory.getColorByCodeColorWithProductId(colorCode, productId);
             cart.add(productId, quantityRequired, color, size);
             cartProductCount = cart.getTotalItems();
-            session.setAttribute("cart", cart);
+            session.setAttribute(userIdCart, cart);
 //            response.sendRedirect("index.jsp");
 
             response.getWriter().write(String.valueOf(cartProductCount));
