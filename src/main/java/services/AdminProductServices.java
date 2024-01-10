@@ -34,7 +34,7 @@ public class AdminProductServices {
     public int addProduct(Product product) {
         List<Product> productList = productDAO.getIdProductByName(product.getName());
         if (!productList.isEmpty()) return 0;
-        productDAO.createProduct(product);
+        productDAO.addProduct(product);
         return productDAO.getIdProductByName(product.getName()).get(0).getId();
     }
 

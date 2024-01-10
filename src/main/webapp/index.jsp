@@ -181,7 +181,7 @@
                                 <form action="AddToCart" class="action__bar" method="post">
                                     <input type="hidden" name="productId" value="${trendProduct.id}">
                                     <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    <a class="see__detail" href="ProductDetails?pid=${trendProduct.id}"><i class="fa-solid fa-eye"></i></a>
+                                    <a class="see__detail" target="_blank" href="showProductDetail?id=${trendProduct.id}"><i class="fa-solid fa-eye"></i></a>
                                 </form>
                             </div>
                             <div class="product__info">
@@ -298,7 +298,7 @@
                                 <form class="action__bar" action="AddToCart" method="post">
                                     <input type="hidden" name="productId" value="${newProduct.id}">
                                     <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    <a href="" class="see__detail"><i class="fa-solid fa-eye"></i></a>
+                                    <a class="see__detail" target="_blank" href="showProductDetail?id=${newProduct.id}"><i class="fa-solid fa-eye"></i></a>
                                 </form>
                             </div>
                             <div class="product__info">

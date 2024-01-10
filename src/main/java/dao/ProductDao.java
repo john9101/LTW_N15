@@ -2,7 +2,6 @@ package dao;
 
 import models.*;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,8 +49,8 @@ public class ProductDao {
         return GeneralDao.executeQueryWithSingleTable(sql, Product.class, name);
     }
 
-    //Create
-    public void createProduct(Product product) {
+    //    Update
+    public void addProduct(Product product) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) ")
                 .append("VALUES (?,?,?,?,?,?,?) ");
