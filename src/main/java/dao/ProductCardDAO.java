@@ -263,4 +263,11 @@ public class ProductCardDAO {
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
     }
 
+    public List<Product> getNameProductById(int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT name ")
+                .append("FROM products ")
+                .append("WHERE products.id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, id);
+    }
 }
