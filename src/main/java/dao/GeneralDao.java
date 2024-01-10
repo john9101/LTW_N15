@@ -47,8 +47,8 @@ public class GeneralDao {
 //            }
 //            return update.execute();
 //        });
-
 //        JDBIConnector.get().withHandle(handle -> handle.execute(sql, params));
+
         try {
             JDBIConnector.get().useTransaction(handle -> {
                 try {

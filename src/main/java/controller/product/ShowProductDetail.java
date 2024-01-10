@@ -29,7 +29,11 @@ public class ShowProductDetail extends HttpServlet {
         if (product == null) {
             response.sendError(404);
         } else {
+<<<<<<< HEAD
             //            Product
+=======
+//            Product
+>>>>>>> 2f2e062eb617b76e5cf7f6eee7de2166a2940dfa
             request.setAttribute("product", product);
             //Reviews
             List<Review> listReview = getListReview(id);
@@ -37,7 +41,11 @@ public class ShowProductDetail extends HttpServlet {
 //            Related product
             List<Product> listProductRelated = getListProductRandom(product.getCategoryId(), 4);
             request.setAttribute("listProductRelated", listProductRelated);
+<<<<<<< HEAD
             request.getRequestDispatcher("/productDetail.jsp").forward(request, response);
+=======
+            request.getRequestDispatcher("productDetail.jsp").forward(request, response);
+>>>>>>> 2f2e062eb617b76e5cf7f6eee7de2166a2940dfa
         }
     }
 

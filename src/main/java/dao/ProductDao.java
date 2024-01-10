@@ -1,25 +1,26 @@
 package dao;
 
-import models.Color;
-import models.Image;
-import models.Product;
-import models.Size;
+import models.*;
 
-import java.sql.SQLException;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductDao {
-    public static List<Image> getListImagesByProductId(int productId){
+
+    public List<Image> getListImagesByProductId(int productId) {
         String sql = "SELECT id, nameImage, productId FROM Images WHERE productId = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Image.class, productId);
     }
 
-    public List<Color> getListColorsByProductId(int productId){
+
+    public List<Color> getListColorsByProductId(int productId) {
         String sql = "SELECT id, codeColor, productId FROM colors WHERE productId = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Color.class, productId);
     }
 
-    public List<Size> getListSizesByProductId(int productId){
+    public List<Size> getListSizesByProductId(int productId) {
         String sql = "SELECT id, nameSize, productId, sizePrice FROM sizes WHERE productId = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Size.class, productId);
     }
@@ -30,7 +31,7 @@ public class ProductDao {
     }
 
     public Product getProductByProductId(int productId) {
-        String sql = "SELECT id, `name`, `description`, salePrice, originalPrice FROM products WHERE id = ?";
+        String sql = "SELECT id, `name`, categoryId, `description`, salePrice, originalPrice FROM products WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(sql, Product.class, productId).get(0);
     }
 
@@ -49,15 +50,46 @@ public class ProductDao {
         return GeneralDao.executeQueryWithSingleTable(sql, Product.class, name);
     }
 
-    //    Update
-    public void addProduct(Product product) {
+    //Create
+    public void createProduct(Product product) {
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO products (name, categoryId, description, originalPrice, salePrice, visibility, createAt) ")
                 .append("VALUES (?,?,?,?,?,?,?) ");
         GeneralDao.executeAllTypeUpdate(sql.toString(), product.getName(), product.getCategoryId(), product.getDescription(), product.getOriginalPrice(), product.getSalePrice(), product.isVisibility(), product.getCreateAt());
     }
 
-    public static void main(String[] args) {
-        System.out.println(getListImagesByProductId(1));;
+    //Update
+    public void updateProduct(Product product, int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE products ")
+                .append("SET ").append(updatedFieldProduct(product))
+                .append(" WHERE id = ?");
+        GeneralDao.executeAllTypeUpdate(sql.toString(), id);
     }
+
+    private String updatedFieldProduct(Product product) {
+        StringBuilder updatedField = new StringBuilder();
+        Map<String, String> updatedFieldMap = new HashMap<>();
+        if (product.getName() != null)
+            updatedFieldMap.put("name", "\"" + product.getName() + "\"");
+        if (product.getCategoryId() != 0)
+            updatedFieldMap.put("categoryId", product.getCategoryId() + "");
+        if (product.getDescription() != null)
+            updatedFieldMap.put("description", "\"" + product.getDescription() + "\"");
+        if (product.getOriginalPrice() != -1)
+            updatedFieldMap.put("originalPrice", product.getOriginalPrice() + "");
+        if (product.getSalePrice() != -1)
+            updatedFieldMap.put("salePrice", product.getSalePrice() + "");
+        if (product.getCreateAt() != null)
+            updatedFieldMap.put("createAt", "\"" + product.getCreateAt().toString() + "\"");
+
+        for (Map.Entry<String, String> entry : updatedFieldMap.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            updatedField.append(key).append(" = ").append(value).append(",");
+        }
+        return updatedField.toString().substring(0, updatedField.toString().length() - 1);
+    }
+
+
 }

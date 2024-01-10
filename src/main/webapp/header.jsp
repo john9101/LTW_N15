@@ -2,7 +2,6 @@
 <%@ page import="models.User" %>
 <%@ page import="models.UserSessionAccess" %>
 <%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<jsp:useBean id="shoppingCart" class="models.ShoppingCart" scope="session"/>
 <!--Header-->
 <header id="header">
     <nav class="nav">
@@ -80,6 +79,11 @@
                                         của
                                         tôi</a>
                                     </div>
+                                    <c:if test="${auth.role == 2 || auth.role == 1}">
+                                        <div class="setting__item"><a href="adminProducts.jsp" class="setting__link">Quản
+                                                                                                                       lý</a>
+                                        </div>
+                                    </c:if>
                                     <div class="setting__item "><a href="signOut" class="setting__link setting__logOut">Đăng
                                         xuất</a>
                                     </div>

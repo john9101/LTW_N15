@@ -1,18 +1,16 @@
 package filter.product;
 
-import models.*;
+import models.Product;
 import services.ProductCardServices;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(
-        servletNames = {"pagingProduct"},
-        urlPatterns = {"/productBuying.jsp", "/filterProduct"})
+@WebFilter(filterName = "productBuying", urlPatterns = {"/filterProductBuying", "/productBuying.jsp"})
 public class ProductBuying implements Filter {
+    private final int DEFAULT_PAGE = 1;
 
     public void init(FilterConfig config) throws ServletException {
     }
@@ -22,28 +20,13 @@ public class ProductBuying implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-
-        List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(1);
+        List<Product> productCardList = ProductCardServices.getINSTANCE().getProducts(DEFAULT_PAGE);
+        System.out.println(productCardList);
         request.setAttribute("productCardList", productCardList);
-
-        List<Category> categoryList = ProductCardServices.getINSTANCE().getAllCategory();
-        request.setAttribute("categoryList", categoryList);
-
-        List<Size> sizeList = ProductCardServices.getINSTANCE().getAllSize();
-        request.setAttribute("sizeList", sizeList);
-
-        List<Color> colorList = ProductCardServices.getINSTANCE().getAllColor();
-        request.setAttribute("colorList", colorList);
-
         int quantityPage = ProductCardServices.getINSTANCE().getQuantityPage();
         request.setAttribute("quantityPage", quantityPage);
-
-        request.setAttribute("currentPage", 1);
-
-        String requestURL = "/filterProduct?";
+        String requestURL = "/filterProductBuying?";
         request.setAttribute("requestURL", requestURL);
-
         chain.doFilter(request, response);
     }
 }
