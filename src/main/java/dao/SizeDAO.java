@@ -54,7 +54,7 @@ public class SizeDAO {
 
     public void deleteSizeList(List<Integer> listId) {
         StringBuilder idRange = new StringBuilder();
-        if (listId.size() == 1) idRange.append(listId.getFirst());
+        if (listId.size() == 1) idRange.append(listId.get(0));
         else
             for (int i = 0; i < listId.size(); i++) {
                 idRange.append(listId.get(i));

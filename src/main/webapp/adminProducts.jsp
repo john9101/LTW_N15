@@ -39,8 +39,7 @@
             <ul class="navbar__list">
                 <li
                         class="navbar__item"><a href="adminProducts.jsp"
-                                                class="navbar__link button button button--hover navbar__link--clicked">Sản
-                                                                                                                       phẩm</a>
+                                                class="navbar__link button button button--hover navbar__link--clicked">Sản phẩm</a>
                 </li>
                 <li class="navbar__item"><a href="adminOrders.jsp"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
@@ -49,7 +48,9 @@
                                             class="navbar__link button button button--hover ">Khách
                                                                                               hàng</a>
                 </li>
-
+                <li class="navbar__item"><a href="adminReviews.jsp"
+                                            class="navbar__link button button button--hover ">Nhận xét</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -74,7 +75,7 @@
                                     <span>Từ:</span>
 
                                     <input type="date" name="date"
-                                           id="date-start" placeholder="dd-mm-yyyy" ">
+                                           id="date-start" placeholder="dd-mm-yyyy">
 
                                 </label>
                                 <label class="filter__date">

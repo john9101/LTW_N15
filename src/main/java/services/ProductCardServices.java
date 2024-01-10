@@ -128,7 +128,11 @@ public class ProductCardServices {
         List<Product> result = new ArrayList<>();
         if ((productList.size() - quantity) < 10) {
             for (int i = 0; i < quantity; i++) {
-                result.add(productList.get(i));
+                try {
+                    result.add(productList.get(i));
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
             }
             return result;
         }
