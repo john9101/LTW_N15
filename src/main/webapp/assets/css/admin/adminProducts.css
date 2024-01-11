@@ -52,7 +52,6 @@
     flex: 1;
 }
 /*Modal*/
-<<<<<<< HEAD
 .modal button {
     font-size: 20px;
     font-weight: 500;
@@ -118,10 +117,7 @@
 }
 
 .form__size-delete, .form__color-delete {
-=======
-.modal__product{
-    width: 90%;
->>>>>>> 2f2e062eb617b76e5cf7f6eee7de2166a2940dfa
+
     position: absolute;
     top: 5%;
     left: 50%;
@@ -137,10 +133,6 @@
     flex: 1;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> d3346e32266ab47a387f3728adaa68b785b91aef
 .form__add-size:hover, .form__size-delete:hover, .form__add-color:hover, .form__color-delete:hover {
     cursor: pointer;
     opacity: 0.8;
@@ -149,7 +141,6 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
->>>>>>> 2f2e062eb617b76e5cf7f6eee7de2166a2940dfa
 }
 
 .line-clamp.line-1 {
