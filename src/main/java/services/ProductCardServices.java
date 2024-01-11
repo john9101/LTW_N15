@@ -167,4 +167,8 @@ public class ProductCardServices {
     public Category getCategoryById(int id) {
         return productCardDAO.getCategoryByProductId(id).get(0);
     }
+
+    public String getNameProductById(int productId) {
+        return productCardDAO.getNameProductById(productId).get(0).getName();
+    }
 }
