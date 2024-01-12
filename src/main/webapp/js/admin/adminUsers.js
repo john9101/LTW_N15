@@ -2,7 +2,7 @@
 function openDeleteDialog(userId) {
     document.getElementById('delete-dialog').style.display = 'block';
     var confirmDeleteLink = document.getElementById('confirm-delete');
-    confirmDeleteLink.href = 'delete?userId=' + userId;
+    confirmDeleteLink.href = 'Delete?userId=' + userId;
 }
 function closeDeleteDialog() {
     document.getElementById('delete-dialog').style.display = 'none';
@@ -14,7 +14,6 @@ document.getElementById('close-dialog').addEventListener('click', closeDeleteDia
 function openUpdateDialog(userId, username, fullName, gender, email, phone, address, birthDay) {
     document.getElementById('update-user-dialog').style.display = 'block';
 
-    // Đổ dữ liệu vào các trường input trong dialog update
     document.getElementById('id--Update').value = userId;
     document.getElementById('username--Update').value = username;
     document.getElementById('fullName--Update').value = fullName;

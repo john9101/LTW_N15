@@ -54,7 +54,7 @@
                         <article action="#!" class="form__search-block filler__block">
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
                             <form action="AdminUser" method="get">
-                                <input id="search-input" type="text" name="search" placeholder="Tìm kiếm người dùng">
+                                <input id="search-input" type="text" name="search" placeholder="Tìm kiếm tên người dùng">
                             </form>
                         </article>
                         <button id="button-add-user" class="button button__delete">
@@ -113,8 +113,10 @@
                                     </td>
                                     <td class="table__data">
                                         <p class="table__cell">
-                                            <c:if test="${user.role == true}">1</c:if>
-                                            <c:if test="${user.role == false}">0</c:if>
+                                            <%--  <c:out value="${user.role}"/>--%>
+                                            <c:if test="${user.role == '0'}">admin</c:if>
+                                            <c:if test="${user.role == '1'}">mod</c:if>
+                                            <c:if test="${user.role == '2'}">khách</c:if>
                                         </p>
                                     </td>
                                     <td class="table__data">
@@ -122,7 +124,6 @@
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a>
                                     </td>
-
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -144,7 +145,7 @@
         <p class="modal__body">Bạn có chắc chắn muốn xóa người dùng này?</p>
         <div class="modal__footer">
             <button id="cancel-delete" class="button button__cancel">Hủy bỏ</button>
-            <a id="confirm-delete" href="delete?userId=${user.id}" class="button button__delete--dialog">
+            <a id="confirm-delete" href="Delete?userId=${user.id}" class="button button__delete--dialog">
                 <i class="fa-solid fa-trash-can"></i>
                 Xác nhận xóa
             </a>
@@ -206,7 +207,7 @@
             <i id="close-add-user-dialog" class="fa-solid fa-xmark"></i>
         </div>
         <div class="modal__body">
-            <form id="add-user-form" action="addUser" method="post">
+            <form id="add-user-form" action="AddUser" method="post">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
 
@@ -267,5 +268,4 @@
         addUserDialog.style.display = 'none';
     });
 </script>
-
 </html>

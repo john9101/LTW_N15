@@ -17,10 +17,10 @@ public class UserDAOImplement implements UserDAO {
     public List<User> selectAccount(String username, String isVerify) {
         String query;
         if (isVerify == null) {
-            query = "SELECT id, username, passwordEncoding, role, isVerify FROM users WHERE username = ?";
+            query = "SELECT id, username, passwordEncoding, fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username);
         } else {
-            query = "SELECT id, username, passwordEncoding, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
+            query = "SELECT id, username, passwordEncoding,  fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username, isVerify);
         }
     }
@@ -108,7 +108,7 @@ public class UserDAOImplement implements UserDAO {
                 .bind(6, user.getAddress())
                 .bind(7, user.getBirthDay())
                 .bind(8, user.isVerify())
-                .bind(9, user.isRole())
+                .bind(9, user.getRole())
                 .bind(10, user.getAvatar())
                 .bind(11, user.getTokenVerifyTime())
                 .bind(12, user.getTokenVerify())
@@ -135,7 +135,7 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> selectALl() {
-        String querry ="Select id, username, email, fullname, phone, address, birthDay from users ";
+        String querry ="Select id, username, email, fullname, gender, phone, address, birthDay, role from users ";
         return GeneralDao.executeQueryWithSingleTable(querry, User.class);
     }
 
@@ -147,8 +147,8 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> searchUsersByName(String search) {
-        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ?";
-        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%");
+        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ? OR LOWER(fullName) LIKE ? OR LOWER(gender) LIKE ? OR LOWER(birthDay) LIKE ? OR LOWER(phone) LIKE ? OR LOWER(address) LIKE ?";
+        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%");
     }
 
     @Override
@@ -159,7 +159,7 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> getUserByID(int id) {
-        String querry = "SELECT * FROM users WHERE id = ?";
+        String querry = "SELECT id, username, email, fullName, gender, phone, address, birthDay FROM users WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(querry, User.class, id);
     }
 
@@ -195,7 +195,7 @@ public class UserDAOImplement implements UserDAO {
                 .bind("address", user.getAddress())
                 .bind("birthday", user.getBirthDay())
                 .bind("isVerify", user.isVerify())
-                .bind("role", user.isRole())
+                .bind("role", user.getRole())
                 .bind("avatar", user.getAvatar())
                 .bind("tokenVerify", user.getTokenVerify())
                 .bind("tokenResetPassword", user.getTokenResetPassword())
