@@ -74,7 +74,7 @@ public class UserDAOImplement implements UserDAO {
     }
 
     @Override
-    public void updateVerify(int id, boolean status) {
+    public void updateVerify(int id, boolean status){
         String query = "UPDATE users " +
                 "SET isVerify = ? " +
                 "WHERE id = ?";
@@ -88,7 +88,7 @@ public class UserDAOImplement implements UserDAO {
     }
 
     @Override
-    public void updateTokenResetPassword(int id, String token, Timestamp timeTokenExpired) {
+    public void updateTokenResetPassword(int id, String token, Timestamp timeTokenExpired){
         String query = "UPDATE users " +
                 "SET tokenResetPassword = ?, tokenResetPasswordTime = ? " +
                 "WHERE id = ?";
@@ -140,7 +140,7 @@ public class UserDAOImplement implements UserDAO {
     }
 
     @Override
-    public void deleteUserById(int id) {
+    public void deleteUserById(int id){
         String query = "DELETE FROM users WHERE id = ?";
         GeneralDao.executeAllTypeUpdate(query, id);
     }
@@ -224,5 +224,12 @@ public class UserDAOImplement implements UserDAO {
                 .bind("tokenResetPassword", user.getTokenResetPassword())
                 .execute());
         return count;
+    }
+
+    @Override
+    public List<User> getAvatar(int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT avatar FROM users WHERE id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, id);
     }
 }

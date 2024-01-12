@@ -4,6 +4,8 @@ import database.JDBIConnector;
 import models.Category;
 import models.Size;
 import org.jdbi.v3.core.statement.Query;
+
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +39,7 @@ public class GeneralDao {
     }
 
     //Use for delete, insert and update statements
-    public static void executeAllTypeUpdate(String sql, Object... params){
+    public static void executeAllTypeUpdate(String sql, Object... params) {
 //        jdbi.withHandle(handle -> {
 //            Update update = handle.createUpdate(sql);
 //            for(int i = 0; i < params.length; i++){
@@ -45,7 +47,22 @@ public class GeneralDao {
 //            }
 //            return update.execute();
 //        });
-        JDBIConnector.get().withHandle(handle -> handle.execute(sql, params));
+//        JDBIConnector.get().withHandle(handle -> handle.execute(sql, params));
+
+        try {
+            JDBIConnector.get().useTransaction(handle -> {
+                try {
+                    handle.getConnection().setAutoCommit(false);
+                    handle.execute(sql, params);
+                    handle.getConnection().commit();
+                }catch (Exception exception){
+                    handle.getConnection().rollback();
+                    throw new RuntimeException("Error executing SQL and handling transaction", exception);
+                }
+            });
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

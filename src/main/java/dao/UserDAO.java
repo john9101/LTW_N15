@@ -22,7 +22,7 @@ public interface UserDAO extends DAO<User> {
 
     public void updateTokenVerify(int id, String token, Timestamp timeTokenExpired);
 
-    public void updateVerify(int id, boolean status);
+    public void updateVerify(int id, boolean status) ;
 
     public List<User> selectTokenResetPassword(String email);
 
@@ -50,5 +50,6 @@ public interface UserDAO extends DAO<User> {
     public void deleteOrderdetailsFromUserByUserId(int userId);
 
     public void deleteOrderFromUserByUserId(int userId);
+    public List<User> getAvatar(int id);
 }
 

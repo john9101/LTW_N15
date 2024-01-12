@@ -34,10 +34,11 @@ html {
 body, input, select, option, button, textarea {
     font-family: var(--primary-font);
     letter-spacing: var(--primary-letter-spacing);
-
 }
 body {
     scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
 }
 
 #main {
@@ -247,6 +248,7 @@ body {
     border-radius: 10px;
     padding: 0px 16px;
     font-weight: 600;
+    height: 100%;
 }
 
 .cart:hover {
@@ -275,6 +277,75 @@ body {
 
 .qlt__value{
     margin: auto;
+}
+
+.cart__wrapper{
+    position: relative;
+}
+
+.notification__cart{
+    position: absolute;
+    bottom: -16px;
+    right: 0px;
+    padding: 16px;
+    transform: translateY(100%);
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: rgb(179, 179, 179) 1px 1px 15px;
+    font-weight: 500;
+    font-size: 14px;
+    width: max-content;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.notification__cart::before{
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    right: 16px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent white;
+}
+
+.closed {
+    opacity: 0;
+}
+
+.view__cart{
+    display: block;
+    margin-top: 12px;
+    padding: 10px 0px;
+    width: 100%;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #E40F0A;
+    border-radius: 4px;
+    font-weight: 400;
+}
+
+.status__success{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.status__success span{
+    display: flex;
+    align-items: center;
+}
+
+.status__success .icon__success{
+    color: #5ee95e;
+    margin-right: 6px;
+    font-size: 16px;
+}
+
+.status__success .close__notification{
+    font-size: 20px;
+    cursor: pointer;
 }
 
 
@@ -310,7 +381,6 @@ body {
 .account:hover .setting__list {
     opacity: 1;
     visibility: visible;
-    background-color: var(--blue-color-medium);
 }
 
 
@@ -334,19 +404,24 @@ body {
     width: 100%;
     height: 10px;
 }
+.setting__item{
+    padding: 20px 10px;
+    border-top: 1px solid #fff;
+    background-color: var(--blue-color-high);
+}
+.setting__item:last-child{
+    border-bottom: 1px solid #fff;
+}
 
+.setting__item:hover {
+    background-color: var(--mint-color);
+    cursor: pointer;
+}
 .setting__link {
     display: block;
     font-size: 18px;
     font-weight: 500;
-    padding: 20px 10px;
     text-align: center;
-    border-top: 1px solid #fff;
-    background-color: var(--blue-color-high);
-}
-
-.setting__link:hover {
-    background-color: var(--mint-color);
 }
 
 .account__info {
