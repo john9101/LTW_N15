@@ -36,18 +36,18 @@
         <div class="container-xl">
             <div class="row ">
                 <div class="col-3">
-                    <form action="filterProduct" class="form__filter">
+                    <form action="filterProductBuying" class="form__filter">
                         <div class="filter__group">
                             <span class="filter__title">Phân loại sản phẩm</span>
                             <div class="filter__radio-list">
-                                <c:forEach items="${requestScope.categoryList}" var="item">
+                                <c:forEach items="${pageContext.servletContext.getAttribute('categoryList')}" var="category">
                                     <label class="filter__radio-item">
                                         <input name="categoryId" type="checkbox" class="filter__input filter__radio"
-                                               hidden="hidden" value="${item.id}">
+                                               hidden="hidden" value="${category.id}">
                                         <span class="filter-radio__icon-wrapper">
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
                                         </span>
-                                            ${item.nameType}
+                                            ${category.nameType}
                                     </label>
                                 </c:forEach>
                             </div>
@@ -65,7 +65,7 @@
                                                       var="moneyTo"/>
                                     <label class="filter__radio-item">
                                         <input name="moneyRange" type="checkbox" class="filter__input filter__radio"
-                                               hidden="" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
+                                               hidden="hidden" value="${moneyRange.getFrom()}-${moneyRange.getTo()}">
                                         <span class="filter-radio__icon-wrapper">
                                             <i class="fa-solid fa-check filter-radio__icon"></i>
                                         </span>${moneyFrom} - ${moneyTo}
@@ -113,10 +113,10 @@
                         <c:set var="list" value="${requestScope.productCardList}"/>
                         <c:forEach var="item" items="${list}">
                             <div class="product__item">
-                                <c:set value="${productFactory.getListImagesByProductId(item.id)}"
-                                       var="listProductImage"/>
-                                <img src="assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
-                                     class="product__img" alt=""/>
+                                <c:set var="listProductImage"
+                                       value="${productFactory.getListImagesByProductId(item.id)}"/>
+                                <img src="${pageContext.servletContext.contextPath}/assets/img/product_img/${productFactory.getListImagesByProductId(item.id).get(0).getNameImage()}"
+                                     class="product__img" alt="" loading="lazy"/>
                                 <div class="product__info">
                                     <c:url var="linkProductDetail" value="/showProductDetail">
                                         <c:param name="id" value="${item.id}"/>
@@ -158,25 +158,30 @@
                 </div>
             </div>
             <ul class="paging">
-                <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
-                    <c:url var="linkPaing" value="${requestScope.requestURL}">
-                        <c:param name="page" value="${pageNumber}"/>
-                    </c:url>
-                    <c:choose>
-                        <c:when test="${pageNumber == requestScope.currentPage}">
-                            <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
-                        </c:when>
-                        <c:otherwise>
-                            <a class="page" href="${linkPaing}">${pageNumber}</a>
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
+                <c:if test="${requestScope.quantityPage != 0}">
+                    <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
+                        <c:url var="linkPaing" value="${requestScope.requestURL}">
+                            <c:param name="page" value="${pageNumber}"/>
+                        </c:url>
+                        <c:choose>
+                            <c:when test="${pageNumber == requestScope.currentPage}">
+                                <a class="page page--current" href="${linkPaing}">${pageNumber}</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="page" href="${linkPaing}">${pageNumber}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:if>
             </ul>
         </div>
     </section>
 </main>
 <%@include file="footer.jsp" %>
-<%--<script src="js/productBuying.js"></script>--%>
+<%
+    List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");
+    System.out.println("inputChecked (UI):" + inputChecked);
+%>
 <script>
     function checkedInputTag(name) {
         let inputElements = document.querySelectorAll("input");
@@ -186,7 +191,7 @@
         })
     }
 
-    <%List<String> inputChecked =(List<String>) request.getAttribute("listInputChecked");
+    <%
      if (inputChecked!=null && !inputChecked.isEmpty()){
          for (String input : inputChecked) {
     %>

@@ -47,11 +47,11 @@
                             <form class="action__bar" action="AddToCart" method="post">
                                 <input type="hidden" name="productId" value="${newProduct.id}">
                                 <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <a class="see__detail" href="ProductDetails?productId=${newProduct.id}"><i class="fa-solid fa-eye"></i></a>
+                                <a class="see__detail" href="showProductDetail?id=${newProduct.id}"><i class="fa-solid fa-eye"></i></a>
                             </form>
                         </div>
                         <div class="product__info">
-                            <a class="product__name" href="#">${newProduct.name}</a>
+                            <a class="product__name" href="showProductDetail?id=${newProduct.id}">${newProduct.name}</a>
                             <div class="product__review">
                                 <div class="review__icon">
                                     <i class="fa-solid fa-star icon__item"></i>
@@ -60,7 +60,7 @@
                                     <i class="fa-solid fa-star icon__item"></i>
                                     <i class="fa-solid fa-star icon__item"></i>
                                 </div>
-                                <a class="number__turns--ratting" href="#">1000 nhận xét</a>
+                                <a class="number__turns--ratting" href="showProductDetail?id=${newProduct.id}">1000 nhận xét</a>
                             </div>
                             <span class="product__price">
                                 <fmt:setLocale value="vi_VN"/>
@@ -110,6 +110,7 @@
     </div>
 </main>
 <%@ include file="footer.jsp" %>
+<script src="js/base.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     function addToCartAjax(){
@@ -136,6 +137,14 @@
                             url: form.attr('action'),
                             data: {productId: productId},
                             success: function (response) {
+                                let addToCartSuccessHTML = `<div class="notification__cart">
+                                                                <div class="status__success">
+                                                                    <span><i class="fa-solid fa-circle-check icon__success"></i>Đã thêm vào giỏ hàng thành công</span>
+                                                                    <span onclick="handleCloseNotificationCart()"><i class="fa-solid fa-xmark close__notification"></i></span>
+                                                                </div>
+                                                                <a class="view__cart" href="shoppingCart.jsp">Xem giỏ hàng và thanh toán</a>
+                                                            </div>`;
+                                $('.cart__wrapper').append(addToCartSuccessHTML)
                                 $('.qlt__value').text(response);
                             },
                             error: function (error){

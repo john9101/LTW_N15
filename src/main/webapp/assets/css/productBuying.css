@@ -139,6 +139,11 @@
     gap: 5px;
 }
 
+.filter__radio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
 .filter__radio-item {
     display: flex;
     justify-content: flex-start;
@@ -183,6 +188,7 @@
 .filter__color-list {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
 }
 
 .filter__color:checked + .filter__color-show {
@@ -197,7 +203,7 @@
 
 }
 
-.filter__submit {
+.filter__submit, .filter__reset {
     margin-top: 20px;
     --width: 100%;
     height: 40px;
