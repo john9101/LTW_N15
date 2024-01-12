@@ -1,16 +1,9 @@
 package controller.admin.product;
 
-import dao.ColorDAO;
-import dao.ProductDao;
-import models.Color;
-import models.Image;
 import models.Product;
-import models.Size;
 import properties.PathProperties;
 import services.AdminProductServices;
-import services.ProductCardServices;
-import services.ProductServices;
-import utils.ProductFactory;
+import services.UploadImageServices;
 import utils.Token;
 
 import javax.servlet.*;
@@ -21,17 +14,16 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-@WebServlet(name = "admin-add-product", value = "/admin-add-product")
+@WebServlet(name = "adminCreateProduct", value = "/admin-create-product")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 12024,
         maxFileSize = 1024 * 1024 * 10,
         maxRequestSize = 1024 * 1024 * 100
 )
-public class AddNewProduct extends HttpServlet {
+public class CreateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -84,36 +76,18 @@ public class AddNewProduct extends HttpServlet {
             uploadImg(images, 2);
             objJson.append("{\"status\":").append("true}");
         }
-        System.out.println(objJson.toString());
         response.getWriter().write(objJson.toString());
     }
 
-    public static boolean isPartImage(Part part) {
-        if (part != null) {
-            String contentType = part.getContentType();
-            if (contentType != null && contentType.startsWith("image/")) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void uploadImg(Collection<Part> parts, int productId) throws IOException {
         ServletContext servletContext = getServletContext();
-        List<String> nameImages = new ArrayList<>();
-        File root = new File(servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb());
-        if (!root.exists()) root.mkdirs();
-//        Move
-        for (Part part : parts) {
-            if (isPartImage(part)) {
-                String fileName = Token.generateToken();
-                String fileExtension = part.getSubmittedFileName().substring(part.getSubmittedFileName().lastIndexOf(".") + 1);
-                String pathImage = root.getAbsolutePath() + "/" + fileName + "." + fileExtension;
-                nameImages.add(fileName + "." + fileExtension);
-                part.write(pathImage);
-            }
-        }
-        AdminProductServices.getINSTANCE().addImages(nameImages, productId);
+        String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathProductWeb();
+//       Add to local project tree
+        UploadImageServices uploadImageServices = new UploadImageServices(root);
+        uploadImageServices.addImages(parts);
+//       Add to db
+        AdminProductServices.getINSTANCE().addImages(uploadImageServices.getNameImages(), productId);
         System.out.println("Done");
     }
 }

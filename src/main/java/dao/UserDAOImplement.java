@@ -16,10 +16,10 @@ public class UserDAOImplement implements UserDAO {
     public List<User> selectAccount(String username, String isVerify) {
         String query;
         if (isVerify == null) {
-            query = "SELECT id, username, passwordEncoding, role, isVerify FROM users WHERE username = ?";
+            query = "SELECT id, username, fullName, email, phone, address, passwordEncoding, role, isVerify FROM users WHERE username = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username);
         } else {
-            query = "SELECT id, username, passwordEncoding, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
+            query = "SELECT id, username, fullName, email, phone, address, passwordEncoding, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username, isVerify);
         }
     }
@@ -73,7 +73,7 @@ public class UserDAOImplement implements UserDAO {
     }
 
     @Override
-    public void updateVerify(int id, boolean status) {
+    public void updateVerify(int id, boolean status){
         String query = "UPDATE users " +
                 "SET isVerify = ? " +
                 "WHERE id = ?";
@@ -87,7 +87,7 @@ public class UserDAOImplement implements UserDAO {
     }
 
     @Override
-    public void updateTokenResetPassword(int id, String token, Timestamp timeTokenExpired) {
+    public void updateTokenResetPassword(int id, String token, Timestamp timeTokenExpired){
         String query = "UPDATE users " +
                 "SET tokenResetPassword = ?, tokenResetPasswordTime = ? " +
                 "WHERE id = ?";
@@ -139,7 +139,7 @@ public class UserDAOImplement implements UserDAO {
     }
 
     @Override
-    public void deleteUserById(int id) {
+    public void deleteUserById(int id){
         String query = "DELETE FROM users WHERE id = ?";
         GeneralDao.executeAllTypeUpdate(query, id);
     }
@@ -181,5 +181,12 @@ public class UserDAOImplement implements UserDAO {
                 .bind("tokenResetPassword", user.getTokenResetPassword())
                 .execute());
         return count;
+    }
+
+    @Override
+    public List<User> getAvatar(int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT avatar FROM users WHERE id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, id);
     }
 }

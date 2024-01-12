@@ -21,7 +21,7 @@ public interface UserDAO extends DAO<User> {
 
     public void updateTokenVerify(int id, String token, Timestamp timeTokenExpired);
 
-    public void updateVerify(int id, boolean status);
+    public void updateVerify(int id, boolean status) ;
 
     public List<User> selectTokenResetPassword(String email);
 
@@ -35,6 +35,6 @@ public interface UserDAO extends DAO<User> {
 
     public List<User> searchUsersByName(String search);
 
-
+    public List<User> getAvatar(int id);
 }
 

@@ -1,5 +1,8 @@
-package filter.product;
+package filter.adminPage;
 
+import models.Category;
+import models.Image;
+import services.AdminProductServices;
 import services.ProductCardServices;
 
 import javax.servlet.*;
@@ -7,9 +10,8 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebFilter(filterName = "FilterByColor",
-        servletNames = {"filterProduct"})
-public class FilterByColor implements Filter {
+@WebFilter(filterName = "adminProductForm", urlPatterns = {"/adminProductForm.jsp"})
+public class AdminProductForm implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
 
@@ -18,11 +20,8 @@ public class FilterByColor implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        String[] colors = request.getParameterValues("color");
-        if (colors != null) {
-            List<Integer> listId = ProductCardServices.getINSTANCE().getIdProductFromColor(colors);
-            request.setAttribute("filterByColor", listId);
-        }
+        List<Category> categoryList = ProductCardServices.getINSTANCE().getAllCategory();
+        request.setAttribute("categoryList", categoryList);
         chain.doFilter(request, response);
     }
 }

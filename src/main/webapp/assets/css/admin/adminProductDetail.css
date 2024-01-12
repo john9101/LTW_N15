@@ -1,3 +1,5 @@
+
+/*---------------------*/
 .form__label {
     margin-top: 20px;
 }
@@ -6,35 +8,6 @@ body {
     background-color: var(--blue-color-low);
 }
 
-.header {
-    background-color: var(--blue-color-medium);
-}
-
-.header .header__wrapper {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: center;
-    padding: 20px 0;
-}
-
-.header h1 {
-    font-size: 40px;
-    color: #fff;
-    text-wrap: nowrap;
-}
-
-.header__wrapper a {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 18px;
-    color: #fff;
-}
-
-.header__wrapper a:hover {
-    font-weight: 500;
-    color: #fff8f8;
-}
 
 h2 {
     font-size: 25px;
@@ -114,12 +87,53 @@ h2 {
 .form__add-size{
     flex-basis: 180px;
 }
+
+.form__add-size:hover, .form__size-delete:hover, .form__add-color:hover, .form__color-delete:hover, .form__img-delete:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.form__add-size, .form__add-color {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 25px;
+    text-wrap: nowrap;
+    background-color: #5ee95e;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 0 10px;
+    border-radius: 15px;
+}
+
+.form__size-delete, .form__color-delete, .form__img-delete {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 15px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
 .form__size{
     width: unset;
     height: unset;
     padding: 10px;
     border-radius: 5px;
     background-color: #cccccc;
+}
+
+.form__size, .form__color {
+    position: relative;
+    display: inline-block;
 }
 
 .form__size label {
@@ -134,6 +148,22 @@ h2 {
     border-bottom: 1px solid #ccc;
     padding: 10px 5px;
 }
+
+.form__color {
+    width: 80px;
+    height: 40px;
+}
+
+.form__size-input, .form__color-input {
+    width: 100%;
+    height: 100%;
+    padding: 0 5px;
+}
+
+.form__color-input {
+    padding: 0;
+}
+
 
 
 .form__size-price {
@@ -158,6 +188,7 @@ h2 {
     --background-color-hover: var(--blue-color-high);
     margin-top: 30px;
     color: #fff;
+    float: right;
 }
 
 /*img*/
@@ -166,7 +197,7 @@ h2 {
     flex-wrap: wrap;
     align-items: flex-start;
     margin-top: 10px;
-    padding: 10px;
+    padding: 15px 10px;
     border-radius: 10px;
     border: 2px solid #cccccc;
 }
@@ -174,26 +205,30 @@ h2 {
 .img__previews {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
+    min-height: 70px;
 }
 .img__previews:has(.img__preview) +.img__label{
     margin-left: 10px;
 }
+
 .img__preview {
+    position: relative;
     --size: 120px;
-    width: var(--size);
-    height: var(--size);
     border-radius: 20px;
-    overflow: hidden;
 }
 
 
 .img__preview img {
-    width: 100%;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 20px;
     object-fit: cover;
+    border: 1px solid #ccc;
 }
 
 .img__label {
+    position: relative;
     --size: 120px;
     width: var(--size);
     height: var(--size);
@@ -334,4 +369,29 @@ h2 {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/*spinner*/
+/* CSS styles for the loading indicator */
+#loading__blur {
+    position: fixed;
+    inset: 0 0 0 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 11111;
+    display: block; /* Initially hidden */
+}
+
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#loading img {
+    /* Styles for the loading spinner or message */
+    /* Adjust styles based on your loading indicator (e.g., width, height, color, etc.) */
 }
