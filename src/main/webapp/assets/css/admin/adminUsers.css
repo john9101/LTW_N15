@@ -441,4 +441,44 @@ form{
 #add-user-dialog .fa-xmark:hover, #update-user-dialog .fa-xmark:hover {
     color: #333;
 }
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    font-weight: 500;
+}
+
+.pagination a{
+    padding: 8px 0px;
+    min-width: 30px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.pagination a[class="page__forward"]{
+    color: var(--blue-color-high);
+}
+
+.pagination a[class="page__forward"]:hover{
+    background-color: var(--blue-color-medium);
+    color: white;
+}
+
+.pagination a[class="active"]{
+    background-color: var(--blue-color-high);
+    color: white;
+}
+
+.next__page, .previous__page{
+    color: var(--blue-color-high);
+    font-size: 18px;
+}
+
+.next__page:hover, .previous__page:hover{
+    background-color: var(--blue-color-medium);
+    color: white;
+}
 
