@@ -42,5 +42,13 @@ public interface UserDAO extends DAO<User> {
 
     public void updateUserByID(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay);
 
+
+    public void deleteContactsFromUserByUserId(int userId);
+
+    public void deleteReviewsFromUserByUserId(int userId);
+
+    public void deleteOrderdetailsFromUserByUserId(int userId);
+
+    public void deleteOrderFromUserByUserId(int userId);
 }
 

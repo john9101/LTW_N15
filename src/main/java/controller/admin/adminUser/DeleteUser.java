@@ -17,6 +17,10 @@ public class DeleteUser extends HttpServlet {
             try{
                 int id = Integer.parseInt(idString);
                 UserDAO user = new UserDAOImplement();
+                user.deleteContactsFromUserByUserId(id);
+                user.deleteReviewsFromUserByUserId(id);
+                user.deleteOrderdetailsFromUserByUserId(id);
+                user.deleteOrderFromUserByUserId(id);
                 user.deleteUserById(id);
                 System.out.println("Deleted user with ID: " + id);
             }catch(NumberFormatException e){

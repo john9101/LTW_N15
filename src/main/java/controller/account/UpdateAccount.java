@@ -42,8 +42,6 @@ public class UpdateAccount extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/Account");
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            System.out.println("SQL Exception: " + e.getMessage());
-            throw e;
         }
     }
 }

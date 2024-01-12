@@ -169,6 +169,29 @@ public class UserDAOImplement implements UserDAO {
         GeneralDao.executeAllTypeUpdate(query, username, fullName, gender, email, phone, address, birthDay, id);
     }
 
+    @Override
+    public void deleteContactsFromUserByUserId(int userId) {
+        String query = "DELETE FROM contacts WHERE userId-= ?";
+        GeneralDao.executeAllTypeUpdate(query,userId);
+    }
+
+    @Override
+    public void deleteReviewsFromUserByUserId(int userId) {
+        String query = "DELETE FROM reviews WHERE userId = ?";
+        GeneralDao.executeAllTypeUpdate(query,userId);
+    }
+
+    @Override
+    public void deleteOrderdetailsFromUserByUserId(int userId) {
+        String query = "DELETE FROM order_details WHERE orderId IN (SELECT id FROM orders WHERE userId = ?)";
+        GeneralDao.executeAllTypeUpdate(query,userId);
+    }
+
+    @Override
+    public void deleteOrderFromUserByUserId(int userId) {
+        String query = "DELETE FROM orders WHERE userId = ?";
+        GeneralDao.executeAllTypeUpdate(query,userId);
+    }
 
 
     @Override
