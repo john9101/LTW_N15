@@ -74,7 +74,7 @@
                                     <span>Từ:</span>
 
                                     <input type="date" name="date"
-                                           id="date-start" placeholder="dd-mm-yyyy" ">
+                                           id="date-start" placeholder="dd-mm-yyyy">
 
                                 </label>
                                 <label class="filter__date">
