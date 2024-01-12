@@ -47,7 +47,6 @@
                         <!--Account show (After log in success)-->
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->
-                            <c:if test="${auth.role == false}">
                                 <div class="cart__wrapper">
                                     <a href="shoppingCart.jsp" class="cart">
                                         <span class="cart__content"><i class="cart__icon fa-solid fa-cart-shopping"></i> Giỏ hàng</span>
@@ -62,7 +61,6 @@
                                         </span>
                                     </a>
                                 </div>
-                            </c:if>
                             <div class="account">
                                 <i class="account__icon fa-regular fa-user"></i>
                                 <div class="setting__list">
@@ -79,6 +77,7 @@
                                         của
                                         tôi</a>
                                     </div>
+                                    <%System.out.println(request.getSession().getAttribute("auth"));%>
                                     <c:if test="${auth.role == 2 || auth.role == 1}">
                                         <div class="setting__item"><a href="adminProducts.jsp" class="setting__link">Quản
                                                                                                                        lý</a>

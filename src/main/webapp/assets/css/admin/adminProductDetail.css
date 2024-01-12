@@ -1,5 +1,4 @@
 
-
 /*---------------------*/
 .form__label {
     margin-top: 20px;
@@ -87,7 +86,6 @@ h2 {
 }
 .form__add-size{
     flex-basis: 180px;
-
 }
 
 .form__add-size:hover, .form__size-delete:hover, .form__add-color:hover, .form__color-delete:hover, .form__img-delete:hover {
@@ -133,7 +131,6 @@ h2 {
     background-color: #cccccc;
 }
 
-
 .form__size, .form__color {
     position: relative;
     display: inline-block;
@@ -151,7 +148,6 @@ h2 {
     border-bottom: 1px solid #ccc;
     padding: 10px 5px;
 }
-
 
 .form__color {
     width: 80px;
@@ -192,7 +188,6 @@ h2 {
     --background-color-hover: var(--blue-color-high);
     margin-top: 30px;
     color: #fff;
-
     float: right;
 }
 
@@ -210,14 +205,12 @@ h2 {
 .img__previews {
     display: flex;
     flex-wrap: wrap;
-
     gap: 15px;
     min-height: 70px;
 }
 .img__previews:has(.img__preview) +.img__label{
     margin-left: 10px;
 }
-
 
 .img__preview {
     position: relative;
@@ -227,7 +220,6 @@ h2 {
 
 
 .img__preview img {
-
     width: var(--size);
     height: var(--size);
     border-radius: 20px;
@@ -377,7 +369,6 @@ h2 {
     visibility: visible;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
-
 }
 
 /*spinner*/

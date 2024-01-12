@@ -20,7 +20,6 @@ function getClose(modal) {
     return modal.querySelector(".modal__product-close");
 }
 
-
 //Read product
 const iframeRead = document.querySelector("#dialog-product-read .modal__product-iframe");
 const dataViewElement = document.querySelectorAll(".table__data-view");
