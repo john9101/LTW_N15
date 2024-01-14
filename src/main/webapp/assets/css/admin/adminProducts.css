@@ -52,6 +52,15 @@
     flex: 1;
 }
 /*Modal*/
+.modal {
+    position: fixed;
+}
+.modal .modal__content{
+    width: 80%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
 .modal button {
     font-size: 20px;
     font-weight: 500;
