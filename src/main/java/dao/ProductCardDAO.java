@@ -27,7 +27,7 @@ public class ProductCardDAO {
     public List<Product> getProducts(int pageNumber, int limit) {
         int offset = (pageNumber - 1) * limit;
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT id, `name`, categoryId, originalPrice, salePrice ")
+        sql.append("SELECT id, `name`, categoryId, originalPrice, salePrice, visibility ")
                 .append("FROM products ")
                 .append("LIMIT ")
                 .append(limit)
@@ -269,5 +269,16 @@ public class ProductCardDAO {
                 .append("FROM products ")
                 .append("WHERE products.id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, id);
+    }
+
+    public List<Product> isVisibility(int id) {
+        StringBuilder sql = new StringBuilder("SELECT visibility FROM products WHERE id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, id);
+    }
+
+    public void updateVisibility(int productId, boolean visibility) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE products ").append("SET visibility = ? ").append("WHERE id = ?");
+        GeneralDao.executeAllTypeUpdate(sql.toString(), visibility, productId);
     }
 }

@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
     <!--Bootstrap-->
     <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
+    <!--Jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--Favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
@@ -190,6 +192,7 @@
                                 </th>
                                 <th class="table__head">Giá gốc</th>
                                 <th class="table__head">Giá giảm</th>
+                                <th>Ẩn sản phẩm</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -209,7 +212,7 @@
                                     <td class="table__data table__data-id">
                                         <p class="table__cell">${item.id}</p>
                                     </td>
-                                    <td class="table__data">
+                                    <td class="table__data table__data-name">
                                         <p class="table__cell line-clamp line-1">${item.name}</p>
                                     </td>
                                     <td class="table__data">
@@ -225,6 +228,18 @@
                                     <td class="table__data">
                                         <p class="table__cell">${originalPrice}</p>
                                     </td>
+                                    <c:choose>
+                                        <c:when test="${item.visibility==true}">
+                                            <td class="table__data table__data-visibility table__data-hide">
+                                                <div class="button button--hover button__hide">Ẩn</div>
+                                            </td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td class="table__data table__data-visibility table__data-un-hide">
+                                                <div class="button button--hover button__un-hide">Bỏ ẩn</div>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -283,6 +298,7 @@
     </article>
     <div class="modal__blur"></div>
 </div>
+
 <script src="js/admin/adminProducts.js"></script>
 <%
     List<String> inputChecked = (List<String>) request.getAttribute("listInputChecked");

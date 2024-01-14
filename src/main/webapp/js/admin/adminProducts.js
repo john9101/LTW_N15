@@ -90,3 +90,76 @@ dataUpdateElement.forEach(function (element) {
         }, pageTarget);
     }
 });
+//Hide product
+const dataHideElement = document.querySelectorAll(".table__data-visibility .button");
+console.log(dataHideElement)
+dataHideElement.forEach(function (element) {
+    element.onclick = function () {
+        // Get name product
+        const tableRow = this.parentNode.parentNode;
+        console.log(tableRow.querySelector(".table__data-name .table__cell"))
+        const nameProduct = tableRow.querySelector(".table__data-name .table__cell").textContent.trim();
+        const idProduct = tableRow.querySelector(".table__data-id").textContent.trim();
+        // Show alert
+        if (element.classList.contains("button__hide")) {
+            hideProductAlert(nameProduct, idProduct);
+        }
+        if (element.classList.contains("button__un-hide")) {
+            unHideProductAlert(nameProduct, idProduct);
+        }
+
+    }
+});
+
+function hideProductAlert(nameProduct, idProduct) {
+    const message = `Bạn có muốn ẩn sản phẩm "${nameProduct}" không?`;
+    const result = window.confirm(message);
+    if (result) {
+        //     Handle
+        $.ajax({
+            url: "admin-hide-product?id=" + idProduct,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                const status = data.status;
+                if (status) {
+                    alert(`Ẩn sản phẩm ${nameProduct} thành công`);
+                } else {
+                    alert(`Ẩn sản phẩm ${nameProduct} không thành công`);
+                }
+            },
+            error: function (error) {
+            },
+        });
+    }
+}
+
+function unHideProductAlert(nameProduct, idProduct) {
+    const message = `Bạn có muốn bỏ ẩn sản phẩm "${nameProduct}" không?`;
+    const result = window.confirm(message);
+    if (result) {
+        //     Handle
+        $.ajax({
+            url: "admin-un-hide-product?id=" + idProduct,
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            cache: false,
+            success: function (data) {
+                const status = data.status;
+                if (status) {
+                    alert(`Bỏ ẩn sản phẩm ${nameProduct} thành công`);
+                } else {
+                    alert(`Bỏ ẩn sản phẩm ${nameProduct} không thành công`);
+                }
+            },
+            error: function (error) {
+            },
+        });
+    }
+}
+

@@ -24,7 +24,7 @@ public class DBProperties {
             password = properties.getProperty("password");
             port = properties.getProperty("port");
             name = properties.getProperty("name");
-            connectionSize = Integer.parseInt(properties.getProperty("connection.size"));
+//            connectionSize = Integer.parseInt(properties.getProperty("connection.size"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
