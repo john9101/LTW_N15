@@ -1,77 +1,13 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Các thư viện hỗ trợ-->
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
-    <%--jquery--%>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!--CK Editor-->
-    <script src="ckeditor/ckeditor.js"></script>
-    <!--Ck Finder-->
-    <script src="ckfinder/ckfinder.js"></script>
-    <!--Favicon-->
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon/site.webmanifest">
-    <!--Web font-->
-    <link rel="stylesheet" href="assets/font/webfonts/Montserrat.css">
-    <!--CSS-->
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/admin/admin.css">
-    <link rel="stylesheet" href="assets/css/admin/adminProducts.css">
-    <link rel="stylesheet" href="assets/css/admin/adminCategoryForm.css">
-    <title></title>
-</head>
-<body>
-<main>
-    <div class="container">
-        <form action="#!">
-            <div class="row">
-                <div class="col-12">
-                    <div class="category__wrapper">
-                        <label class="category__label">
-                            <div class="category__title">Tên phân loại
-                                <i class="category__icon-guide fa-solid fa-circle-info">
-                                </i>
-                                <div class="category__guide">Đặt tên cho phân loại sản phẩm
-                                </div>
-                            </div>
-                            <div class="category__block">
-                                <input type="text" class="category__name category__input">
-                                <p class="category__error"></p>
-                            </div>
-                        </label>
-                        <label class="category__label">
-                            <div class="category__title">Ảnh kích thước có sẵn
-                                <i class="category__icon-guide fa-solid fa-circle-info">
-                                </i>
-                                <div class="category__guide">Ảnh thể dành cho các size có sẵn cho sản phẩm
-                                </div>
-                            </div>
-                            <div class="category__block">
-                                <label class="category__file">
-                                    <input type="file" hidden="hidden">
-                                </label>
-                                <p class="category__error"></p>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="parameter__list">
-                        <div class="parameter__item">
+(function () {
+    const labelFiles = document.querySelectorAll(".category__file");
+    labelFiles.forEach(function (labelFile) {
+        loadImg(labelFile)
+    });
+})();
+const buttonAddParameter = document.querySelector(".parameter__add");
+const parameterList = document.querySelector(".parameter__list")
+buttonAddParameter.onclick = function () {
+    const html = `<div class="parameter__item">
                             <div class="parameter__grid">
                                 <label class="category__label">
                                     <div class="category__title">Tên tham số
@@ -136,18 +72,26 @@
                                     <p class="category__error"></p>
                                 </div>
                             </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="button button--hover parameter__add">
-                        <i class="fa-solid fa-plus parameter__add-icon"></i>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</main>
-<script src="js/admin/adminCategoryForm.js"></script>
-</body>
-</html>
+                            <span class="parameter__item-close" onclick="deleteParent(this)">
+                                <i class="parameter__item-close-icon fa-solid fa-xmark"></i>
+                            </span>
+                        </div>`;
+    parameterList.insertAdjacentHTML("beforeend", html);
+    const lastElement = parameterList.lastElementChild;
+    loadImg(lastElement.querySelector(`.category__file`));
+}
+
+function deleteParent(childElement) {
+    childElement.parentElement.remove();
+}
+
+function loadImg(label) {
+    const img = label.querySelector(".category__img");
+    const inputFile = label.querySelector(`input[type="file"]`);
+    inputFile.onchange = function (event) {
+        const firstImg = event.target.files[0];
+        if (firstImg) {
+            label.insertAdjacentHTML("beforeend", `    <img class="category__img" src="${URL.createObjectURL(firstImg)}" alt="">`)
+        }
+    }
+}
