@@ -65,9 +65,6 @@
                 <div class="col-12">
                     <div>
                         <h1>Danh sách nhận xét</h1>
-                        <span class="reload__btn">
-                            <i class="reload__icon fa-solid fa-rotate"></i>
-                        </span>
                     </div>
                     <div class="table__wrapper">
                         <table class="table">

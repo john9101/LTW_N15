@@ -13,27 +13,17 @@ elementCloseRead.onclick = function () {
 };
 
 dataViewElement.forEach(function (element) {
-    function getServletContext() {
-        const currentURL = window.location.href;
-        const substringToCut = '/adminReviews.jsp';
-        const position = currentURL.indexOf(substringToCut);
-        if (position !== -1) {
-            // Extract the base URL
-            const baseURL = currentURL.substring(0, position) + "/";
-            return baseURL;
-        }
-        return null;
-    }
-
+    const pageTarget = `${window.location.origin}/adminReviewForm.jsp`;
     element.onclick = function () {
+        // Open dialog
+        modalRead.style.display = "block";
+
         const tableRow = this.parentNode;
         const reviewId = tableRow.querySelector(".table__data-id").textContent.trim();
-        let pageTarget = getServletContext() + "admin-read-review?id=" + reviewId
+        iframeRead.contentWindow.postMessage({
+            reviewId: reviewId,
+        }, pageTarget);
 
-        // Open dialog
-        console.log(pageTarget)
-        modalRead.style.display = "block";
-        iframeRead.src = pageTarget;
     }
 });
 
@@ -71,6 +61,7 @@ function hideProductAlert( reviewId) {
                 const status = data.status;
                 if (status) {
                     alert(`Ẩn nhận xét thành công`);
+                    window.location.reload();
                 } else {
                     alert(`Ẩn nhận xét không thành công`);
                 }
@@ -96,7 +87,8 @@ function unHideProductAlert(reviewId) {
             success: function (data) {
                 const status = data.status;
                 if (status) {
-                    alert(`Bỏ ẩn nhận xét thành công`);
+                    alert(`Bỏ ẩn nhận xét thành công`)
+                    window.location.reload();
                 } else {
                     alert(`Bỏ ẩn nhận xét không thành công`);
                 }

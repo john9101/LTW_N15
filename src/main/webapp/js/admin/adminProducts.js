@@ -127,6 +127,7 @@ function hideProductAlert(nameProduct, idProduct) {
                 const status = data.status;
                 if (status) {
                     alert(`Ẩn sản phẩm ${nameProduct} thành công`);
+                    window.location.reload();
                 } else {
                     alert(`Ẩn sản phẩm ${nameProduct} không thành công`);
                 }
@@ -153,6 +154,7 @@ function unHideProductAlert(nameProduct, idProduct) {
                 const status = data.status;
                 if (status) {
                     alert(`Bỏ ẩn sản phẩm ${nameProduct} thành công`);
+                    window.location.reload();
                 } else {
                     alert(`Bỏ ẩn sản phẩm ${nameProduct} không thành công`);
                 }
