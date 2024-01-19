@@ -42,8 +42,8 @@
             <div class="col-3">
                 <ul class="service__list">
                     <li class="service__item service__item--clicked ">Chỉnh sửa tài khoản</li>
-                    <li class="service__item">Đổi mật khẩu</li>
-                    <li class="service__item">Lịch sử mua hàng</li>
+                    <li class="service__item"><a href="ChangePassword" class="item__service">Đổi mật khẩu</a></li>
+                    <li class="service__item"><a href="hítory.jsp" class="item__service">Đổi mật khẩu</a></li>
                 </ul>
             </div>
             <div class="col-9">
@@ -159,45 +159,6 @@
                     </form>
                 </section>
                 <section class="service__section">
-                    <h1 class="title">Đổi mật khẩu</h1>
-                    <div class="form contains">
-                        <div class="info__oldPass info-compo">
-                            <label class="lable__oldPass lable-compo" for="oldPassword">Mật khẩu cũ</label>
-                            <div class="input__form">
-                                <input class="input__oldPass input-compo" type="password" id="oldPassword">
-                                <i class=" icon__eye icon__eye--close fa-regular fa-eye-slash"></i>
-                                <i class="icon__eye icon__eye--open fa-regular fa-eye"></i>
-                            </div>
-                            <p class="form__error"></p>
-                        </div>
-                        <div class="info__newPass info-compo">
-                            <label class="lable__newPass lable-compo" for="password">Mật khẩu mới</label>
-                            <div class="input__form">
-                                <input type="password" id="password" class="input__newPass input-compo">
-                                <i class=" icon__eye icon__eye--close fa-regular fa-eye-slash"></i>
-                                <i class="icon__eye icon__eye--open fa-regular fa-eye"></i>
-                            </div>
-                            <p class="form__error"></p>
-                        </div>
-                        <div class="info__newPass--confirm info-compo">
-                            <label class="lable__newPass--confirm lable-compo" for="confirm-password">Nhập lại mật khẩu
-                                mới</label>
-                            <div class="input__form">
-                                <input type="password" id="confirm-password"
-                                       class="input__newPass--confirm input-compo">
-                                <i class=" icon__eye icon__eye--close fa-regular fa-eye-slash"></i>
-                                <i class="icon__eye icon__eye--open fa-regular fa-eye"></i>
-                            </div>
-                            <p class="form__error"></p>
-                        </div>
-                        <div class="save save__changePass">
-                            <button id="form__submit" type="submit" class=" form__submit button button--hover">Lưu thay
-                                đổi
-                            </button>
-                        </div>
-                    </div>
-                </section>
-                <section class="service__section">
                     <h1 class="title">Lịch sử mua hàng</h1>
                     <div class="statusOrder">
                         <span class="status__list status__list--click">Tất cả</span>
@@ -259,24 +220,24 @@
     }
 </script>
 </body>
-<script>
+<%--<script>--%>
 
-    var listServiceBtn = document.querySelectorAll(".service__item");
-    var listServiceSection = document.querySelectorAll(".service__section");
-    console.log(listServiceSection)
-    listServiceBtn.forEach(function (btn, index) {
-        btn.onclick = function () {
-            listServiceSection.forEach(function (section) {
-                section.classList.remove("service__section--show");
-            });
-            listServiceBtn.forEach(function (btn) {
-                btn.classList.remove("service__item--clicked");
-            });
-            listServiceSection[index].classList.add("service__section--show");
-            btn.classList.add("service__item--clicked");
-        }
-    })
-</script>
+<%--    var listServiceBtn = document.querySelectorAll(".service__item");--%>
+<%--    var listServiceSection = document.querySelectorAll(".service__section");--%>
+<%--    console.log(listServiceSection)--%>
+<%--    listServiceBtn.forEach(function (btn, index) {--%>
+<%--        btn.onclick = function () {--%>
+<%--            listServiceSection.forEach(function (section) {--%>
+<%--                section.classList.remove("service__section--show");--%>
+<%--            });--%>
+<%--            listServiceBtn.forEach(function (btn) {--%>
+<%--                btn.classList.remove("service__item--clicked");--%>
+<%--            });--%>
+<%--            listServiceSection[index].classList.add("service__section--show");--%>
+<%--            btn.classList.add("service__item--clicked");--%>
+<%--        }--%>
+<%--    })--%>
+<%--</script>--%>
 <script>
     var listStatus = document.querySelectorAll(".status__list");
     var listServiceOrder = document.querySelectorAll(".service__order");
@@ -294,22 +255,22 @@
         }
     })
 </script>
-<script>
-    //checkValidation
-    var validation = new Validation({
-        formSelector: ".form",
-        formBlockClass: "info-compo",
-        errorSelector: ".form__error",
-        rules: [
-            Validation.isRequired("#oldPassword"),
-            Validation.isRequired("#password"),
-            Validation.minLength("#password", 6),
-            Validation.isRequired("#confirm-password"),
-            Validation.isConfirm("#confirm-password", function () {
-                return document.querySelector("#password").value;
-            })
-        ],
-    })
-</script>
+<%--<script>--%>
+<%--    //checkValidation--%>
+<%--    var validation = new Validation({--%>
+<%--        formSelector: ".form",--%>
+<%--        formBlockClass: "info-compo",--%>
+<%--        errorSelector: ".form__error",--%>
+<%--        rules: [--%>
+<%--            Validation.isRequired("#oldPassword"),--%>
+<%--            Validation.isRequired("#password"),--%>
+<%--            Validation.minLength("#password", 6),--%>
+<%--            Validation.isRequired("#confirm-password"),--%>
+<%--            Validation.isConfirm("#confirm-password", function () {--%>
+<%--                return document.querySelector("#password").value;--%>
+<%--            })--%>
+<%--        ],--%>
+<%--    })--%>
+<%--</script>--%>
 
 </html>

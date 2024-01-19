@@ -193,6 +193,12 @@ public class UserDAOImplement implements UserDAO {
         GeneralDao.executeAllTypeUpdate(query,userId);
     }
 
+    @Override
+    public void updateUserPassword(int userId, String password) {
+        String querry = "UPDATE users SET passwordEncoding = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(querry,password,userId);
+    }
+
 
     @Override
     public int deleteAll(List<User> list) {

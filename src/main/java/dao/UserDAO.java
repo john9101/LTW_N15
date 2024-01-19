@@ -42,7 +42,6 @@ public interface UserDAO extends DAO<User> {
 
     public void updateUserByID(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay);
 
-
     public void deleteContactsFromUserByUserId(int userId);
 
     public void deleteReviewsFromUserByUserId(int userId);
@@ -50,6 +49,9 @@ public interface UserDAO extends DAO<User> {
     public void deleteOrderdetailsFromUserByUserId(int userId);
 
     public void deleteOrderFromUserByUserId(int userId);
+
+    public void updateUserPassword(int userId, String password);
+
     public List<User> getAvatar(int id);
 }
 
