@@ -171,4 +171,8 @@ public class ProductCardServices {
     public String getNameProductById(int productId) {
         return productCardDAO.getNameProductById(productId).get(0).getName();
     }
+
+    public String getNameProductByIdOrderDetail(int orderDetailId) {
+        return reviewDAO.getNameProductByOrderDetailId(orderDetailId).get(0).getName();
+    }
 }

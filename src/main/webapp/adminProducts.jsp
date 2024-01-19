@@ -174,10 +174,6 @@
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
                         </span>
-                        <div id="button-remove-product" class="button button__delete">
-                            <i class="fa-solid fa-minus"></i>
-                            Xóa sản phẩm
-                        </div>
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
@@ -192,7 +188,7 @@
                                 </th>
                                 <th class="table__head">Giá gốc</th>
                                 <th class="table__head">Giá giảm</th>
-                                <th>Ẩn sản phẩm</th>
+                                <th>Hiển thị</th>
                             </tr>
                             </thead>
                             <tbody>

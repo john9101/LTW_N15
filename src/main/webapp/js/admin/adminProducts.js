@@ -39,6 +39,7 @@ dataViewElement.forEach(function (element) {
         // Send via iframe
         const tableRow = this.parentNode;
         const productId = tableRow.querySelector(".table__data-id").textContent.trim();
+        console.log(pageTarget)
         iframeRead.contentWindow.postMessage({
             productId: productId,
             state: 1,
@@ -92,7 +93,6 @@ dataUpdateElement.forEach(function (element) {
 });
 //Hide product
 const dataHideElement = document.querySelectorAll(".table__data-visibility .button");
-console.log(dataHideElement)
 dataHideElement.forEach(function (element) {
     element.onclick = function () {
         // Get name product

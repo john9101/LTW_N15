@@ -220,7 +220,7 @@ public class AdminProductServices {
     }
 
     public boolean updateVisibility(int productId, boolean visibility) {
-        if (visibility == productCardDAO.isVisibility(productId).get(0).isVisibility()) {
+        if (productCardDAO.isVisibility(productId).isEmpty() || visibility == productCardDAO.isVisibility(productId).get(0).isVisibility()) {
             return false;
         }
         productCardDAO.updateVisibility(productId, visibility);
