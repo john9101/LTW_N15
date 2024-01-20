@@ -163,7 +163,6 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <button class="filter__reset button--hover button" type="reset">Chọn lại</button>
                         <button class="filter__submit button--hover button" type="submit">Lọc</button>
                     </form>
                 </div>

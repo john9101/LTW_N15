@@ -23,7 +23,6 @@ dataViewElement.forEach(function (element) {
         iframeRead.contentWindow.postMessage({
             reviewId: reviewId,
         }, pageTarget);
-
     }
 });
 

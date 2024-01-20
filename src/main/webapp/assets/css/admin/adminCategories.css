@@ -36,6 +36,7 @@ div:has(> h1) {
     background-color: currentColor;
     width: var(--width);
     height: var(--height);
+    border-radius: 10px;
 }
 
 .category__icon-detail:after, .category__icon-detail::before {
@@ -44,6 +45,7 @@ div:has(> h1) {
     position: absolute;
     height: var(--height);
     background-color: inherit;
+    border-radius: inherit;
 }
 
 .category__icon-detail::before {

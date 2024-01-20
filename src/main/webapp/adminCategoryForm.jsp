@@ -36,8 +36,8 @@
 </head>
 <body>
 <main>
-    <div class="container">
-        <form action="#!">
+    <div class="container-fluid">
+        <form action="#!" class="category__form" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-12">
                     <div class="category__wrapper">
@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="category__block">
-                                <input type="text" class="category__name category__input">
+                                <input type="text" name="nameCategory" id="nameCategory" class="category__name category__input">
                                 <p class="category__error"></p>
                             </div>
                         </label>
@@ -57,12 +57,12 @@
                             <div class="category__title">Ảnh kích thước có sẵn
                                 <i class="category__icon-guide fa-solid fa-circle-info">
                                 </i>
-                                <div class="category__guide">Ảnh thể dành cho các size có sẵn cho sản phẩm
+                                <div class="category__guide">Ảnh dành cho các size có sẵn cho sản phẩm
                                 </div>
                             </div>
                             <div class="category__block">
                                 <label class="category__file">
-                                    <input type="file" hidden="hidden">
+                                    <input name="sizeTableImage" id="sizeTableImage" type="file" hidden="hidden">
                                 </label>
                                 <p class="category__error"></p>
                             </div>
@@ -81,7 +81,7 @@
                                         </div>
                                     </div>
                                     <div class="category__block">
-                                        <input type="text" class="category__name category__input">
+                                        <input name="nameParameter" id="nameParameter" type="text" class="category__name category__input">
                                         <p class="category__error"></p>
                                     </div>
                                 </label>
@@ -93,7 +93,7 @@
                                         </div>
                                     </div>
                                     <div class="category__block">
-                                        <input type="text" name="minValue" class="category__name category__input">
+                                        <input type="text" name="unit" id="unit" class="category__name category__input">
                                         <p class="category__error"></p>
                                     </div>
                                 </label>
@@ -105,7 +105,7 @@
                                         </div>
                                     </div>
                                     <div class="category__block">
-                                        <input type="text" name="minValue" class="category__name category__input">
+                                        <input type="text" name="minValue" id="minValue" class="category__name category__input">
                                         <p class="category__error"></p>
                                     </div>
                                 </label>
@@ -117,7 +117,7 @@
                                         </div>
                                     </div>
                                     <div class="category__block">
-                                        <input type="text" name="maxValue" class="category__name category__input">
+                                        <input type="text" name="maxValue" id="maxValue" class="category__name category__input">
                                         <p class="category__error"></p>
                                     </div>
                                 </label>
@@ -131,7 +131,7 @@
                                 </div>
                                 <div class="category__block">
                                     <label class="category__file">
-                                        <input type="file" accept="image/*" hidden="hidden">
+                                        <input id="guideImg" name="guideImg" type="file" accept="image/*" hidden="hidden">
                                     </label>
                                     <p class="category__error"></p>
                                 </div>
@@ -143,11 +143,15 @@
                     <div class="button button--hover parameter__add">
                         <i class="fa-solid fa-plus parameter__add-icon"></i>
                     </div>
+                    <button type="submit" id="form__submit" class="button__submit button button--hover button--hover parameter__add">
+                        Tạo phân loại
+                    </button>
                 </div>
             </div>
         </form>
     </div>
 </main>
+<script src="js/validateForm.js"></script>
 <script src="js/admin/adminCategoryForm.js"></script>
 </body>
 </html>

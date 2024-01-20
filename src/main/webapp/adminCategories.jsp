@@ -71,7 +71,7 @@
                     <span class="reload__btn">
                         <i class="reload__icon fa-solid fa-rotate"></i>
                     </span>
-                    <span id="button-create-product" class="button button__add">
+                    <span id="button-create-category" class="button button__add">
                         <i class="fa-solid fa-plus"></i>
                       Thêm phân loại
                     </span>
@@ -91,5 +91,16 @@
         </div>
     </div>
 </main>
+<div id="dialog-category-create" class="modal">
+    <article class="modal__content modal__product">
+        <div>
+            <h1>Tạo phân loại</h1>
+            <i class="modal__product-close  modal__review-close fa-solid fa-xmark"></i>
+        </div>
+        <iframe class="modal__product-iframe" src="adminCategoryForm.jsp" frameborder="0"></iframe>
+    </article>
+    <div class="modal__blur"></div>
+</div>
+<script src="js/admin/adminCategory.js"></script>
 </body>
 </html>
