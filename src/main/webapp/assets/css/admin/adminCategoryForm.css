@@ -143,16 +143,21 @@ main {
     --background-color: var(--blue-color-medium);
     border-radius: 10px;
     margin-top: 30px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
 .parameter__add-icon {
     font-size: 20px;
     line-height: 50px;
-    color: #fff;
 }
 
 .button__submit {
     font-size: 20px;
     font-weight: 500;
     color: #fff;
+    margin-bottom: 30px;
 }

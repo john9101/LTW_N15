@@ -141,7 +141,7 @@
                 </div>
                 <div class="col-12">
                     <div class="button button--hover parameter__add">
-                        <i class="fa-solid fa-plus parameter__add-icon"></i>
+                        <i class="fa-solid fa-plus parameter__add-icon"></i> Thêm thông số
                     </div>
                     <button type="submit" id="form__submit" class="button__submit button button--hover button--hover parameter__add">
                         Tạo phân loại

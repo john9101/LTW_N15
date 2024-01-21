@@ -80,7 +80,7 @@
             <div class="col-12">
                 <div class="category__list">
                     <c:forEach var="category" items="${listCategory}">
-                        <div class="category">
+                        <div class="category__item" category-id="${category.id}">
                             <h3 class="category__name">${category.nameType}</h3>
                             <div class="category__icon-detail"></div>
                             <i class="category__icon-edit fa-solid fa-pen-to-square"></i>
@@ -95,6 +95,16 @@
     <article class="modal__content modal__product">
         <div>
             <h1>Tạo phân loại</h1>
+            <i class="modal__product-close  modal__review-close fa-solid fa-xmark"></i>
+        </div>
+        <iframe class="modal__product-iframe" src="adminCategoryForm.jsp" frameborder="0"></iframe>
+    </article>
+    <div class="modal__blur"></div>
+</div>
+<div id="dialog-category-read" class="modal">
+    <article class="modal__content modal__product">
+        <div>
+            <h1>Chỉnh sửa phân loại</h1>
             <i class="modal__product-close  modal__review-close fa-solid fa-xmark"></i>
         </div>
         <iframe class="modal__product-iframe" src="adminCategoryForm.jsp" frameborder="0"></iframe>

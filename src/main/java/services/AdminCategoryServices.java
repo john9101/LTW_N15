@@ -24,6 +24,10 @@ public class AdminCategoryServices {
         return categoryDAO.getAllCategory();
     }
 
+    public List<Category> getCategoryById(int id){
+        return categoryDAO.getCategoryById(id);
+    }
+
     public int addCategory(Category category) {
         boolean isExist = !categoryDAO.getCategoryByNameType(category.getNameType()).isEmpty();
         if (!isExist) {
@@ -39,5 +43,9 @@ public class AdminCategoryServices {
             parameter.setCategoryId(categoryId);
             categoryDAO.addParameter(parameter);
         }
+    }
+
+    public List<Parameter> getParameterByCategoryId(int id) {
+        return categoryDAO.getParameterByCategoryId(id);
     }
 }

@@ -50,6 +50,7 @@ public class CreateCategory extends HttpServlet {
         String[] unit = request.getParameterValues("unit");
         String[] minValue = request.getParameterValues("minValue");
         String[] maxValue = request.getParameterValues("maxValue");
+
         for (int i = 0; i < nameParameters.length; i++) {
             Parameter parameter = new Parameter();
             parameter.setName(nameParameters[i]);
@@ -64,6 +65,7 @@ public class CreateCategory extends HttpServlet {
             parameterList.add(parameter);
         }
         uploadImg(request.getParts());
+        response.getWriter().write("{\"status\":true}");
     }
 
     public void uploadImg(Collection<Part> parts) throws IOException {
@@ -87,7 +89,6 @@ public class CreateCategory extends HttpServlet {
                 uploadImageParameterGuideImgServices.addImage(partAfterFilter.get(i));
             }
         }
-
         handleAddCategoryAndParameter();
     }
 

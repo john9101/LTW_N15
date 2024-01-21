@@ -9,7 +9,7 @@ div:has(> h1) {
     gap: 20px 30px;
 }
 
-.category {
+.category__item {
     position: relative;
     padding: 15px 10px;
     border-radius: 10px;
@@ -17,7 +17,7 @@ div:has(> h1) {
     color: #fff;
 }
 
-.category:hover {
+.category__item:hover {
     background-color: var(--blue-color-medium);
     cursor: pointer;
 }

@@ -30,4 +30,20 @@ public class CategoryDAO {
         sql.append("INSERT INTO parameters (name, minValue, `maxValue`, unit, categoryId, guideImg) VALUES (?, ?, ?, ?, ?, ?) ");
         GeneralDao.executeAllTypeUpdate(sql.toString(), parameter.getName(), parameter.getMinValue(), parameter.getMaxValue(), parameter.getUnit(), parameter.getCategoryId(), parameter.getGuideImg());
     }
+
+    public List<Category> getCategoryById(int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id, nameType, sizeTableImage ")
+                .append("FROM categories ")
+                .append("WHERE id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Category.class, id);
+    }
+
+    public List<Parameter> getParameterByCategoryId(int id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT id, name, minValue, `maxValue`, unit, guideImg ")
+                .append("FROM parameters ")
+                .append("WHERE categoryId = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Parameter.class, id);
+    }
 }

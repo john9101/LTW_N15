@@ -1,34 +1,11 @@
 window.addEventListener('message', function (event) {
+    const receivedData = event.data;
     (function () {
-        const labelFiles = document.querySelectorAll(".category__file");
-        labelFiles.forEach(function (labelFile) {
-            loadImg(labelFile);
-        });
         const buttonAddParameter = document.querySelector(".parameter__add");
         buttonAddParameter.onclick = function () {
-            addParameter();
+            addParameter(parameterList);
         }
     })();
-    const receivedData = event.data;
-    if (receivedData.state == 0) {
-        function create() {
-            let category = new FormData(form);
-            $.ajax({
-                url: "admin-create-category",
-                type: "POST",
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                data: category,
-                cache: false,
-                success: function (data) {
-                    console.log(data)
-                },
-                error: function (error) {
-                },
-            });
-        }
-    }
 
     function deleteParameter(parameter) {
         const closeBtn = parameter.querySelector(".parameter__item-close");
@@ -42,9 +19,15 @@ window.addEventListener('message', function (event) {
         removeRule(`guideImg${idCount}`);
     }
 
-    function loadImg(label) {
+    function loadImg(label, idCount) {
         const inputFile = label.querySelector(`input[type="file"]`);
         inputFile.addEventListener('change', function () {
+            if (!ruleObj[`sizeTableImage`] && inputFile.id == "sizeTableImage") {
+                ruleObj[`sizeTableImage`] = [Validation.isRequired(`#sizeTableImage`)];
+            }
+            if (!ruleObj[`guideImg${idCount}`] && inputFile.id == `guideImg${idCount}`) {
+                ruleObj[`guideImg${idCount}`] = [Validation.isRequired(`#guideImg${idCount}`)];
+            }
             const file = inputFile.files[0];
             if (file) {
                 let imgElement = label.querySelector(".category__img");
@@ -61,9 +44,9 @@ window.addEventListener('message', function (event) {
     var countIdRule = 0;
     const parameterList = document.querySelector(".parameter__list");
 
-    function addParameter() {
+    function addParameter(parameterList) {
         countIdRule++;
-        const html = `<div class="parameter__item" id-count="${countIdRule}">
+        const html = `<div class="parameter__item parameter__item--added" id-count="${countIdRule}">
                             <div class="parameter__grid">
                                 <label class="category__label">
                                     <div class="category__title">Tên tham số
@@ -134,7 +117,7 @@ window.addEventListener('message', function (event) {
                         </div>`;
         parameterList.insertAdjacentHTML("beforeend", html);
         const lastElement = parameterList.lastElementChild;
-        loadImg(lastElement.querySelector(`.category__file`));
+        loadImg(lastElement.querySelector(`.category__file`), countIdRule);
         lastElement.addEventListener('click', function () {
             deleteParameter(lastElement);
         });
@@ -148,7 +131,7 @@ window.addEventListener('message', function (event) {
         pushRule(`maxValue${countIdRule}`, Validation.greaterThan(`#maxValue${countIdRule}`, `minValue${countIdRule}`))
         pushRule(`guideImg${countIdRule}`, Validation.isRequired(`#guideImg${countIdRule}`));
         loadRules();
-        console.log(ruleObj)
+        console.log(ruleObj);
     }
 
     let ruleArray = [
@@ -164,7 +147,7 @@ window.addEventListener('message', function (event) {
     ];
 // --------------------------------------------------------
 //Validate
-    let validateCreateForm = new Validation({
+    let validate = new Validation({
         formSelector: ".category__form",
         formBlockClass: "category__block",
         errorSelector: ".category__error",
@@ -181,7 +164,6 @@ window.addEventListener('message', function (event) {
         minValue: [Validation.isRequired("#minValue"), Validation.isNumber("#minValue"), Validation.smallerThan("#minValue", "maxValue")],
         maxValue: [Validation.isRequired("#maxValue"), Validation.isNumber("#maxValue"), Validation.greaterThan("#maxValue", "minValue")],
         guideImg: [Validation.isRequired("#guideImg")],
-
     }
     loadRules();
 
@@ -192,14 +174,26 @@ window.addEventListener('message', function (event) {
                 ruleArray.push(rule);
             })
         }
-        validateCreateForm = new Validation({
-            formSelector: ".category__form",
-            formBlockClass: "category__block",
-            errorSelector: ".category__error",
-            rules: ruleArray,
-            submitSelector: "#form__submit",
-            onSubmit: create,
-        });
+        if (receivedData.state == 0) {
+            validate = new Validation({
+                formSelector: ".category__form",
+                formBlockClass: "category__block",
+                errorSelector: ".category__error",
+                rules: ruleArray,
+                submitSelector: "#form__submit",
+                onSubmit: create,
+            });
+        }
+        if (receivedData.state == 1) {
+            validate = new Validation({
+                formSelector: ".category__form",
+                formBlockClass: "category__block",
+                errorSelector: ".category__error",
+                rules: ruleArray,
+                submitSelector: "#form__submit",
+                onSubmit: update,
+            });
+        }
     }
 
     function pushRule(key, rule) {
@@ -214,6 +208,127 @@ window.addEventListener('message', function (event) {
         if (ruleObj[key]) {
             delete ruleObj[key];
         }
+    }
+
+    if (receivedData.state == 0) {
+        const labelFiles = document.querySelectorAll(".category__file");
+        labelFiles.forEach(function (labelFile) {
+            loadImg(labelFile);
+        });
+    }
+    if (receivedData.state == 1) {
+        document.getElementById("form__submit").innerText = "Cập nhật phân loại";
+        const categoryId = receivedData.categoryId;
+        $.ajax({
+            url: "admin-read-category?categoryId=" + categoryId,
+            type: "GET",
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (data) {
+                applyData(data)
+            },
+            error: function (error) {
+            },
+        });
+
+        function applyData(data) {
+            const category = data['category'];
+            applyDataCategory(category);
+
+            function applyDataCategory(category) {
+                const nameCategory = document.querySelector("#nameCategory");
+                const sizeTableImage = document.querySelector("#sizeTableImage").parentElement;
+                nameCategory.value = category.nameType;
+                if (sizeTableImage.querySelector('.category__img')) {
+                    sizeTableImage.querySelector('.category__img').src = `assets/img/size_table/${category.sizeTableImage}`;
+                } else {
+                    sizeTableImage.insertAdjacentHTML("beforeend", `<img class="category__img" src="assets/img/size_table/${category.sizeTableImage}" alt="">`);
+                }
+            }
+
+            const parameters = data['parameters'];
+            applyDataParameter(parameters);
+
+            function applyDataParameter(parameters) {
+                // reset
+                const parameterItems = document.querySelectorAll(".parameter__item--added");
+                Array.from(parameterItems).forEach(function (parameterItem) {
+                    if (parameterItem.classList.contains("parameter__item--added")) {
+                        const id = parameterItem.getAttribute("id-count");
+                        removeRule(`nameParameter${id}`);
+                        removeRule(`minValue${id}`);
+                        removeRule(`maxValue${id}`);
+                        removeRule(`guideImg${id}`);
+                        removeRule(`unit${id}`)
+                        parameterItem.remove();
+                    }
+                });
+
+                for (let i = 0; i < parameters.length; i++) {
+                    if (i != 0) {
+                        addParameter(parameterList);
+                    }
+                    const parameterForm = parameterList.lastElementChild;
+                    const nameParameter = parameterForm.querySelector(`input[name='nameParameter']`);
+                    const unit = parameterForm.querySelector(`input[name='unit']`);
+                    const minValue = parameterForm.querySelector(`input[name='minValue']`);
+                    const maxValue = parameterForm.querySelector(`input[name='maxValue']`);
+                    const guideImg = parameterForm.querySelector(`input[name="guideImg"]`).parentElement;
+                    nameParameter.value = parameters[i].name;
+                    unit.value = parameters[i].unit;
+                    minValue.value = parameters[i].minValue;
+                    maxValue.value = parameters[i].maxValue;
+                    if (guideImg.querySelector('.category__img')) {
+                        guideImg.querySelector('.category__img').src = `assets/img/parameter_guide/${parameters[i].guideImg}`;
+                    } else {
+                        guideImg.insertAdjacentHTML("beforeend", `<img class="category__img" src="assets/img/guide_img/${parameters[i].guideImg}" alt="">`);
+                    }
+                }
+                //     Remove rule img
+                removeRule('sizeTableImage');
+                removeRule('guideImg');
+                for (let j = 1; j <= countIdRule; j++) {
+                    removeRule(`guideImg${j}`);
+                }
+            }
+        }
+    }
+
+    function create() {
+        let category = new FormData(form);
+        $.ajax({
+            url: "admin-create-category",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            data: category,
+            cache: false,
+            success: function (data) {
+
+            },
+            error: function (error) {
+            },
+        });
+    }
+
+    function update() {
+        let category = new FormData(form);
+        $.ajax({
+            url: "admin-update-category",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            data: category,
+            cache: false,
+            success: function (data) {
+
+            },
+            error: function (error) {
+            },
+        });
     }
 });
 
