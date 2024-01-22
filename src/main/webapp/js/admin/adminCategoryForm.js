@@ -170,6 +170,7 @@ window.addEventListener('message', function (event) {
         onSubmit: create,
     })
     const form = document.querySelector('.category__form');
+
     let ruleObj = {
         nameCategory: [Validation.isRequired("#nameCategory")],
         sizeTableImage: [Validation.isRequired("#sizeTableImage")],
@@ -342,7 +343,6 @@ window.addEventListener('message', function (event) {
             data: category,
             cache: false,
             success: function (data) {
-
             },
             error: function (error) {
             },
