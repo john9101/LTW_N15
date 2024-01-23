@@ -78,8 +78,6 @@ public class ChangePassword extends HttpServlet {
 
     }
 
-
-
     private boolean hasUperCase(String word){
         for (char c:word.toCharArray()) {
             if (Character.isUpperCase(c)){
@@ -93,10 +91,10 @@ public class ChangePassword extends HttpServlet {
         String specialSymbols = "!@#$%^&*()_-+=<>,.?/~`:";
         for (char c : word.toCharArray()) {
             if (specialSymbols.contains(String.valueOf(c))) {
-                return true; // Nếu tìm thấy ký tự đặc biệt, trả về true và kết thúc hàm.
+                return true;
             }
         }
-        return false; // Nếu không tìm thấy ký tự đặc biệt, trả về false.
+        return false;
     }
 
 

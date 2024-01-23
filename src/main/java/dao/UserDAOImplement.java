@@ -171,7 +171,7 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public void deleteContactsFromUserByUserId(int userId) {
-        String query = "DELETE FROM contacts WHERE userId-= ?";
+        String query = "DELETE FROM contacts WHERE userId = ?";
         GeneralDao.executeAllTypeUpdate(query,userId);
     }
 

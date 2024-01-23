@@ -43,7 +43,7 @@
                 <ul class="service__list">
                     <li class="service__item"><a href="Account" class="item__service">Chỉnh sửa tài khoảng</a></li>
                     <li class="service__item service__item--clicked">Đổi mật khẩu</li>
-                    <li class="service__item"><a href="history.jsp" class="item__service">Lịch sử mua hàng</a></li>
+                    <li class="service__item"><a href="PurchaseHistory" class="item__service">Lịch sử mua hàng</a></li>
                 </ul>
             </div>
             <div class="col-9">
