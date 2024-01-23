@@ -62,19 +62,7 @@
                                 <label for="file" id="uploadbtn" class="fas fa-camera"></label>
                             </div>
                             <div class="user__info user">
-                                    <input type="hidden" name="userId" value="<c:out value='${auth.getId()}' />">
-                                <!-- Ví dụ sử dụng c:out để in giá trị của các trường từ đối tượng accountInfo -->
-<%--                                <input type="text" name="userId" value="<c:out value='${accountInfo.id}' />">--%>
-<%--                                <input type="text" name="userName" value="<c:out value='${accountInfo.username}' />">--%>
-<%--                                <input type="email" name="email" value="<c:out value='${accountInfo.email}' />">--%>
-<%--                                <!-- Các trường thông tin khác -->--%>
-
-<%--                                <!-- Hoặc sử dụng trực tiếp giá trị từ đối tượng accountInfo -->--%>
-<%--                                <input type="text" name="userId" value="${accountInfo.id}">--%>
-<%--                                <input type="text" name="userName" value="${accountInfo.username}">--%>
-<%--                                <input type="email" name="email" value="${accountInfo.email}">--%>
-                                <!-- Các trường thông tin khác -->
-
+                                <input type="hidden" name="userId" value="<c:out value='${auth.getId()}' />">
                                 <div class="user__info--name info-compo">
                                     <div class="lable__name lable-compo">
                                         <label for="Username">Tên người dùng</label>
@@ -158,47 +146,7 @@
                         </div>
                     </form>
                 </section>
-                <section class="service__section">
-                    <h1 class="title">Lịch sử mua hàng</h1>
-                    <div class="statusOrder">
-                        <span class="status__list status__list--click">Tất cả</span>
-                        <span class="status__list">Đơn hàng mới</span>
-                        <span class="status__list">Chờ thanh toán</span>
-                        <span class="status__list">Đã xác nhận</span>
-                        <span class="status__list">Vận chuyển</span>
-                        <span class="status__list">Hoàn thành</span>
-                    </div>
-                    <div class="service__order service__order--show">
 
-                    </div>
-                    <div class="service__order ">
-                        <div class="block__product--history">
-                            <div class="imgNoneProduct" f></div>
-                            <h2>Chưa có đơn hàng</h2>
-                        </div>
-                    </div>
-                    <div class="service__order ">
-                        <div class="block__product--history">
-                            <div class="imgNoneProduct"></div>
-                            <h2>Chưa có đơn hàng</h2>
-                        </div>
-                    </div>
-                    <div class="service__order ">
-                        <div class="block__product--history">
-                            <div class="imgNoneProduct"></div>
-                            <h2>Chưa có đơn hàng</h2>
-                        </div>
-                    </div>
-                    <div class="service__order ">
-                        <div class="block__product--history">
-                            <div class="imgNoneProduct"></div>
-                            <h2>Chưa có đơn hàng</h2>
-                        </div>
-                    </div>
-                    <div class="service__order service__order--done">
-
-                    </div>
-                </section>
             </div>
         </div>
     </div>
@@ -220,57 +168,7 @@
     }
 </script>
 </body>
-<%--<script>--%>
 
-<%--    var listServiceBtn = document.querySelectorAll(".service__item");--%>
-<%--    var listServiceSection = document.querySelectorAll(".service__section");--%>
-<%--    console.log(listServiceSection)--%>
-<%--    listServiceBtn.forEach(function (btn, index) {--%>
-<%--        btn.onclick = function () {--%>
-<%--            listServiceSection.forEach(function (section) {--%>
-<%--                section.classList.remove("service__section--show");--%>
-<%--            });--%>
-<%--            listServiceBtn.forEach(function (btn) {--%>
-<%--                btn.classList.remove("service__item--clicked");--%>
-<%--            });--%>
-<%--            listServiceSection[index].classList.add("service__section--show");--%>
-<%--            btn.classList.add("service__item--clicked");--%>
-<%--        }--%>
-<%--    })--%>
-<%--</script>--%>
-<script>
-    var listStatus = document.querySelectorAll(".status__list");
-    var listServiceOrder = document.querySelectorAll(".service__order");
-    console.log(listServiceOrder)
-    listStatus.forEach(function (btn, index) {
-        btn.onclick = function () {
-            listServiceOrder.forEach(function (section) {
-                section.classList.remove("service__order--show");
-            });
-            listStatus.forEach(function (btn) {
-                btn.classList.remove("status__list--click");
-            });
-            listServiceOrder[index].classList.add("service__order--show");
-            btn.classList.add("status__list--click");
-        }
-    })
-</script>
-<%--<script>--%>
-<%--    //checkValidation--%>
-<%--    var validation = new Validation({--%>
-<%--        formSelector: ".form",--%>
-<%--        formBlockClass: "info-compo",--%>
-<%--        errorSelector: ".form__error",--%>
-<%--        rules: [--%>
-<%--            Validation.isRequired("#oldPassword"),--%>
-<%--            Validation.isRequired("#password"),--%>
-<%--            Validation.minLength("#password", 6),--%>
-<%--            Validation.isRequired("#confirm-password"),--%>
-<%--            Validation.isConfirm("#confirm-password", function () {--%>
-<%--                return document.querySelector("#password").value;--%>
-<%--            })--%>
-<%--        ],--%>
-<%--    })--%>
-<%--</script>--%>
+
 
 </html>
