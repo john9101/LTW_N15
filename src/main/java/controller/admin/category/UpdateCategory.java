@@ -31,50 +31,51 @@ public class UpdateCategory extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
+        StringBuilder objJson = new StringBuilder();
 
         String idString = request.getParameter("categoryId");
         int categoryId;
         try {
             categoryId = Integer.parseInt(idString);
-        } catch (NumberFormatException e) {
-            response.sendError(404);
-            return;
-        }
-//        Category
-        String nameCategory = request.getParameter("nameCategory");
-        Part sizeTableImagePart = request.getPart("sizeTableImage");
-        String sizeTableImage = uploadImageSizeTable(sizeTableImagePart);
-        Category category = new Category();
-        category.setId(categoryId);
-        category.setNameType(nameCategory);
-        category.setSizeTableImage(sizeTableImage);
-        AdminCategoryServices.getINSTANCE().updateCategory(category);
+            //        Category
+            String nameCategory = request.getParameter("nameCategory");
+            Part sizeTableImagePart = request.getPart("sizeTableImage");
+            String sizeTableImage = uploadImageSizeTable(sizeTableImagePart);
+            Category category = new Category();
+            category.setId(categoryId);
+            category.setNameType(nameCategory);
+            category.setSizeTableImage(sizeTableImage);
+            AdminCategoryServices.getINSTANCE().updateCategory(category);
 
 //        Parameters
-        String[] nameParameters = request.getParameterValues("nameParameter");
-        String[] minValues = request.getParameterValues("minValue");
-        String[] maxValues = request.getParameterValues("maxValue");
-        String[] units = request.getParameterValues("unit");
+            String[] nameParameters = request.getParameterValues("nameParameter");
+            String[] minValues = request.getParameterValues("minValue");
+            String[] maxValues = request.getParameterValues("maxValue");
+            String[] units = request.getParameterValues("unit");
 
-        Collection<Part> collectionGuideImage = new ArrayList<>();
-        for (Part part : request.getParts()) {
-            if (part.getName().equals("guideImg"))
-                collectionGuideImage.add(part);
+            Collection<Part> collectionGuideImage = new ArrayList<>();
+            for (Part part : request.getParts()) {
+                if (part.getName().equals("guideImg"))
+                    collectionGuideImage.add(part);
+            }
+            List<String> guideImages = uploadGuideImages(collectionGuideImage);
+            List<Parameter> listParameter = new ArrayList<>();
+            for (int i = 0; i < nameParameters.length; i++) {
+                Parameter parameter = new Parameter();
+                parameter.setName(nameParameters[i]);
+                parameter.setMinValue(Double.parseDouble(minValues[i]));
+                parameter.setMaxValue(Double.parseDouble(maxValues[i]));
+                parameter.setUnit(units[i]);
+                parameter.setCategoryId(categoryId);
+                parameter.setGuideImg(guideImages.get(i));
+                listParameter.add(parameter);
+            }
+            AdminCategoryServices.getINSTANCE().updateParameters(listParameter, categoryId);
+            objJson.append("{\"status\":").append("true}");
+        } catch (NumberFormatException e) {
+            objJson.append("{\"status\":").append("false}");
         }
-        List<String> guideImages = uploadGuideImages(collectionGuideImage, categoryId);
-        List<Parameter> listParameter = new ArrayList<>();
-
-        for (int i = 0; i < nameParameters.length; i++) {
-            Parameter parameter = new Parameter();
-            parameter.setName(nameParameters[i]);
-            parameter.setMinValue(Double.parseDouble(minValues[i]));
-            parameter.setMaxValue(Double.parseDouble(maxValues[i]));
-            parameter.setUnit(units[i]);
-            parameter.setCategoryId(categoryId);
-            parameter.setGuideImg(guideImages.get(i));
-            listParameter.add(parameter);
-        }
-        AdminCategoryServices.getINSTANCE().updateParameters(listParameter, categoryId);
+        response.getWriter().write(objJson.toString());
     }
 
     //Update image size table;
@@ -86,9 +87,9 @@ public class UpdateCategory extends HttpServlet {
         return uploadImageServices.getNameImages().get(0);
     }
 
-    private List<String> uploadGuideImages(Collection<Part> parts, int categoryId) throws IOException {
+    private List<String> uploadGuideImages(Collection<Part> parts) throws IOException {
         ServletContext servletContext = getServletContext();
-        String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathCategoryWeb();
+        String root = servletContext.getRealPath("/") + PathProperties.getINSTANCE().getPathParameterWeb();
         UploadImageServices uploadImageServices = new UploadImageServices(root);
         uploadImageServices.addImages(parts);
         return uploadImageServices.getNameImages();

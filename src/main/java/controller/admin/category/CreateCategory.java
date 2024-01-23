@@ -39,7 +39,7 @@ public class CreateCategory extends HttpServlet {
 
         String nameCategory = request.getParameter("nameCategory");
         if (nameCategory == null) {
-            response.sendError(404);
+            response.getWriter().write("{\"status\":true}");
             return;
         }
         this.category = new Category();

@@ -299,7 +299,7 @@ window.addEventListener('message', function (event) {
                     if (guideImg.querySelector('.category__img')) {
                         guideImg.querySelector('.category__img').src = `assets/img/parameter_guide/${parameters[i].guideImg}`;
                     } else {
-                        guideImg.insertAdjacentHTML("beforeend", `<img class="category__img" src="assets/img/guide_img/${parameters[i].guideImg}" alt="">`);
+                        guideImg.insertAdjacentHTML("beforeend", `<img class="category__img" src="assets/img/parameter_guide/${parameters[i].guideImg}" alt="">`);
                     }
                 }
                 removeRule('sizeTableImage');
@@ -323,7 +323,17 @@ window.addEventListener('message', function (event) {
             data: category,
             cache: false,
             success: function (data) {
-
+                if (data.status == true) {
+                    notifySuccess({
+                        title: "Thêm thành công",
+                        body: "Thêm phân loại thành công, vui lòng tải lại trang",
+                    });
+                } else {
+                    notifyFailed({
+                        title: "Thêm không thành công",
+                        body: "Thêm phân loại không thành công, phân loại này đã tồn tại",
+                    });
+                }
             },
             error: function (error) {
             },
@@ -331,7 +341,6 @@ window.addEventListener('message', function (event) {
     }
 
     function update() {
-        console.log(1)
         let category = new FormData(form);
         category.append("categoryId", receivedData.categoryId)
         $.ajax({
@@ -343,6 +352,17 @@ window.addEventListener('message', function (event) {
             data: category,
             cache: false,
             success: function (data) {
+                if (data.status == true) {
+                    notifySuccess({
+                        title: "Cập nhật thành công",
+                        body: "Cập nhật phân loại thành công, vui lòng tải lại trang",
+                    });
+                } else {
+                    notifyFailed({
+                        title: "Cập nhật không thành công",
+                        body: "Cập nhật phân loại không thành công, vui lòng thử lại",
+                    });
+                }
             },
             error: function (error) {
             },

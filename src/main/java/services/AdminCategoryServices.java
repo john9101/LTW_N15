@@ -66,6 +66,7 @@ public class AdminCategoryServices {
         int quantityParameterDeleted = listParameter.size() - listParameterExist.size();
 //        Update: left - right
         for (int i = 0; i < quantityParameterUpdate; i++) {
+            listParameter.get(i).setId(listParameterExist.get(i).getId());
             parameterDAO.updateParameter(listParameter.get(i));
         }
 //       Delete: right to left

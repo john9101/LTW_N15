@@ -10,7 +10,7 @@ public class ReviewDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ratingStar ")
                 .append("FROM products JOIN (order_details JOIN reviews ON order_details.id = reviews.orderDetailId) ON products.id = order_details.productId ")
-                .append("WHERE products.id = ?");
+                .append("WHERE products.id = ? AND reviews.visibility = true");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Review.class, productId);
     }
 

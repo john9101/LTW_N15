@@ -77,7 +77,7 @@
                         <%--Image--%>
                     <div class="offset-1 col-6">
                         <div class="order__guide-parameter">
-                            <img src="assets/img/parameter_guide/coAo.jpg" alt="">
+                            <img src="assets/img/parameter_guide/${parameter.guideImg}" alt="">
                         </div>
                     </div>
                 </div>

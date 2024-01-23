@@ -210,7 +210,7 @@
                                     data-cart-product-index="<%=cartProductIndex%>">
                                     <td class="product__item">
                                         <div class="product__content">
-                                            <a class="product__image" href="#"> <!-- Back-to-detail_product-page-->
+                                            <a class="product__image" href="showProductDetail?productId<%=productId%>"> <!-- Back-to-detail_product-page-->
                                                     <%--                                                <c:set var="listImagesProduct"--%>
                                                     <%--                                                       value="${productFactory.getListImagesByProductId(productId)}"/>--%>
                                                 <img src='assets/img/product_img/<%=ProductFactory.getListImagesByProductId(productId).get(0).getNameImage()%>'>
