@@ -1,4 +1,4 @@
-package controller.admin.user;
+package controller.admin.adminUser;
 
 import dao.UserDAO;
 import dao.UserDAOImplement;
@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "delete", value = "/delete")
+@WebServlet(name = "Delete", value = "/Delete")
 public class DeleteUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -17,10 +17,14 @@ public class DeleteUser extends HttpServlet {
             try{
                 int id = Integer.parseInt(idString);
                 UserDAO user = new UserDAOImplement();
+                user.deleteContactsFromUserByUserId(id);
+                user.deleteReviewsFromUserByUserId(id);
+                user.deleteOrderdetailsFromUserByUserId(id);
+                user.deleteOrderFromUserByUserId(id);
                 user.deleteUserById(id);
                 System.out.println("Deleted user with ID: " + id);
             }catch(NumberFormatException e){
-                System.out.println("id không hợp lệ");
+                e.printStackTrace();
             }
         }
         response.sendRedirect("AdminUser");
