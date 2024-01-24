@@ -18,8 +18,6 @@ public class OrderDAO {
     }
 
     public List<OrderDetail> getOrderDetailByOrderId(List<Integer> listId) {
-        if (listId.isEmpty()) return new ArrayList<>();
-
         StringBuilder conditionBuilder = new StringBuilder();
         for (int id : listId) conditionBuilder.append(id).append(',');
 
@@ -46,4 +44,10 @@ public class OrderDAO {
     }
 
 
+    public List<OrderDetail> getOrderDetailNotReview(int userId) {
+        String querry = "SELECT order_details.id AS id\n" +
+                "FROM order_details JOIN orders ON orders.id = order_details.orderId\n" +
+                "WHERE orders.statusOrder ='HOÀN THÀNH' AND orders.userId=? AND order_details.id NOT IN (SELECT orderDetailId FROM reviews)\n";
+        return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class,userId);
+    }
 }

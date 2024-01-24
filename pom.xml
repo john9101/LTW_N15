@@ -180,6 +180,7 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/thumbnailator-0.4.8.jar</systemPath>
         </dependency>
+
     </dependencies>
 
     <build>
