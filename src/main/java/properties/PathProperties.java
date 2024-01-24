@@ -10,6 +10,8 @@ public class PathProperties {
     private String pathProductWeb;
     private String pathProductLocal;
     private String pathAvatarUserWeb;
+    private String pathCategoryWeb;
+    private String pathParameterWeb;
 
     private PathProperties() {
         Properties properties = new Properties();
@@ -20,6 +22,8 @@ public class PathProperties {
             pathProductLocal = properties.getProperty("path.product.local");
             pathAvatarUserWeb = properties.getProperty("path.user.webapp");
 
+            pathCategoryWeb = properties.getProperty("path.category.webapp");
+            pathParameterWeb = properties.getProperty("path.parameter.webapp");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -37,6 +41,30 @@ public class PathProperties {
 
     public String getPathProductLocal() {
         return pathProductLocal;
+    }
+
+    public void setPathProductWeb(String pathProductWeb) {
+        this.pathProductWeb = pathProductWeb;
+    }
+
+    public void setPathProductLocal(String pathProductLocal) {
+        this.pathProductLocal = pathProductLocal;
+    }
+
+    public String getPathCategoryWeb() {
+        return pathCategoryWeb;
+    }
+
+    public void setPathCategoryWeb(String pathCategoryWeb) {
+        this.pathCategoryWeb = pathCategoryWeb;
+    }
+
+    public String getPathParameterWeb() {
+        return pathParameterWeb;
+    }
+
+    public void setPathParameterWeb(String pathParameterWeb) {
+        this.pathParameterWeb = pathParameterWeb;
     }
 
     public static void main(String[] args) {

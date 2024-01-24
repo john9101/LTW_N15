@@ -2,7 +2,6 @@ package dao;
 
 import models.User;
 
-import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;

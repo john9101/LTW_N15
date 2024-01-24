@@ -54,7 +54,7 @@
                         <article action="#!" class="form__search-block filler__block">
                             <i class="search__icon fa-solid fa-magnifying-glass"></i>
                             <form action="AdminUser" method="get">
-                                <input id="search-input" type="text" name="search" placeholder="Tìm kiếm người dùng">
+                                <input id="search-input" type="text" name="search" placeholder="Tìm kiếm tên người dùng">
                             </form>
                         </article>
                         <button id="button-add-user" class="button button__delete">
