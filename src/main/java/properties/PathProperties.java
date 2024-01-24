@@ -1,5 +1,6 @@
 package properties;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.StringTokenizer;
 public class PathProperties {
     private static PathProperties INSTANCE;
     private String pathProductWeb;
+    private String pathProductLocal;
+    private String pathAvatarUserWeb;
     private String pathCategoryWeb;
     private String pathParameterWeb;
     List<String> pathAdmin;
@@ -20,6 +23,9 @@ public class PathProperties {
         try {
             properties.load(inputStream);
             pathProductWeb = properties.getProperty("path.product.webapp");
+            pathProductLocal = properties.getProperty("path.product.local");
+            pathAvatarUserWeb = properties.getProperty("path.user.webapp");
+
             pathCategoryWeb = properties.getProperty("path.category.webapp");
             pathParameterWeb = properties.getProperty("path.parameter.webapp");
             pathAdmin = readList(properties, "path.admin");
@@ -93,9 +99,11 @@ public class PathProperties {
         this.pathGuest = pathGuest;
     }
 
-    public static void main(String[] args) {
-        System.out.println(PathProperties.getINSTANCE().getPathAdmin());
-        System.out.println(PathProperties.getINSTANCE().getPathMod());
-        System.out.println(PathProperties.getINSTANCE().getPathGuest());
+    public String getPathAvatarUserWeb() {
+        return pathAvatarUserWeb;
+    }
+
+    public void setPathAvatarUserWeb(String pathAvatarUserWeb) {
+        this.pathAvatarUserWeb = pathAvatarUserWeb;
     }
 }
