@@ -3,9 +3,9 @@ package dao;
 import database.JDBIConnector;
 import models.User;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.List;
+
 public class UserDAOImplement implements UserDAO {
     @Override
     public User selectById(int id) {
@@ -159,7 +159,7 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> getUserByID(int id) {
-        String querry = "SELECT id, username, email, fullName, gender, phone, address, birthDay FROM users WHERE id = ?";
+        String querry = "SELECT id, username, email, fullName, gender, phone, address, birthDay, avatar FROM users WHERE id = ?";
         return GeneralDao.executeQueryWithSingleTable(querry, User.class, id);
     }
 
@@ -238,4 +238,13 @@ public class UserDAOImplement implements UserDAO {
         sql.append("SELECT avatar FROM users WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, id);
     }
+
+    @Override
+    public void updateInfoUser(int id, String avatar) {
+        String query = "UPDATE users SET avatar = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(query, avatar, id);
+    }
+
+
 }
+

@@ -26,7 +26,7 @@ public class OrderDAO {
         conditionBuilder.deleteCharAt(conditionBuilder.length() - 1);
         String condition = conditionBuilder.toString();
 
-        String query = "SELECT DISTINCT  productId, quantityRequired, price " +
+        String query = "SELECT id,  productId, quantityRequired, price " +
                 "FROM order_details " +
                 "WHERE orderId IN (" + condition + ")";
         return GeneralDao.executeQueryWithSingleTable(query, OrderDetail.class);

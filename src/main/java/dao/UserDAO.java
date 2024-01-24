@@ -2,6 +2,7 @@ package dao;
 
 import models.User;
 
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -53,5 +54,9 @@ public interface UserDAO extends DAO<User> {
     public void updateUserPassword(int userId, String password);
 
     public List<User> getAvatar(int id);
+
+   public void updateInfoUser(int id,  String avatar);
+
+
 }
 

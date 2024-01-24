@@ -61,9 +61,9 @@
                         <a class="${tag=="ĐÃ HỦY"?"status__list status__list--click":"status__list"}" href="PurchaseHistory?status=ĐÃ HỦY">Đã hủy</a>
                     </div>
                     <div id="serviceOrderContainer" class="service__order service__order--show">
-                        <c:set var="purchaseList" value="${requestScope.listPurchaseHistory}" />
+                        <c:set var="item" value="${requestScope.listPurchaseHistory}" />
                         <c:choose>
-                            <c:when test="${empty purchaseList }">
+                            <c:when test="${empty item }">
                                 <div class="block__product">
                                     <div class="block__product--history">
                                         <div class="imgNoneProduct"></div>
@@ -72,19 +72,19 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <c:forEach items="${requestScope.listPurchaseHistory}" var="purchaseList">
+                                <c:forEach items="${requestScope.listPurchaseHistory}" var="item">
                                     <div class="block__product">
-                                        <c:set var="imageList" value="${order.getNameImageByProductId(order.getProductInOrderDetail(purchaseList.getProductId()).get(0).id)}"/>
+                                        <c:set var="imageList" value="${order.getNameImageByProductId(order.getProductInOrderDetail(item.getProductId()).get(0).id)}"/>
                                         <img class="img__product block__img" src="./assets/img/product_img/${imageList[0].getNameImage()}">
                                         <div class="block__info">
-                                            <p class="info__product info__product--name">${order.getProductInOrderDetail(purchaseList.getProductId()).get(0).name}</p>
-                                            <p class="info__product">Phân loại: ${productFactory.getNameCategoryById(order.getProductInOrderDetail(purchaseList.getProductId()).get(0).id)}</p>
-                                            <p class="info__product">Số lượng: ${purchaseList.getQuantityRequired()}</p>
-                                            <fmt:formatNumber value="${purchaseList.getQuantityRequired() * purchaseList.getPrice()}" type="currency" currencyCode="VND" var="price"/>
+                                            <p class="info__product info__product--name">${order.getProductInOrderDetail(item.getProductId()).get(0).name}</p>
+                                            <p class="info__product">Phân loại: ${productFactory.getNameCategoryById(order.getProductInOrderDetail(item.getProductId()).get(0).id)}</p>
+                                            <p class="info__product">Số lượng: ${item.getQuantityRequired()}</p>
+                                            <fmt:formatNumber value="${item.getQuantityRequired() * item.getPrice()}" type="currency" currencyCode="VND" var="price"/>
                                             <p class="info__product">Giá: ${price}</p>
                                         </div>
                                         <c:if test="${tag eq 'HOÀN THÀNH'}">
-                                            <button class="btn"><a href="./review.jsp">Đánh giá</a></button>
+                                            <button class="btn"><a href="review?orderDetailId=${item.id}">Đánh giá</a></button>
                                         </c:if>
                                     </div>
                                 </c:forEach>
