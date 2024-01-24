@@ -92,4 +92,10 @@ public class PathProperties {
     public void setPathGuest(List<String> pathGuest) {
         this.pathGuest = pathGuest;
     }
+
+    public static void main(String[] args) {
+        System.out.println(PathProperties.getINSTANCE().getPathAdmin());
+        System.out.println(PathProperties.getINSTANCE().getPathMod());
+        System.out.println(PathProperties.getINSTANCE().getPathGuest());
+    }
 }

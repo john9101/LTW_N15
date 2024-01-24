@@ -36,7 +36,6 @@ public class SecurityFilter implements Filter {
         try {
             role = ((User) httpServletRequest.getAttribute("auth")).getRole();
         } catch (NullPointerException e) {
-            System.out.println(preventNoLogin(url));
             if (preventNoLogin(url) == false) {
                 chain.doFilter(request, response);
             } else {
@@ -90,7 +89,7 @@ public class SecurityFilter implements Filter {
 
     private boolean isGuest(String url, String role) {
         List<String> listUrlAllow = PathProperties.getINSTANCE().getPathGuest();
-        if (role.equals(RoleProperties.getINSTANCE().getAdmin()) && contain(url, listUrlAllow)) {
+        if (role.equals(RoleProperties.getINSTANCE().getGuest()) && contain(url, listUrlAllow)) {
             return true;
         }
         return false;
@@ -98,7 +97,7 @@ public class SecurityFilter implements Filter {
 
     private boolean isMod(String url, String role) {
         List<String> listUrlAllow = PathProperties.getINSTANCE().getPathGuest();
-        if (role.equals(RoleProperties.getINSTANCE().getAdmin()) && contain(url, listUrlAllow)) {
+        if (role.equals(RoleProperties.getINSTANCE().getMod()) && contain(url, listUrlAllow)) {
             return true;
         }
         return false;
