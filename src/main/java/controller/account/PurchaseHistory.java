@@ -3,13 +3,14 @@ package controller.account;
 import dao.OrderDAO;
 import models.Order;
 import models.OrderDetail;
-import models.Product;
 import models.User;
 
-import javax.mail.Session;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +40,13 @@ public class PurchaseHistory extends HttpServlet {
 
             request.setAttribute("listPurchaseHistory", listOrderDetail);
         }else{
+            List<Order> listOrder = new ArrayList<>();
             OrderDAO order = new OrderDAO();
-            List<Order> listOrder = order.getOrderByUserIdAndStatusOrder(auth.getId(), status);
-
+            if (status.equalsIgnoreCase("HOÀN THÀNH")) {
+                listOrder = order.getOrderByUserIdAndStatusOrder(auth.getId(), status);
+            } else {
+                listOrder = order.getOrderByUserIdAndStatusOrder(auth.getId(), status);
+            }
             List<Integer> listOrderId = new ArrayList<>();
             for (Order orders:listOrder) {
                 listOrderId.add(orders.getId());

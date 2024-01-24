@@ -40,11 +40,11 @@
     <div class="container-xl">
         <div class="row">
             <div class="col-3">
-                <ul class="service__list">
-                    <li class="service__item service__item--clicked ">Chỉnh sửa tài khoản</li>
-                    <li class="service__item"><a href="ChangePassword" class="item__service">Đổi mật khẩu</a></li>
-                    <li class="service__item"><a href="PurchaseHistory" class="item__service">Lịch sử mua hàng</a></li>
-                </ul>
+                <div class="service__list">
+                    <div class="service__item service__item--clicked ">Chỉnh sửa tài khoản</div>
+                    <a href="ChangePassword" class=" service__item ">Đổi mật khẩu</a>
+                    <a href="PurchaseHistory" class="service__item ">Lịch sử mua hàng</a>
+                </div>
             </div>
             <div class="col-9">
                 <section class="service__section service__section--show">

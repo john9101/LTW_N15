@@ -1,6 +1,5 @@
 package properties;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +9,19 @@ import java.util.StringTokenizer;
 public class PathProperties {
     private static PathProperties INSTANCE;
     private String pathProductWeb;
-    private String pathProductLocal;
     private String pathAvatarUserWeb;
     private String pathCategoryWeb;
     private String pathParameterWeb;
     List<String> pathAdmin;
     List<String> pathMod;
     List<String> pathGuest;
+    List<String> preventAll;
     private PathProperties() {
         Properties properties = new Properties();
         InputStream inputStream = PathProperties.class.getClassLoader().getResourceAsStream("path.properties");
         try {
             properties.load(inputStream);
             pathProductWeb = properties.getProperty("path.product.webapp");
-            pathProductLocal = properties.getProperty("path.product.local");
             pathAvatarUserWeb = properties.getProperty("path.user.webapp");
 
             pathCategoryWeb = properties.getProperty("path.category.webapp");
@@ -31,6 +29,7 @@ public class PathProperties {
             pathAdmin = readList(properties, "path.admin");
             pathMod = readList(properties, "path.mod");
             pathGuest = readList(properties, "path.guest");
+            preventAll = readList(properties, "path.prevent.all");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -105,5 +104,13 @@ public class PathProperties {
 
     public void setPathAvatarUserWeb(String pathAvatarUserWeb) {
         this.pathAvatarUserWeb = pathAvatarUserWeb;
+    }
+
+    public List<String> getPreventAll() {
+        return preventAll;
+    }
+
+    public void setPreventAll(List<String> preventAll) {
+        this.preventAll = preventAll;
     }
 }

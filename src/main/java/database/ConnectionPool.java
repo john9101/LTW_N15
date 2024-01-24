@@ -40,7 +40,6 @@ public class ConnectionPool implements IConnectionPool {
         }
         Handle handle = pool.removeFirst();
         handleStatus.put(handle, true);
-        System.out.println(getHandleAvailable());
         return handle;
 
     }
@@ -49,8 +48,6 @@ public class ConnectionPool implements IConnectionPool {
     public synchronized void releaseHandle(Handle handle) {
         pool.addLast(handle);
         handleStatus.put(handle, false);
-        System.out.println(getHandleAvailable());
-        System.out.println("Đã release handle");
         notifyAll();
     }
 

@@ -79,10 +79,11 @@ h1{
     height: 100px;
     border-radius: 50%;
 }
-.user__info{
-    width: 200%;
+form{
     flex: 1;
-
+}
+.user__info{
+    flex: 1;
 }
 #photo{
     width: 100%;

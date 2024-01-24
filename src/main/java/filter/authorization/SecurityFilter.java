@@ -30,11 +30,16 @@ public class SecurityFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         HttpSession session = httpServletRequest.getSession();
         String url = httpServletRequest.getRequestURL().toString();
-
-        boolean isLogin = session.getAttribute("auth") != null;
         String role;
+
+        if (preventAll(url)) {
+            httpServletResponse.sendError(404);
+            return;
+        }
+
         try {
-            role = ((User) httpServletRequest.getAttribute("auth")).getRole();
+            role = ((User) session.getAttribute("auth")).getRole();
+            System.out.println(role);
         } catch (NullPointerException e) {
             if (preventNoLogin(url) == false) {
                 chain.doFilter(request, response);
@@ -43,7 +48,6 @@ public class SecurityFilter implements Filter {
             }
             return;
         }
-
         System.out.println("Admin: " + isAdmin(url, role));
         System.out.println("Mod: " + isMod(url, role));
         System.out.println("Guest: : " + isGuest(url, role));
@@ -81,23 +85,40 @@ public class SecurityFilter implements Filter {
 
     private boolean isAdmin(String url, String role) {
         List<String> listUrlAllow = PathProperties.getINSTANCE().getPathAdmin();
-        if (role.equals(RoleProperties.getINSTANCE().getAdmin()) && contain(url, listUrlAllow)) {
-            return true;
+        if (contain(url, listUrlAllow)) {
+            if (role.equals(RoleProperties.getINSTANCE().getAdmin()))
+                return true;
+            else
+                return false;
         }
-        return false;
+        return true;
     }
 
     private boolean isGuest(String url, String role) {
         List<String> listUrlAllow = PathProperties.getINSTANCE().getPathGuest();
-        if (role.equals(RoleProperties.getINSTANCE().getGuest()) && contain(url, listUrlAllow)) {
-            return true;
+        if (contain(url, listUrlAllow)) {
+            if (role.equals(RoleProperties.getINSTANCE().getGuest()))
+                return true;
+            else
+                return false;
         }
-        return false;
+        return true;
     }
 
     private boolean isMod(String url, String role) {
-        List<String> listUrlAllow = PathProperties.getINSTANCE().getPathGuest();
-        if (role.equals(RoleProperties.getINSTANCE().getMod()) && contain(url, listUrlAllow)) {
+        List<String> listUrlAllow = PathProperties.getINSTANCE().getPathMod();
+        if (contain(url, listUrlAllow)) {
+            if (role.equals(RoleProperties.getINSTANCE().getMod()))
+                return true;
+            else
+                return false;
+        }
+        return true;
+    }
+
+    private boolean preventAll(String url) {
+        List<String> listUrlAllow = PathProperties.getINSTANCE().getPreventAll();
+        if (contain(url, listUrlAllow)) {
             return true;
         }
         return false;
