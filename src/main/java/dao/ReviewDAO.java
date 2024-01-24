@@ -6,6 +6,14 @@ import models.Review;
 import java.util.List;
 
 public class ReviewDAO {
+    public List<Product> getNameProduct(int orderProductId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT products.name ")
+                .append("FROM order_details JOIN (product ON order_details.productId = products.id) ")
+                .append("WHERE order_details.id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, orderProductId);
+    }
+
     public List<Review> getReviewStar(int productId) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT ratingStar ")

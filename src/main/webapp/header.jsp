@@ -43,7 +43,6 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <% System.out.println(session.getId()); %>
                         <!--Account show (After log in success)-->
                         <div class="account__wrapper">
                             <!--Giỏ hàng-->

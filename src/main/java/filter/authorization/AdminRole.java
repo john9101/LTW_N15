@@ -4,13 +4,12 @@ import models.User;
 import properties.RoleProperties;
 
 import javax.servlet.*;
-import javax.servlet.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(filterName = "admin", urlPatterns = {"/*"})
+//@WebFilter(filterName = "admin", urlPatterns = {"/*"})
 public class AdminRole implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -25,17 +24,24 @@ public class AdminRole implements Filter {
         HttpSession session = httpServletRequest.getSession();
         User user = (User) session.getAttribute("auth");
 
+        boolean isLogin = user != null;
+        boolean isAdmin = false;
+        if (user != null) {
+            isAdmin = user.getRole().equals(RoleProperties.getINSTANCE().getAdmin());
+        }
         String url = httpServletRequest.getRequestURL().toString();
+
         if (!url.contains("admin")) {
             chain.doFilter(request, response);
             return;
         }
 
-        if (user == null) {
+        if (!isLogin) {
             httpServletResponse.sendRedirect("signIn.jsp");
             return;
         }
-        if (user.getRole().equals(RoleProperties.getINSTANCE().getAdmin())) {
+
+        if (isAdmin) {
             chain.doFilter(request, response);
         } else {
             httpServletResponse.sendError(403);
