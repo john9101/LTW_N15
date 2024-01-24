@@ -25,18 +25,20 @@ public class AdminRole implements Filter {
         HttpSession session = httpServletRequest.getSession();
         User user = (User) session.getAttribute("auth");
 
-        if (httpServletRequest.getRequestURL().toString().contains("admin")) {
-            if (user == null) {
+        String url = httpServletRequest.getRequestURL().toString();
+        if (!url.contains("admin")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        if (user == null) {
             httpServletResponse.sendRedirect("signIn.jsp");
-                return;
-            }
-            if (user.getRole().equals(RoleProperties.getINSTANCE().getAdmin())) chain.doFilter(request, response);
-            else {
-                httpServletResponse.sendError(403);
-            }
+            return;
+        }
+        if (user.getRole().equals(RoleProperties.getINSTANCE().getAdmin())) {
             chain.doFilter(request, response);
         } else {
-            chain.doFilter(request, response);
+            httpServletResponse.sendError(403);
         }
     }
 }

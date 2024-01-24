@@ -28,7 +28,7 @@ public class CreateCategory extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendError(404);
+       doPost(request, response);
     }
 
     @Override
