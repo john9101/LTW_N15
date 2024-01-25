@@ -2,12 +2,9 @@ package dao;
 
 import database.ConnectionPool;
 import database.JDBIConnector;
-import models.Category;
-import models.Size;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.statement.Query;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -66,9 +63,14 @@ public class GeneralDao {
         Handle handle = ConnectionPool.getINSTANCE().getHandle();
         try {
             handle.useTransaction(handleInner -> {
-                handleInner.getConnection().setAutoCommit(false);
-                handleInner.execute(sql, params);
-                handleInner.getConnection().commit();
+                try{
+                    handleInner.getConnection().setAutoCommit(false);
+                    handleInner.execute(sql, params);
+                    handleInner.getConnection().commit();
+                }catch (Exception exception) {
+                    handle.rollback();
+                }
+
             });
         } catch (Exception exception) {
             handle.rollback();

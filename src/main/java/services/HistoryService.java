@@ -33,9 +33,14 @@ public class HistoryService {
     public List<OrderDetail> getOrderDetailNotReview(int userId){
         return orderDAO.getOrderDetailNotReview(userId);
     }
+
+    public List<OrderDetail> getOrderDetailHasReview(int userId) {
+        return orderDAO.getOrderDetailHasReview(userId);
+    }
     public List<Order> getOrderByUserId(int userId){
         return orderDAO.getOrderByUserId(userId);
     }
+
     public List<Product> getProductInOrderDetail(int id){
         return orderDAO.getProductInOrderDetail(id);
     }

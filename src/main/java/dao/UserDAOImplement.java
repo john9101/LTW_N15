@@ -245,6 +245,13 @@ public class UserDAOImplement implements UserDAO {
         GeneralDao.executeAllTypeUpdate(query, avatar, id);
     }
 
-
+    @Override
+    public List<User> getUserByIdProductDetail(int orderDetailId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT DISTINCT users.id, users.fullName ")
+                .append("FROM users JOIN (orders JOIN order_details ON orders.id = order_details.orderId) ON users.id = orders.userId ")
+                .append("WHERE order_details.id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, orderDetailId);
+    }
 }
 

@@ -32,9 +32,13 @@ public class CreateReview extends HttpServlet {
         int userId = user.getId();
         int orderProductId;
 
+
         try {
             orderProductId = Integer.parseInt(orderProductIdRequest);
-
+            if (!ReviewServices.getINSTANCE().canReview(userId, orderProductId)) {
+                response.sendError(404);
+                return;
+            }
         } catch (NumberFormatException e) {
             response.sendError(404);
             return;
@@ -46,7 +50,6 @@ public class CreateReview extends HttpServlet {
             ratingStar = 5;
         }
         Review review = new Review();
-        review.setUserId(userId);
         review.setOrderDetailId(orderProductId);
         review.setRatingStar(ratingStar);
         review.setFeedback(desc);

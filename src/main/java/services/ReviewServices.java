@@ -23,6 +23,11 @@ public class ReviewServices {
         return INSTANCE;
     }
 
+    public boolean canReview(int userId, int orderProductIdRequest) {
+        List<Review> listReview = reviewDAO.checkReview(userId, orderProductIdRequest);
+        return listReview.isEmpty() ;
+    }
+
     public String getNameProduct(int orderProductId) {
         List<Product> listProduct = reviewDAO.getNameProduct(orderProductId);
         return listProduct.isEmpty() ? null : listProduct.get(0).getName();
