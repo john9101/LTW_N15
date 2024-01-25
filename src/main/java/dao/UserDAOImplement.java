@@ -147,8 +147,8 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> searchUsersByName(String search) {
-        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ? OR LOWER(fullName) LIKE ? OR LOWER(gender) LIKE ? OR LOWER(birthDay) LIKE ? OR LOWER(phone) LIKE ? OR LOWER(address) LIKE ?";
-        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%");
+        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ? ";
+        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%");
     }
 
     @Override

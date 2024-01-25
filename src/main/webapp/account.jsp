@@ -41,9 +41,9 @@
         <div class="row">
             <div class="col-3">
                 <div class="service__list">
-                    <div class="service__item service__item--clicked ">Chỉnh sửa tài khoản</div>
-                    <a href="ChangePassword" class=" service__item ">Đổi mật khẩu</a>
-                    <a href="PurchaseHistory" class="service__item ">Lịch sử mua hàng</a>
+                    <a class="service__item service__item--clicked ">Chỉnh sửa tài khoản</a>
+                    <a class="service__item" href="ChangePassword" >Đổi mật khẩu</a>
+                    <a class="service__item" href="PurchaseHistory" >Lịch sử mua hàng</a>
                 </div>
             </div>
             <div class="col-9">

@@ -41,11 +41,11 @@
     <div class="container-xl">
         <div class="row">
             <div class="col-3">
-                <ul class="service__list">
-                    <li class="service__item"><a href="Account">Chỉnh sửa tài khoản</a></li>
-                    <li class="service__item"><a href="ChangePassword" class="item__service">Đổi mật khẩu</a></li>
-                    <li class="service__item service__item--clicked">Lịch sử mua hàng</li>
-                </ul>
+                <div class="service__list">
+                    <a class="service__item" href="Account">Chỉnh sửa tài khoản</a>
+                    <a class="service__item" href="ChangePassword">Đổi mật khẩu</a>
+                    <a class="service__item service__item--clicked">Lịch sử mua hàng</a>
+                </div>
             </div>
             <div class="col-9">
                 <section class="service__section service__section--show">
@@ -53,15 +53,21 @@
                     <input type="hidden" name="userId" value="<c:out value='${auth.getId()}'/>">
                     <h1 class="title">Lịch sử mua hàng</h1>
                     <div class="statusOrder">
-                        <a class="${tag=="TẤT CẢ"?"status__list status__list--click":"status__list"}" href="PurchaseHistory?status=TẤT CẢ">Tất cả</a>
-                        <a class="${tag=="ĐƠN HÀNG MỚI"?"status__list status__list--click":"status__list"}" href="PurchaseHistory?status=ĐƠN HÀNG MỚI">Đơn hàng mới</a>
-                        <a class="${tag=="ĐÃ XÁC NHẬN"?"status__list status__list--click":"status__list"}" href="PurchaseHistory?status=ĐÃ XÁC NHẬN">Đã xác nhận</a>
-                        <a class="${tag=="ĐANG VẬN CHUYỂN"?"status__list status__list--click":"status__list"}" href="PurchaseHistory?status=ĐANG VẬN CHUYỂN">Đang vận chuyển</a>
-                        <a class="${tag=="HOÀN THÀNH"?"status__list status__list--click":"status__list"}" href="PurchaseHistory?status=HOÀN THÀNH">Hoàn thành</a>
-                        <a class="${tag=="ĐÃ HỦY"?"status__list status__list--click":"status__list"}" href="PurchaseHistory?status=ĐÃ HỦY">Đã hủy</a>
+                        <a class="${tag=="TẤT CẢ"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=TẤT CẢ">Tất cả</a>
+                        <a class="${tag=="ĐƠN HÀNG MỚI"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=ĐƠN HÀNG MỚI">Đơn hàng mới</a>
+                        <a class="${tag=="ĐÃ XÁC NHẬN"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=ĐÃ XÁC NHẬN">Đã xác nhận</a>
+                        <a class="${tag=="ĐANG VẬN CHUYỂN"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=ĐANG VẬN CHUYỂN">Đang vận chuyển</a>
+                        <a class="${tag=="HOÀN THÀNH"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=HOÀN THÀNH">Hoàn thành</a>
+                        <a class="${tag=="ĐÃ HỦY"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=ĐÃ HỦY">Đã hủy</a>
                     </div>
                     <div id="serviceOrderContainer" class="service__order service__order--show">
-                        <c:set var="item" value="${requestScope.listPurchaseHistory}" />
+                        <c:set var="item" value="${requestScope.listPurchaseHistory}"/>
                         <c:choose>
                             <c:when test="${empty item }">
                                 <div class="block__product">
@@ -74,17 +80,27 @@
                             <c:otherwise>
                                 <c:forEach items="${requestScope.listPurchaseHistory}" var="item">
                                     <div class="block__product">
-                                        <c:set var="imageList" value="${order.getNameImageByProductId(order.getProductInOrderDetail(item.getProductId()).get(0).id)}"/>
-                                        <img class="img__product block__img" src="./assets/img/product_img/${imageList[0].getNameImage()}">
+                                        <c:set var="imageList"
+                                               value="${order.getNameImageByProductId(order.getProductInOrderDetail(item.getProductId()).get(0).id)}"/>
+                                        <img class="img__product block__img"
+                                             src="./assets/img/product_img/${imageList[0].getNameImage()}">
                                         <div class="block__info">
                                             <p class="info__product info__product--name">${order.getProductInOrderDetail(item.getProductId()).get(0).name}</p>
-                                            <p class="info__product">Phân loại: ${productFactory.getNameCategoryById(order.getProductInOrderDetail(item.getProductId()).get(0).id)}</p>
+                                            <p class="info__product">Phân
+                                                loại: ${productFactory.getNameCategoryById(order.getProductInOrderDetail(item.getProductId()).get(0).id)}</p>
                                             <p class="info__product">Số lượng: ${item.getQuantityRequired()}</p>
-                                            <fmt:formatNumber value="${item.getQuantityRequired() * item.getPrice()}" type="currency" currencyCode="VND" var="price"/>
+                                            <fmt:formatNumber value="${item.getQuantityRequired() * item.getPrice()}"
+                                                              type="currency" currencyCode="VND" var="price"/>
                                             <p class="info__product">Giá: ${price}</p>
                                         </div>
-                                        <c:if test="${tag eq 'HOÀN THÀNH'}">
-                                            <button class="btn"><a href="review?orderDetailId=${item.id}">Đánh giá</a></button>
+                                        <c:if test="${requestScopetag eq 'HOÀN THÀNH' and requestScope.OrderDetailNotReview!=null}">
+                                            <c:forEach items="${requestScope.OrderDetailNotReview} "
+                                                       var="OrderDetailNotReview">
+                                                <c:if test="${OrderDetailNotReview.id != item.id}">
+                                                    <button class="btn"><a href="review?orderDetailId=${item.id}">Đánh
+                                                        giá</a></button>
+                                                </c:if>
+                                            </c:forEach>
                                         </c:if>
                                     </div>
                                 </c:forEach>
@@ -99,8 +115,6 @@
 <%@include file="footer.jsp" %>
 
 </body>
-
-
 
 
 </html>

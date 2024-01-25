@@ -3,14 +3,14 @@ package controller.account;
 import dao.OrderDAO;
 import models.Order;
 import models.OrderDetail;
+import models.Product;
 import models.User;
+import services.HistoryService;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.mail.Session;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,38 +23,41 @@ public class PurchaseHistory extends HttpServlet {
         User auth = (User) session.getAttribute("auth");
 
         String status = request.getParameter("status");
+        System.out.println(status);
 
         if (status == null || status.equalsIgnoreCase("tất cả")){
-            OrderDAO order = new OrderDAO();
-            List<Order> listOrder = order.getOrderByUserId(auth.getId());
+            List<Order> listOrder = HistoryService.getINSTANCE().getOrderByUserId(auth.getId());
 
             List<Integer> listOrderId = new ArrayList<>();
             for (Order orders:listOrder) {
                 listOrderId.add(orders.getId());
             }
-            List<OrderDetail> listOrderDetail = order.getOrderDetailByOrderId(listOrderId);
+            List<OrderDetail> listOrderDetail = HistoryService.getINSTANCE().getOrderDetailByOrderId(listOrderId);
 
             for(OrderDetail orderdetails:listOrderDetail) {
-                order.getProductInOrderDetail(orderdetails.getId());
+                HistoryService.getINSTANCE().getProductInOrderDetail(orderdetails.getId());
             }
 
             request.setAttribute("listPurchaseHistory", listOrderDetail);
         }else{
-            List<Order> listOrder = new ArrayList<>();
-            OrderDAO order = new OrderDAO();
-            if (status.equalsIgnoreCase("HOÀN THÀNH")) {
-                listOrder = order.getOrderByUserIdAndStatusOrder(auth.getId(), status);
-            } else {
-                listOrder = order.getOrderByUserIdAndStatusOrder(auth.getId(), status);
+            List<Order> listOrder = HistoryService.getINSTANCE().getOrderByUserIdAndStatusOrder(auth.getId(), status);
+
+            if (status.equalsIgnoreCase("HOÀN THÀNH")){
+                List<OrderDetail> listOrderDetailNotReview = HistoryService.getINSTANCE().getOrderDetailNotReview(auth.getId());
+
+                request.setAttribute("OrderDetailNotReview", listOrderDetailNotReview);
             }
+
             List<Integer> listOrderId = new ArrayList<>();
             for (Order orders:listOrder) {
                 listOrderId.add(orders.getId());
             }
-            List<OrderDetail> listOrderDetail = order.getOrderDetailByOrderId(listOrderId);
+            List<OrderDetail> listOrderDetail = HistoryService.getINSTANCE().getOrderDetailByOrderId(listOrderId);
 
+            System.out.println(listOrder);
+//            System.out.println(listOrderDetailNotReview);
             for(OrderDetail orderdetails:listOrderDetail) {
-                order.getProductInOrderDetail(orderdetails.getId());
+                HistoryService.getINSTANCE().getProductInOrderDetail(orderdetails.getId());
             }
             request.setAttribute("listPurchaseHistory", listOrderDetail);
         }

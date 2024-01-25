@@ -3,6 +3,7 @@ body{
     padding: 0;
 }
 .main {
+    min-height: 100vh;
     padding: 50px 0;
     background-color: var(--blue-color-low);
 }
@@ -83,6 +84,7 @@ form{
     flex: 1;
 }
 .user__info{
+    width: 200%;
     flex: 1;
 }
 #photo{
