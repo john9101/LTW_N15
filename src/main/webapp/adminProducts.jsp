@@ -47,9 +47,8 @@
                 <li class="navbar__item"><a href="adminOrders.jsp"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="adminUsers.jsp"
-                                            class="navbar__link button button button--hover ">Khách
-                                                                                              hàng</a>
+                <li class="navbar__item"><a href="AdminUser"
+                                            class="navbar__link button button button--hover ">Khách hàng</a>
                 </li>
                 <li class="navbar__item"><a href="adminReviews.jsp"
                                             class="navbar__link button button button--hover ">Nhận xét</a>
