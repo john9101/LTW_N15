@@ -324,7 +324,7 @@
                             <div class="invoice__detail--info">
                                 <ul class="price__items">
                                     <li class="price__item">
-                                        <p class="price__text">Tạm tính (<span class="total__items">${sessionScope[userIdCart].getTotalItems()}</span> sp)</p>
+                                        <p class="price__text">Tạm tính (<span class="total__items">${sessionScope[userIdCart].getTotalItems()}</span> sản phẩm)</p>
                                         <p class="price__value">${sessionScope[userIdCart].temporaryPriceFormat()}</p>
                                     </li>
                                     <li class="price__item">

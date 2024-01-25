@@ -6,12 +6,13 @@ import models.Size;
 import models.User;
 import utils.ProductFactory;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Map;
 
 @WebServlet(name = "AddToCartController", value = "/AddToCart")
 public class AddToCartController extends HttpServlet {
@@ -47,8 +48,6 @@ public class AddToCartController extends HttpServlet {
             }
             String colorCode = request.getParameter("color");
             String sizeName = request.getParameter("size");
-
-
 
             if(colorCode == null){
                 colorCode = ProductFactory.getListColorsByProductId(productId).get(0).getCodeColor();

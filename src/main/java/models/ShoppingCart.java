@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ShoppingCart {
+//    id product / list cart product
     private HashMap<Integer, List<CartProduct>> shoppingCartMap = new HashMap<>();
     private Voucher voucherApplied;
     private DeliveryMethod deliveryMethod;

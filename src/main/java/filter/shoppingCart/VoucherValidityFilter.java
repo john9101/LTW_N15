@@ -1,10 +1,7 @@
 package filter.shoppingCart;
 
-import models.ShoppingCart;
+import cartShopping.ShoppingCart;
 import models.User;
-import models.Voucher;
-import services.ShoppingCartServices;
-import utils.FormatCurrency;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-//@WebFilter("/*")
+@WebFilter("/*")
 public class VoucherValidityFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {

@@ -22,7 +22,7 @@ public class ShoppingCartDao {
 //    }
 
     public Voucher getValidVoucherApply(String code){
-        String sql = "SELECT id, discountPercent, `code`, minimumPrice, `description` FROM vouchers WHERE expiryDate >= CURDATE() AND `code` = ?";
+        String sql = "''SELECT id, discountPercent, `code`, minimumPrice, `description` FROM vouchers WHERE expiryDate >= CURDATE() AND `code`'' = ?";
         List<Voucher> listVouchers = GeneralDao.executeQueryWithSingleTable(sql, Voucher.class, code);
         if (!listVouchers.isEmpty()){
             return listVouchers.get(0);

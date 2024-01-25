@@ -1,19 +1,20 @@
 package controller.shoppingCart;
 
-import models.ShoppingCart;
+import cartShopping.ShoppingCart;
 import models.User;
 import models.Voucher;
 import org.json.JSONObject;
 import services.ShoppingCartServices;
 import utils.FormatCurrency;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 @WebServlet(name = "ApplyVoucherController", value = "/ApplyVoucher")
 public class ApplyVoucherController extends HttpServlet {
@@ -74,6 +75,7 @@ public class ApplyVoucherController extends HttpServlet {
         response.setContentType("application/json");
 
         if(listCodeOfVouchers.contains(code)){
+            //Check null voucher
             Voucher voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
             double minPriceToApply = ShoppingCartServices.getINSTANCE().getMinPriceApplyVoucherByCode(code);
             if(cart.getTemporaryPrice() >= voucher.getMinimumPrice()){
