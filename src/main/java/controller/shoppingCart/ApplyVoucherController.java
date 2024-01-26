@@ -83,7 +83,7 @@ public class ApplyVoucherController extends HttpServlet {
                 session.setAttribute("successApplied", "Bạn đã áp dụng mã " + code + " thành công");
                 jsonObject.put("successApplied", session.getAttribute("successApplied"));
                 jsonObject.put("discountPriceFormat", cart.discountPriceFormat());
-                jsonObject.put("newTotalPriceFormat", cart.totalPriceFormat());
+                jsonObject.put("newTotalPriceFormat", cart.totalPriceFormat(false));
             }else {
                 double priceBuyMore = minPriceToApply - temporaryPrice;
                 String priceBuyMoreFormat = FormatCurrency.vietNamCurrency(priceBuyMore);

@@ -93,7 +93,7 @@ public class DeleteCartProductController extends HttpServlet {
 
         String newTemporaryPriceFormat = cart.temporaryPriceFormat();
         String discountPriceFormat = cart.discountPriceFormat();
-        String newTotalPriceFormat = cart.totalPriceFormat();
+        String newTotalPriceFormat = cart.totalPriceFormat(false);
         int newTotalItems = cart.getTotalItems();
 
         jsonObject.put("newTemporaryPriceFormat", newTemporaryPriceFormat);

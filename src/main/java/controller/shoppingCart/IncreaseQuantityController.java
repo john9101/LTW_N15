@@ -99,7 +99,7 @@ public class IncreaseQuantityController extends HttpServlet {
         int newQuantity = cartProduct.getQuantity();
         String newSubtotalFormat = cartProduct.subtotalFormat();
         String newTemporaryPriceFormat = cart.temporaryPriceFormat();
-        String newTotalPriceFormat = cart.totalPriceFormat();
+        String newTotalPriceFormat = cart.totalPriceFormat(false);
         String discountPriceFormat = cart.discountPriceFormat();
 
         jsonObject.put("newQuantity", newQuantity);

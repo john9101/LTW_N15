@@ -31,66 +31,7 @@
     <title>Thanh toán</title>
 </head>
 <body>
-<<<<<<< HEAD:htmls/checkout.html
-<!--Header nơi chứa navigation-->
-<header id="header">
-    <nav class="nav">
-        <div class="container-xl">
-            <div class="nav__inner">
-                <a href="../index.html" class="logo">
-                </a>
-                <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="../index.html" class="nav__link">Trang chủ</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="./productBuying.html" class="nav__link">Gian hàng</a></li>
-                    <li class="nav__item">
-                        <a href="./contact.html" class="nav__link">Liên hệ</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="./about.html" class="nav__link">Về chúng tôi</a>
-                    </li>
-                </ul>
-                <!--cta == call to action-->
-                <div class="nav__cta">
-                    <a href="./signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="./signUp.html" class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
-                </div>
-
-                <!--Account show (After log in success)-->
-                <div class="account__wrapper">
-                    <!--Giỏ hàng-->
-                    <a href="./shoppingCart.html" class="cart">
-                        <i class="cart__icon  fa-solid fa-cart-shopping"></i>
-                    </a>
-
-                    <div class="account">
-                        <i class="account__icon fa-regular fa-user"></i>
-                        <div class="setting__list">
-                            <div class="setting__item"><a href="./account.html" class="setting__link">
-                                <div class="account__info">
-                                    <i class="account__icon fa-regular fa-user"></i>
-                                    <p class="account__name"></p>
-                                </div>
-                            </a></div>
-                            <div class="setting__item"><a href="./account.html" class="setting__link">Tài khoản
-                                của tôi</a>
-                            </div>
-                            <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
-                                xuất</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
-<!--Main: chứa nội dung chính, các section như giới thiệu sản phầm, các cổ đông,...-->
-=======
 <jsp:include page="header.jsp"></jsp:include>
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/checkout.jsp
 <main id="main">
     <div class="container-xl">
         <div class="checkout__container row">
@@ -235,7 +176,7 @@
                 <!-- New update template -->
                 <c:set var="freeShip" value="5000000"/>
                 <c:choose>
-                    <c:when test="${sessionScope[userIdCart].getTotalPrice() >= freeShip}">
+                    <c:when test="${sessionScope[userIdCart].getTotalPrice(false) >= freeShip}">
                         <p class="free__ship"><i class="fa-solid fa-circle-check"></i>Miễn phí vận chuyển cho hóa đơn từ
                             <fmt:setLocale value="vi_VN"/><fmt:formatNumber value="${freeShip}" type="currency"/></p>
                     </c:when>
@@ -365,7 +306,7 @@
                                                     <td>Số tiền</td>
                                                     <td>
                                                         <div>
-                                                            <span class="amount">${sessionScope[userIdCart].totalPriceFormat()}</span>
+                                                            <span class="amount">${sessionScope[userIdCart].totalPriceFormat(true)}</span>
                                                             <span class="copy__button"><i class="fa-solid fa-copy"></i> Sao chép</span>
                                                         </div>
                                                     </td>
@@ -471,16 +412,12 @@
                         </div>
                         <div class="total__price--final">
                             <span class="total__label">Tổng tiền</span>
-                            <span class="total__value">${sessionScope[userIdCart].totalPriceFormat()}</span>
+                            <span class="total__value">${sessionScope[userIdCart].totalPriceFormat(true)}</span>
                         </div>
                     </div>
                     <div class="ground__button--forward">
                         <button class="place__order">Đặt hàng</button>
-<<<<<<< HEAD:htmls/checkout.html
-                        <a href="./shoppingCart.html">
-=======
                         <a href="shoppingCart.jsp">
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/checkout.jsp
                             <button class="back--shopping__cart">Quay lại giỏ hàng</button>
                         </a>
                     </div>

@@ -2,8 +2,10 @@ package config;
 
 import models.Category;
 import models.OrderStatus;
+import models.PaymentMethod;
+import models.TransactionStatus;
+import services.CheckoutServices;
 import services.ProductCardServices;
-import services.order.OrderStatusServices;
 import utils.MoneyRange;
 
 import javax.servlet.ServletContext;
@@ -27,9 +29,6 @@ public class ServletContextConfig implements ServletContextListener {
 //Category
         List<Category> categoryList = ProductCardServices.getINSTANCE().getAllCategory();
         context.setAttribute("categoryList", categoryList);
-
-        List<OrderStatus> listOrderStatus = OrderStatusServices.getINSTANCE().getListAllOrderStatus();
-        context.setAttribute("listOrderStatus", listOrderStatus);
     }
 
     @Override

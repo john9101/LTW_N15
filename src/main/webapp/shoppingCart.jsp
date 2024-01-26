@@ -238,7 +238,7 @@
                                 <div class="price__total">
                                     <p class="price__text">Tổng cộng:</p>
                                     <div class="price__content">
-                                        <p class="price__value--final">${sessionScope[userIdCart].totalPriceFormat()}</p>
+                                        <p class="price__value--final">${sessionScope[userIdCart].totalPriceFormat(false)}</p>
                                         <p class="price__value--noted">(Đã bao gồm VAT nếu có)</p>
                                     </div>
                                 </div>
