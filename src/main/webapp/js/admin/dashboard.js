@@ -1,3 +1,4 @@
+// var name === ${nameTop5};
 const barChartOptions = {
     series: [
         {
@@ -59,7 +60,7 @@ const barChartOptions = {
         theme: 'dark',
     },
     xaxis: {
-        categories: ['Laptop', 'Phone', 'Monitor', 'Headphones', 'Camera'],
+        categories: [<c:forEach var="name" items="${nameTop5}">${name}</c:forEach>],
         title: {
             style: {
                 color: '#f5f7ff',

@@ -114,24 +114,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
 </body>
 <script src="js/admin/dashboard.js"></script>
-<script>
-    var top5Products = ${top5};
 
-    var productNames = top5Products.map(function (item) {
-        return item.getName();
-    });
 
-    var quantities = top5Products.map(function (item) {
-        return item.totalQuantity;
-    });
 
-    barChartOptions.series = [{
-        data: quantities,
-        name: 'Products',
-    }];
-
-    barChartOptions.xaxis.categories = productNames;
-
-    barChart.updateOptions(barChartOptions);
-</script>
 </html>

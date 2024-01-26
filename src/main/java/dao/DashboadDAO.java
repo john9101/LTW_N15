@@ -33,9 +33,9 @@ public class DashboadDAO {
         String querry="SELECT name FROM products WHERE id=?";
         return GeneralDao.executeQueryWithSingleTable(querry, Product.class, productId);
     }
-    public List<Product> getTop5ProductQuantity(int productId){
-        String querry="SELECT SUM(quantityRequired) FROM order_details WHERE productId=?";
-        return GeneralDao.executeQueryWithSingleTable(querry, Product.class, productId);
+    public List<OrderDetail> getTop5ProductQuantity(int productId){
+        String querry="SELECT quantityRequired FROM order_details WHERE productId=?";
+        return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class, productId);
     }
 
 

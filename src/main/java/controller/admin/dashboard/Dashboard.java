@@ -28,24 +28,41 @@ public class Dashboard extends HttpServlet {
         request.setAttribute("review", reviewNumber);
 
         List<OrderDetail> top5Product= dshb.getTop5Product();
-        List<Product> listTop5Product = null;
+        List<Product> listTop5Product = new ArrayList<>();
         List<Integer> listProducId = new ArrayList<>();
+        List<OrderDetail> oderDetailTop5 = new ArrayList<>();
 
         List<String> listtop5NameProduct = new ArrayList<>();
         List<Integer> listtop5Quantity = new ArrayList<>();
 
+        int countQuan=0;
         for (OrderDetail top5OrderDetail:top5Product) {
-            listProducId.add(top5OrderDetail.getProductId());
+            listProducId.add(top5OrderDetail.getId());
         }
         for (Integer productId:listProducId) {
-            listTop5Product= dshb.getTop5ProductName(productId);
+            listTop5Product = dshb.getTop5ProductName(productId);
+            listtop5NameProduct.add(listTop5Product.get(0).getName());
+            oderDetailTop5= dshb.getTop5ProductQuantity(12);
+            for (OrderDetail o:oderDetailTop5) {
+                countQuan+=o.getQuantityRequired();
+
+                listtop5Quantity.add(countQuan);
+            }
+
+
         }
-        for (Product product:listTop5Product) {
-            listtop5NameProduct.add(product.getName());
-        }
+//        for (OrderDetail o:dshb.getTop5ProductQuantity(productId)) {
+//            countQuan += dshb.getTop5ProductQuantity(productId).get(0).getQuantityRequired();
+//            System.out.println(countQuan);
+//        }
+//        for (Product product:listTop5Product) {
+//            listtop5NameProduct.add(product.getName());
+//        }
+        System.out.println(listtop5NameProduct);
+        System.out.println(listtop5Quantity);
 
 
-
+        request.setAttribute("nameTop5",listtop5NameProduct);
         request.setAttribute("top5",top5Product);
 
         request.getRequestDispatcher("dashboard.jsp").forward(request,response);
