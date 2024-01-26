@@ -99,6 +99,7 @@ public class DeleteCartProductController extends HttpServlet {
         jsonObject.put("newTemporaryPriceFormat", newTemporaryPriceFormat);
         jsonObject.put("newTotalPriceFormat", newTotalPriceFormat);
         jsonObject.put("newTotalItems", newTotalItems);
+        jsonObject.put("discountPrice", cart.getDiscountPrice());
 
         if(session.getAttribute("failedApply") != null){
             jsonObject.put("failedApply", session.getAttribute("failedApply"));

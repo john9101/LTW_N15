@@ -75,8 +75,10 @@ public class ApplyVoucherController extends HttpServlet {
 
         if(listCodeOfVouchers.contains(code)){
             Voucher voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
-            double minPriceToApply = ShoppingCartServices.getINSTANCE().getMinPriceApplyVoucherByCode(code);
-            if(cart.getTemporaryPrice() >= voucher.getMinimumPrice()){
+//            double minPriceToApply = ShoppingCartServices.getINSTANCE().getMinPriceApplyVoucherByCode(code);
+            double minPriceToApply = voucher.getMinimumPrice();
+//            if(cart.getTemporaryPrice() >= voucher.getMinimumPrice()){
+            if(cart.getTemporaryPrice() >= minPriceToApply){
                 cart.setVoucherApplied(voucher);
                 session.setAttribute(userIdCart, cart);
                 session.removeAttribute("failedApply");
