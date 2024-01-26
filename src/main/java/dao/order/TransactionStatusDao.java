@@ -11,4 +11,9 @@ public class TransactionStatusDao {
         String sql = "SELECT id, typeStatus FROM transaction_statuses";
         return GeneralDao.executeQueryWithSingleTable(sql, TransactionStatus.class);
     }
+
+    public TransactionStatus getTransactionStatusById(int transactionStatusId){
+        String sql = "SELECT id, typeStatus FROM transaction_statuses WHERE id = ?";
+        return GeneralDao.executeQueryWithSingleTable(sql, TransactionStatus.class, transactionStatusId).get(0);
+    }
 }
