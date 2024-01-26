@@ -14,6 +14,10 @@ public class FilterProductAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         FilterStrategy filterStrategy = new FilterStrategyAdmin(request);
+        if (filterStrategy.isAllParameterEmpty()) {
+            request.getRequestDispatcher("adminProducts.jsp").forward(request, response);
+            return;
+        }
         filterStrategy.doFilter();
         request.getRequestDispatcher("adminProducts.jsp").forward(request, response);
     }

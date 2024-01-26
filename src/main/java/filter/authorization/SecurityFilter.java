@@ -31,7 +31,7 @@ public class SecurityFilter implements Filter {
         HttpSession session = httpServletRequest.getSession();
         String url = httpServletRequest.getRequestURL().toString();
         String role;
-
+        System.out.println(url);
         if (preventAll(url)) {
             httpServletResponse.sendError(404);
             return;
