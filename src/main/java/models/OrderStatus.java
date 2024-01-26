@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class OrderStatus {
     private int id;
     private String typeStatus;
@@ -26,5 +28,18 @@ public class OrderStatus {
                 "id=" + id +
                 ", typeStatus='" + typeStatus + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderStatus that = (OrderStatus) o;
+        return id == that.id && Objects.equals(typeStatus, that.typeStatus);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, typeStatus);
     }
 }
