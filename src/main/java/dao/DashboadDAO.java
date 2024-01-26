@@ -38,5 +38,19 @@ public class DashboadDAO {
         return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class, productId);
     }
 
+    public List<Order> getOrderByMonth(int month){
+        String querry ="SELECT id FROM orders WHERE MONTH(dateOrder)=?";
+        return GeneralDao.executeQueryWithSingleTable(querry,Order.class, month);
+    }
+
+    public List<OrderDetail> getOrderByOrderId(int orderId){
+        String querry = "SELECT quantityRequired, price FROM order_details WHERE orderId = ?";
+        return GeneralDao.executeQueryWithSingleTable(querry,OrderDetail.class,orderId);
+    }
+
+    public List<OrderDetail> getOrderDetailByOrderId(int orderId){
+        String querry="SELECT quantityRequired FROM order_details WHERE orderId=?";
+        return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class, orderId);
+    }
 
 }

@@ -113,6 +113,19 @@
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
 </body>
+<script>
+    let top5NameProduct ="<%=request.getAttribute("nameTop5")%>";
+            console.log(top5NameProduct)
+
+    let top5QuantityProduct ="<%=request.getAttribute("QuantityTop5")%>";
+    console.log(top5QuantityProduct)
+
+    let totalQuantityByMonth ="<%=request.getAttribute("quantityOrderByMonth")%>";
+    console.log(totalQuantityByMonth)
+
+    let totalRevenueByMonth ="<%=request.getAttribute("revenueOrderByMonth")%>";
+    console.log(totalRevenueByMonth)
+</script>
 <script src="js/admin/dashboard.js"></script>
 
 
