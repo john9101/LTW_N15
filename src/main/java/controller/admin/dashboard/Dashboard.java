@@ -62,7 +62,7 @@ public class Dashboard extends HttpServlet {
 
         //AreaChart
         List<Order> listOrderByMonth;
-        List<Integer> listOrderId = new ArrayList<>();
+        List<String> listOrderId = new ArrayList<>();
         List<Integer> listTotalQuantityByMonth = new ArrayList<>();
         List<Double> listTotalRevenueByMonth = new ArrayList<>();
 
