@@ -76,7 +76,7 @@ public class Dashboard extends HttpServlet {
 
             int totalQuantity = 0;
             double totalRevenue = 0.0;
-            for (Integer orderId : listOrderId) {
+            for (String orderId : listOrderId) {
                 List<OrderDetail> listQuantityByMonth = DashboardService.getINSTANCE().getOrderByOrderId(orderId);
 
                 for (OrderDetail orderDetail : listQuantityByMonth) {

@@ -42,8 +42,14 @@
                 <li class="navbar__item"><a href="AdminUser"
                                             class="navbar__link button button button--hover ">Khách
                     hàng</a></li>
-                <li class="navbar__item"><a href="dashboard.jsp"
+                <li class="navbar__item"><a href="Dashboard"
                                             class="navbar__link button button button--hover navbar__link--clicked">Dashboard</a></li>
+                <li class="navbar__item"><a href="adminReviews.jsp"
+                                            class="navbar__link button button button--hover ">Nhận xét</a>
+                </li>
+                <li class="navbar__item"><a href="adminCategories.jsp"
+                                            class="navbar__link button button button--hover ">Phân loại</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -87,7 +93,7 @@
                                     <h3>Review</h3>
                                 </div>
                                 <div class="icon-case">
-                                    <img src="./assets/img/review.png" alt="">
+                                    <img src="assets/img/CountRView.png" alt="">
                                 </div>
                             </div>
                         </div>

@@ -43,12 +43,12 @@ public class DashboadDAO {
         return GeneralDao.executeQueryWithSingleTable(querry,Order.class, month);
     }
 
-    public List<OrderDetail> getOrderByOrderId(int orderId){
+    public List<OrderDetail> getOrderByOrderId(String orderId){
         String querry = "SELECT quantityRequired, price FROM order_details WHERE orderId = ?";
         return GeneralDao.executeQueryWithSingleTable(querry,OrderDetail.class,orderId);
     }
 
-    public List<OrderDetail> getOrderDetailByOrderId(int orderId){
+    public List<OrderDetail> getOrderDetailByOrderId(String orderId){
         String querry="SELECT quantityRequired FROM order_details WHERE orderId=?";
         return GeneralDao.executeQueryWithSingleTable(querry, OrderDetail.class, orderId);
     }
