@@ -91,7 +91,7 @@
                                     <div class="lable__email lable-compo">
                                         <label for="Email">Số điện thoại</label>
                                     </div>
-                                    <input type="text" id="Phone" class=" input-compo" name="phone"
+                                    <input type="number" id="Phone" class=" input-compo" name="phone"
                                            value="${accountInfo.phone}">
                                 </div>
                                 <div class="user__info--gender info-compo">
