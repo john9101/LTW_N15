@@ -2,13 +2,14 @@ package controller.review;
 
 import models.OrderDetail;
 import models.Parameter;
-import org.json.JSONArray;
 import services.ProductCardServices;
 import services.ReviewServices;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -57,13 +58,8 @@ public class ShowReview extends HttpServlet {
         request.getRequestDispatcher("review.jsp").forward(request, response);
     }
 
-
-    private String[] readSizes(String sizesJson) {
-        JSONArray jsonArray = new JSONArray(sizesJson);
-        String[] sizes = new String[jsonArray.length()];
-        for (int i = 0; i < jsonArray.length(); i++) {
-            sizes[i] = jsonArray.getString(i);
-        }
-        return sizes;
+    private String[] readSizes(String sizesRequired) {
+//        Dài áo: 70 cm, Dài tay: 22 cm, Rộng gấu: 54 cm, Rộng bắp tay: 24 cm, Rộng vai: 50 cm
+        return sizesRequired.split(", ");
     }
 }
