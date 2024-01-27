@@ -2,6 +2,7 @@ package services;
 
 import dao.ReviewDAO;
 import models.Review;
+import models.User;
 
 import java.util.List;
 
@@ -45,7 +46,7 @@ public class AdminReviewServices {
         return true;
     }
 
-    public int getUserByIdOrderDetail(String orderDetailId) {
-
+    public User getUserByIdProductDetail(String orderDetailId) {
+        return reviewDAO.getUserByIdProductDetail(orderDetailId);
     }
 }
