@@ -47,13 +47,9 @@ public class ProductFactory {
         return ProductCardServices.getINSTANCE().getNameCategoryById(id);
     }
 
-    public static User getUserByIdProductDetail(int productDetailId) {
-        return AdminReviewServices.getINSTANCE().getUserByIdProductDetail(productDetailId);
+    public static User getUserByIdOrderDetail(int orderDetailId) {
+        return AdminReviewServices.getINSTANCE().getUserByIdProductDetail(orderDetailId);
+
     }
-
-//    public static int getUserByIdOrderDetail(String orderDetailId) {
-//        return AdminReviewServices.getINSTANCE().getUserByIdOrderDetail(orderDetailId);
-//
-//    }
-
+//public static String getNameProductByIdOrderDetail ()
 }
