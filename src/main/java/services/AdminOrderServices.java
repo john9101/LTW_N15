@@ -1,5 +1,6 @@
 package services;
 
+import dao.GeneralDao;
 import dao.OrderDetailDAO;
 import dao.order.OrderDao;
 import dao.order.OrderStatusDao;
@@ -7,6 +8,11 @@ import dao.order.TransactionStatusDao;
 import models.*;
 import utils.FormatCurrency;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +32,7 @@ public class AdminOrderServices {
         transactionStatusDao = new TransactionStatusDao();
         orderDetailDAO = new OrderDetailDAO();
     }
+
     public static AdminOrderServices getINSTANCE() {
         if (INSTANCE == null)
             INSTANCE = new AdminOrderServices();
@@ -92,8 +99,9 @@ public class AdminOrderServices {
 //        orderDao.updateTransactionStatusIdByOrderId(transactionStatusId,orderId);
 //    }
 
-    public void removeOrderByMultipleId(String[] MultipleId){
-        orderDao.removeOrderByMultipleId(MultipleId);
+    public void removeOrderByMultipleOrderId(String[] multipleOrderId){
+        orderDetailDAO.removeOrderDetailByMultipleOrderId(multipleOrderId);
+        orderDao.removeOrderByMultipleId(multipleOrderId);
     }
 
     public void cancelOrderByMultipleId(String[] multipleId){
@@ -126,6 +134,5 @@ public class AdminOrderServices {
         }
         return FormatCurrency.vietNamCurrency(totalPrice);
     }
-
 
 }

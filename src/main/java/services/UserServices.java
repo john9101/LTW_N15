@@ -4,7 +4,6 @@ import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
 
-import java.sql.Date;
 import java.util.List;
 
 public class UserServices {
@@ -47,5 +46,10 @@ public class UserServices {
             return null;
         return listUser.get(0);
     }
-
+    public List<User> searchUsersByName(String search){
+        return userDAO.searchUsersByName(search);
+    }
+    public List<User> selectALl(){
+        return userDAO.selectALl();
+    }
 }

@@ -1,9 +1,7 @@
 package filter.checkout;
 
-import cartShopping.ShoppingCart;
-import models.DeliveryInfo;
-import models.DeliveryInfoStorage;
-import models.User;
+import models.*;
+import models.shoppingCart.ShoppingCart;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

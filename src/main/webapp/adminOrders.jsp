@@ -31,15 +31,22 @@
             <ul class="navbar__list">
                 <li
                         class="navbar__item"><a href="adminProducts.jsp"
-                                                class="navbar__link button button button--hover ">Sản
-                    phẩm</a>
+                                                class="navbar__link button button button--hover navbar__link--clicked">Sản phẩm</a>
                 </li>
                 <li class="navbar__item"><a href="adminOrders.jsp"
-                                            class="navbar__link button button button--hover navbar__link--clicked">Đơn
-                    hàng</a>
+                                            class="navbar__link button button button--hover ">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="adminUsers.jsp" class="navbar__link button button button--hover ">Khách
-                    hàng</a>
+                <li class="navbar__item"><a href="AdminUser"
+                                            class="navbar__link button button button--hover ">Khách hàng</a>
+                </li>
+                <li class="navbar__item"><a href="adminReviews.jsp"
+                                            class="navbar__link button button button--hover ">Nhận xét</a>
+                </li>
+                <li class="navbar__item"><a href="adminCategories.jsp"
+                                            class="navbar__link button button button--hover ">Phân loại</a>
+                </li>
+                <li class="navbar__item"><a href="Dashboard"
+                                            class="navbar__link button button button--hover ">Thống kê</a>
                 </li>
             </ul>
         </div>

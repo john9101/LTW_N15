@@ -19,7 +19,7 @@ public class RemoveOrderAdmin extends HttpServlet {
         String actionTarget = (String) request.getAttribute("action");
         String[] multipleOrderId = (String[]) request.getAttribute("multipleOrderId");
 
-        AdminOrderServices.getINSTANCE().removeOrderByMultipleId(multipleOrderId);
+        AdminOrderServices.getINSTANCE().removeOrderByMultipleOrderId(multipleOrderId);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("successProcess", "Xóa đơn hàng có mã " + String.join(",", multipleOrderId) +  " thành công");

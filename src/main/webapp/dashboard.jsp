@@ -42,14 +42,13 @@
                 <li class="navbar__item"><a href="AdminUser"
                                             class="navbar__link button button button--hover ">Khách
                     hàng</a></li>
+                <li class="navbar__item"><a href="Dashboard"
+                                            class="navbar__link button button button--hover navbar__link--clicked">Dashboard</a></li>
                 <li class="navbar__item"><a href="adminReviews.jsp"
                                             class="navbar__link button button button--hover ">Nhận xét</a>
                 </li>
                 <li class="navbar__item"><a href="adminCategories.jsp"
                                             class="navbar__link button button button--hover ">Phân loại</a>
-                </li>
-                <li class="navbar__item"><a href="Dashboard"
-                                            class="navbar__link button button button--hover navbar__link--clicked">Thống kê</a>
                 </li>
             </ul>
         </div>
