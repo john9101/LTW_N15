@@ -1,7 +1,10 @@
 package services;
 
 import dao.*;
-import models.*;
+import models.Color;
+import models.Image;
+import models.Product;
+import models.Size;
 import utils.Comparison;
 
 import javax.servlet.http.Part;
@@ -180,8 +183,8 @@ public class AdminProductServices {
 
     private List<String> getNameImages(int quantityFromRightToLeft, int productId) {
         List<Image> imageList = imageDAO.getNameImages(productId);
-        List<String> nameImageList = new ArrayList<>();
         Collections.reverse(imageList);
+        List<String> nameImageList = new ArrayList<>();
         for (int i = 0; i < quantityFromRightToLeft; i++) {
             nameImageList.add(imageList.get(i).getNameImage());
         }

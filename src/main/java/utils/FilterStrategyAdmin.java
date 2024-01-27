@@ -51,7 +51,7 @@ public class FilterStrategyAdmin extends FilterStrategy {
         List<Integer> listIDFiltered = findCommonIDs(listId);
         List<Product> productCardFiltered;
         if (listIDFiltered.isEmpty()) {
-            productCardFiltered = AdminProductServices.getINSTANCE().filter(null, page);
+            productCardFiltered = new ArrayList<>();
         } else {
             productCardFiltered = AdminProductServices.getINSTANCE().filter(listIDFiltered, page);
         }

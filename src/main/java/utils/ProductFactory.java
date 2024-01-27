@@ -49,7 +49,6 @@ public class ProductFactory {
 
     public static User getUserByIdOrderDetail(int orderDetailId) {
         return AdminReviewServices.getINSTANCE().getUserByIdProductDetail(orderDetailId);
-
     }
 
     public static String getNameProductByIdOrderDetail(int orderDetailId) {
