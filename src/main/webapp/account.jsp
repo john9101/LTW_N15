@@ -63,7 +63,7 @@
                                 <label for="file" id="uploadbtn" class="fas fa-camera"></label>
                             </form>
                         </div>
-                        <form action="UpdateAccount" method="post" enctype="multipart/form-data">
+                        <form action="UpdateAccount" method="post" enctype="multipart/form-data" class="form__updateAccount">
                             <div class="user__info user">
                                 <input type="hidden" name="userId" value="<c:out value='${auth.getId()}' />">
                                 <div class="user__info--name info-compo">

@@ -84,7 +84,6 @@ form{
     flex: 1;
 }
 .user__info{
-    width: 200%;
     flex: 1;
 }
 #photo{
@@ -220,6 +219,7 @@ form{
 }
 .save__changePass{
     margin-top: 10px;
+    margin-right: 150px;
 }
 .block__product{
     display: flex;
@@ -319,5 +319,8 @@ form{
     width: 200px;
     height: 200px;
     background-image: url("../img/noneorder.png");
+}
+.form__updateAccount{
+    flex: 1;
 }
 
