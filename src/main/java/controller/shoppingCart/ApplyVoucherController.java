@@ -1,6 +1,6 @@
 package controller.shoppingCart;
 
-import models.ShoppingCart;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 import models.Voucher;
 import org.json.JSONObject;
@@ -11,9 +11,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 @WebServlet(name = "ApplyVoucherController", value = "/ApplyVoucher")
 public class ApplyVoucherController extends HttpServlet {

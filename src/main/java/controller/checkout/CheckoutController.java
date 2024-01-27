@@ -2,7 +2,7 @@ package controller.checkout;
 
 import models.PaymentMethod;
 import models.DeliveryMethod;
-import models.ShoppingCart;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 import services.CheckoutServices;
 
