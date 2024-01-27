@@ -19,7 +19,6 @@ public class AdminProductServices {
     ColorDAO colorDAO = new ColorDAO();
     ImageDAO imageDAO = new ImageDAO();
     SizeDAO sizeDAO = new SizeDAO();
-
     ProductCardDAO productCardDAO = new ProductCardDAO();
 
     private AdminProductServices() {
@@ -229,4 +228,5 @@ public class AdminProductServices {
         productCardDAO.updateVisibility(productId, visibility);
         return true;
     }
+
 }

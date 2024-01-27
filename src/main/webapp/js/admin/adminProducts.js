@@ -91,7 +91,6 @@ dataUpdateElement.forEach(function (element) {
         }, pageTarget);
     }
 });
-
 //Hide product
 const dataHideElement = document.querySelectorAll(".table__data-visibility .button");
 dataHideElement.forEach(function (element) {
@@ -165,3 +164,4 @@ function unHideProductAlert(nameProduct, idProduct) {
         });
     }
 }
+

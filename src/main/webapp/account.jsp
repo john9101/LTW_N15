@@ -160,7 +160,6 @@
         </div>
     </div>
 </main>
-
 <%@include file="footer.jsp" %>
 <script src="js/validateForm.js"></script>
 <script src="js/data.js"></script>
@@ -198,4 +197,6 @@
     }
 </script>
 </body>
+
+
 </html>

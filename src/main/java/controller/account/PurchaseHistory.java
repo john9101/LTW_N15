@@ -35,7 +35,7 @@ public class PurchaseHistory extends HttpServlet {
             }
         }
 
-        List<String> listOrderId = new ArrayList<>();
+        List<Integer> listOrderId = new ArrayList<>();
         for (Order orders : listOrder) {
             listOrderId.add(orders.getId());
         }

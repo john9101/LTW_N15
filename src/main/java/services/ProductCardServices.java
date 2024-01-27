@@ -132,7 +132,7 @@ public class ProductCardServices {
             for (int i = 0; i < quantity; i++) {
                 try {
                     result.add(productList.get(i));
-                }catch (IndexOutOfBoundsException e){
+                } catch (IndexOutOfBoundsException e) {
                     break;
                 }
             }
