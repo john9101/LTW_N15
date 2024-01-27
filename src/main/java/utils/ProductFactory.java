@@ -54,4 +54,5 @@ public class ProductFactory {
     public static String getNameProductByIdOrderDetail(int orderDetailId) {
         return ProductCardServices.getINSTANCE().getNameProductByIdOrderDetail(orderDetailId);
     }
+
 }

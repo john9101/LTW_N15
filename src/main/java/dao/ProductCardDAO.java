@@ -284,9 +284,9 @@ public class ProductCardDAO {
 
     public List<Product> getNameProductByIdOrderDetail(int orderDetailId) {
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT products.name ")
-                .append("FROM products JOIN order_details ON products.id = order_details.productId ")
-                .append("WHERE order_details.id = ?");
+        sql.append("SELECT productName AS name ")
+                .append("FROM order_details ")
+                .append("WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), Product.class, orderDetailId);
     }
 }
