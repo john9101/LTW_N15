@@ -3,7 +3,7 @@ package models;
 import java.util.Date;
 
 public class Order {
-    private int id;
+    private String id;
     private String userId;
     private Date dateOrder;
     private String paymentMethod;
@@ -15,7 +15,7 @@ public class Order {
     private String statusTransaction;
     private int voucherId;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -59,7 +59,7 @@ public class Order {
         return voucherId;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

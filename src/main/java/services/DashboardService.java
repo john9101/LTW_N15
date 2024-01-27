@@ -46,11 +46,11 @@ public class DashboardService {
         return dashboadDAO.getOrderByMonth(month);
     }
 
-    public List<OrderDetail> getOrderByOrderId(int orderId){
+    public List<OrderDetail> getOrderByOrderId(String orderId){
        return dashboadDAO.getOrderByOrderId(orderId);
     }
 
-    public List<OrderDetail> getOrderDetailByOrderId(int orderId){
+    public List<OrderDetail> getOrderDetailByOrderId(String orderId){
        return dashboadDAO.getOrderDetailByOrderId(orderId);
     }
 }

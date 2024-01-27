@@ -62,7 +62,7 @@ public class Dashboard extends HttpServlet {
 
         //AreaChart
         List<Order> listOrderByMonth;
-        List<Integer> listOrderId = new ArrayList<>();
+        List<String> listOrderId = new ArrayList<>();
         List<Integer> listTotalQuantityByMonth = new ArrayList<>();
         List<Double> listTotalRevenueByMonth = new ArrayList<>();
 
@@ -76,7 +76,7 @@ public class Dashboard extends HttpServlet {
 
             int totalQuantity = 0;
             double totalRevenue = 0.0;
-            for (Integer orderId : listOrderId) {
+            for (String orderId : listOrderId) {
                 List<OrderDetail> listQuantityByMonth = DashboardService.getINSTANCE().getOrderByOrderId(orderId);
 
                 for (OrderDetail orderDetail : listQuantityByMonth) {

@@ -44,7 +44,7 @@ public class TestDB {
 //        testUpdateUser.updateUserByID(1,"HieuNguyen","Nguyễn Chí Hai","Nam","HieuNguyen@gmail.com","0703637448","164 Ngô Tất Tố, Bình Định", Date.valueOf("1990-01-01"));
         DashboadDAO dshb = new DashboadDAO();
         List<Order> listOrderByMonth;
-        List<Integer> listOrderId = new ArrayList<>();
+        List<String> listOrderId = new ArrayList<>();
         List<Double> listTotalRevenueByMonth = new ArrayList<>();
 
         for (int i = 1; i <= 12; i++) {
@@ -55,7 +55,7 @@ public class TestDB {
             }
 
             double totalRevenue = 0.0;
-            for (Integer orderId : listOrderId) {
+            for (String orderId : listOrderId) {
                 List<OrderDetail> listQuantityByMonth = dshb.getOrderByOrderId(orderId);
 
                 for (OrderDetail orderDetail : listQuantityByMonth) {
