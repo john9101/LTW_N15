@@ -40,3 +40,7 @@ categoryItemElements.forEach(function (parameterItemElement) {
         }, pageTarget);
     }
 });
+
+document.querySelector(".reload__btn").onclick = function () {
+    window.location.reload();
+}
