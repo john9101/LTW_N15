@@ -55,4 +55,12 @@ public class UserServices {
     public List<User> selectALl(){
         return userDAO.selectALl();
     }
+
+    public void insertUser(String username,String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay, String role){
+         userDAO.insertUser(username,passwordEncoding,fullname,gender,email,phone,address,birthDay,role);
+    }
+
+    public void updateUserByIDWithRole(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay, String role){
+        userDAO.updateUserByIDWithRole(id,username,fullname,gender,email,phone,address,birthDay,role);
+    }
 }
