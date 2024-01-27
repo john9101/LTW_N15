@@ -1,6 +1,6 @@
 package controller.shoppingCart;
 
-import models.CartProduct;
+//import cartShopping.ShoppingCart;
 import models.ShoppingCart;
 import models.User;
 import models.Voucher;
@@ -93,12 +93,13 @@ public class DeleteCartProductController extends HttpServlet {
 
         String newTemporaryPriceFormat = cart.temporaryPriceFormat();
         String discountPriceFormat = cart.discountPriceFormat();
-        String newTotalPriceFormat = cart.totalPriceFormat();
+        String newTotalPriceFormat = cart.totalPriceFormat(false);
         int newTotalItems = cart.getTotalItems();
 
         jsonObject.put("newTemporaryPriceFormat", newTemporaryPriceFormat);
         jsonObject.put("newTotalPriceFormat", newTotalPriceFormat);
         jsonObject.put("newTotalItems", newTotalItems);
+        jsonObject.put("discountPrice", cart.getDiscountPrice());
 
         if(session.getAttribute("failedApply") != null){
             jsonObject.put("failedApply", session.getAttribute("failedApply"));

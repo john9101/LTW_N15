@@ -176,7 +176,7 @@
                 <!-- New update template -->
                 <c:set var="freeShip" value="5000000"/>
                 <c:choose>
-                    <c:when test="${sessionScope[userIdCart].getTotalPrice() >= freeShip}">
+                    <c:when test="${sessionScope[userIdCart].getTotalPrice(false) >= freeShip}">
                         <p class="free__ship"><i class="fa-solid fa-circle-check"></i>Miễn phí vận chuyển cho hóa đơn từ
                             <fmt:setLocale value="vi_VN"/><fmt:formatNumber value="${freeShip}" type="currency"/></p>
                     </c:when>
@@ -306,7 +306,7 @@
                                                     <td>Số tiền</td>
                                                     <td>
                                                         <div>
-                                                            <span class="amount">${sessionScope[userIdCart].totalPriceFormat()}</span>
+                                                            <span class="amount">${sessionScope[userIdCart].totalPriceFormat(true)}</span>
                                                             <span class="copy__button"><i class="fa-solid fa-copy"></i> Sao chép</span>
                                                         </div>
                                                     </td>
@@ -412,7 +412,7 @@
                         </div>
                         <div class="total__price--final">
                             <span class="total__label">Tổng tiền</span>
-                            <span class="total__value">${sessionScope[userIdCart].totalPriceFormat()}</span>
+                            <span class="total__value">${sessionScope[userIdCart].totalPriceFormat(true)}</span>
                         </div>
                     </div>
                     <div class="ground__button--forward">
@@ -424,7 +424,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </main>
 <div class="popup__deletion"></div>

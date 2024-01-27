@@ -9,14 +9,12 @@ import java.util.*;
 public class ProductCardServices {
     private static final int LIMIT = 9;
     private static ProductCardServices INSTANCE;
-    private ProductDao productDAO;
     private ProductCardDAO productCardDAO;
     private ReviewDAO reviewDAO;
     private SizeDAO sizeDAO;
     private ColorDAO colorDAO;
     private CategoryDAO categoryDAO;
     private ProductCardServices() {
-        this.productDAO = new ProductDao();
         this.productCardDAO = new ProductCardDAO();
         this.sizeDAO = new SizeDAO();
         this.colorDAO = new ColorDAO();
@@ -132,7 +130,7 @@ public class ProductCardServices {
             for (int i = 0; i < quantity; i++) {
                 try {
                     result.add(productList.get(i));
-                } catch (IndexOutOfBoundsException e) {
+                }catch (IndexOutOfBoundsException e){
                     break;
                 }
             }
@@ -161,6 +159,9 @@ public class ProductCardServices {
     public String getNameCategoryById(int id) {
         return productCardDAO.getNameCategoryById(id).get(0).getNameType();
     }
+    public String getNameProductById(int id) {
+        return productCardDAO.getNameProductById(id).get(0).getName();
+    }
 
     public List<Parameter> getParameterByIdCategory(int id) {
         return productCardDAO.getParametersByProductId(id);
@@ -170,12 +171,12 @@ public class ProductCardServices {
         return productCardDAO.getCategoryByProductId(id).get(0);
     }
 
-    public String getNameProductById(int productId) {
-        return productCardDAO.getNameProductById(productId).get(0).getName();
-    }
-
     public String getNameProductByIdOrderDetail(int orderDetailId) {
-        return reviewDAO.getNameProductByOrderDetailId(orderDetailId).get(0).getName();
+        List<Product> productList = productCardDAO.getNameProductByIdOrderDetail(orderDetailId);
+        if (productList.isEmpty()) {
+            return null;
+        }
+        return productList.get(0).getName();
     }
-
 }
+

@@ -324,7 +324,7 @@
                             <div class="invoice__detail--info">
                                 <ul class="price__items">
                                     <li class="price__item">
-                                        <p class="price__text">Tạm tính (<span class="total__items">${sessionScope[userIdCart].getTotalItems()}</span> sp)</p>
+                                        <p class="price__text">Tạm tính (<span class="total__items">${sessionScope[userIdCart].getTotalItems()}</span> sản phẩm)</p>
                                         <p class="price__value">${sessionScope[userIdCart].temporaryPriceFormat()}</p>
                                     </li>
                                     <li class="price__item">
@@ -338,7 +338,7 @@
                                 <div class="price__total">
                                     <p class="price__text">Tổng cộng:</p>
                                     <div class="price__content">
-                                        <p class="price__value--final">${sessionScope[userIdCart].totalPriceFormat()}</p>
+                                        <p class="price__value--final">${sessionScope[userIdCart].totalPriceFormat(false)}</p>
                                         <p class="price__value--noted">(Đã bao gồm VAT nếu có)</p>
                                     </div>
                                 </div>
@@ -465,7 +465,10 @@
                         let totalPrice = $(document).find('.price__value--final')
                         totalPrice.text(response.newTotalPriceFormat);
 
-                        $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
+                        if(response.discountPrice !== 0){
+                            $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
+                        }
+
                         const applyStatus = $(document).find('.apply__status')
                         if(response.failedApply){
                             $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)
@@ -533,7 +536,10 @@
                                 let totalPrice = $(document).find('.price__value--final')
                                 totalPrice.text(response.newTotalPriceFormat);
 
-                                $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
+                                if(response.discountPrice !== 0){
+                                    $(document).find('.price__items .price__item:last-child').html(`<p class="price__text">Giảm giá</p><p class="price__value">` + response.discountPriceFormat + `</p>`);
+                                }
+
                                 const applyStatus = $(document).find('.apply__status')
                                 if(response.failedApply){
                                     $(applyStatus).html(`<span class="apply__failed"><i class="fa-solid fa-circle-exclamation"></i><span>` + response.failedApply + `</span></span>`)

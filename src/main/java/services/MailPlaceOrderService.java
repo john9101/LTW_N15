@@ -58,7 +58,12 @@ public class MailPlaceOrderService implements IMailServices{
         }
 
         String paymentMethod = cart.getPaymentMethod().getTypePayment();
-        String totalPriceFormat = cart.totalPriceFormat();
+        String totalPriceFormat;
+        if(cart.getDeliveryMethod() != null){
+            totalPriceFormat = cart.totalPriceFormat(true);
+        }else{
+            totalPriceFormat = cart.totalPriceFormat(false);
+        }
         int totalItems = cart.getTotalItems();
 
         Session session = Session.getInstance(MailProperties.getProperties(), auth);
