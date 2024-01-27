@@ -1,6 +1,6 @@
 package controller.shoppingCart;
 
-import cartShopping.ShoppingCart;
+import models.ShoppingCart;
 import models.User;
 import models.Voucher;
 import org.json.JSONObject;

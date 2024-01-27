@@ -1,5 +1,6 @@
 package utils;
 
+import services.AdminReviewServices;
 import services.ProductCardServices;
 
 import models.Color;
@@ -50,7 +51,9 @@ public class ProductFactory {
         return ProductCardServices.getINSTANCE().getNameCategoryById(id);
     }
 
-    public static String getNameProductByIdOrderDetail(int orderDetailId) {
-        return ProductCardServices.getINSTANCE().getNameProductByIdOrderDetail(orderDetailId);
+    public static int getUserByIdOrderDetail(String orderDetailId) {
+        return AdminReviewServices.getINSTANCE().getUserByIdOrderDetail(orderDetailId);
+
     }
+
 }

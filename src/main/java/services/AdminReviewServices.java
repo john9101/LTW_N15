@@ -44,4 +44,8 @@ public class AdminReviewServices {
         reviewDAO.updateVisibility(reviewId, visibility);
         return true;
     }
+
+    public int getUserByIdOrderDetail(String orderDetailId) {
+
+    }
 }

@@ -1,16 +1,24 @@
 package controller.shoppingCart;
 
-import cartShopping.AbstractCartProduct;
-import cartShopping.ShoppingCart;
+//import cartShopping.AbstractCartProduct;
+//import cartShopping.ShoppingCart;
+
+//import cartShopping.AbstractCartProduct;
+
+import models.CartProduct;
+import models.ShoppingCart;
 import models.User;
 import models.Voucher;
 import org.json.JSONObject;
 import services.ShoppingCartServices;
 import utils.FormatCurrency;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "IncreaseQuantityController", value = "/IncreaseQuantity")
@@ -95,7 +103,7 @@ public class IncreaseQuantityController extends HttpServlet {
 
         session.setAttribute(userIdCart, cart);
 
-        AbstractCartProduct cartProduct = cart.getShoppingCartMap().get(productId).get(cartProductIndex);
+        CartProduct cartProduct = cart.getShoppingCartMap().get(productId).get(cartProductIndex);
         int newQuantity = cartProduct.getQuantity();
         String newSubtotalFormat = cartProduct.subtotalFormat();
         String newTemporaryPriceFormat = cart.temporaryPriceFormat();

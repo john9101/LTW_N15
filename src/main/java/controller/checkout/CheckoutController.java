@@ -1,8 +1,8 @@
 package controller.checkout;
 
-import cartShopping.ShoppingCart;
 import models.PaymentMethod;
 import models.DeliveryMethod;
+import models.ShoppingCart;
 import models.User;
 import services.CheckoutServices;
 
