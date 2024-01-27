@@ -81,7 +81,6 @@ h1{
     border-radius: 50%;
 }
 .user__info{
-    width: 200%;
     flex: 1;
 
 }
@@ -317,5 +316,8 @@ h1{
     width: 200px;
     height: 200px;
     background-image: url("../img/noneorder.png");
+}
+.form__updateAccount{
+    flex: 1;
 }
 
