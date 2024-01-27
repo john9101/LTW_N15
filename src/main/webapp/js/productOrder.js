@@ -52,17 +52,21 @@ function getObjForm() {
     return obj;
 }
 function addToCart() {
-    const obj = getObjForm();
-    $.ajax({
-        url: "AddToCartCustom",
-        type: "POST",
-        dataType: "json",
-        data: obj,
-        cache: false,
-        success: function (data) {
-            document.querySelector(".qlt__value").innerText = data;
-        },
-        error: function (error) {
-        },
-    });
+    if (isLogin == 'false') {
+        window.location.href = "signIn.jsp";
+    } else {
+        const obj = getObjForm();
+        $.ajax({
+            url: "AddToCartCustom",
+            type: "POST",
+            dataType: "json",
+            data: obj,
+            cache: false,
+            success: function (data) {
+                document.querySelector(".qlt__value").innerText = data;
+            },
+            error: function (error) {
+            },
+        });
+    }
 }

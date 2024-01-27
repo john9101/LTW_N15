@@ -100,18 +100,22 @@ function getFormData(form) {
     return formData;
 }
 function addToCart() {
-    const form = document.getElementById("form__product");
-    const formData = getFormData(form);
-    $.ajax({
-        url: "AddToCart",
-        type: "POST",
-        data: formData,
-        contentType: "application/x-www-form-urlencoded",
-        processData: false,
-        success: function (data) {
-            document.querySelector(".qlt__value").innerText = data
-        },
-        error: function (error) {
-        },
-    });
+    if (isLogin == 'false') {
+        window.location.href = "signIn.jsp";
+    } else {
+        const form = document.getElementById("form__product");
+        const formData = getFormData(form);
+        $.ajax({
+            url: "AddToCart",
+            type: "POST",
+            data: formData,
+            contentType: "application/x-www-form-urlencoded",
+            processData: false,
+            success: function (data) {
+                document.querySelector(".qlt__value").innerText = data
+            },
+            error: function (error) {
+            },
+        });
+    }
 }

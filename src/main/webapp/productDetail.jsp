@@ -283,6 +283,9 @@
 <article class="dialog__size-guide"></article>
 <script src="js/base.js"></script>
 <script src="js/validateForm.js"></script>
+<script>
+    const isLogin = "<%=session.getAttribute("auth") != null%>";
+</script>
 <script src="js/productDetail.js"></script>
 </body>
 </html>
