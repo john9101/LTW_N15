@@ -1,23 +1,43 @@
 import dao.GeneralDao;
+import dao.OrderDAO;
 import dao.UserDAO;
 import dao.UserDAOImplement;
-import database.DBProperties;
+
 import database.JDBIConnector;
+import models.Order;
+import models.OrderDetail;
 import models.User;
+import services.AuthenticateServices;
+import services.ReviewServices;
+import utils.ProductFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TestSelect {
     public static void main(String[] args) {
-//        System.out.println(GeneralDao.executeQueryWithSingleTable("SELECT id, fullname, username FROM users", User.class));
-     UserDAO userDAO = new UserDAOImplement();
-        System.out.println(userDAO.findUsername("ducvui2003"));
-        final String REGEX_EMAIL_VALID = "^(.+)@(.+)$";
-        Pattern pattern = Pattern.compile(REGEX_EMAIL_VALID);
-        Matcher matcher = pattern.matcher("ducvui2003@gmail.com");
-        System.out.println(matcher.find());
+//        System.out.println(ProductFactory.getListSizesByProductId(3));
+//        System.out.println(ReviewServices.getINSTANCE().getListReview(43));
+//        System.out.println(AuthenticateServices.getINSTANCE().checkSignIn("Ozus", "Qq@12345").getObjReturn());
+//        String status = request.getParameter("status");
+
+//        OrderDAO order = new OrderDAO();
+//        List<Order> listOrder = order.getOrderByUserIdAndStatusOrder(1,"ĐÃ XÁC NHẬN");
+//
+//        List<Integer> listOrderId = new ArrayList<>();
+//        for (Order orders:listOrder) {
+//            listOrderId.add(orders.getId());
+//        }
+//        List<OrderDetail> listOrderDetail = order.getOrderDetailByOrderId(listOrderId);
+//        System.out.println(listOrderDetail);
+//
+//        for(OrderDetail orderdetails:listOrderDetail) {
+//            System.out.println(order.getNameImageByProductId(order.getProductInOrderDetail(orderdetails.getProductId()).get(0).getId()).get(0).getNameImage());
+//        }
+        OrderDAO o = new OrderDAO();
+//        System.out.println(o.getOrderDetailNotReview());
     }
 }

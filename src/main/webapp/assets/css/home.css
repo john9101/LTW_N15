@@ -278,7 +278,20 @@
     flex: 1;
 }
 
-.product__item .product__info .product__status {
+.image--tag{
+    position: relative;
+    overflow: hidden;
+}
+
+.image--tag:hover .action__bar{
+    /*bottom: 50%;*/
+    opacity: 80%;
+    height: 46px;
+    /*box-sizing: border-box;*/
+    margin-bottom: 14px;
+}
+
+.product__tag{
     padding: 8px 8px;
     width: fit-content;
     border-radius: 4px;
@@ -286,6 +299,86 @@
     color: white;
     /* New update */font-size: 14px;/* New update */
     font-weight: 600;
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    opacity: 80%;
+}
+
+.action__bar{
+    width: 92px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+    height: 0;
+    opacity: 0;
+    transform: translateX(-50%);
+    /*transform: translate3d(-50%, 100%, 0);*/
+    transition: all 0.3s ease;
+}
+
+.action__bar button, .action__bar .see__detail{
+    /*padding: 14px 0px;*/
+    line-height: 16px;
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background-color: var(--blue-color-medium);
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+}
+
+.action__bar button{
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.action__bar .see__detail{
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.action__bar button::before, .action__bar .see__detail::before{
+    position: absolute;
+    top: -35px;
+    padding: 6px;
+    font-size: 12px;
+    background-color: #333333;
+    border-radius: 4px;
+    line-height: normal;
+    margin-bottom: 4px;
+    width: max-content;
+    font-weight: 400;
+}
+
+.action__bar button:hover::after, .action__bar .see__detail:hover::after{
+    position: absolute;
+    content: "▼";
+    color: #333333;
+    font-size: 18px;
+    top: -14px;
+}
+
+.action__bar button:hover::before{
+    content: "Thêm vào giỏ hàng";
+}
+
+.action__bar .see__detail:hover::before{
+    content: "Xem chi tiết";
+}
+
+.action__bar button:hover, .action__bar .see__detail:hover{
+    /*opacity: 1;*/
+    background-color: var(--blue-color-high);
 }
 
 .product__item .product__info .product__name {
@@ -316,12 +409,13 @@
     font-weight: 600;
 }
 
-.product__item .product__info .product__price .sale__price {
-    /* New update*/ font-size: 22px; /* New update*/
+.sale__price , .priority__price{
+    /* New update*/ font-size: 24px; /* New update*/
     margin-right: 6px;
+    color: var(--blue-color-high);
 }
 
-.product__item .product__info .product__price .original__price {
+.original__price {
     /* New update*/
     color: #D9D9D9;
 }

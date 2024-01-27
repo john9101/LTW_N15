@@ -3,10 +3,13 @@ package services;
 import dao.UserDAO;
 import dao.UserDAOImplement;
 import models.User;
+import properties.MailProperties;
+import properties.RoleProperties;
 import utils.Encoding;
 import utils.Token;
 import utils.ValidatePassword;
 import utils.Validation;
+
 import javax.mail.MessagingException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -137,6 +140,7 @@ public class AuthenticateServices {
             user.setUsername(username);
             user.setEmail(email);
             user.setPasswordEncoding(Encoding.getINSTANCE().toSHA1(password));
+            user.setRole(RoleProperties.getINSTANCE().getGuest());
             validation.setObjReturn(user);
         }
         return validation;
@@ -153,14 +157,20 @@ public class AuthenticateServices {
     public void createUser(User user) {
 //        Create token
         String tokenVerify = Token.generateToken();
-        user.setTokenVerify(tokenVerify);
 
 //        Create Time Stamp
         Timestamp timestampExpiredToken = addTime(LocalDateTime.now(), MailProperties.getDurationTokenVerify());
-        user.setTokenVerifyTime(timestampExpiredToken);
 
+//        Check user exist in db: resend email verify for user
+        List<User> userList = userDAO.findUsername(user.getUsername());
+        if (!userList.isEmpty()) {
+            userDAO.updateTokenVerify(user.getId(), tokenVerify, timestampExpiredToken);
+        } else {
 //        Insert user to db
-        userDAO.insert(user);
+            user.setTokenVerify(tokenVerify);
+            user.setTokenVerifyTime(timestampExpiredToken);
+            userDAO.insert(user);
+        }
         try {
             IMailServices mailServices = new MailVerifyServices(user.getEmail(), user.getUsername(), tokenVerify, timestampExpiredToken);
             mailServices.send();
@@ -227,6 +237,7 @@ public class AuthenticateServices {
     public boolean updatePassword(String email, String password) {
         String passwordEncoding = Encoding.getINSTANCE().toSHA1(password);
         List<User> users = userDAO.selectByEmail(email, "1");
+        if (users.isEmpty()) return false;
         User user = users.get(0);
         if (user.getTokenResetPassword() != null) {
             userDAO.updatePasswordEncoding(user.getId(), passwordEncoding);

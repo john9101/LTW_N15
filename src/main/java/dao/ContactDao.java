@@ -1,26 +1,28 @@
 package dao;
 
-import models.Contacts;
-import models.User;
+import models.Contact;
+import models.SubjectContact;
 
 import java.util.List;
 import java.util.Map;
 
 public class ContactDao {
 
-    public List<Contacts> getListUserContacts(){
-        return GeneralDao.executeQueryWithSingleTable("SELECT id, fullName, phone, email, `subject` FROM contacts", Contacts.class);
+    public List<Contact> getListUserContacts(){
+        return GeneralDao.executeQueryWithSingleTable("SELECT id, fullName, phone, email, `subject` FROM contacts", Contact.class);
     }
 
-    public List<Map<String, Object>> getListContactSubjects(){
-        return GeneralDao.executeQueryWithJoinTables("SELECT subjectName FROM contact_subjects");
+    public List<SubjectContact> getListContactSubjects(){
+        String sql = "SELECT id , subjectName FROM contact_subjects";
+        return GeneralDao.executeQueryWithSingleTable(sql, SubjectContact.class);
     }
 
-    public static int getIdContactSubjectByName(String subjectName){
+
+    public int getIdContactSubjectByName(String subjectName){
         return (int) GeneralDao.executeQueryWithJoinTables("SELECT id FROM contact_subjects WHERE subjectName = ?", subjectName).get(0).get("id");
     }
 
-    public void addNewRecordUserContact(int userId, String fullName, String phone, String email, int subjectId, String message){
+    public void addNewRecordUserContact(Integer userId, String fullName, String phone, String email, int subjectId, String message){
         GeneralDao.executeAllTypeUpdate("INSERT INTO contact(userId, fullName, phone, email, subjectId, message) VALUES(?,?,?,?,?,?)", userId, fullName, phone, email, subjectId, message);
     }
 }

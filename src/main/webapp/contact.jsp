@@ -40,43 +40,29 @@
                     <p class="subtitle__contact">Bạn có muốn liên lạc với chúng tôi? Nếu có thì bạn hãy điền đầy đủ
                         thông tin vào form và chúng tôi sẽ cố gắng phản hồi sớm nhất trong vòng 24h. Hoặc bạn có thể
                         liên hệ thông qua các thông tin về công ty của chúng tôi</p>
-                    <%= request.getAttribute("successNotification") != null ? request.getAttribute("successNotification") : "" %>
-                    <% request.removeAttribute("successNotification"); %>
+                    <span class="success__notification"></span>
                     <form method="post" action="Contact" id="contact__form">
-                        <%
-                            String fullNameError = (String) request.getAttribute("fullNameError");
-                            String phoneError = (String) request.getAttribute("phoneError");
-                            String emailError = (String) request.getAttribute("emailError");
-                        %>
                         <div class="form__block">
                             <label for="fullName" class="form__label">Họ và tên <span class="compulsory__mark">*</span></label>
                             <input class="form__input" type="text" id="fullName" name="fullName" placeholder="Họ và tên của bạn" value="<c:if test="${requestScope.fullName != null}">${requestScope.fullName}</c:if>">
-                            <c:if test="${fullNameError != null}">
-                                <span class="error-notice"><%= fullNameError %></span>
-                            </c:if>
+                            <span id="fullNameError" class="error-notice"></span>
                         </div>
                         <div class="form__block">
                             <label for="phone" class="form__label">Số điện thoại <span class="compulsory__mark">*</span></label>
                             <input class="form__input" type="text" id="phone" name="phone" placeholder="Số điện thoại của bạn" value="<c:if test="${requestScope.phone != null}">${requestScope.phone}</c:if>">
-                            <c:if test="${phoneError != null}">
-                                <span class="error-notice"><%= phoneError %></span>
-                            </c:if>
+                            <span id="phoneError" class="error-notice"></span>
                         </div>
                         <div class="form__block">
                             <label for="email" class="form__label">Email <span class="compulsory__mark">*</span></label>
                             <input class="form__input" type="text" id="email" name="email" placeholder="Email của bạn" value="<c:if test="${requestScope.email != null}">${requestScope.email}</c:if>">
-                            <c:if test="${emailError != null}">
-                                <span class="error-notice"><%= emailError %></span>
-                            </c:if>
+                            <span id="emailError" class="error-notice"></span>
                         </div>
                         <div class="form__block">
                             <label for="subject" class="form__label">Chủ đề <i
                                     class="subject__in fo fa-solid fa-circle-info"></i></label>
-                            <select class="select__box" name="subject" id="subject" >
-                                <option value="none" selected disabled hidden class="option">Chọn chủ đề</option>
-
-                                <c:forEach items="${list_contact_subjects}" var="subjectOption">
-                                <option value="${subjectOption["subjectname"]}" <c:if test="${subjectOption['subjectname'] eq requestScope.subject}"> selected </c:if> class="option">${subjectOption["subjectname"]}</option>
+                            <select class="select__box" name="subject" id="subject">
+                                <c:forEach items="${requestScope.listContactSubjects}" var="subjectOption">
+                                <option value="${subjectOption.subjectName}" <c:if test="${subjectOption.subjectName eq requestScope.subject}"> selected </c:if> class="option">${subjectOption.subjectName}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -141,7 +127,6 @@
 <%@include file="footer.jsp" %>
 </body>
 <script src="js/base.js"></script>
-<script src="js/validateContactForm.js"></script>
 <%--<script>--%>
 <%--    ValidatorContactForm({--%>
 <%--        form: '#contact__form',--%>
@@ -170,7 +155,27 @@
         integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
-    $(document).ready(function () {
+    // ValidatorContactForm({
+    //     form: '#contact__form',
+    //     formBlockSelector: '.form__block',
+    //     errorSelector: '.error-notice',
+    //     rules: [
+    //         ValidatorContactForm.isRequired('#fullname'),
+    //         ValidatorContactForm.isRequired('#phone'),
+    //         ValidatorContactForm.isPhone("#phone"),
+    //         ValidatorContactForm.isRequired('#email'),
+    //         ValidatorContactForm.isEmail('#email')
+    //     ],
+    //     // onSubmit: ,
+    //     }
+    // });
+
+
+
+</script>
+<script src="js/validateContactForm.js"></script>
+<script>
+    $(document).ready(function() {
         $('#subject').select2();
     });
 </script>

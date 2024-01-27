@@ -1,8 +1,8 @@
 package services;
 
 import dao.ContactDao;
-import dao.GeneralDao;
-import models.Contacts;
+import models.Contact;
+import models.SubjectContact;
 
 import java.util.List;
 import java.util.Map;
@@ -24,11 +24,11 @@ public class ContactServices {
         return INSTANCE;
     }
 
-    public List<Contacts> getListUserContacts(){
+    public List<Contact> getListUserContacts(){
         return contactDao.getListUserContacts();
     }
 
-    public List<Map<String, Object>> getListContactSubjects(){
+    public List<SubjectContact> getListContactSubjects(){
         return contactDao.getListContactSubjects();
     }
 
@@ -36,7 +36,7 @@ public class ContactServices {
         return contactDao.getIdContactSubjectByName(subjectName);
     }
 
-    public void addNewRecordUserContact(int userId, String fullName, String phone, String email, int subjectId, String message){
+    public void addNewRecordUserContact(Integer userId, String fullName, String phone, String email, int subjectId, String message){
         contactDao.addNewRecordUserContact(userId, fullName, phone, email, subjectId, message);
     }
 }

@@ -30,7 +30,7 @@
 <main class="main">
     <div class="frame">
         <article>
-            <form action="forgetPassword" class="form form--forget-password">
+            <form action="forgetPassword" class="form form--forget-password" method="post">
                 <h1 class="heading">Vui lòng nhập email của bạn để lấy lại mật khẩu</h1>
                 <div class="form__block">
                     <label for="email" class="form__label">Email</label>

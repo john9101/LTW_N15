@@ -1,5 +1,6 @@
 package filter;
 
+import models.SubjectContact;
 import services.ContactServices;
 
 import javax.servlet.*;
@@ -24,8 +25,8 @@ public class ContactFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         request.setCharacterEncoding("UTF-8");
-        List<Map<String, Object>> listContactSubjects = ContactServices.getINSTANCE().getListContactSubjects();
-        request.setAttribute("list_contact_subjects", listContactSubjects);
+        List<SubjectContact> listContactSubjects = ContactServices.getINSTANCE().getListContactSubjects();
+        request.setAttribute("listContactSubjects", listContactSubjects);
         filterChain.doFilter(request,response);
     }
 

@@ -99,7 +99,6 @@
     background-color: white;
     border-radius: 4px;
     padding: 12px 10px;
-    font-size: 16px;
 }
 
 #contact__form .form__block .form__input:focus, #contact__form .form__block .form__textarea:focus{
@@ -110,8 +109,7 @@
     height: auto;
     font-size: 12px;
     font-weight: 500;
-    color: #E40F0A;
-    line-height: 16px;
+    display: none;
 }
 
 #contact__form .form__block .form__textarea{
@@ -121,7 +119,6 @@
     outline: none;
     border: 1px solid #aaaaaa;
     background-color: white;
-    font-size: 16px;
 }
 
 #contact__form .form__submit{
@@ -162,7 +159,7 @@
 .select2-selection{
     width: 100%;
     height: fit-content !important;
-    padding: 8px 0px;
+    padding: 6px 0px;
     display: grid !important;;
     align-items: center;
     outline: none;
@@ -170,6 +167,7 @@
 
 .select2-selection__rendered{
     font-weight: 500;
+    font-size: 14px;
 }
 
 .select2-search__field{
@@ -228,13 +226,25 @@ label[for="subject"]:hover::after{
     opacity: 1;
 }
 
-.success__notification{
-    padding: 16px;
-    color: white;
+.form__input.input-invalid{
+    border: 1.8px #E40F0A solid !important;
+}
+
+.error-notice{
+    font-size: 12px;
     font-weight: 500;
-    font-size: 18px;
-    background-color: #5ee95e;
-    border-radius: 6px;
+    color: #E40F0A;
+    white-space: break-spaces;
+    line-height: 16px;
+}
+
+.success__notification{
+    display: none;
+    font-weight: 600;
+    padding: 12px;
+    background-color: #4BAC4D;
+    color: white;
+    border-radius: 4px;
 }
 
 @keyframes slideOut {
