@@ -88,8 +88,8 @@
                                         <p class="product__price product__price--sale">${originalPrice}</p>
                                     </c:when>
                                     <c:otherwise>
-                                        <p class="product__price product__price--sale">${originalPrice}</p>
-                                        <p class="product__price product__price--base">${salePrice}</p>
+                                        <p class="product__price product__price--sale">${salePrice}</p>
+                                        <p class="product__price product__price--base">${originalPrice}</p>
                                     </c:otherwise>
                                 </c:choose>
 

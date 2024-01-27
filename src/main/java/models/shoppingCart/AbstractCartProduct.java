@@ -56,7 +56,7 @@ public abstract class AbstractCartProduct {
         String sizeFormat = "Kích thước: ";
         sizeFormat += sizeRequired();
         if(this instanceof CartProduct){
-            sizeFormat += " (giá kích thước: " + ((CartProduct)(this)).getSize().getSizePrice() + ")";
+            sizeFormat += " (giá kích thước: " + FormatCurrency.vietNamCurrency(((CartProduct)(this)).getSize().getSizePrice()) + ")";
         }
         return sizeFormat;
     }
