@@ -4,11 +4,12 @@ import java.sql.Date;
 
 public class Review {
     private int id;
-    private int userId;
     private int orderDetailId;
     private int ratingStar;
     private String feedback;
     private Date reviewDate;
+
+    private boolean isVisibility;
 
     public int getId() {
         return id;
@@ -16,14 +17,6 @@ public class Review {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getOrderDetailId() {
@@ -58,15 +51,13 @@ public class Review {
         this.reviewDate = reviewDate;
     }
 
-    @Override
-    public String toString() {
-        return "Review{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", orderDetailId=" + orderDetailId +
-                ", ratingStar=" + ratingStar +
-                ", feedback='" + feedback + '\'' +
-                ", reviewDate=" + reviewDate +
-                '}';
+    public boolean isVisibility() {
+        return isVisibility;
     }
+
+    public void setVisibility(boolean visibility) {
+        isVisibility = visibility;
+    }
+
+
 }

@@ -40,13 +40,13 @@
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-<form class="form" action="" method="post" id="form__product">
+<form class="form" id="form__product">
     <div class="container-xl order__log-padding">
         <%--So do --%>
         <div class="col-12">
             <h2 class="order__heading">Bảng số đo</h2>
             <div class="order__guide-size">
-                <img src="assets/img/sizeGuide/${category.sizeTableImage}" alt="">
+                <img src="assets/img/size_table/${category.sizeTableImage}" alt="">
             </div>
         </div>
         <c:forEach var="parameter" items="${listParameter}" varStatus="loop">
@@ -56,11 +56,13 @@
             </div>
             <div class="col-12">
                 <h2 class="order__heading">${parameter.name}</h2>
+                <input type="text" name="nameParameter" hidden="hidden" value="${parameter.name}">
                 <div class="row align-items-center">
                     <div class="col-5">
                         <label class="order__group">
                             <label class="order__parameter">
-                                <input id="parameter${loop.index}" class="order__input" type="text" name="parameter"
+                                <input id="parameter${loop.index}" class="order__input" type="text"
+                                       name="valueParameter"
                                        placeholder="Hãy nhập số đo của ${fn:toLowerCase(parameter.name)}">
                                 <c:set var="unit" value="${parameter.unit}"/>
                                 <span class="order__unit">${unit}</span>
@@ -75,7 +77,7 @@
                         <%--Image--%>
                     <div class="offset-1 col-6">
                         <div class="order__guide-parameter">
-                            <img src="assets/img/step_guide/coAo.jpg" alt="">
+                            <img src="assets/img/parameter_guide/${parameter.guideImg}" alt="">
                         </div>
                     </div>
                 </div>

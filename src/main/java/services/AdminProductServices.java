@@ -52,6 +52,8 @@ public class AdminProductServices {
         List<Image> imageList = new ArrayList<>();
         for (int i = 0; i < nameImages.size(); i++) {
             Image image = new Image();
+            if (nameImages.get(i) == null)
+                continue;
             image.setNameImage(nameImages.get(i));
             image.setProductId(productId);
             imageList.add(image);
@@ -218,6 +220,13 @@ public class AdminProductServices {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public boolean updateVisibility(int productId, boolean visibility) {
+        if (productCardDAO.isVisibility(productId).isEmpty() || visibility == productCardDAO.isVisibility(productId).get(0).isVisibility()) {
+            return false;
+        }
+        productCardDAO.updateVisibility(productId, visibility);
+        return true;
     }
 }

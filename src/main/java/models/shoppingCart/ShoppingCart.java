@@ -1,5 +1,6 @@
-package models;
+package models.shoppingCart;
 
+import models.*;
 import utils.FormatCurrency;
 import utils.ProductFactory;
 
@@ -8,22 +9,20 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ShoppingCart {
-    private HashMap<Integer, List<CartProduct>> shoppingCartMap = new HashMap<>();
+    private HashMap<Integer, List<AbstractCartProduct>> shoppingCartMap = new HashMap<>();
     private Voucher voucherApplied;
     private DeliveryMethod deliveryMethod;
     private PaymentMethod paymentMethod;
     private DeliveryInfo deliveryInfo;
 
-    private String noteOrder;
-
     public ShoppingCart() {
     }
 
-    public HashMap<Integer, List<CartProduct>> getShoppingCartMap() {
+    public HashMap<Integer, List<AbstractCartProduct>> getShoppingCartMap() {
         return shoppingCartMap;
     }
 
-    public void setShoppingCartMap(HashMap<Integer, List<CartProduct>> shoppingCartMap) {
+    public void setShoppingCartMap(HashMap<Integer, List<AbstractCartProduct>> shoppingCartMap) {
         this.shoppingCartMap = shoppingCartMap;
     }
 
@@ -59,16 +58,19 @@ public class ShoppingCart {
         this.deliveryInfo = deliveryInfo;
     }
 
-    public void setNoteOrder(String noteOrder) {
-        this.noteOrder = noteOrder;
-    }
 
     // Dùng cho trang productDetail khi người dùng chọn số lượng và nhấn nút "thêm vào giỏ hàng"
-    public void add(int productId, int quantity, Color color, Size size) {
+    public void add(int productId, int quantity, Color color, Object size) {
         if (shoppingCartMap.containsKey(productId)) {
-            List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
+            List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
             Product product = ProductFactory.getProductById(productId);
-            CartProduct cartProduct = new CartProduct(product, quantity, color, size);
+            AbstractCartProduct cartProduct;
+            if(size instanceof Size){
+                cartProduct = new CartProduct(product, quantity, color, (Size) size);
+            }else {
+                cartProduct = new CartProductCustom(product, quantity, color, (String) size);
+            }
+
             if (!listCartProducts.contains(cartProduct)) {
                 listCartProducts.add(cartProduct);
             } else {
@@ -78,12 +80,17 @@ public class ShoppingCart {
                 listCartProducts.set(currentIndex, cartProduct);
             }
         } else {
-            List<CartProduct> listCartProducts = new ArrayList<>();
+            List<AbstractCartProduct> listCartProducts = new ArrayList<>();
             Product product = ProductFactory.getProductById(productId);
             if (product == null) {
                 return;
             } else {
-                CartProduct cartProduct = new CartProduct(product, quantity, color, size);
+                AbstractCartProduct cartProduct;
+                if (size instanceof Size) {
+                    cartProduct = new CartProduct(product, quantity, color, (Size) size);
+                } else {
+                    cartProduct = new CartProductCustom(product, quantity, color, (String) size);
+                }
                 listCartProducts.add(cartProduct);
                 shoppingCartMap.put(productId, listCartProducts);
             }
@@ -96,9 +103,9 @@ public class ShoppingCart {
     // Dùng cho trang shoppingCart khi người dùng nhấn nút "+" để tăng số lượng
     public void increase(int productId, int cartProductIndex) {
         if (shoppingCartMap.containsKey(productId)) {
-            List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
+            List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
             int currentQuantity = listCartProducts.get(cartProductIndex).getQuantity();
-            CartProduct cartProduct = listCartProducts.get(cartProductIndex);
+            AbstractCartProduct cartProduct = listCartProducts.get(cartProductIndex);
             cartProduct.setQuantity(currentQuantity + 1);
             System.out.println(cartProduct);
             listCartProducts.set(cartProductIndex, cartProduct);
@@ -118,9 +125,9 @@ public class ShoppingCart {
 //    }
     public void decrease(int productId, int cartProductIndex) {
         if (shoppingCartMap.containsKey(productId)) {
-            List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
+            List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
             int currentQuantity = listCartProducts.get(cartProductIndex).getQuantity();
-            CartProduct cartProduct = listCartProducts.get(cartProductIndex);
+            AbstractCartProduct cartProduct = listCartProducts.get(cartProductIndex);
             int quantityDecreased = currentQuantity - 1;
             if (quantityDecreased > 0) {
                 cartProduct.setQuantity(quantityDecreased);
@@ -133,8 +140,8 @@ public class ShoppingCart {
     // Dùng cho trang shoppingCart khi người dùng nhấn nút "xóa" để xóa sản phẩm ra khỏi giỏ hàng
     public void remove(int productId, int cartProductIndex) {
         if (shoppingCartMap.containsKey(productId)) {
-            List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
-            CartProduct cartProductTarget = listCartProducts.get(cartProductIndex);
+            List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
+            AbstractCartProduct cartProductTarget = listCartProducts.get(cartProductIndex);
             listCartProducts.remove(cartProductTarget);
             if (listCartProducts.isEmpty()) {
                 shoppingCartMap.remove(productId);
@@ -145,7 +152,7 @@ public class ShoppingCart {
     public double getTemporaryPrice() {
         double temporaryPrice = 0;
         for (int productId : shoppingCartMap.keySet()) {
-            for (CartProduct cartProduct : shoppingCartMap.get(productId)) {
+            for (AbstractCartProduct cartProduct : shoppingCartMap.get(productId)) {
                 temporaryPrice += cartProduct.getSubtotal();
             }
         }
@@ -182,7 +189,7 @@ public class ShoppingCart {
     public int getTotalItems() {
         int totalItems = 0;
         for (int productId : shoppingCartMap.keySet()) {
-            List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
+            List<AbstractCartProduct> listCartProducts = shoppingCartMap.get(productId);
             totalItems += listCartProducts.size();
         }
         return totalItems;
@@ -190,11 +197,7 @@ public class ShoppingCart {
 
     public static void main(String[] args) {
         ShoppingCart cart = new ShoppingCart();
-//        Color color = new Color();
-//        color.setCodeColor("aaa");
-//        color.setId(1);
-//        color.setProductId(1);
-//
+
 //        Size size = new Size();
 //        size.setNameSize("x");
 //        size.setSizePrice(100000);
@@ -208,5 +211,28 @@ public class ShoppingCart {
 //        Product product2 = ProductFactory.getProductById(1);
 
 //        System.out.println(shoppingCartMap);
+
+        Color color1 = new Color();
+        color1.setCodeColor("aaa");
+        color1.setId(1);
+        color1.setProductId(1);
+
+        Color color2 = new Color();
+        color2.setCodeColor("bbb");
+        color2.setId(2);
+        color2.setProductId(1);
+//
+//        Size size = new Size();
+//        size.setNameSize("x");
+//        size.setSizePrice(100000);
+//        size.setId(1);
+//        size.setProductId(1);
+//
+//        cart.add(1, 1, color, size);
+//        cart.add(1, 1, color, size);
+        AbstractCartProduct cartProduct1 = new CartProduct(new Product(), 1, color1, new Size());
+        AbstractCartProduct cartProduct2 = new CartProductCustom(new Product(), 2, color1, "");
+
+        System.out.println(cartProduct1.equals(cartProduct2));
     }
 }

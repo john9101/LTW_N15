@@ -112,21 +112,21 @@ public class Order {
         this.voucherId = voucherId;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Order{" +
-//                "id='" + id + '\'' +
-//                ", userId=" + userId +
-//                ", dateOrder=" + dateOrder +
-//                ", deliveryMethodId=" + deliveryMethodId +
-//                ", paymentMethodId=" + paymentMethodId +
-//                ", fullName='" + fullName + '\'' +
-//                ", email='" + email + '\'' +
-//                ", phone='" + phone + '\'' +
-//                ", address='" + address + '\'' +
-//                ", orderStatusId=" + orderStatusId +
-//                ", transactionStatusId=" + transactionStatusId +
-//                ", voucherId=" + voucherId +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", userId=" + userId +
+                ", dateOrder=" + dateOrder +
+                ", deliveryMethodId=" + deliveryMethodId +
+                ", paymentMethodId=" + paymentMethodId +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", orderStatusId=" + orderStatusId +
+                ", transactionStatusId=" + transactionStatusId +
+                ", voucherId=" + voucherId +
+                '}';
+    }
 }

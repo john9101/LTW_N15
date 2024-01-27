@@ -1,61 +1,18 @@
-package models;
+package models.shoppingCart;
 
+import models.Color;
+import models.Product;
+import models.Size;
 import utils.FormatCurrency;
-import utils.ProductFactory;
 
-import java.text.NumberFormat;
-import java.util.Locale;
 import java.util.Objects;
 
-public class CartProduct {
-    private Product product;
-    private int quantity;
-    private Color color;
+public class CartProduct extends AbstractCartProduct{
     private Size size;
-    private double priorityPrice;
 
     public CartProduct(Product product, int quantity, Color color, Size size) {
-        this.product = product;
-        this.quantity = quantity;
-        this.color = color;
+        super(product, quantity, color);
         this.size = size;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getPriorityPrice() {
-        if(this.product.getSalePrice() != 0){
-            priorityPrice = this.product.getSalePrice();
-        }else{
-            priorityPrice = this.product.getOriginalPrice();
-        }
-        return priorityPrice;
-    }
-
-    public void setPriorityPrice(double priorityPrice) {
-        this.priorityPrice = priorityPrice;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
     }
 
     public Size getSize() {
@@ -64,6 +21,11 @@ public class CartProduct {
 
     public void setSize(Size size) {
         this.size = size;
+    }
+
+    @Override
+    public String sizeRequired() {
+        return size.getNameSize();
     }
 
     public double getSewingPrice(){
@@ -98,10 +60,10 @@ public class CartProduct {
     @Override
     public String toString() {
         return "CartProduct{" +
-                "product=" + product +
+                "size=" + size +
+                ", product=" + product +
                 ", quantity=" + quantity +
-                ", color='" + color + '\'' +
-                ", size='" + size + '\'' +
+                ", color=" + color +
                 ", priorityPrice=" + priorityPrice +
                 '}';
     }

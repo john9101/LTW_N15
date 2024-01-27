@@ -378,6 +378,7 @@
                                             <div class="order__product--info">
                                                 <p class="product__name">${cartProduct.product.name}</p>
                                                 <p class="order__color">Màu sắc: ${cartProduct.color.codeColor}</p>
+                                                <p class="order__size">${cartProduct.makeSizeFormat()}</p>
                                             </div>
                                         </div>
                                     </td>

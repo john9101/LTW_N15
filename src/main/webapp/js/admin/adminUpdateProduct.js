@@ -61,62 +61,58 @@ window.addEventListener('message', function (event) {
 
         const imgPreviewsExist = document.querySelector(".form__img-exist .img__previews");
 
-        // async function asyncImageLoading(images) {
-        //     // Get the current URL to fetch img from server
-        //     const currentURL = window.location.href;
-        //     const url = new URL(currentURL);
-        //     const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
-        //
-        //     function addImages(blobUrl) {
-        //         const imageHTML = `<div class="img__preview">
-        //                                     <img src="${blobUrl}" alt="">
-        //                                      <i class="form__img-delete fa-solid fa-xmark"></i>
-        //                                   </div>`
-        //         imgPreviewsExist.insertAdjacentHTML("beforeend", imageHTML);
-        //         const lastElement = imgPreviewsExist.lastElementChild;
-        //         lastElement.querySelector(".form__img-delete").addEventListener("click", function (e) {
-        //             removeImg(lastElement);
-        //         })
-        //     }
-        //
-        //     function removeImg(addedFormImg) {
-        //         addedFormImg.remove()
-        //     }
-        //
-        //     for (let i = 0; i < images.length; i++) {
-        //         const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`
-        //         const response = await fetch(url)
-        //         const blob = await response.blob();
-        //         const blobUrl = URL.createObjectURL(blob);
-        //         addImages(blobUrl);
-        //     }
-        // }
+        function fetchImage(name) {
+            return new Promise(async (resolve, reject) => {
+                const currentURL = window.location.href;
+                const url = new URL(currentURL);
+                const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
 
-        function imagesLoading(images) {
-            // Get the current URL to fetch img from server
-            const currentURL = window.location.href;
-            const url = new URL(currentURL);
-            const basePath = `${url.protocol}//${url.hostname}:${url.port}/${url.pathname.split('/')[1]}`;
-            for (let i = 0; i < images.length; i++) {
-                const url = `${basePath}/read-image?name=${images[i]["nameImage"]}`
-                const response = fetch(url)
-                // const blob = response.blob();
-                // const blobUrl = URL.createObjectURL(blob);
-                response.then(function (response) {
+                const imageUrl = `${basePath}/read-image?name=${name}`;
+
+                try {
+                    const response = await fetch(imageUrl);
+
                     if (!response.ok) {
                         throw new Error('Network response was not ok.');
                     }
-                    return response.blob();
-                })
-                    .then(function (blob) {
-                        addImages(blob);
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+
+                    const blob = await response.blob();
+                    resolve(blob);
+                } catch (error) {
+                    reject(error);
+                }
+            });
+        }
+
+        async function imagesLoading(images) {
+            const imagePromises = images.map((image) => fetchImage(image.nameImage));
+
+            try {
+                const imageBlobs = await Promise.all(imagePromises);
+
+                for (let i = 0; i < imageBlobs.length; i++) {
+                    if (i === imageBlobs.length - 1) {
+                        addImages(imageBlobs[i], true);
+                    } else {
+                        addImages(imageBlobs[i]);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        }
+
+        function addImages(blob, last) {
+            function removeImg(addedFormImg) {
+                addedFormImg.remove()
+                const lastElement = imgPreviewsExist.lastElementChild;
+                lastElement.insertAdjacentHTML("beforeend", ` <i class="form__img-delete fa-solid fa-xmark"></i>    `);
+                lastElement.querySelector(".form__img-delete").addEventListener("click", function (e) {
+                    removeImg(lastElement);
+                });
             }
 
-            function addImages(blob) {
+            if (last) {
                 const imageHTML = `<div class="img__preview">
                                             <img src="${URL.createObjectURL(blob)}" alt="">
                                              <i class="form__img-delete fa-solid fa-xmark"></i>    
@@ -125,13 +121,15 @@ window.addEventListener('message', function (event) {
                 const lastElement = imgPreviewsExist.lastElementChild;
                 lastElement.querySelector(".form__img-delete").addEventListener("click", function (e) {
                     removeImg(lastElement);
-                })
-            }
-
-            function removeImg(addedFormImg) {
-                addedFormImg.remove()
+                });
+            } else {
+                const imageHTML = `<div class="img__preview">
+                                            <img src="${URL.createObjectURL(blob)}" alt="">
+                                            </div>`
+                imgPreviewsExist.insertAdjacentHTML("beforeend", imageHTML);
             }
         }
+
 
         // apply rule for form -> add exist rule of field
         let ruleObj = {
@@ -398,15 +396,20 @@ window.addEventListener('message', function (event) {
                 cache: false,
                 data: getDataForm(form),
                 success: function (data) {
-                    console.log(data)
                     if (data.status === true) {
-                        notifySuccess();
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 3500);
+                        notifySuccess({
+                            title: "Cập nhập sản phẩm thành công",
+                            body: "Sản phẩm đã được cập nhập vào gian hàng."
+                        });
+                    } else {
+                        notifyFailed({
+                            title: "Cập nhập sản phẩm thất bại",
+                            body: "Sản phẩm chưa được cập nhập vào gian hàng."
+                        });
                     }
                 },
                 error: function (error) {
+                    console.log(error)
                 },
             });
         }
@@ -425,35 +428,35 @@ window.addEventListener('message', function (event) {
             return formData;
         }
 
-        const toastList = document.querySelector(".toast__list");
-
-        function notifySuccess() {
-            toastList.innerHTML = `<div class="toast" id="snackbar">
-            <div class="toast__header">
-                <span class="toast__icon-wrapper toast__icon--success">
-                    <i class="toast__icon fa-solid fa-check"></i>
-                </span>
-                <strong class="toast__title">Cập nhập sản phẩm thành công</strong>
-                <i class="toast__icon-close fa-solid fa-xmark"></i>
-            </div>
-            <div class="toast__body">
-                Sản phẩm đã được thêm vào gian hàng.
-            </div>
-        </div>`;
-            // Get the snackbar DIV
-            const x = document.getElementById("snackbar");
-
-            // Add the "show" class to DIV
-            x.className = "show";
-
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function () {
-                x.className = x.className.replace("show", "");
-                x.remove();
-            }, 3000);
-
-            // Send a message to the parent window
-            window.parent.postMessage('Reload', `${window.location.origin}+"/adminProducts.jsp`);
-        }
+        // const toastList = document.querySelector(".toast__list");
+        //
+        // function notifySuccess() {
+        //     toastList.innerHTML = `<div class="toast" id="snackbar">
+        //     <div class="toast__header">
+        //         <span class="toast__icon-wrapper toast__icon--success">
+        //             <i class="toast__icon fa-solid fa-check"></i>
+        //         </span>
+        //         <strong class="toast__title">Cập nhập sản phẩm thành công</strong>
+        //         <i class="toast__icon-close fa-solid fa-xmark"></i>
+        //     </div>
+        //     <div class="toast__body">
+        //         Sản phẩm đã được thêm vào gian hàng.
+        //     </div>
+        // </div>`;
+        //     // Get the snackbar DIV
+        //     const x = document.getElementById("snackbar");
+        //
+        //     // Add the "show" class to DIV
+        //     x.className = "show";
+        //
+        //     // After 3 seconds, remove the show class from DIV
+        //     setTimeout(function () {
+        //         x.className = x.className.replace("show", "");
+        //         x.remove();
+        //     }, 3000);
+        //
+        //     // Send a message to the parent window
+        //     window.parent.postMessage('Reload', `${window.location.origin}+"/adminProducts.jsp`);
+        // }
     }
 })

@@ -1,7 +1,8 @@
 package controller.shoppingCart;
 
-import models.CartProduct;
-import models.ShoppingCart;
+import models.shoppingCart.AbstractCartProduct;
+import models.shoppingCart.CartProduct;
+import models.shoppingCart.ShoppingCart;
 import models.User;
 import models.Voucher;
 import org.json.JSONObject;
@@ -95,7 +96,7 @@ public class IncreaseQuantityController extends HttpServlet {
 
         session.setAttribute(userIdCart, cart);
 
-        CartProduct cartProduct = cart.getShoppingCartMap().get(productId).get(cartProductIndex);
+        AbstractCartProduct cartProduct = cart.getShoppingCartMap().get(productId).get(cartProductIndex);
         int newQuantity = cartProduct.getQuantity();
         String newSubtotalFormat = cartProduct.subtotalFormat();
         String newTemporaryPriceFormat = cart.temporaryPriceFormat();

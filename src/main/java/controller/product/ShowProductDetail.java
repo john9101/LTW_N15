@@ -17,6 +17,8 @@ import java.util.List;
 public class ShowProductDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String idParameter = request.getParameter("id");
 
         int id;

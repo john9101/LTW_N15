@@ -162,6 +162,9 @@
             <%--            </div>--%>
             <div class="product__items">
                 <c:forEach items="${requestScope.list6TrendingProducts}" var="trendProduct">
+                    <c:url var="showProductDetail" value="showProductDetail">
+                        <c:param name="id" value="${trendProduct.id}"/>
+                    </c:url>
                     <div class="product__item">
                         <div class="product__content">
                             <div class="image--tag">
@@ -181,20 +184,25 @@
                                 <form action="AddToCart" class="action__bar" method="post">
                                     <input type="hidden" name="productId" value="${trendProduct.id}">
                                     <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    <a class="see__detail" target="_blank" href="showProductDetail?id=${trendProduct.id}"><i class="fa-solid fa-eye"></i></a>
+                                    <a class="see__detail" target="_blank" href="${showProductDetail}"><i
+                                            class="fa-solid fa-eye"></i></a>
                                 </form>
                             </div>
                             <div class="product__info">
-                                <a class="product__name" href="#">${trendProduct.name}</a>
+                                <a class="product__name" target="_blank"
+                                   href="${showProductDetail}">${trendProduct.name}</a>
                                 <div class="product__review">
                                     <div class="review__icon">
-                                        <i class="fa-solid fa-star icon__item"></i>
-                                        <i class="fa-solid fa-star icon__item"></i>
-                                        <i class="fa-solid fa-star icon__item"></i>
-                                        <i class="fa-solid fa-star icon__item"></i>
-                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <c:forEach var="starA" begin="1" step="1"
+                                                   end="${productFactory.calculateStar(trendProduct.id)}">
+                                            <i class="fa-solid fa-star icon__item"></i>
+                                        </c:forEach>
+                                        <c:forEach var="starB" begin="1" step="1"
+                                                   end="${5 - productFactory.calculateStar(trendProduct.id)}">
+                                            <i class="fa-regular fa-star icon__item"></i>
+                                        </c:forEach>
                                     </div>
-                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>
+                                    <a class="number__turns--ratting" href="${showProductDetail}">${productFactory.getReviewCount(trendProduct.id)} nhận xét</a>
                                 </div>
                                 <span class="product__price">
                                     <fmt:setLocale value="vi_VN"/>
@@ -284,6 +292,9 @@
             <%--            </div>--%>
             <div class="product__items">
                 <c:forEach items="${requestScope.list6NewProducts}" var="newProduct">
+                    <c:url var="showProductDetail" value="showProductDetail">
+                        <c:param name="id" value="${newProduct.id}"/>
+                    </c:url>
                     <div class="product__item">
                         <div class="product__content">
                             <div class="image--tag">
@@ -298,20 +309,25 @@
                                 <form class="action__bar" action="AddToCart" method="post">
                                     <input type="hidden" name="productId" value="${newProduct.id}">
                                     <button type="submit" class="add__cart"><i class="fa-solid fa-cart-shopping"></i></button>
-                                    <a class="see__detail" target="_blank" href="showProductDetail?id=${newProduct.id}"><i class="fa-solid fa-eye"></i></a>
+                                    <a class="see__detail" target="_blank" href="${showProductDetail}"><i
+                                            class="fa-solid fa-eye"></i></a>
                                 </form>
                             </div>
                             <div class="product__info">
-                                <a class="product__name" href="#">${newProduct.name}</a>
+                                <a class="product__name" target="_blank"
+                                   href="${showProductDetail}">${newProduct.name}</a>
                                 <div class="product__review">
                                     <div class="review__icon">
-                                        <i class="fa-solid fa-star icon__item"></i>
-                                        <i class="fa-solid fa-star icon__item"></i>
-                                        <i class="fa-solid fa-star icon__item"></i>
-                                        <i class="fa-solid fa-star icon__item"></i>
-                                        <i class="fa-solid fa-star icon__item"></i>
+                                        <c:forEach var="starA" begin="1" step="1"
+                                                   end="${productFactory.calculateStar(newProduct.id)}">
+                                            <i class="fa-solid fa-star icon__item"></i>
+                                        </c:forEach>
+                                        <c:forEach var="starB" begin="1" step="1"
+                                                   end="${5 - productFactory.calculateStar(newProduct.id)}">
+                                            <i class="fa-regular fa-star icon__item"></i>
+                                        </c:forEach>
                                     </div>
-                                    <a class="number__turns--ratting" href="#">1000 nhận xét</a>
+                                    <a class="number__turns--ratting" href="${showProductDetail}">${productFactory.getReviewCount(newProduct.id)} nhận xét</a>
                                 </div>
                                 <span class="product__price">
                                     <fmt:setLocale value="vi_VN"/>

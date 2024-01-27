@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="assets/fontIcon/fontawesome-free-6.4.2-web/css/all.min.css">
     <!--Bootstrap-->
     <link rel="stylesheet" href="assets/bootstrap/bootstrap-grid.min.css">
+    <!--Jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!--Favicon-->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
@@ -45,11 +47,15 @@
                 <li class="navbar__item"><a href="adminOrders.jsp"
                                             class="navbar__link button button button--hover ">Đơn hàng</a>
                 </li>
-                <li class="navbar__item"><a href="adminUsers.jsp"
-                                            class="navbar__link button button button--hover ">Khách
-                                                                                              hàng</a>
+                <li class="navbar__item"><a href="AdminUser"
+                                            class="navbar__link button button button--hover ">Khách hàng</a>
                 </li>
-
+                <li class="navbar__item"><a href="adminReviews.jsp"
+                                            class="navbar__link button button button--hover ">Nhận xét</a>
+                </li>
+                <li class="navbar__item"><a href="adminCategories.jsp"
+                                            class="navbar__link button button button--hover ">Phân loại</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -74,7 +80,7 @@
                                     <span>Từ:</span>
 
                                     <input type="date" name="date"
-                                           id="date-start" placeholder="dd-mm-yyyy" ">
+                                           id="date-start" placeholder="dd-mm-yyyy">
 
                                 </label>
                                 <label class="filter__date">
@@ -127,7 +133,7 @@
                         <span class="filter__separate"></span>
                         <div class="filter__group">
                             <span class="filter__title">Kích cỡ</span>
-                            <div class="filter__radio-list">
+                            <div class="filter__radio-grid">
                                 <c:forEach items="${requestScope.sizeList}" var="item">
                                     <label class="filter__radio-item">
                                         <input name="size" value="${item.nameSize}" type="checkbox"
@@ -156,7 +162,6 @@
                                 </c:forEach>
                             </div>
                         </div>
-                        <button class="filter__reset button--hover button" type="reset">Chọn lại</button>
                         <button class="filter__submit button--hover button" type="submit">Lọc</button>
                     </form>
                 </div>
@@ -170,17 +175,15 @@
                             <i class="fa-solid fa-plus"></i>
                             Thêm sản phẩm
                         </span>
-                        <div id="button-remove-product" class="button button__delete">
-                            <i class="fa-solid fa-minus"></i>
-                            Xóa sản phẩm
-                        </div>
                     </div>
                     <div class="table__wrapper">
                         <table class="table">
                             <thead>
                             <tr class="table__row">
                                 <th class="table__head">Xem</th>
-                                <th class="table__head">Chỉnh sửa</th>
+                                <c:if test="${sessionScope.auth.role == '2'}">
+                                    <th class="table__head">Chỉnh sửa</th>
+                                </c:if>
                                 <th class="table__head">Mã sản phẩm</th>
                                 <th class="table__head">Tên sản phẩm</th>
                                 <th class="table__head">
@@ -188,10 +191,12 @@
                                 </th>
                                 <th class="table__head">Giá gốc</th>
                                 <th class="table__head">Giá giảm</th>
+                                <th>Hiển thị</th>
                             </tr>
                             </thead>
                             <tbody>
                             <c:set var="list" value="${requestScope.productCardList}"/>
+
                             <c:forEach var="item" items="${list}">
                                 <tr class="table__row">
                                     <td class="table__data-view">
@@ -199,16 +204,19 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </label>
                                     </td>
-                                    <td class="table__data-edit">
-                                        <label>
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </label>
-                                    </td>
+                                    <c:if test="${sessionScope.auth.role == '2'}">
+                                        <td class="table__data-edit">
+                                            <label>
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </label>
+                                        </td>
+                                    </c:if>
+
                                     <td class="table__data table__data-id">
                                         <p class="table__cell">${item.id}</p>
                                     </td>
-                                    <td class="table__data">
-                                        <p class="table__cell">${item.name}</p>
+                                    <td class="table__data table__data-name">
+                                        <p class="table__cell line-clamp line-1">${item.name}</p>
                                     </td>
                                     <td class="table__data">
                                         <p class="table__cell">${productFactory.getNameCategoryById(item.id)}</p>
@@ -223,13 +231,24 @@
                                     <td class="table__data">
                                         <p class="table__cell">${originalPrice}</p>
                                     </td>
+                                    <c:choose>
+                                        <c:when test="${item.visibility==true}">
+                                            <td class="table__data table__data-visibility table__data-hide">
+                                                <div class="button button--hover button__hide">Ẩn</div>
+                                            </td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td class="table__data table__data-visibility table__data-un-hide">
+                                                <div class="button button--hover button__un-hide">Bỏ ẩn</div>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </tr>
                             </c:forEach>
                             </tbody>
                         </table>
                     </div>
                     <!--Paging-->
-                    <%System.out.println(request.getAttribute("quantityPage"));%>
                     <ul class="paging">
                         <c:if test="${requestScope.quantityPage != 0}">
                             <c:forEach var="pageNumber" begin="1" end="${requestScope.quantityPage}">
@@ -269,6 +288,16 @@
             <i class="modal__product-close fa-solid fa-xmark"></i>
         </div>
         <iframe class="modal__product-iframe" src="adminProductForm.jsp" frameborder="0"></iframe>
+    </article>
+    <div class="modal__blur"></div>
+</div>
+<div id="dialog-product-update" class="modal">
+    <article class="modal__content modal__product">
+        <div>
+            <h1>Cập nhập sản phẩm</h1>
+            <i class="modal__product-close fa-solid fa-xmark"></i>
+        </div>
+        <iframe class="modal__product-iframe" src="adminProductUpdateForm.jsp" frameborder="0"></iframe>
     </article>
     <div class="modal__blur"></div>
 </div>
@@ -317,8 +346,6 @@
     <% if (dateEnd != null){%>
     checkDate(document.querySelector("#date-end"), "<%=dateEnd%>");
     <%}%>
-
-
 </script>
 </body>
 </html>

@@ -3,8 +3,9 @@ package dao;
 import database.JDBIConnector;
 import models.User;
 
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.List;
+
 public class UserDAOImplement implements UserDAO {
     @Override
     public User selectById(int id) {
@@ -16,10 +17,10 @@ public class UserDAOImplement implements UserDAO {
     public List<User> selectAccount(String username, String isVerify) {
         String query;
         if (isVerify == null) {
-            query = "SELECT id, username, fullName, email, phone, address, passwordEncoding, role, isVerify FROM users WHERE username = ?";
+            query = "SELECT id, username, passwordEncoding, fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username);
         } else {
-            query = "SELECT id, username, fullName, email, phone, address, passwordEncoding, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
+            query = "SELECT id, username, passwordEncoding,  fullName, email, gender, phone, address, birthDay, role, isVerify FROM users WHERE username = ? AND isVerify = ?";
             return GeneralDao.executeQueryWithSingleTable(query, User.class, username, isVerify);
         }
     }
@@ -134,7 +135,7 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> selectALl() {
-        String querry ="Select * from users ";
+        String querry ="Select id, username, email, fullname, gender, phone, address, birthDay, role from users ";
         return GeneralDao.executeQueryWithSingleTable(querry, User.class);
     }
 
@@ -146,8 +147,56 @@ public class UserDAOImplement implements UserDAO {
 
     @Override
     public List<User> searchUsersByName(String search) {
-        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ?";
-        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%");
+        String query = "SELECT id, username, fullName, gender, phone, email, address, birthday, isVerify, role, avatar FROM users WHERE LOWER(username) LIKE ? OR LOWER(email) LIKE ? ";
+        return GeneralDao.executeQueryWithSingleTable(query, User.class, "%" + search.toLowerCase() + "%", "%" + search.toLowerCase() + "%");
+    }
+
+    @Override
+    public void insertUser(String username,String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay) {
+        String querry = "INSERT INTO users(username, passwordEncoding, fullname, gender, email, phone, address, birthDay) VALUES(?,?,?,?,?,?,?,?)";
+        GeneralDao.executeAllTypeUpdate(querry, username, passwordEncoding, fullname, gender, email, phone, address, birthDay);
+    }
+
+    @Override
+    public List<User> getUserByID(int id) {
+        String querry = "SELECT id, username, email, fullName, gender, phone, address, birthDay, avatar FROM users WHERE id = ?";
+        return GeneralDao.executeQueryWithSingleTable(querry, User.class, id);
+    }
+
+    @Override
+    public void updateUserByID(int id, String username, String fullName, String gender, String email, String phone, String address, Date birthDay) {
+        String query = "UPDATE users SET username = ?, fullname = ?, gender = ?, email = ?, phone = ?, address = ?, birthDay = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(query, username, fullName, gender, email, phone, address, birthDay, id);
+    }
+
+    @Override
+    public void deleteContactsFromUserByUserId(int userId) {
+        String query = "DELETE FROM contacts WHERE userId = ?";
+        GeneralDao.executeAllTypeUpdate(query,userId);
+    }
+
+    @Override
+    public void deleteReviewsFromUserByUserId(int userId) {
+        String query = "DELETE FROM reviews WHERE userId = ?";
+        GeneralDao.executeAllTypeUpdate(query,userId);
+    }
+
+    @Override
+    public void deleteOrderdetailsFromUserByUserId(int userId) {
+        String query = "DELETE FROM order_details WHERE orderId IN (SELECT id FROM orders WHERE userId = ?)";
+        GeneralDao.executeAllTypeUpdate(query,userId);
+    }
+
+    @Override
+    public void deleteOrderFromUserByUserId(int userId) {
+        String query = "DELETE FROM orders WHERE userId = ?";
+        GeneralDao.executeAllTypeUpdate(query,userId);
+    }
+
+    @Override
+    public void updateUserPassword(int userId, String password) {
+        String querry = "UPDATE users SET passwordEncoding = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(querry,password,userId);
     }
 
 
@@ -189,4 +238,20 @@ public class UserDAOImplement implements UserDAO {
         sql.append("SELECT avatar FROM users WHERE id = ?");
         return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, id);
     }
+
+    @Override
+    public void updateInfoUser(int id, String avatar) {
+        String query = "UPDATE users SET avatar = ? WHERE id = ?";
+        GeneralDao.executeAllTypeUpdate(query, avatar, id);
+    }
+
+    @Override
+    public List<User> getUserByIdProductDetail(int orderDetailId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT DISTINCT users.id, users.fullName ")
+                .append("FROM users JOIN (orders JOIN order_details ON orders.id = order_details.orderId) ON users.id = orders.userId ")
+                .append("WHERE order_details.id = ?");
+        return GeneralDao.executeQueryWithSingleTable(sql.toString(), User.class, orderDetailId);
+    }
 }
+

@@ -1,9 +1,8 @@
 package filter.shoppingCart;
 
-import models.ShoppingCart;
+//import cartShopping.ShoppingCart;
+import models.shoppingCart.ShoppingCart;
 import models.User;
-import models.Voucher;
-import services.ShoppingCartServices;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @WebFilter(filterName = "shoppingCartFilter", urlPatterns = {"/shoppingCart.jsp", "/ShoppingCart"})
 public class ShoppingCartFilter implements Filter {
@@ -35,7 +33,6 @@ public class ShoppingCartFilter implements Filter {
             response.sendRedirect("signIn.jsp");
         }else {
             String userIdCart = String.valueOf(userAuth.getId());
-            ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
             String url = request.getServletPath();
             if(url.contains("shoppingCart.jsp") && !url.contains("error404.jsp")){
                 response.sendRedirect("ShoppingCart");

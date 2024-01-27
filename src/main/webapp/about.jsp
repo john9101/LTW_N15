@@ -26,66 +26,8 @@
     <title>Giới thiệu</title>
 </head>
 <body>
-<<<<<<< HEAD:htmls/about.html
-<header id="header">
-    <nav class="nav">
-        <div class="container-xl">
-            <div class="nav__inner">
-                <a href="../index.html" class="logo">
-                </a>
-                <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="../index.html" class="nav__link">Trang chủ</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="./productBuying.html" class="nav__link">Gian hàng</a></li>
-                    <li class="nav__item">
-                        <a href="./contact.html" class="nav__link">Liên hệ</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="./about.html" class="nav__link">Về chúng tôi</a>
-                    </li>
-                </ul>
-                <!--cta == call to action-->
-                <div class="nav__cta">
-                    <a href="./signIn.html" class="nav__button nav__button--signIn">Đăng nhập</a>
-                    <a href="./signUp.html" class="nav__button nav__button--signUp button button button--hover">Đăng ký</a>
-                </div>
-
-                <!--Account show (After log in success)-->
-                <div class="account__wrapper">
-                    <!--Giỏ hàng-->
-                    <a href="./shoppingCart.html" class="cart">
-                        <i class="cart__icon  fa-solid fa-cart-shopping"></i>
-                    </a>
-
-                    <div class="account">
-                        <i class="account__icon fa-regular fa-user"></i>
-                        <div class="setting__list">
-                            <div class="setting__item"><a href="./account.html" class="setting__link">
-                                <div class="account__info">
-                                    <i class="account__icon fa-regular fa-user"></i>
-                                    <p class="account__name"></p>
-                                </div>
-                            </a></div>
-                            <div class="setting__item"><a href="./account.html" class="setting__link">Tài khoản
-                                của tôi</a>
-                            </div>
-                            <div class="setting__item "><a href="#!" class="setting__link setting__logOut">Đăng
-                                                                                                           xuất</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
-<main class=" wraper">
-=======
 <jsp:include page="header.jsp"></jsp:include>
 <main class="wraper">
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/about.jsp
     <div class="container">
         <div class="about">
             <h1 class="title">Về chúng tôi</h1>
@@ -230,78 +172,8 @@
         </div>
     </div>
 </main>
-<<<<<<< HEAD:htmls/about.html
-<footer id="footer">
-    <div class="container-xl">
-        <a href="#" class="logo"></a>
-        <div class="row">
-            <div class="col ">
-                <div class="footer__block">
-                    <p class="footer__title">Giờ làm việc</p>
-                    <p class="footer__desc">9:00 - 17:00</p>
-                </div>
-
-                <div class="footer__block">
-                    <p class="footer__title">Địa chỉ</p>
-                    <a href="https://maps.app.goo.gl/RETcqrjaKeqTCfBE6" class="footer__desc">721 Huỳnh Tấn Phát,
-                        Phường
-                        Phú Thuận, Quận 7, Tp.
-                        Hồ Chí Minh</a></div>
-            </div>
-            <div class="col">
-                <ul class="footer__block">
-                    <li class="footer__desc">
-                        <a href="./productBuying.html" class="footer__link">Gian hàng</a>
-                    </li>
-                    <li class="footer__desc">
-                        <a href="./contact.html" class="footer__link">Liên hệ</a>
-                    </li>
-                    <li class="footer__desc">
-                        <a href="./about.html" class="footer__link">Về chúng tôi</a>
-                    </li>
-                    <li class="footer__desc">
-                        <a href="./policy.html" class="footer__link">Chính sách mua hàng</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col">
-                <div class="footer__block">
-                    <div class="footer__title">Kết nối với chúng tôi thông qua</div>
-                    <div class="footer__block social__list">
-                        <a href="#!" class="social__item">
-                            <i class="social__item-icon fa-brands fa-facebook-f"></i>
-                        </a>
-                        <a href="#!" class="social__item">
-                            <i class="social__item-icon fa-brands fa-x-twitter"></i>
-                        </a>
-                        <a href="#!" class="social__item">
-                            <i class="social__item-icon fa-brands fa-instagram"></i>
-                        </a>
-                        <a href="#!" class="social__item">
-                            <i class="social__item-icon fa-brands fa-linkedin-in"></i>
-                        </a>
-                    </div>
-
-                    <div class="footer__block">
-                        <p class="footer__title">Nhận thêm thông tin thông qua</p>
-                        <form action="#" class="footer__form">
-                            <input placeholder="Email" type="email" class="footer__input" required>
-                            <button type="submit" class="footer__submit button button--hover">
-                                <i class="footer__submit-icon fa-regular fa-paper-plane"></i>
-                                Gửi
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<script src="../js/base.js"></script>
-=======
 <%@include file="./footer.jsp"%>
 <script src="js/base.js"></script>
->>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/about.jsp
 <script>
     const diamonds = document.querySelectorAll('.diamond');
     const textCompos = document.querySelectorAll('.text__compo');

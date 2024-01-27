@@ -2,6 +2,7 @@ package dao;
 
 import models.User;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -35,6 +36,27 @@ public interface UserDAO extends DAO<User> {
 
     public List<User> searchUsersByName(String search);
 
+    public void insertUser(String username,String passwordEncoding, String fullname, String gender, String email, String phone, String address, Date birthDay);
+
+    public List<User> getUserByID(int id);
+
+    public void updateUserByID(int id, String username, String fullname, String gender, String email, String phone, String address, Date birthDay);
+
+    public void deleteContactsFromUserByUserId(int userId);
+
+    public void deleteReviewsFromUserByUserId(int userId);
+
+    public void deleteOrderdetailsFromUserByUserId(int userId);
+
+    public void deleteOrderFromUserByUserId(int userId);
+
+    public void updateUserPassword(int userId, String password);
+
     public List<User> getAvatar(int id);
+
+   public void updateInfoUser(int id,  String avatar);
+
+
+    List<User> getUserByIdProductDetail(int orderDetailId);
 }
 

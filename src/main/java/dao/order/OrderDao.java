@@ -8,7 +8,7 @@ import models.*;
 
 import java.util.*;
 
-public class OrderDao {
+public class OrderDao{
 
     public List<Order> getListAllOrders() {
         String sql = "SELECT id, userId, dateOrder, deliveryMethodId, paymentMethodId, fullName, email, phone, address, orderStatusId, transactionStatusId, voucherId FROM orders";
@@ -104,9 +104,8 @@ public class OrderDao {
 
     public void removeOrderByMultipleId(String[] multipleId){
         String fillEntry = String.format("'%s'", String.join("','", multipleId));
-        StringBuilder sql = new StringBuilder("DELETE orders, order_details FROM");
-        sql.append(" orders INNER JOIN order_details ON orders.id = order_details.orderId");
-        sql.append(" WHERE orders.id IN(" + fillEntry + ")");
+        StringBuilder sql = new StringBuilder("DELETE FROM orders");
+        sql.append(" WHERE id IN(" + fillEntry + ")");
         GeneralDao.executeAllTypeUpdate(sql.toString());
     }
 
@@ -145,7 +144,7 @@ public class OrderDao {
 //    }
 
     public static void main(String[] args) throws JsonProcessingException {
-//        String[] multipleOrderId = {"0194e6c", "1223sh"};
+        String[] multipleOrderId = {"658558470"};
 //        cancelOrderByArrayMultipleId(multipleOrderId);
 //        updateStatusByOrderId("0194e6c", 1, 2);
     }

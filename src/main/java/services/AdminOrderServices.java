@@ -99,8 +99,9 @@ public class AdminOrderServices {
 //        orderDao.updateTransactionStatusIdByOrderId(transactionStatusId,orderId);
 //    }
 
-    public void removeOrderByMultipleId(String[] MultipleId){
-        orderDao.removeOrderByMultipleId(MultipleId);
+    public void removeOrderByMultipleOrderId(String[] multipleOrderId){
+        orderDetailDAO.removeOrderDetailByMultipleOrderId(multipleOrderId);
+        orderDao.removeOrderByMultipleId(multipleOrderId);
     }
 
     public void cancelOrderByMultipleId(String[] multipleId){

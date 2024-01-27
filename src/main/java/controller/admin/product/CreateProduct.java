@@ -26,7 +26,7 @@ import java.util.List;
 public class CreateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request, response);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class CreateProduct extends HttpServlet {
 
 //        Add Images
             Collection<Part> images = request.getParts();
-            uploadImg(images, 2);
+            uploadImg(images, productId);
             objJson.append("{\"status\":").append("true}");
         }
         response.getWriter().write(objJson.toString());
