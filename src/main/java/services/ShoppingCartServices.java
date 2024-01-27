@@ -1,5 +1,6 @@
 package services;
 
+import dao.GeneralDao;
 import dao.ShoppingCartDao;
 import models.Voucher;
 
@@ -37,11 +38,7 @@ public class ShoppingCartServices {
         return shoppingCartDao.getListCodeOfVouchers();
     }
 
-    public double getMinPriceApplyVoucherByCode(String code){
-        return shoppingCartDao.getMinPriceApplyVoucherByCode(code);
-    }
-
-    public static void main(String[] args) {
-        System.out.println( ShoppingCartServices.getINSTANCE().getValidVoucherApply("MGG5%"));
-    }
+//    public double getMinPriceApplyVoucherByCode(String code){
+//        return shoppingCartDao.getMinPriceApplyVoucherByCode(code);
+//    }
 }
