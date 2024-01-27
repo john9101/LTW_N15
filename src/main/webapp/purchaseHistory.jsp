@@ -52,16 +52,16 @@
                     <div class="statusOrder">
                         <a class="${tag=="TẤT CẢ"?"status__list status__list--click":"status__list"}"
                            href="PurchaseHistory?status=TẤT CẢ">Tất cả</a>
-                        <a class="${tag=="ĐƠN HÀNG MỚI"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=ĐƠN HÀNG MỚI">Đơn hàng mới</a>
-                        <a class="${tag=="ĐÃ XÁC NHẬN"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=ĐÃ XÁC NHẬN">Đã xác nhận</a>
-                        <a class="${tag=="ĐANG VẬN CHUYỂN"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=ĐANG VẬN CHUYỂN">Đang vận chuyển</a>
-                        <a class="${tag=="HOÀN THÀNH"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=HOÀN THÀNH">Hoàn thành</a>
-                        <a class="${tag=="ĐÃ HỦY"?"status__list status__list--click":"status__list"}"
-                           href="PurchaseHistory?status=ĐÃ HỦY">Đã hủy</a>
+                        <a class="${tag=="1"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=1">Chờ xác nhận</a>
+                        <a class="${tag=="2"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=2">Đã xác nhận</a>
+                        <a class="${tag=="3"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=3">Đang vận chuyển</a>
+                        <a class="${tag=="4"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=4">Hoàn thành</a>
+                        <a class="${tag=="5"?"status__list status__list--click":"status__list"}"
+                           href="PurchaseHistory?status=5">Đã hủy</a>
                     </div>
                     <div id="serviceOrderContainer" class="service__order service__order--show">
                         <c:set var="listPurchaseHistory" value="${requestScope.listPurchaseHistory}"/>
