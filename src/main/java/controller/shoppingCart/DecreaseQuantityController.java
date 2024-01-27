@@ -93,13 +93,13 @@ public class DecreaseQuantityController extends HttpServlet {
         String newSubtotalFormat = cartProduct.subtotalFormat();
         String newTemporaryPriceFormat = cart.temporaryPriceFormat();
         String discountPriceFormat = cart.discountPriceFormat();
-        String newTotalPriceFormat = cart.totalPriceFormat();
-
+        String newTotalPriceFormat = cart.totalPriceFormat(false);
 
         jsonObject.put("newQuantity", newQuantity);
         jsonObject.put("newSubtotalFormat", newSubtotalFormat);
         jsonObject.put("newTemporaryPriceFormat", newTemporaryPriceFormat);
         jsonObject.put("newTotalPriceFormat", newTotalPriceFormat);
+        jsonObject.put("discountPrice", cart.getDiscountPrice());
 
         if(session.getAttribute("failedApply") != null){
             jsonObject.put("failedApply", session.getAttribute("failedApply"));

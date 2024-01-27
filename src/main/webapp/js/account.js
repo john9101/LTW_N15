@@ -33,7 +33,7 @@ inputForm.forEach(function (input) {
     }
 })
 
-var listProductE = document.querySelector(".service__order ");
+var listProductE = document.querySelector(".service__order");
 var htmls = listProduct.slice(10,15).map(function (product) {
     return `<div class="block__product">
                 <img class="img__product block__img" src = "../assets/img/product_img/${product.imgSrc}" >
@@ -49,8 +49,13 @@ var htmls = listProduct.slice(10,15).map(function (product) {
 });
 listProductE.innerHTML = htmls.join("");
 
+<<<<<<< HEAD:js/account.js
+var listProductElement = document.querySelector(".service__order--done");
+var htmls = listProduct.slice(10,15).map(function (product) {
+=======
 var listProductElement = document.querySelector(".service__order--done ");
 var htmlsOther = listProduct.slice(10,15).map(function (product) {
+>>>>>>> 5bf36662aff7a4ce66429d123762f688bf9b24a9:src/main/webapp/js/account.js
     return `<div class="block__product">
                 <img class="img__product block__img" src = "../assets/img/product_img/${product.imgSrc}" >
                 <div class="block__info">

@@ -59,10 +59,6 @@ public class ShoppingCart {
         this.deliveryInfo = deliveryInfo;
     }
 
-    public String getNoteOrder() {
-        return noteOrder;
-    }
-
     public void setNoteOrder(String noteOrder) {
         this.noteOrder = noteOrder;
     }
@@ -73,9 +69,9 @@ public class ShoppingCart {
             List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
             Product product = ProductFactory.getProductById(productId);
             CartProduct cartProduct = new CartProduct(product, quantity, color, size);
-            if(!listCartProducts.contains(cartProduct)){
+            if (!listCartProducts.contains(cartProduct)) {
                 listCartProducts.add(cartProduct);
-            }else {
+            } else {
                 int currentIndex = listCartProducts.indexOf(cartProduct);
                 int currentQuantity = listCartProducts.get(currentIndex).getQuantity();
                 cartProduct.setQuantity(currentQuantity + quantity);
@@ -84,9 +80,9 @@ public class ShoppingCart {
         } else {
             List<CartProduct> listCartProducts = new ArrayList<>();
             Product product = ProductFactory.getProductById(productId);
-            if(product == null){
+            if (product == null) {
                 return;
-            }else{
+            } else {
                 CartProduct cartProduct = new CartProduct(product, quantity, color, size);
                 listCartProducts.add(cartProduct);
                 shoppingCartMap.put(productId, listCartProducts);
@@ -99,7 +95,7 @@ public class ShoppingCart {
 
     // Dùng cho trang shoppingCart khi người dùng nhấn nút "+" để tăng số lượng
     public void increase(int productId, int cartProductIndex) {
-        if(shoppingCartMap.containsKey(productId)){
+        if (shoppingCartMap.containsKey(productId)) {
             List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
             int currentQuantity = listCartProducts.get(cartProductIndex).getQuantity();
             CartProduct cartProduct = listCartProducts.get(cartProductIndex);
@@ -121,12 +117,12 @@ public class ShoppingCart {
 //        }
 //    }
     public void decrease(int productId, int cartProductIndex) {
-        if(shoppingCartMap.containsKey(productId)){
+        if (shoppingCartMap.containsKey(productId)) {
             List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
             int currentQuantity = listCartProducts.get(cartProductIndex).getQuantity();
             CartProduct cartProduct = listCartProducts.get(cartProductIndex);
             int quantityDecreased = currentQuantity - 1;
-            if(quantityDecreased > 0){
+            if (quantityDecreased > 0) {
                 cartProduct.setQuantity(quantityDecreased);
                 System.out.println(cartProduct);
                 listCartProducts.set(cartProductIndex, cartProduct);
@@ -136,51 +132,51 @@ public class ShoppingCart {
 
     // Dùng cho trang shoppingCart khi người dùng nhấn nút "xóa" để xóa sản phẩm ra khỏi giỏ hàng
     public void remove(int productId, int cartProductIndex) {
-        if(shoppingCartMap.containsKey(productId)){
+        if (shoppingCartMap.containsKey(productId)) {
             List<CartProduct> listCartProducts = shoppingCartMap.get(productId);
             CartProduct cartProductTarget = listCartProducts.get(cartProductIndex);
             listCartProducts.remove(cartProductTarget);
-            if(listCartProducts.isEmpty()){
+            if (listCartProducts.isEmpty()) {
                 shoppingCartMap.remove(productId);
             }
         }
     }
 
-    public double getTemporaryPrice(){
+    public double getTemporaryPrice() {
         double temporaryPrice = 0;
-        for(int productId : shoppingCartMap.keySet()){
-            for (CartProduct cartProduct : shoppingCartMap.get(productId)){
+        for (int productId : shoppingCartMap.keySet()) {
+            for (CartProduct cartProduct : shoppingCartMap.get(productId)) {
                 temporaryPrice += cartProduct.getSubtotal();
             }
         }
         return temporaryPrice;
     }
 
-    public double getDiscountPrice(){
-        if(voucherApplied != null){
+    public double getDiscountPrice() {
+        if (voucherApplied != null) {
             return getTemporaryPrice() * voucherApplied.getDiscountPercent();
         }
         return 0;
     }
 
-    public double getTotalPrice(){
+    public double getTotalPrice(boolean isPlusShipping) {
         double totalPrice = getTemporaryPrice() - getDiscountPrice();
-        if (deliveryMethod != null){
+        if (deliveryMethod != null && isPlusShipping) {
             totalPrice += deliveryMethod.getShippingFee();
         }
         return totalPrice;
     }
 
-    public String temporaryPriceFormat(){
+    public String temporaryPriceFormat() {
         return FormatCurrency.vietNamCurrency(getTemporaryPrice());
     }
 
-    public String discountPriceFormat(){
+    public String discountPriceFormat() {
         return FormatCurrency.vietNamCurrency(getDiscountPrice());
     }
 
-    public String totalPriceFormat(){
-        return FormatCurrency.vietNamCurrency(getTotalPrice());
+    public String totalPriceFormat(boolean isPlusShipping) {
+        return FormatCurrency.vietNamCurrency(getTotalPrice(isPlusShipping));
     }
 
     public int getTotalItems() {

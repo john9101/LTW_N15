@@ -75,15 +75,17 @@ public class ApplyVoucherController extends HttpServlet {
 
         if(listCodeOfVouchers.contains(code)){
             Voucher voucher = ShoppingCartServices.getINSTANCE().getValidVoucherApply(code);
-            double minPriceToApply = ShoppingCartServices.getINSTANCE().getMinPriceApplyVoucherByCode(code);
-            if(cart.getTemporaryPrice() >= voucher.getMinimumPrice()){
+//            double minPriceToApply = ShoppingCartServices.getINSTANCE().getMinPriceApplyVoucherByCode(code);
+            double minPriceToApply = voucher.getMinimumPrice();
+//            if(cart.getTemporaryPrice() >= voucher.getMinimumPrice()){
+            if(cart.getTemporaryPrice() >= minPriceToApply){
                 cart.setVoucherApplied(voucher);
                 session.setAttribute(userIdCart, cart);
                 session.removeAttribute("failedApply");
                 session.setAttribute("successApplied", "Bạn đã áp dụng mã " + code + " thành công");
                 jsonObject.put("successApplied", session.getAttribute("successApplied"));
                 jsonObject.put("discountPriceFormat", cart.discountPriceFormat());
-                jsonObject.put("newTotalPriceFormat", cart.totalPriceFormat());
+                jsonObject.put("newTotalPriceFormat", cart.totalPriceFormat(false));
             }else {
                 double priceBuyMore = minPriceToApply - temporaryPrice;
                 String priceBuyMoreFormat = FormatCurrency.vietNamCurrency(priceBuyMore);

@@ -90,7 +90,7 @@ public class CheckoutController extends HttpServlet {
         ShoppingCart cart = (ShoppingCart) session.getAttribute(userIdCart);
 
 
-        if(cart.getTotalPrice() < 5000000){
+        if(cart.getTotalPrice(false) < 5000000){
             if(cart.getDeliveryMethod() == null){
                 DeliveryMethod deliveryMethodDefault = CheckoutServices.getINSTANCE().getDeliveryMethodById(1);
                 cart.setDeliveryMethod(deliveryMethodDefault);
