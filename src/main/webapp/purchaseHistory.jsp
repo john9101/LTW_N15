@@ -91,7 +91,7 @@
                                                               type="currency" currencyCode="VND" var="price"/>
                                             <p class="info__product">Giá: ${price}</p>
                                         </div>
-                                        <c:if test="${requestScope.tag eq 'HOÀN THÀNH' and requestScope.OrderDetailNotReview != null}">
+                                        <c:if test="${requestScope.tag eq '4' and requestScope.OrderDetailNotReview != null}">
                                             <c:set var="checkHasReview" value="false"/>
                                             <c:forEach items="${requestScope.OrderDetailNotReview}"
                                                        var="OrderDetailNotReview">
@@ -100,9 +100,9 @@
                                                 </c:if>
                                             </c:forEach>
                                             <c:if test="${checkHasReview == true}">
-                                                <button class="btn">
-                                                    <a href="review?orderDetailId=${item.id}"> Đánh giá</a>
-                                                </button>
+
+                                                    <a class="btn" href="review?orderDetailId=${item.id}"> Đánh giá</a>
+
                                             </c:if>
                                         </c:if>
                                     </div>
