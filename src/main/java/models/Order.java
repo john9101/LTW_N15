@@ -7,13 +7,17 @@ public class Order {
     private String userId;
     private Date dateOrder;
     private String paymentMethod;
+    private int deliveryMethodId;
+    private int paymentMethodId;
     private String fullname;
     private String email;
     private String phone;
     private String address;
     private String statusOrder;
-    private String statusTransaction;
+    private int orderStatusId;
+    private int transactionStatusId;
     private int voucherId;
+
 
     public String getId() {
         return id;
@@ -51,9 +55,6 @@ public class Order {
         return statusOrder;
     }
 
-    public String getStatusTransaction() {
-        return statusTransaction;
-    }
 
     public int getVoucherId() {
         return voucherId;
@@ -95,28 +96,40 @@ public class Order {
         this.statusOrder = statusOrder;
     }
 
-    public void setStatusTransaction(String statusTransaction) {
-        this.statusTransaction = statusTransaction;
-    }
 
     public void setVoucherId(int voucherId) {
         this.voucherId = voucherId;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
-                ", dateOrder=" + dateOrder +
-                ", paymentMethod='" + paymentMethod + '\'' +
-                ", fullname='" + fullname + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", statusOrder='" + statusOrder + '\'' +
-                ", statusTransaction='" + statusTransaction + '\'' +
-                ", voucherId=" + voucherId +
-                '}';
+    public int getOrderStatusId() {
+        return orderStatusId;
+    }
+
+    public void setOrderStatusId(int orderStatusId) {
+        this.orderStatusId = orderStatusId;
+    }
+
+    public int getTransactionStatusId() {
+        return transactionStatusId;
+    }
+
+    public void setTransactionStatusId(int transactionStatusId) {
+        this.transactionStatusId = transactionStatusId;
+    }
+
+    public int getDeliveryMethodId() {
+        return deliveryMethodId;
+    }
+
+    public void setDeliveryMethodId(int deliveryMethodId) {
+        this.deliveryMethodId = deliveryMethodId;
+    }
+
+    public int getPaymentMethodId() {
+        return paymentMethodId;
+    }
+
+    public void setPaymentMethodId(int paymentMethodId) {
+        this.paymentMethodId = paymentMethodId;
     }
 }
