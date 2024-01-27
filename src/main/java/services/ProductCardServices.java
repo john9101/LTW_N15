@@ -171,5 +171,12 @@ public class ProductCardServices {
         return productCardDAO.getCategoryByProductId(id).get(0);
     }
 
+    public String getNameProductByIdOrderDetail(int orderDetailId) {
+        List<Product> productList = productCardDAO.getNameProductByIdOrderDetail(orderDetailId);
+        if (productList.isEmpty()) {
+            return null;
+        }
+        return productList.get(0).getName();
+    }
 }
 

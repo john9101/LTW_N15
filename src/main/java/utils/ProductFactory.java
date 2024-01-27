@@ -51,5 +51,8 @@ public class ProductFactory {
         return AdminReviewServices.getINSTANCE().getUserByIdProductDetail(orderDetailId);
 
     }
-//public static String getNameProductByIdOrderDetail ()
+
+    public static String getNameProductByIdOrderDetail(int orderDetailId) {
+        return ProductCardServices.getINSTANCE().getNameProductByIdOrderDetail(orderDetailId);
+    }
 }
