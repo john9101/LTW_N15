@@ -7,10 +7,7 @@ import utils.Comparison;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class AdminProductServices {
     private static final int LIMIT = 15;
@@ -184,11 +181,11 @@ public class AdminProductServices {
     private List<String> getNameImages(int quantityFromRightToLeft, int productId) {
         List<Image> imageList = imageDAO.getNameImages(productId);
         List<String> nameImageList = new ArrayList<>();
-        for (Image image : imageList
-        ) {
-            nameImageList.add(image.getNameImage());
+        Collections.reverse(imageList);
+        for (int i = 0; i < quantityFromRightToLeft; i++) {
+            nameImageList.add(imageList.get(i).getNameImage());
         }
-        return nameImageList.subList(imageList.size() - quantityFromRightToLeft, imageList.size());
+        return nameImageList;
     }
 
     private List<Integer> getIdImages(int quantityImgDelete, int productId) {
